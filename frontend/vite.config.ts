@@ -1,3 +1,4 @@
+import path from 'path'
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -7,14 +8,15 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-    vueDevTools(),
-  ],
+  plugins: [vue(), vueJsx(), vueDevTools()],
+  root: path.resolve(__dirname),
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
     },
+  },
+  server: {
+    port: 8080,
   },
 })
