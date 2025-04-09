@@ -1,0 +1,35 @@
+[
+  {
+    "title": "Torinoko City",
+    "producer": "40mP",
+    "singer": "Hatsune Miku",
+    "pdfs": {
+      "C": "/pdfs/torinoko-city.pdf"
+    }
+  },
+  {
+    "title": "Senbonzakura",
+    "producer": "Kurousa-P",
+    "singer": "Hatsune Miku",
+    "pdfs": {
+      "C": "/pdfs/senbonzakura-c.pdf",
+      "Vocals": "/pdfs/senbonzakura-vocals.pdf"
+    }
+  },
+  {
+    "title": "Lost One's Weeping",
+    "producer": "Neru",
+    "singer": "Kagamine Rin",
+    "pdfs": {
+      "C": "/pdfs/lost-one's-weeping.pdf"
+    }
+  },
+  {
+    "title": "Six Trillion Years and Overnight Story",
+    "producer": "kemu",
+    "singer": "IA",
+    "pdfs": {
+      "C": "/pdfs/six-trillion-years-and-overnight-story.pdf"
+    }
+  }
+]
