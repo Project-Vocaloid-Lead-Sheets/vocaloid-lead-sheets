@@ -1,6 +1,6 @@
 # Project Vocaloid Lead Sheets
 
-Lead sheets of vocaloid music, for musicians to jam or learn.
+Lead sheets of Vocaloid music, for musicians to jam or learn.
 This is similar to / inspired by [VGLeadSheets.com](https://www.vgleadsheets.com/),
 but it is a separate project from VGLS, organized by a different community.
 
