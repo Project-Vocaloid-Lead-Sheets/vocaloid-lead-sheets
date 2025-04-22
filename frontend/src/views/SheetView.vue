@@ -23,24 +23,43 @@ const pdfSource = computed(() => {
   return pdfs[instrument.value] || pdfs['C'] //TODO: Add fallback for missing PDFs
 })
 
-const pdfHeight = ref(window.innerHeight)
+const NAVBAR_HEIGHT = 56
+const pdfHeight = ref<number | undefined>(undefined)
+const pdfWidth = ref<number | undefined>(undefined)
 
-const updateHeight = () => {
-  pdfHeight.value = window.innerHeight
+// Constrain size by width if portrait and height if landscape
+const updatePdfSize = () => {
+  const width = window.innerWidth
+  const height = window.innerHeight
+  const isMobile = width < 768
+  const isLandscape = width > height
+
+  if (isLandscape) {
+    pdfHeight.value = height
+    pdfWidth.value = undefined
+  } else {
+    pdfHeight.value = undefined
+    pdfWidth.value = width
+  }
+
+  if (isMobile && pdfHeight.value !== undefined) {
+    pdfHeight.value -= NAVBAR_HEIGHT
+  }
 }
 
 onMounted(() => {
-  window.addEventListener('resize', updateHeight)
+  updatePdfSize()
+  window.addEventListener('resize', updatePdfSize)
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('resize', updateHeight)
+  window.removeEventListener('resize', updatePdfSize)
 })
 </script>
 
 <template>
-  <div class="scroll-container bg-secondary">
-    <VuePdfEmbed class="pdf-viewer" :height="pdfHeight" :source="pdfSource" />
+  <div class="scroll-container bg-secondary pt-5 pt-lg-0">
+    <VuePdfEmbed class="pdf-viewer" :height="pdfHeight" :width="pdfWidth" :source="pdfSource" />
   </div>
 </template>
 
@@ -58,5 +77,6 @@ onBeforeUnmount(() => {
 
 .pdf-viewer {
   object-fit: contain;
+  max-width: 100vw;
 }
 </style>
