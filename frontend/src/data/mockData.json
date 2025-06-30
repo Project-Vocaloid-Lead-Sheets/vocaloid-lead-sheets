@@ -3,6 +3,8 @@
     "title": "Torinoko City",
     "producer": "40mP",
     "singer": "Hatsune Miku",
+    "releaseDate": "20250102",
+    "labels": ["Hall of Legend"],
     "pdfs": {
       "C": "/pdfs/torinoko-city.pdf"
     }
@@ -11,6 +13,8 @@
     "title": "Senbonzakura",
     "producer": "Kurousa-P",
     "singer": "Hatsune Miku",
+    "releaseDate": "20250106",
+    "labels": ["Hall of Myths"],
     "pdfs": {
       "C": "/pdfs/senbonzakura-c.pdf",
       "Vocals": "/pdfs/senbonzakura-vocals.pdf"
@@ -20,6 +24,8 @@
     "title": "Lost One's Weeping",
     "producer": "Neru",
     "singer": "Kagamine Rin",
+    "releaseDate": "20250105",
+    "labels": ["Hall of Myths"],
     "pdfs": {
       "C": "/pdfs/lost-one's-weeping.pdf"
     }
@@ -28,6 +34,8 @@
     "title": "Six Trillion Years and Overnight Story",
     "producer": "kemu",
     "singer": "IA",
+    "releaseDate": "20250103",
+    "labels": ["Hall of Myths"],
     "pdfs": {
       "C": "/pdfs/six-trillion-years-and-overnight-story.pdf"
     }

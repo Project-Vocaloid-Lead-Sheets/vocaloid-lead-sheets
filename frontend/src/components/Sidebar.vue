@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useSongFilters } from '@/scripts/useSongFilters'
+import FilterModal from '@/components/FilterModal.vue'
 
 const {
   instruments,
@@ -8,12 +10,26 @@ const {
   groupBy,
   sortBy,
   resetSearch,
-  toggleFilterModal,
   toggleGroupsCollapsed,
   areGroupsCollapsed,
   orderedSongs,
   pickRandomSong,
+  selectedLabels,
+  selectedProducers,
+  selectedSingers,
+  dateRange,
 } = useSongFilters()
+
+// Computed property to check if any advanced filters are active and should be displayed
+const hasActiveFilters = computed(() => {
+  return (
+    selectedLabels.value.length > 0 ||
+    selectedProducers.value.length > 0 ||
+    selectedSingers.value.length > 0 ||
+    dateRange.value.start !== '' ||
+    dateRange.value.end !== ''
+  )
+})
 </script>
 
 <template>
@@ -35,6 +51,18 @@ const {
       </div>
       <!-- Sidebar Body -->
       <div class="sidebar-nav-collapsible collapse collapse-horizontal">
+        <!-- Active Filters Banner -->
+        <div v-if="hasActiveFilters" class="mb-2 p-2 bg-white text-dark rounded small border">
+          <strong>Active Filters:</strong>
+          <div v-if="selectedLabels.length > 0">Labels: {{ selectedLabels.join(', ') }}</div>
+          <div v-if="selectedProducers.length > 0">
+            Producers: {{ selectedProducers.join(', ') }}
+          </div>
+          <div v-if="selectedSingers.length > 0">Singers: {{ selectedSingers.join(', ') }}</div>
+          <div v-if="dateRange.start || dateRange.end">
+            Date: {{ dateRange.start || '...' }} to {{ dateRange.end || '...' }}
+          </div>
+        </div>
         <!-- Search Component -->
         <div class="d-flex flex-column gap-2">
           <!-- Row 1: Instrument/Transposition Buttons -->
@@ -57,12 +85,24 @@ const {
           <!-- Row 2: Search Field + Navigation Buttons -->
           <div class="d-flex">
             <div class="input-group input-group-sm me-2">
-              <input type="text" class="form-control" placeholder="Search" v-model="searchQuery" />
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search by name"
+                v-model="searchQuery"
+              />
               <button class="btn btn-outline-light" type="button" @click="resetSearch">
                 <i class="bi bi-arrow-clockwise"></i>
               </button>
             </div>
-            <button class="btn btn-sm btn-outline-light me-2" @click="toggleFilterModal">
+            <button
+              type="button"
+              :class="
+                hasActiveFilters ? 'btn btn-sm btn-light me-2' : 'btn btn-sm btn-outline-light me-2'
+              "
+              data-bs-toggle="modal"
+              data-bs-target="#filterModal"
+            >
               <i class="bi bi-filter"></i>
             </button>
             <button class="btn btn-sm btn-outline-light me-2" @click="pickRandomSong">
@@ -141,4 +181,6 @@ const {
       </ul>
     </div>
   </nav>
+  <!-- Advanced Filter Modal-->
+  <FilterModal class="modal" id="filterModal" />
 </template>

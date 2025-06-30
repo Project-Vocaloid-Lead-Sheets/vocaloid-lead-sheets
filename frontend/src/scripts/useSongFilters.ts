@@ -6,18 +6,22 @@ import { instruments } from '@/types/types'
 
 import mockData from '@/data/mockData.json'
 
+// Global reactive state to ensure all components share the same state
+const selectedInstrument = ref<Instrument>('C')
+const searchQuery = ref<string>('')
+const groupBy = ref<'none' | 'singer' | 'producer'>('singer')
+const sortBy = ref<'a-z' | 'z-a'>('a-z')
+const isFilterModalShowing = ref(false)
+const areGroupsCollapsed = ref(false)
+const selectedLabels = ref<string[]>([])
+const selectedProducers = ref<string[]>([])
+const selectedSingers = ref<string[]>([])
+const dateRange = ref<{ start: string; end: string }>({ start: '', end: '' })
+const songs = ref<Song[]>(mockData)
+
 export const useSongFilters = () => {
   const route = useRoute()
   const router = useRouter()
-
-  const selectedInstrument = ref<Instrument>('C')
-  const searchQuery = ref<string>('')
-
-  const groupBy = ref<'none' | 'singer' | 'producer'>('singer')
-  const sortBy = ref<'a-z' | 'z-a'>('a-z')
-
-  const isFilterModalShowing = ref(false)
-  const areGroupsCollapsed = ref(false)
 
   watch(selectedInstrument, (value) => {
     router.replace({ query: { ...route.query, instrument: value } })
@@ -25,9 +29,16 @@ export const useSongFilters = () => {
 
   const resetSearch = () => {
     searchQuery.value = ''
+    selectedLabels.value = []
+    selectedProducers.value = []
+    selectedSingers.value = []
+    dateRange.value = { start: '', end: '' }
   }
 
-  //TODO: Not implemented
+  const resetAllFilters = () => {
+    resetSearch()
+  }
+
   const toggleFilterModal = () => {
     isFilterModalShowing.value = !isFilterModalShowing.value
   }
@@ -37,13 +48,88 @@ export const useSongFilters = () => {
   }
 
   //TODO: Move fetched songs into shared context with sheet view
-  const songs = ref<Song[]>(mockData)
+
+  // Computed arrays for filter options
+  const availableLabels = computed(() => {
+    const labelSet = new Set<string>()
+    songs.value.forEach((song) => {
+      if (song.labels) {
+        song.labels.forEach((label) => labelSet.add(label))
+      }
+    })
+    return Array.from(labelSet).sort()
+  })
+
+  const availableProducers = computed(() => {
+    const producerSet = new Set<string>()
+    songs.value.forEach((song) => {
+      producerSet.add(song.producer)
+      if (song.additionalProducers) {
+        song.additionalProducers.forEach((producer) => producerSet.add(producer))
+      }
+    })
+    return Array.from(producerSet).sort()
+  })
+
+  const availableSingers = computed(() => {
+    const singerSet = new Set<string>()
+    songs.value.forEach((song) => {
+      singerSet.add(song.singer)
+      if (song.additionalSingers) {
+        song.additionalSingers.forEach((singer) => singerSet.add(singer))
+      }
+    })
+    return Array.from(singerSet).sort()
+  })
 
   const filteredSongs = computed(() => {
     const query = searchQuery.value.toLowerCase()
-    return songs.value.filter((song) => {
-      return song.title.toLowerCase().includes(query) && song.pdfs[selectedInstrument.value]?.trim()
+
+    const result = songs.value.filter((song) => {
+      // Basic text search
+      const matchesQuery = song.title.toLowerCase().includes(query)
+
+      // Check if song has PDF for selected instrument
+      const hasPdf = song.pdfs[selectedInstrument.value]?.trim()
+
+      // Label filtering
+      const matchesLabels =
+        selectedLabels.value.length === 0 ||
+        (song.labels && selectedLabels.value.some((label) => song.labels!.includes(label)))
+
+      // Producer filtering
+      const matchesProducers =
+        selectedProducers.value.length === 0 ||
+        selectedProducers.value.includes(song.producer) ||
+        (song.additionalProducers &&
+          song.additionalProducers.some((producer) => selectedProducers.value.includes(producer)))
+
+      // Singer filtering
+      const matchesSingers =
+        selectedSingers.value.length === 0 ||
+        selectedSingers.value.includes(song.singer) ||
+        (song.additionalSingers &&
+          song.additionalSingers.some((singer) => selectedSingers.value.includes(singer)))
+
+      // Date range filtering - convert dates to comparable format
+      const songDate = song.releaseDate // "20250102"
+      const startDate = dateRange.value.start ? dateRange.value.start.replace(/-/g, '') : '' // "2025-01-02" -> "20250102"
+      const endDate = dateRange.value.end ? dateRange.value.end.replace(/-/g, '') : '' // "2025-01-02" -> "20250102"
+
+      const matchesDateRange =
+        (!startDate || songDate >= startDate) && (!endDate || songDate <= endDate)
+
+      return (
+        matchesQuery &&
+        hasPdf &&
+        matchesLabels &&
+        matchesProducers &&
+        matchesSingers &&
+        matchesDateRange
+      )
     })
+
+    return result
   })
 
   // Combination function that groups and sorts
@@ -92,10 +178,20 @@ export const useSongFilters = () => {
     groupBy,
     sortBy,
     resetSearch,
+    resetAllFilters,
     toggleFilterModal,
+    isFilterModalShowing,
     toggleGroupsCollapsed,
     areGroupsCollapsed,
     orderedSongs,
     pickRandomSong,
+    // Advanced filter properties
+    selectedLabels,
+    selectedProducers,
+    selectedSingers,
+    dateRange,
+    availableLabels,
+    availableProducers,
+    availableSingers,
   }
 }
