@@ -1,0 +1,114 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import type { Song, Instrument } from '@/types/types'
+import { instruments } from '@/types/types'
+
+interface Props {
+  song: Song | null
+  currentInstrument: Instrument
+}
+
+const props = defineProps<Props>()
+
+// Get available instruments to download
+const availableInstruments = computed(() => {
+  if (!props.song) return []
+  return instruments.filter((instrument) => props.song!.pdfs[instrument])
+})
+
+// Download a specific instrument PDF
+const downloadInstrument = (instrument: Instrument) => {
+  const song = props.song
+  if (!song?.pdfs[instrument]) return
+
+  const pdfPath = song.pdfs[instrument]
+  const link = document.createElement('a')
+  link.href = pdfPath
+  link.download = `${song.title}-${instrument}.pdf`
+  link.click()
+}
+
+// Download all available PDFs at once (not a ZIP)
+const downloadAll = () => {
+  const song = props.song
+  if (!song) return
+
+  // Stagger downloads slightly to not overwhelm browser
+  availableInstruments.value.forEach((instrument) => {
+    setTimeout(
+      () => {
+        downloadInstrument(instrument)
+      },
+      100 * instruments.indexOf(instrument),
+    )
+  })
+}
+</script>
+
+<template>
+  <div
+    class="modal fade"
+    id="downloadModal"
+    tabindex="-1"
+    aria-labelledby="downloadModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title" id="downloadModalLabel">
+            Download {{ song?.title || 'Sheet Music' }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div v-if="!song" class="text-center text-muted">No song selected</div>
+          <div v-else>
+            <p class="mb-3">Choose which version to download:</p>
+
+            <!-- Download All Button -->
+            <div class="mb-3">
+              <button
+                type="button"
+                class="btn btn-primary w-100"
+                @click="downloadAll"
+                :disabled="availableInstruments.length === 0"
+              >
+                <i class="bi bi-download me-2"></i>
+                Download All ({{ availableInstruments.length }} files)
+              </button>
+            </div>
+
+            <hr class="border-secondary" />
+
+            <!-- Individual Instrument Downloads -->
+            <div class="row g-2">
+              <div v-for="instrument in availableInstruments" :key="instrument" class="col-6">
+                <button
+                  type="button"
+                  class="btn btn-outline-light w-100"
+                  @click="downloadInstrument(instrument)"
+                  :class="{ 'btn-light text-dark': instrument === currentInstrument }"
+                >
+                  <i class="bi bi-download me-1"></i>
+                  {{ instrument }}
+                  <span v-if="instrument === currentInstrument" class="badge bg-primary ms-1">
+                    Current
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

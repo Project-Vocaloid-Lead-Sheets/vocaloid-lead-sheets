@@ -13,6 +13,7 @@ const groupBy = ref<'none' | 'singer' | 'producer'>('singer')
 const sortBy = ref<'a-z' | 'z-a'>('a-z')
 const isFilterModalShowing = ref(false)
 const areGroupsCollapsed = ref(false)
+const isSidebarCollapsed = ref(true) // Start collapsed to match Bootstrap's default state
 const selectedLabels = ref<string[]>([])
 const selectedProducers = ref<string[]>([])
 const selectedSingers = ref<string[]>([])
@@ -45,6 +46,10 @@ export const useSongFilters = () => {
 
   const toggleGroupsCollapsed = () => {
     areGroupsCollapsed.value = !areGroupsCollapsed.value
+  }
+
+  const toggleSidebarCollapsed = () => {
+    isSidebarCollapsed.value = !isSidebarCollapsed.value
   }
 
   //TODO: Move fetched songs into shared context with sheet view
@@ -183,6 +188,8 @@ export const useSongFilters = () => {
     isFilterModalShowing,
     toggleGroupsCollapsed,
     areGroupsCollapsed,
+    toggleSidebarCollapsed,
+    isSidebarCollapsed,
     orderedSongs,
     pickRandomSong,
     // Advanced filter properties

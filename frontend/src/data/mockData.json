@@ -5,6 +5,9 @@
     "singer": "Hatsune Miku",
     "releaseDate": "20250102",
     "labels": ["Hall of Legend"],
+    "videoLinks": {
+      "YouTube": "https://www.youtube.com/watch?v=yIQDGwyJpSo"
+    },
     "pdfs": {
       "C": "/pdfs/torinoko-city.pdf"
     }
@@ -15,6 +18,9 @@
     "singer": "Hatsune Miku",
     "releaseDate": "20250106",
     "labels": ["Hall of Myths"],
+    "videoLinks": {
+      "YouTube": "https://www.youtube.com/watch?v=shs0rAiwsGQ"
+    },
     "pdfs": {
       "C": "/pdfs/senbonzakura-c.pdf",
       "Vocals": "/pdfs/senbonzakura-vocals.pdf"
@@ -26,6 +32,9 @@
     "singer": "Kagamine Rin",
     "releaseDate": "20250105",
     "labels": ["Hall of Myths"],
+    "videoLinks": {
+      "YouTube": "https://www.youtube.com/watch?v=8oBV3jPTW4s"
+    },
     "pdfs": {
       "C": "/pdfs/lost-one's-weeping.pdf"
     }
@@ -36,6 +45,9 @@
     "singer": "IA",
     "releaseDate": "20250103",
     "labels": ["Hall of Myths"],
+    "videoLinks": {
+      "YouTube": "https://www.youtube.com/watch?v=Om3MTou2kPg"
+    },
     "pdfs": {
       "C": "/pdfs/six-trillion-years-and-overnight-story.pdf"
     }

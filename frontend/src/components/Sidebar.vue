@@ -1,7 +1,12 @@
 <script setup lang="ts">
+/** The sidebar is for larger displays that can fit the song select list on the side.
+ * Its counterpart is the navbar.*/
+
 import { computed } from 'vue'
 import { useSongFilters } from '@/scripts/useSongFilters'
+import { useSongActions } from '@/scripts/useSongActions'
 import FilterModal from '@/components/FilterModal.vue'
+import DownloadModal from '@/components/DownloadModal.vue'
 
 const {
   instruments,
@@ -18,7 +23,11 @@ const {
   selectedProducers,
   selectedSingers,
   dateRange,
+  toggleSidebarCollapsed,
+  isSidebarCollapsed,
 } = useSongFilters()
+
+const { currentSong, currentInstrument, printPdf, watchOnYouTube } = useSongActions()
 
 // Computed property to check if any advanced filters are active and should be displayed
 const hasActiveFilters = computed(() => {
@@ -33,7 +42,7 @@ const hasActiveFilters = computed(() => {
 </script>
 
 <template>
-  <nav id="sidebar" class="bg-dark text-light h-100 pt-2 px-3">
+  <nav id="sidebar" class="bg-dark text-light h-100 pt-2 px-3 d-flex flex-column">
     <!-- Sidebar Fixed Area -->
     <div class="d-flex flex-column mb-2">
       <!-- Sidebar Header -->
@@ -43,6 +52,7 @@ const hasActiveFilters = computed(() => {
           data-bs-target=".sidebar-nav-collapsible"
           data-bs-toggle="collapse"
           class="text-decoration-none"
+          @click="toggleSidebarCollapsed"
           ><i class="bi bi-list"></i>
         </a>
         <span class="sidebar-nav-collapsible collapse collapse-horizontal ms-auto"
@@ -146,7 +156,7 @@ const hasActiveFilters = computed(() => {
     <!-- Sidebar Scrollable Area -->
     <div
       id="sidebar-nav"
-      class="sidebar-nav-collapsible collapse collapse-horizontal overflow-auto"
+      class="sidebar-nav-collapsible collapse collapse-horizontal overflow-auto flex-grow-1"
       style="max-height: calc(100vh - 10.5rem)"
     >
       <ul id="song-list" class="navbar-nav pe-5">
@@ -180,7 +190,51 @@ const hasActiveFilters = computed(() => {
         </li>
       </ul>
     </div>
+
+    <!-- Footer with actions (only show when viewing a song) -->
+    <div v-if="currentSong && !isSidebarCollapsed" class="mt-auto pt-3 pb-3">
+      <div class="text-center mb-2">
+        <small class="text-muted">{{ currentSong.title }}</small>
+      </div>
+      <div class="btn-group w-100" role="group" aria-label="Song actions">
+        <button
+          type="button"
+          class="btn btn-outline-light btn-sm"
+          data-bs-toggle="modal"
+          data-bs-target="#downloadModal"
+          :disabled="!currentSong"
+          title="Download PDF"
+        >
+          <i class="bi bi-download"></i>
+          <span class="d-none d-xl-inline ms-1">Download</span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-light btn-sm"
+          @click="printPdf"
+          :disabled="!currentSong.pdfs[currentInstrument] && !currentSong.pdfs['C']"
+          title="Print PDF"
+        >
+          <i class="bi bi-printer"></i>
+          <span class="d-none d-xl-inline ms-1">Print</span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-light btn-sm"
+          @click="watchOnYouTube"
+          :disabled="!currentSong.videoLinks?.YouTube"
+          title="Watch on YouTube"
+        >
+          <i class="bi bi-youtube"></i>
+          <span class="d-none d-xl-inline ms-1">YouTube</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Advanced Filter Modal-->
+    <FilterModal class="modal" id="filterModal" />
+
+    <!-- Download Modal -->
+    <DownloadModal :song="currentSong" :current-instrument="currentInstrument" />
   </nav>
-  <!-- Advanced Filter Modal-->
-  <FilterModal class="modal" id="filterModal" />
 </template>
