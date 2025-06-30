@@ -1,8 +1,10 @@
 <script setup lang="ts">
 /** The navbar is for smaller displays that display the song list as a dropdown from the top.
  * Its counterpart is the sidebar.*/
+import { computed, Teleport } from 'vue'
 import { useSongFilters } from '@/scripts/useSongFilters'
 import { useSongActions } from '@/scripts/useSongActions'
+import FilterModal from '@/components/FilterModal.vue'
 import DownloadModal from '@/components/DownloadModal.vue'
 
 const {
@@ -17,9 +19,24 @@ const {
   areGroupsCollapsed,
   orderedSongs,
   pickRandomSong,
+  selectedLabels,
+  selectedProducers,
+  selectedSingers,
+  dateRange,
 } = useSongFilters()
 
 const { currentSong, currentInstrument, printPdf, watchOnYouTube } = useSongActions()
+
+// Computed property to check if any advanced filters are active and should be displayed
+const hasActiveFilters = computed(() => {
+  return (
+    selectedLabels.value.length > 0 ||
+    selectedProducers.value.length > 0 ||
+    selectedSingers.value.length > 0 ||
+    dateRange.value.start !== '' ||
+    dateRange.value.end !== ''
+  )
+})
 </script>
 
 <!-- Uses the collapsible navbar offcanvas example from Bootstrap documentation -->
@@ -53,8 +70,8 @@ const { currentSong, currentInstrument, printPdf, watchOnYouTube } = useSongActi
           ></button>
           <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Project Vocaloid Lead Sheets</h5>
         </div>
-        <div class="offcanvas-body d-flex flex-column">
-          <div class="flex-grow-1">
+        <div class="offcanvas-body d-flex flex-column p-0">
+          <div class="flex-grow-1 overflow-auto p-3">
             <!-- Instrument Buttons -->
             <div class="btn-group flex-wrap mb-3 w-100">
               <button
@@ -81,7 +98,12 @@ const { currentSong, currentInstrument, printPdf, watchOnYouTube } = useSongActi
 
             <!-- Action Buttons -->
             <div class="d-flex gap-2 mb-3">
-              <button class="btn btn-sm btn-outline-light" @click="toggleFilterModal">
+              <button
+                type="button"
+                :class="hasActiveFilters ? 'btn btn-sm btn-light' : 'btn btn-sm btn-outline-light'"
+                data-bs-toggle="modal"
+                data-bs-target="#navbarFilterModal"
+              >
                 <i class="bi bi-filter"></i>
               </button>
               <button class="btn btn-sm btn-outline-light" @click="pickRandomSong">
@@ -150,8 +172,8 @@ const { currentSong, currentInstrument, printPdf, watchOnYouTube } = useSongActi
             </ul>
           </div>
 
-          <!-- Footer with actions (only show when viewing a song) -->
-          <div v-if="currentSong" class="mt-auto pt-3 pb-3">
+          <!-- Footer with actions (always visible at bottom when on a song page) -->
+          <div v-if="currentSong" class="border-top border-secondary bg-dark p-3">
             <div class="text-center mb-2">
               <small class="text-muted">{{ currentSong.title }}</small>
             </div>
@@ -160,7 +182,7 @@ const { currentSong, currentInstrument, printPdf, watchOnYouTube } = useSongActi
                 type="button"
                 class="btn btn-outline-light btn-sm"
                 data-bs-toggle="modal"
-                data-bs-target="#downloadModal"
+                data-bs-target="#navbarDownloadModal"
                 :disabled="!currentSong"
                 title="Download PDF"
               >
@@ -194,6 +216,13 @@ const { currentSong, currentInstrument, printPdf, watchOnYouTube } = useSongActi
     </div>
   </nav>
 
-  <!-- Download Modal -->
-  <DownloadModal :song="currentSong" :current-instrument="currentInstrument" />
+  <!-- Advanced Filter Modal (teleported to body to avoid z-index issues) -->
+  <Teleport to="body">
+    <FilterModal class="modal" id="navbarFilterModal" />
+  </Teleport>
+
+  <!-- Download Modal (teleported to body to avoid z-index issues) -->
+  <Teleport to="body">
+    <DownloadModal :song="currentSong" :current-instrument="currentInstrument" id="navbarDownloadModal" />
+  </Teleport>
 </template>

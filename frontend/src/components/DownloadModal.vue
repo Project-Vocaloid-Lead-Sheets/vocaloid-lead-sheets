@@ -6,9 +6,12 @@ import { instruments } from '@/types/types'
 interface Props {
   song: Song | null
   currentInstrument: Instrument
+  id?: string
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  id: 'downloadModal'
+})
 
 // Get available instruments to download
 const availableInstruments = computed(() => {
@@ -48,15 +51,15 @@ const downloadAll = () => {
 <template>
   <div
     class="modal fade"
-    id="downloadModal"
+    :id="props.id"
     tabindex="-1"
-    aria-labelledby="downloadModalLabel"
+    :aria-labelledby="props.id + 'Label'"
     aria-hidden="true"
   >
     <div class="modal-dialog">
       <div class="modal-content bg-dark text-light">
         <div class="modal-header border-secondary">
-          <h5 class="modal-title" id="downloadModalLabel">
+          <h5 class="modal-title" :id="props.id + 'Label'">
             Download {{ song?.title || 'Sheet Music' }}
           </h5>
           <button
