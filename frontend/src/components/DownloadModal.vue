@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import type { Song, Instrument } from '@/types/types'
 import { instruments } from '@/types/types'
+import { getPdfDownloadUrl } from '@/utils/pdfUtils'
 
 interface Props {
   song: Song | null
@@ -10,7 +11,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  id: 'downloadModal'
+  id: 'downloadModal',
 })
 
 // Get available instruments to download
@@ -25,8 +26,9 @@ const downloadInstrument = (instrument: Instrument) => {
   if (!song?.pdfs[instrument]) return
 
   const pdfPath = song.pdfs[instrument]
+  const directUrl = getPdfDownloadUrl(pdfPath)
   const link = document.createElement('a')
-  link.href = pdfPath
+  link.href = directUrl
   link.download = `${song.title}-${instrument}.pdf`
   link.click()
 }
@@ -74,7 +76,8 @@ const downloadAll = () => {
           <div v-else>
             <p class="mb-3">Choose which version to download:</p>
 
-            <!-- Download All Button -->
+            <!-- Download All Button (hidden for now) -->
+            <!--
             <div class="mb-3">
               <button
                 type="button"
@@ -86,6 +89,7 @@ const downloadAll = () => {
                 Download All ({{ availableInstruments.length }} files)
               </button>
             </div>
+            -->
 
             <hr class="border-secondary" />
 

@@ -1,17 +1,18 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import type { Song, Instrument } from '@/types/types'
-import mockData from '@/data/mockData.json'
+import { useSongsStore } from '@/stores/songs'
+import { getPdfDownloadUrl } from '@/utils/pdfUtils'
 
 export const useSongActions = () => {
   const route = useRoute()
-  const songs = mockData as Song[]
+  const songsStore = useSongsStore()
 
   // Get current song based on route
   const currentSong = computed<Song | null>(() => {
     const songSlug = route.params.songSlug as string
     if (!songSlug) return null
-    return songs.find((song) => song.title.toLowerCase().replace(/\s+/g, '-') === songSlug) || null
+    return songsStore.getSongBySlug(songSlug) || null
   })
 
   const currentInstrument = computed(() => (route.query.instrument as Instrument) || 'C')
@@ -23,7 +24,28 @@ export const useSongActions = () => {
 
     const pdfPath = song.pdfs[currentInstrument.value] || song.pdfs['C']
     if (pdfPath) {
-      window.open(pdfPath, '_blank')?.print()
+      const directUrl = getPdfDownloadUrl(pdfPath)
+      const printWindow = window.open('', '_blank', 'width=800,height=1000')
+      if (printWindow) {
+        printWindow.document.write(`
+          <html>
+            <head>
+              <title>Print PDF</title>
+              <style>body,html{margin:0;padding:0;height:100%;}</style>
+            </head>
+            <body style="margin:0;padding:0;">
+              <iframe src="${directUrl}" style="width:100vw;height:100vh;border:none;" id="pdfFrame"></iframe>
+              <script>
+                const iframe = document.getElementById('pdfFrame');
+                iframe.onload = function() {
+                  setTimeout(() => { window.print(); }, 500);
+                };
+              <\/script>
+            </body>
+          </html>
+        `)
+        printWindow.document.close()
+      }
     }
   }
 

@@ -3,8 +3,7 @@ import { useRoute, useRouter } from 'vue-router'
 
 import type { Song, Instrument } from '@/types/types'
 import { instruments } from '@/types/types'
-
-import mockData from '@/data/mockData.json'
+import { useSongsStore } from '@/stores/songs'
 
 // Global reactive state to ensure all components share the same state
 const selectedInstrument = ref<Instrument>('C')
@@ -18,11 +17,14 @@ const selectedLabels = ref<string[]>([])
 const selectedProducers = ref<string[]>([])
 const selectedSingers = ref<string[]>([])
 const dateRange = ref<{ start: string; end: string }>({ start: '', end: '' })
-const songs = ref<Song[]>(mockData)
 
 export const useSongFilters = () => {
   const route = useRoute()
   const router = useRouter()
+  const songsStore = useSongsStore()
+
+  // Use songs from store instead of static import
+  const songs = computed(() => songsStore.songs)
 
   watch(selectedInstrument, (value) => {
     router.replace({ query: { ...route.query, instrument: value } })
@@ -80,8 +82,8 @@ export const useSongFilters = () => {
     const singerSet = new Set<string>()
     songs.value.forEach((song) => {
       singerSet.add(song.singer)
-      if (song.additionalSingers) {
-        song.additionalSingers.forEach((singer) => singerSet.add(singer))
+      if (song.additionalVoices) {
+        song.additionalVoices.forEach((singer) => singerSet.add(singer))
       }
     })
     return Array.from(singerSet).sort()
@@ -113,8 +115,8 @@ export const useSongFilters = () => {
       const matchesSingers =
         selectedSingers.value.length === 0 ||
         selectedSingers.value.includes(song.singer) ||
-        (song.additionalSingers &&
-          song.additionalSingers.some((singer) => selectedSingers.value.includes(singer)))
+        (song.additionalVoices &&
+          song.additionalVoices.some((singer) => selectedSingers.value.includes(singer)))
 
       // Date range filtering - convert dates to comparable format
       const songDate = song.releaseDate // "20250102"

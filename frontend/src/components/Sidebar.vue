@@ -208,6 +208,7 @@ const hasActiveFilters = computed(() => {
           <i class="bi bi-download"></i>
           <span class="d-none d-xl-inline ms-1">Download</span>
         </button>
+        <!-- Print button hidden for now
         <button
           type="button"
           class="btn btn-outline-light btn-sm"
@@ -218,6 +219,7 @@ const hasActiveFilters = computed(() => {
           <i class="bi bi-printer"></i>
           <span class="d-none d-xl-inline ms-1">Print</span>
         </button>
+        -->
         <button
           type="button"
           class="btn btn-outline-light btn-sm"
