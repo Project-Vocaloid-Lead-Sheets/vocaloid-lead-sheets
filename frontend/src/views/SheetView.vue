@@ -95,8 +95,9 @@ onBeforeUnmount(() => {
 .scroll-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
-  max-height: 100vh;
+  height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
   margin: 0;
@@ -104,15 +105,18 @@ onBeforeUnmount(() => {
 }
 
 .pdf-viewer {
-  object-fit: contain;
-  max-width: calc(100vw - 300px); /* Account for sidebar width */
-  max-height: 100vh;
+  width: 100%;
+  height: 100vh;
+  display: block;
+  margin: 0 auto;
 }
 
 /* On mobile, use full width since sidebar is collapsed */
 @media (max-width: 991px) {
   .pdf-viewer {
+    width: 100vw;
     max-width: 100vw;
+    height: 100vh;
   }
 }
 </style>
