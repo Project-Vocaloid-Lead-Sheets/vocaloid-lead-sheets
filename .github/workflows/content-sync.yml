@@ -32,3 +32,5 @@ jobs:
         with:
           message: "Sync accepted songs from Google Sheet"
           add: "frontend/src/data/*.json frontend/src/utils/songManifest.ts .sync_state.json"
+          push: true
+          branch: frontend-mockup
