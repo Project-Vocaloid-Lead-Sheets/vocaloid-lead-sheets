@@ -5,6 +5,15 @@
 
 # dotenv files
 .env
+.env.local
+.env.*.local
+
+# Google Service Account credentials
+service_account.json
+*service_account*.json
+
+# Sync state files
+.sync_state.json
 
 # User-specific files
 *.rsuser
