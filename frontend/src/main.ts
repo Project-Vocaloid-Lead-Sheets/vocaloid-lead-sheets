@@ -19,4 +19,11 @@ app.use(router)
 const songsStore = useSongsStore()
 songsStore.loadSongs()
 
+// Handle redirect from 404.html for GitHub Pages SPA routing
+const urlParams = new URLSearchParams(window.location.search)
+const redirectPath = urlParams.get('redirect')
+if (redirectPath) {
+  router.replace(decodeURIComponent(redirectPath))
+}
+
 app.mount('#app')
