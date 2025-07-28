@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /** The navbar is for smaller displays that display the song list as a dropdown from the top.
- * Its counterpart is the sidebar.*/
+ * Its counterpart is the sidebar. */
 import { computed, Teleport } from 'vue'
 import { useSongFilters } from '@/scripts/useSongFilters'
 import { useSongActions } from '@/scripts/useSongActions'
@@ -41,7 +41,7 @@ const hasActiveFilters = computed(() => {
 
 <!-- Uses the collapsible navbar offcanvas example from Bootstrap documentation -->
 <template>
-  <nav class="navbar navbar-dark bg-dark fixed-top d-lg-none">
+  <nav class="navbar navbar-dark fixed-top d-lg-none" style="background-color: #206071">
     <div class="container-fluid">
       <button
         class="navbar-toggler"
@@ -56,10 +56,11 @@ const hasActiveFilters = computed(() => {
       <RouterLink class="navbar-brand" to="/">Project Vocaloid Lead Sheets</RouterLink>
 
       <div
-        class="offcanvas offcanvas-top text-bg-dark h-75"
+        class="offcanvas offcanvas-top h-75"
         tabindex="-1"
         id="offcanvasNavbar"
         aria-labelledby="offcanvasNavbarLabel"
+        style="background-color: #206071; color: #fff"
       >
         <div class="offcanvas-header">
           <button
@@ -172,11 +173,12 @@ const hasActiveFilters = computed(() => {
             </ul>
           </div>
 
-          <!-- Footer with actions (always visible at bottom when on a song page) -->
-          <div v-if="currentSong" class="border-top border-secondary bg-dark p-3">
-            <div class="text-center mb-2">
-              <small class="text-muted">{{ currentSong.title }}</small>
-            </div>
+          <!-- Footer with actions (only show when viewing a song) -->
+          <div
+            v-if="currentSong"
+            class="border-top p-3"
+            style="background-color: #206071; color: #fff"
+          >
             <div class="btn-group w-100" role="group" aria-label="Song actions">
               <button
                 type="button"
@@ -189,6 +191,7 @@ const hasActiveFilters = computed(() => {
                 <i class="bi bi-download"></i>
                 <span class="d-none d-sm-inline ms-1">Download</span>
               </button>
+              <!-- Print button hidden for now
               <button
                 type="button"
                 class="btn btn-outline-light btn-sm"
@@ -199,6 +202,7 @@ const hasActiveFilters = computed(() => {
                 <i class="bi bi-printer"></i>
                 <span class="d-none d-sm-inline ms-1">Print</span>
               </button>
+              -->
               <button
                 type="button"
                 class="btn btn-outline-light btn-sm"
@@ -223,6 +227,10 @@ const hasActiveFilters = computed(() => {
 
   <!-- Download Modal (teleported to body to avoid z-index issues) -->
   <Teleport to="body">
-    <DownloadModal :song="currentSong" :current-instrument="currentInstrument" id="navbarDownloadModal" />
+    <DownloadModal
+      :song="currentSong"
+      :current-instrument="currentInstrument"
+      id="navbarDownloadModal"
+    />
   </Teleport>
 </template>

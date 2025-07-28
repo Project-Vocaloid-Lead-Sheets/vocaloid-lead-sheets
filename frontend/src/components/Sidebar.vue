@@ -1,3 +1,9 @@
+<style scoped>
+/* Make the sidebar hamburger menu icon white */
+.bi-list {
+  color: #fff !important;
+}
+</style>
 <script setup lang="ts">
 /** The sidebar is for larger displays that can fit the song select list on the side.
  * Its counterpart is the navbar.*/
