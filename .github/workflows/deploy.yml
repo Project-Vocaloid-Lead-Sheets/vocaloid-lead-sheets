@@ -12,6 +12,7 @@ on:
       - "frontend/src/**"
       - "frontend/scripts/sheet_sync.py"
       - ".github/workflows/deploy.yml"
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
