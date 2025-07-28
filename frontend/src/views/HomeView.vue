@@ -3,6 +3,8 @@
 <template>
   <div class="container-fluid p-4">
     <p>Welcome to Project Vocaloid Lead Sheets!</p>
+    <p>The website is under construction.</p>
+    <p>Coming soon on the home page: A nice banner and a new songs section.</p>
     <p>
       Sekai de ichiban ohime-sama sou iu atsukai kokoroete yo ne Sono ichi itsumo to chigau kamigata
       ni ki ga tsuku koto sono ni chanto kutsu made miru koto ii ne? sono san watashi no hitogoto ni
