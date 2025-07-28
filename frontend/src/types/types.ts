@@ -1,15 +1,5 @@
-export type Instrument = 'C' | 'Bb' | 'Eb' | 'F' | 'G' | 'Vocals' | 'Alto' | 'Bass' | 'Percussion'
-export const instruments: Instrument[] = [
-  'C',
-  'Bb',
-  'Eb',
-  'F',
-  'G',
-  'Vocals',
-  'Alto',
-  'Bass',
-  'Percussion',
-]
+export type Instrument = 'C' | 'Bb' | 'Eb' | 'F' | 'G' | 'Vocals' | 'Alto' | 'Bass'
+export const instruments: Instrument[] = ['C', 'Bb', 'Eb', 'F', 'G', 'Vocals', 'Alto', 'Bass']
 
 export interface Song {
   title: string // "World is Mine"

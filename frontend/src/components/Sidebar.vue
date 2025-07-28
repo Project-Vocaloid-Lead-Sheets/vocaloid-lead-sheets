@@ -42,7 +42,11 @@ const hasActiveFilters = computed(() => {
 </script>
 
 <template>
-  <nav id="sidebar" class="bg-dark text-light h-100 pt-2 px-3 d-flex flex-column">
+  <nav
+    id="sidebar"
+    class="text-light h-100 pt-2 px-3 d-flex flex-column"
+    style="background-color: #206071"
+  >
     <!-- Sidebar Fixed Area -->
     <div class="d-flex flex-column mb-2">
       <!-- Sidebar Header -->
@@ -193,9 +197,6 @@ const hasActiveFilters = computed(() => {
 
     <!-- Footer with actions (only show when viewing a song) -->
     <div v-if="currentSong && !isSidebarCollapsed" class="mt-auto pt-3 pb-3">
-      <div class="text-center mb-2">
-        <small class="text-muted">{{ currentSong.title }}</small>
-      </div>
       <div class="btn-group w-100" role="group" aria-label="Song actions">
         <button
           type="button"
