@@ -1,6 +1,6 @@
 // Auto-generated song manifest
 // This file is automatically updated by the sync script
-// Last updated: 2025-07-27T23:05:16.838481
+// Last updated: 2025-07-29T23:08:57.308354
 
 export const SONG_MANIFEST = [
   'cendrillon.json',
@@ -11,6 +11,7 @@ export const SONG_MANIFEST = [
   'magnet.json',
   'meltdown.json',
   'miku.json',
+  'rolling-girl.json',
   'world-is-mine.json',
 ] as const
 
