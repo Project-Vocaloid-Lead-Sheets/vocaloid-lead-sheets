@@ -4,6 +4,10 @@ on:
     - cron: "*/10 * * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pages: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
