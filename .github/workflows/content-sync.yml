@@ -24,7 +24,7 @@ jobs:
           GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
           GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
         run: |
-          echo "${GOOGLE_SERVICE_ACCOUNT_JSON}" > service_account.json
+          printf '%s' "$GOOGLE_SERVICE_ACCOUNT_JSON" > service_account.json
           python scripts/sheet_sync.py
 
       - name: Commit changes
