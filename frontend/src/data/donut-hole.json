@@ -5,10 +5,12 @@
   "additionalProducers": [],
   "singer": "GUMI",
   "additionalVoices": [],
-  "releaseDate": "",
+  "releaseDate": "2013-10-28",
   "labels": [],
   "transcriber": "Nap1400",
-  "videoLinks": {},
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=qnX2CdOBcDI"
+  },
   "pdfs": {
     "Bb": "https://drive.google.com/file/d/10e9V30wHAmhBEG3tqTgi8L7susIL3G3W/view",
     "C": "https://drive.google.com/file/d/1sObp6Pw9nXGXM6ssl1Cy7STowtRrjPfs/view",
