@@ -31,6 +31,6 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           message: "Sync accepted songs from Google Sheet"
-          add: "frontend/src/data/*.json frontend/src/utils/songManifest.ts .sync_state.json"
+          add: "frontend/src/data/*.json frontend/src/utils/songManifest.ts"
           push: true
           branch: frontend-mockup
