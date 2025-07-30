@@ -6,12 +6,15 @@
   "singer": "GUMI",
   "additionalVoices": [],
   "releaseDate": "2013-10-28",
-  "labels": [],
+  "labels": [
+    "Hall of Myths"
+  ],
   "transcriber": "Nap1400",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=qnX2CdOBcDI"
   },
   "pdfs": {
+    "Vocals": "https://drive.google.com/file/d/11gujxloS0KMY5tx5QgG_4XRuFEnqjcza/view",
     "Bb": "https://drive.google.com/file/d/10e9V30wHAmhBEG3tqTgi8L7susIL3G3W/view",
     "C": "https://drive.google.com/file/d/1sObp6Pw9nXGXM6ssl1Cy7STowtRrjPfs/view",
     "Eb": "https://drive.google.com/file/d/1V2NHemm0IOnu6SA31HwiGcGbRqaPCsvQ/view",

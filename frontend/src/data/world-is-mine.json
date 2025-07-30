@@ -6,10 +6,21 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "2008-05-31",
-  "labels": [],
+  "labels": [
+    "Hall of Myths",
+    "Challenging"
+  ],
   "transcriber": "Nap1400",
-  "videoLinks": {},
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=OG8iL8UEksM&list=PLK5hclnQfLy9PNE7SY9DVrk12x7c1lk9i&index=18"
+  },
   "pdfs": {
-    "C": "https://drive.google.com/file/d/1hDktZDVg-SDSSBiCrRdzNkg0OPNx3sdh/view"
+    "Bb": "https://drive.google.com/file/d/18IvyxeOGc8L2yFd01HSD3nrLCKhNn_lr/view",
+    "C": "https://drive.google.com/file/d/1hDktZDVg-SDSSBiCrRdzNkg0OPNx3sdh/view",
+    "Eb": "https://drive.google.com/file/d/1FpvX3I7GdYFhofr8uhesqIQzSv813t-u/view",
+    "F": "https://drive.google.com/file/d/1ajicl3A1kSsoOUuNhXGW5EJZknz5FfDT/view",
+    "G": "https://drive.google.com/file/d/16YY3gIuP6xhYK6D992idDKXGObpTdAX0/view",
+    "Alto": "https://drive.google.com/file/d/1a9-7quCwZ2cwwSgUpaZ1jREJE9Fe0_U_/view",
+    "Bass": "https://drive.google.com/file/d/1KJ619HgzWsgETXFp7pNk-XXuI-8hnI8P/view"
   }
 }

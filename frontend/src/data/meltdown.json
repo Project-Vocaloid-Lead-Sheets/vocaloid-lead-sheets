@@ -8,9 +8,13 @@
   "singer": "Kagamine Rin",
   "additionalVoices": [],
   "releaseDate": "2008-12-19",
-  "labels": [],
+  "labels": [
+    "Hall of Myths"
+  ],
   "transcriber": "Nap1400",
-  "videoLinks": {},
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=dSw8CucthGc"
+  },
   "pdfs": {
     "Bb": "https://drive.google.com/file/d/1MPqjcVoukT_TH9d9K7vctjMBfTiwWv4T/view",
     "C": "https://drive.google.com/file/d/1DRdb76E6trhS7pVeOi7QOoeqpT_hg3dy/view",

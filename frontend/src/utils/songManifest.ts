@@ -1,6 +1,6 @@
 // Auto-generated song manifest
 // This file is automatically updated by the sync script
-// Last updated: 2025-07-29T23:18:16.671581
+// Last updated: 2025-07-30T01:15:48.929434
 
 export const SONG_MANIFEST = [
   'cendrillon.json',
@@ -10,8 +10,12 @@ export const SONG_MANIFEST = [
   'luka-lukanight-fever.json',
   'magnet.json',
   'meltdown.json',
+  'miku-miku-ni-shite-ageru.json',
   'miku.json',
   'rolling-girl.json',
+  'senbonzakura.json',
+  'the-disappearance-of-hatsune-miku.json',
+  'the-lost-ones-weeping.json',
   'world-is-mine.json',
 ] as const
 
