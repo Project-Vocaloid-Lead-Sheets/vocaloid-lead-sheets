@@ -1,6 +1,6 @@
 // Auto-generated song manifest
 // This file is automatically updated by the sync script
-// Last updated: 2025-07-31T02:49:26.351352
+// Last updated: 2025-08-01T02:02:18.207582
 
 export const SONG_MANIFEST = [
   'cendrillon.json',
@@ -13,9 +13,11 @@ export const SONG_MANIFEST = [
   'miku-miku-ni-shite-ageru.json',
   'miku.json',
   'mugen-no-ticket.json',
+  'night-sky-patrol-of-tomorrow.json',
   'oyasumination.json',
   'rolling-girl.json',
   'senbonzakura.json',
+  'six-trillion-years-and-overnight-story.json',
   'tale-of-the-deep-sea-lily.json',
   'the-disappearance-of-hatsune-miku.json',
   'the-lost-ones-weeping.json',
