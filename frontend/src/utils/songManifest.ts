@@ -1,10 +1,11 @@
 // Auto-generated song manifest
 // This file is automatically updated by the sync script
-// Last updated: 2025-08-02T01:53:31.943291
+// Last updated: 2025-08-02T14:22:18.794334
 
 export const SONG_MANIFEST = [
   'cendrillon.json',
   'donut-hole.json',
+  'goodbye-declaration.json',
   'hair-swept-back-by-gale-force-winds.json',
   'ievan-polkka.json',
   'luka-lukanight-fever.json',
@@ -21,6 +22,8 @@ export const SONG_MANIFEST = [
   'tale-of-the-deep-sea-lily.json',
   'the-disappearance-of-hatsune-miku.json',
   'the-lost-ones-weeping.json',
+  'two-faced-lovers.json',
+  'venom.json',
   'world-is-mine.json',
 ] as const
 
