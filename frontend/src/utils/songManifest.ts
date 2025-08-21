@@ -1,6 +1,6 @@
 // Auto-generated song manifest
 // This file is automatically updated by the sync script
-// Last updated: 2025-08-20T01:43:46.483408
+// Last updated: 2025-08-21T01:42:48.941455
 
 export const SONG_MANIFEST = [
   'cendrillon.json',
