@@ -1,6 +1,6 @@
 // Auto-generated song manifest
 // This file is automatically updated by the sync script
-// Last updated: 2025-08-23T03:20:24.528010
+// Last updated: 2025-08-23T03:22:30.837547
 
 export const SONG_MANIFEST = [
   'cendrillon.json',
@@ -17,6 +17,7 @@ export const SONG_MANIFEST = [
   'night-sky-patrol-of-tomorrow.json',
   'oyasumination.json',
   'rolling-girl.json',
+  'romeo-and-cinderella.json',
   'senbonzakura.json',
   'six-trillion-years-and-overnight-story.json',
   'tale-of-the-deep-sea-lily.json',
