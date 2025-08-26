@@ -182,7 +182,7 @@ const hasActiveFilters = computed(() => {
             </ul>
           </div>
 
-          <!-- In-Progress Mode Toggle -->
+          <!-- Review Mode Toggle -->
           <div class="border-top p-3" style="background-color: #1a5064; color: #fff">
             <div class="form-check form-switch">
               <input

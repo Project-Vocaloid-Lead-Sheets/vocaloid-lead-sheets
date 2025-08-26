@@ -266,7 +266,7 @@ const hasActiveFilters = computed(() => {
         </div>
       </div>
 
-      <!-- In-Progress Mode Toggle -->
+      <!-- Review Mode Toggle -->
       <div class="pt-3 pb-3" :class="{ 'border-top': currentSong }">
         <div class="form-check form-switch">
           <input

@@ -1,21 +1,46 @@
 <script setup lang="ts">
 import type { Instrument } from '@/types/types'
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import VuePdfEmbed from 'vue-pdf-embed'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { getPdfDisplayUrl } from '@/utils/pdfUtils'
 import { useSongsStore } from '@/stores/songs'
+import UnderReviewDialog from '@/components/UnderReviewDialog.vue'
 
 const route = useRoute()
+const router = useRouter()
 const instrument = computed(() => (route.query.instrument as Instrument) || 'C')
 const songSlug = computed(() => route.params.songSlug as string)
 
 const songsStore = useSongsStore()
 
 //TODO: Add alias support with fixed PDF IDs/slugs
-const currentSong = computed(() =>
-  songsStore.songs.find((song) => song.title.toLowerCase().replace(/\s+/g, '-') === songSlug.value),
-)
+const currentSong = computed(() => songsStore.getSongBySlug(songSlug.value))
+
+// Review mode dialog handling
+const showReviewDialog = ref(false)
+const reviewDialogRef = ref<InstanceType<typeof UnderReviewDialog>>()
+
+const checkReviewConfirmation = () => {
+  if (route.meta.requiresReviewConfirmation && currentSong.value) {
+    showReviewDialog.value = true
+    setTimeout(() => {
+      reviewDialogRef.value?.show()
+    }, 100)
+  }
+}
+
+const onReviewConfirm = () => {
+  songsStore.toggleUnderReviewView()
+  showReviewDialog.value = false
+  // Clear the meta flag
+  route.meta.requiresReviewConfirmation = false
+}
+
+const onReviewCancel = () => {
+  showReviewDialog.value = false
+  router.push({ name: 'home' })
+}
 
 const pdfSource = computed(() => {
   const pdfs = currentSong.value?.pdfs ?? {}
@@ -54,40 +79,83 @@ const updatePdfSize = () => {
 onMounted(() => {
   updatePdfSize()
   window.addEventListener('resize', updatePdfSize)
+  checkReviewConfirmation()
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('resize', updatePdfSize)
 })
+
+// Watch for route changes to check for review mode confirmation
+watch(
+  () => route.meta.requiresReviewConfirmation,
+  () => {
+    checkReviewConfirmation()
+  },
+)
 </script>
 
 <template>
   <div class="scroll-container bg-secondary pt-5 pt-lg-0">
-    <!-- Use iframe for Google Drive PDFs -->
-    <iframe
-      v-if="isGoogleDrive && pdfSource"
-      :src="pdfSource"
-      class="pdf-viewer"
-      :height="pdfHeight"
-      :width="pdfWidth"
-      frameborder="0"
-      allowfullscreen
-    />
-    <!-- Use VuePdfEmbed for regular PDFs -->
-    <VuePdfEmbed
-      v-else-if="pdfSource"
-      class="pdf-viewer"
-      :height="pdfHeight"
-      :width="pdfWidth"
-      :source="pdfSource"
-    />
-    <!-- Show message when no PDF is available -->
-    <div v-else class="d-flex justify-content-center align-items-center h-100">
-      <div class="text-center text-muted">
-        <h4>No PDF available</h4>
-        <p>The sheet music for this song and instrument is not available.</p>
+    <!-- Loading state -->
+    <div v-if="songsStore.isLoading" class="d-flex justify-content-center align-items-center h-100">
+      <div class="text-center text-light">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Loading songs...</p>
       </div>
     </div>
+
+    <!-- Song not found -->
+    <div
+      v-else-if="!currentSong && !songsStore.isLoading"
+      class="d-flex justify-content-center align-items-center h-100"
+    >
+      <div class="text-center text-light">
+        <h4>Song not found</h4>
+        <p>The requested song could not be found.</p>
+        <RouterLink to="/" class="btn btn-primary">Go Home</RouterLink>
+      </div>
+    </div>
+
+    <!-- PDF content (only show when song is found and not loading) -->
+    <template v-else-if="currentSong">
+      <!-- Use iframe for Google Drive PDFs -->
+      <iframe
+        v-if="isGoogleDrive && pdfSource"
+        :src="pdfSource"
+        class="pdf-viewer"
+        :height="pdfHeight"
+        :width="pdfWidth"
+        frameborder="0"
+        allowfullscreen
+      />
+      <!-- Use VuePdfEmbed for regular PDFs -->
+      <VuePdfEmbed
+        v-else-if="pdfSource"
+        class="pdf-viewer"
+        :height="pdfHeight"
+        :width="pdfWidth"
+        :source="pdfSource"
+      />
+      <!-- Show message when no PDF is available -->
+      <div v-else class="d-flex justify-content-center align-items-center h-100">
+        <div class="text-center text-muted">
+          <h4>No PDF available</h4>
+          <p>The sheet music for this song and instrument is not available.</p>
+        </div>
+      </div>
+    </template>
+
+    <!-- Review Confirmation Dialog -->
+    <UnderReviewDialog
+      v-if="showReviewDialog"
+      :song-title="currentSong?.title || ''"
+      ref="reviewDialogRef"
+      @confirm="onReviewConfirm"
+      @cancel="onReviewCancel"
+    />
   </div>
 </template>
 
