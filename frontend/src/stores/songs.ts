@@ -2,6 +2,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { Song } from '@/types/types'
 import { loadAllSongs } from '@/utils/jsonLoader'
+import { generateSongSlug } from '@/utils/slugUtils'
 
 export const useSongsStore = defineStore('songs', () => {
   // State
@@ -74,7 +75,7 @@ export const useSongsStore = defineStore('songs', () => {
   }
 
   const getSongBySlug = (slug: string): Song | undefined => {
-    return songs.value.find((song) => song.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug)
+    return songs.value.find((song) => generateSongSlug(song.title) === slug)
   }
 
   const refreshSongs = async () => {

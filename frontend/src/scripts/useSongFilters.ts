@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import type { Song, Instrument } from '@/types/types'
 import { instruments } from '@/types/types'
 import { useSongsStore } from '@/stores/songs'
+import { generateSongSlug } from '@/utils/slugUtils'
 
 // Global reactive state to ensure all components share the same state
 const selectedInstrument = ref<Instrument>('C')
@@ -169,7 +170,7 @@ export const useSongFilters = () => {
 
   const pickRandomSong = () => {
     const randomIndex = Math.floor(Math.random() * filteredSongs.value.length)
-    const slug = filteredSongs.value[randomIndex].title.toLowerCase().replace(/\s+/g, '-')
+    const slug = generateSongSlug(filteredSongs.value[randomIndex].title)
     router.push({
       name: 'sheetView',
       params: {

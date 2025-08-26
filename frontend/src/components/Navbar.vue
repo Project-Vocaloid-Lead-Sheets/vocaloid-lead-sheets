@@ -7,6 +7,7 @@ import { useSongActions } from '@/scripts/useSongActions'
 import { useSongsStore } from '@/stores/songs'
 import FilterModal from '@/components/FilterModal.vue'
 import DownloadModal from '@/components/DownloadModal.vue'
+import { generateSongSlug } from '@/utils/slugUtils'
 
 const songsStore = useSongsStore()
 
@@ -161,7 +162,7 @@ const hasActiveFilters = computed(() => {
                       :to="{
                         name: 'sheetView',
                         params: {
-                          songSlug: song.title.toLowerCase().replace(/\s+/g, '-'),
+                          songSlug: generateSongSlug(song.title),
                         },
                         query: {
                           instrument: selectedInstrument,
