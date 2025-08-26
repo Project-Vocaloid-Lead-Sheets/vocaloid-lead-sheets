@@ -126,14 +126,24 @@ class SongSyncManager:
             # Get hyperlinks for video columns
             hyperlinks_data = self._extract_hyperlinks_simple()
             
-            # Filter for accepted songs and validate required fields
+            # Filter for accepted songs and under review songs, validate required fields
             accepted_songs = []
             required_fields = ['Song Name', 'Status']
             
             for i, record in enumerate(records, start=2):  # Start at 2 for sheet row numbers
                 status = str(record.get('Status', '')).lower().strip()
+                original_status = str(record.get('Status', '')).strip()
+                song_name = str(record.get('Song Name', '')).strip()
                 
-                if status != 'completed':
+                # Log all statuses for debugging
+                if song_name:
+                    logger.info(f"Row {i}: '{song_name}' has status: '{original_status}' (normalized: '{status}')")
+                
+                # Accept both completed and under review (with flexible matching)
+                valid_statuses = ['completed', 'under review']
+                if status not in valid_statuses:
+                    if status:  # Only log if there's actually a status value
+                        logger.warning(f"Row {i}: Skipping song '{song_name}' with status '{original_status}' (not in valid statuses)")
                     continue
                 
                 # Validate required fields
@@ -143,7 +153,6 @@ class SongSyncManager:
                     continue
                 
                 # Clean and validate song name
-                song_name = str(record.get('Song Name', '')).strip()
                 if not song_name:
                     logger.warning(f"Row {i}: Empty song name")
                     continue
@@ -171,7 +180,7 @@ class SongSyncManager:
                 
                 accepted_songs.append(record)
             
-            logger.info(f"Found {len(accepted_songs)} valid accepted songs")
+            logger.info(f"Found {len(accepted_songs)} valid songs (completed + under review)")
             return accepted_songs
             
         except Exception as e:
@@ -274,12 +283,29 @@ class SongSyncManager:
             'videoLinks': self._parse_video_links_new(song),
             'pdfs': self._parse_pdfs_new(song),
             'metadata': {
-                'status': str(song.get('Status', '')).strip(),
+                'status': self._normalize_status(song.get('Status', '')),
                 'lastUpdated': datetime.now().isoformat()
             }
         }
         
         return normalized
+
+    def _normalize_status(self, status: Any) -> str:
+        """Normalize status to standard values"""
+        if not status:
+            return 'completed'  # Default status
+        
+        status_lower = str(status).lower().strip()
+        
+        # Map various status values to standardized ones
+        if status_lower in ['completed', 'complete', 'done', 'finished']:
+            return 'completed'
+        elif status_lower in ['under review', 'underreview', 'in progress', 'in-progress', 'inprogress', 'review', 'pending']:
+            return 'under review'
+        else:
+            # Log unknown status and default to completed
+            logger.warning(f"Unknown status '{status}', defaulting to 'completed'")
+            return 'completed'
 
     def _parse_alternative_names(self, alt_names: Any) -> List[str]:
         """Parse alternative names"""
@@ -427,6 +453,7 @@ class SongSyncManager:
                 'transcriber': normalized['transcriber'],
                 'videoLinks': normalized['videoLinks'],
                 'pdfs': normalized['pdfs'],
+                'metadata': normalized['metadata'],
                 'lastUpdated': datetime.now().isoformat()
             }
         
@@ -458,7 +485,8 @@ class SongSyncManager:
                 'labels': song_data.get('labels', []),
                 'transcriber': song_data.get('transcriber', ''),
                 'videoLinks': song_data['videoLinks'],
-                'pdfs': song_data['pdfs']
+                'pdfs': song_data['pdfs'],
+                'status': song_data.get('metadata', {}).get('status', 'completed')
             }
             
             with open(filepath, 'w', encoding='utf-8') as f:

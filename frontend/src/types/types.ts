@@ -13,4 +13,5 @@ export interface Song {
   transcriber?: string // Transcriber name
   videoLinks?: Partial<Record<string, string>> // { "YouTube" : "youtube.com/..."}
   pdfs: Partial<Record<Instrument, string>> // Maps instrument/key to PDF URL
+  status?: string // "completed" or "under review"
 }
