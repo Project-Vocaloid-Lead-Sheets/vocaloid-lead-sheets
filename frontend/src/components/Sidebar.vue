@@ -3,6 +3,21 @@
 .bi-list {
   color: #fff !important;
 }
+
+/* Ensure toggle switch is visible on dark background */
+.form-switch .form-check-input {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.form-switch .form-check-input:checked {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.form-switch .form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
 </style>
 <script setup lang="ts">
 /** The sidebar is for larger displays that can fit the song select list on the side.
@@ -11,8 +26,11 @@
 import { computed } from 'vue'
 import { useSongFilters } from '@/scripts/useSongFilters'
 import { useSongActions } from '@/scripts/useSongActions'
+import { useSongsStore } from '@/stores/songs'
 import FilterModal from '@/components/FilterModal.vue'
 import DownloadModal from '@/components/DownloadModal.vue'
+
+const songsStore = useSongsStore()
 
 const {
   instruments,
@@ -50,8 +68,8 @@ const hasActiveFilters = computed(() => {
 <template>
   <nav
     id="sidebar"
-    class="text-light h-100 pt-2 px-3 d-flex flex-column"
-    style="background-color: #206071"
+    class="text-light pt-2 px-3 d-flex flex-column"
+    style="background-color: #206071; height: 100vh"
   >
     <!-- Sidebar Fixed Area -->
     <div class="d-flex flex-column mb-2">
@@ -166,8 +184,8 @@ const hasActiveFilters = computed(() => {
     <!-- Sidebar Scrollable Area -->
     <div
       id="sidebar-nav"
-      class="sidebar-nav-collapsible collapse collapse-horizontal overflow-auto flex-grow-1"
-      style="max-height: calc(100vh - 10.5rem)"
+      class="sidebar-nav-collapsible collapse collapse-horizontal overflow-auto"
+      style="flex: 1 1 0; min-height: 0"
     >
       <ul id="song-list" class="navbar-nav pe-5">
         <li class="nav-item group" v-for="(group, index) in orderedSongs" :key="group.groupName">
@@ -182,7 +200,7 @@ const hasActiveFilters = computed(() => {
           <ul class="song collapse show list-unstyled small" :id="index + 'collapse'">
             <li class="nav-item" v-for="song in group.songs" :key="song.title">
               <RouterLink
-                class="nav-link"
+                class="nav-link d-flex align-items-center"
                 :to="{
                   name: 'sheetView',
                   params: {
@@ -193,7 +211,13 @@ const hasActiveFilters = computed(() => {
                   },
                 }"
               >
-                {{ song.title }}
+                <span>{{ song.title }}</span>
+                <span
+                  v-if="songsStore.isUnderReviewSong(song)"
+                  class="badge bg-light text-dark ms-2 small"
+                >
+                  Under Review
+                </span>
               </RouterLink>
             </li>
           </ul>
@@ -201,42 +225,61 @@ const hasActiveFilters = computed(() => {
       </ul>
     </div>
 
-    <!-- Footer with actions (only show when viewing a song) -->
-    <div v-if="currentSong && !isSidebarCollapsed" class="mt-auto pt-3 pb-3">
-      <div class="btn-group w-100" role="group" aria-label="Song actions">
-        <button
-          type="button"
-          class="btn btn-outline-light btn-sm"
-          data-bs-toggle="modal"
-          data-bs-target="#downloadModal"
-          :disabled="!currentSong"
-          title="Download PDF"
-        >
-          <i class="bi bi-download"></i>
-          <span class="d-none d-xl-inline ms-1">Download</span>
-        </button>
-        <!-- Print button hidden for now
-        <button
-          type="button"
-          class="btn btn-outline-light btn-sm"
-          @click="printPdf"
-          :disabled="!currentSong.pdfs[currentInstrument] && !currentSong.pdfs['C']"
-          title="Print PDF"
-        >
-          <i class="bi bi-printer"></i>
-          <span class="d-none d-xl-inline ms-1">Print</span>
-        </button>
-        -->
-        <button
-          type="button"
-          class="btn btn-outline-light btn-sm"
-          @click="watchOnYouTube"
-          :disabled="!currentSong.videoLinks?.YouTube"
-          title="Watch on YouTube"
-        >
-          <i class="bi bi-youtube"></i>
-          <span class="d-none d-xl-inline ms-1">YouTube</span>
-        </button>
+    <!-- Footer area (always show when sidebar is open) -->
+    <div v-show="!isSidebarCollapsed" class="mt-auto">
+      <!-- Song actions (only show when viewing a song) -->
+      <div v-if="currentSong" class="pt-3 pb-3">
+        <div class="btn-group w-100" role="group" aria-label="Song actions">
+          <button
+            type="button"
+            class="btn btn-outline-light btn-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#downloadModal"
+            :disabled="!currentSong"
+            title="Download PDF"
+          >
+            <i class="bi bi-download"></i>
+            <span class="d-none d-xl-inline ms-1">Download</span>
+          </button>
+          <!-- Print button hidden for now
+          <button
+            type="button"
+            class="btn btn-outline-light btn-sm"
+            @click="printPdf"
+            :disabled="!currentSong.pdfs[currentInstrument] && !currentSong.pdfs['C']"
+            title="Print PDF"
+          >
+            <i class="bi bi-printer"></i>
+            <span class="d-none d-xl-inline ms-1">Print</span>
+          </button>
+          -->
+          <button
+            type="button"
+            class="btn btn-outline-light btn-sm"
+            @click="watchOnYouTube"
+            :disabled="!currentSong.videoLinks?.YouTube"
+            title="Watch on YouTube"
+          >
+            <i class="bi bi-youtube"></i>
+            <span class="d-none d-xl-inline ms-1">YouTube</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- In-Progress Mode Toggle -->
+      <div class="pt-3 pb-3" :class="{ 'border-top': currentSong }">
+        <div class="form-check form-switch">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            role="switch"
+            id="underReviewToggle"
+            v-model="songsStore.underReviewViewEnabled"
+          />
+          <label class="form-check-label text-light small" for="underReviewToggle">
+            Show sheets currently under review
+          </label>
+        </div>
       </div>
     </div>
 

@@ -8,13 +8,21 @@ export const useSongsStore = defineStore('songs', () => {
   const songs = ref<Song[]>([])
   const isLoading = ref(false)
   const error = ref<string | null>(null)
+  const underReviewViewEnabled = ref(false)
 
   // Getters
-  const songCount = computed(() => songs.value.length)
+  const availableSongs = computed(() => {
+    if (underReviewViewEnabled.value) {
+      return songs.value // Show all songs
+    }
+    return songs.value.filter((song) => !song.status || song.status.toLowerCase() === 'completed')
+  })
+
+  const songCount = computed(() => availableSongs.value.length)
 
   const allProducers = computed(() => {
     const producers = new Set<string>()
-    songs.value.forEach((song) => {
+    availableSongs.value.forEach((song) => {
       if (song.producer) producers.add(song.producer)
     })
     return Array.from(producers).sort()
@@ -22,7 +30,7 @@ export const useSongsStore = defineStore('songs', () => {
 
   const allSingers = computed(() => {
     const singers = new Set<string>()
-    songs.value.forEach((song) => {
+    availableSongs.value.forEach((song) => {
       if (song.singer) singers.add(song.singer)
     })
     return Array.from(singers).sort()
@@ -30,13 +38,21 @@ export const useSongsStore = defineStore('songs', () => {
 
   const allLabels = computed(() => {
     const labels = new Set<string>()
-    songs.value.forEach((song) => {
+    availableSongs.value.forEach((song) => {
       song.labels?.forEach((label) => labels.add(label))
     })
     return Array.from(labels).sort()
   })
 
   // Actions
+  const toggleUnderReviewView = () => {
+    underReviewViewEnabled.value = !underReviewViewEnabled.value
+  }
+
+  const isUnderReviewSong = (song: Song) => {
+    return song.status && song.status.toLowerCase() === 'under review'
+  }
+
   const loadSongs = async () => {
     if (isLoading.value) return
 
@@ -69,8 +85,10 @@ export const useSongsStore = defineStore('songs', () => {
   return {
     // State
     songs,
+    availableSongs,
     isLoading,
     error,
+    underReviewViewEnabled,
 
     // Getters
     songCount,
@@ -82,5 +100,7 @@ export const useSongsStore = defineStore('songs', () => {
     loadSongs,
     getSongBySlug,
     refreshSongs,
+    toggleUnderReviewView,
+    isUnderReviewSong,
   }
 })

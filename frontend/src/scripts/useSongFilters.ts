@@ -23,8 +23,8 @@ export const useSongFilters = () => {
   const router = useRouter()
   const songsStore = useSongsStore()
 
-  // Use songs from store instead of static import
-  const songs = computed(() => songsStore.songs)
+  // Use availableSongs from store instead of all songs
+  const songs = computed(() => songsStore.availableSongs)
 
   watch(selectedInstrument, (value) => {
     router.replace({ query: { ...route.query, instrument: value } })

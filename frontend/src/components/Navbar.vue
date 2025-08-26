@@ -4,8 +4,11 @@
 import { computed, Teleport } from 'vue'
 import { useSongFilters } from '@/scripts/useSongFilters'
 import { useSongActions } from '@/scripts/useSongActions'
+import { useSongsStore } from '@/stores/songs'
 import FilterModal from '@/components/FilterModal.vue'
 import DownloadModal from '@/components/DownloadModal.vue'
+
+const songsStore = useSongsStore()
 
 const {
   instruments,
@@ -154,7 +157,7 @@ const hasActiveFilters = computed(() => {
                 <ul class="collapse show list-unstyled small song" :id="'collapse' + index">
                   <li class="nav-item" v-for="song in group.songs" :key="song.title">
                     <RouterLink
-                      class="nav-link"
+                      class="nav-link d-flex align-items-center"
                       :to="{
                         name: 'sheetView',
                         params: {
@@ -165,12 +168,34 @@ const hasActiveFilters = computed(() => {
                         },
                       }"
                     >
-                      {{ song.title }}
+                      <span>{{ song.title }}</span>
+                      <span
+                        v-if="songsStore.isUnderReviewSong(song)"
+                        class="badge bg-light text-dark ms-2 small"
+                      >
+                        Under Review
+                      </span>
                     </RouterLink>
                   </li>
                 </ul>
               </li>
             </ul>
+          </div>
+
+          <!-- In-Progress Mode Toggle -->
+          <div class="border-top p-3" style="background-color: #1a5064; color: #fff">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="navbarUnderReviewToggle"
+                v-model="songsStore.underReviewViewEnabled"
+              />
+              <label class="form-check-label text-light small" for="navbarUnderReviewToggle">
+                Show sheets currently under review
+              </label>
+            </div>
           </div>
 
           <!-- Footer with actions (only show when viewing a song) -->
@@ -234,3 +259,20 @@ const hasActiveFilters = computed(() => {
     />
   </Teleport>
 </template>
+
+<style scoped>
+/* Ensure toggle switch is visible on dark background */
+.form-switch .form-check-input {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.form-switch .form-check-input:checked {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.form-switch .form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+</style>
