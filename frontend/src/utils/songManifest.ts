@@ -1,6 +1,6 @@
 // Auto-generated song manifest
 // This file is automatically updated by the sync script
-// Last updated: 2025-09-04T01:27:50.446468
+// Last updated: 2025-09-04T20:29:59.060467
 
 export const SONG_MANIFEST = [
   'cendrillon.json',
@@ -8,6 +8,7 @@ export const SONG_MANIFEST = [
   'goodbye-declaration.json',
   'hair-swept-back-by-gale-force-winds.json',
   'ievan-polkka.json',
+  'lagtrain.json',
   'luka-lukanight-fever.json',
   'magnet.json',
   'meltdown.json',
