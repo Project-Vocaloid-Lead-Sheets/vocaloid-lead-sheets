@@ -1,6 +1,6 @@
 // Auto-generated song manifest
 // This file is automatically updated by the sync script
-// Last updated: 2025-09-04T20:29:59.060467
+// Last updated: 2025-09-05T01:38:10.900903
 
 export const SONG_MANIFEST = [
   'cendrillon.json',
@@ -19,6 +19,7 @@ export const SONG_MANIFEST = [
   'oyasumination.json',
   'rolling-girl.json',
   'romeo-and-cinderella.json',
+  'rot-for-clout.json',
   'senbonzakura.json',
   'six-trillion-years-and-overnight-story.json',
   'tale-of-the-deep-sea-lily.json',
@@ -27,6 +28,7 @@ export const SONG_MANIFEST = [
   'two-faced-lovers.json',
   'venom.json',
   'world-is-mine.json',
+  'worlds-end-dancehall.json',
 ] as const
 
 export type SongFilename = typeof SONG_MANIFEST[number]
