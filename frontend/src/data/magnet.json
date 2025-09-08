@@ -10,7 +10,9 @@
   "releaseDate": "2009-05-01",
   "labels": [],
   "transcriber": "Nap1400",
-  "videoLinks": {},
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=vSnKX7kAgIc"
+  },
   "pdfs": {
     "Vocals": "https://drive.google.com/file/d/1kEzo4WHsttxH_YbGlmE80_2RcJSihumT/view",
     "Bb": "https://drive.google.com/file/d/1PWiO2QJvjzlHlEdZuFsvHjjJn2_gLovi/view",
