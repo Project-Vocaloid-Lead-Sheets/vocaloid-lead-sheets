@@ -10,7 +10,10 @@ import { generateSongSlug } from '@/utils/slugUtils'
 const selectedInstrument = ref<Instrument>('C')
 const searchQuery = ref<string>('')
 const groupBy = ref<'none' | 'singer' | 'producer'>('singer')
-const sortBy = ref<'a-z' | 'z-a'>('a-z')
+// sortBy format: '<field>-<order>' where field is 'title' | 'bpm' | 'date' and order is 'asc' | 'desc'
+const sortBy = ref<'title-asc' | 'title-desc' | 'bpm-asc' | 'bpm-desc' | 'date-asc' | 'date-desc'>(
+  'title-asc',
+)
 const isFilterModalShowing = ref(false)
 const areGroupsCollapsed = ref(false)
 const isSidebarCollapsed = ref(true) // Start collapsed to match Bootstrap's default state
@@ -142,29 +145,44 @@ export const useSongFilters = () => {
 
   // Combination function that groups and sorts
   const orderedSongs = computed(() => {
-    const direction = sortBy.value === 'a-z' ? 1 : -1
+    // parse sortBy into field and direction
+    const [field, order] = sortBy.value.split('-') as [string, 'asc' | 'desc']
+    const dir = order === 'asc' ? 1 : -1
+
+    const comparator = (a: Song, b: Song) => {
+      if (field === 'title') {
+        return dir * a.title.toLowerCase().localeCompare(b.title.toLowerCase())
+      }
+
+      if (field === 'bpm') {
+        return dir * (a.bpm - b.bpm)
+      }
+
+      // field === 'date'
+      // releaseDate is stored as YYYYMMDD (string). Compare as strings to preserve chronological order.
+      const aDate = a.releaseDate || ''
+      const bDate = b.releaseDate || ''
+      return dir * aDate.localeCompare(bDate)
+    }
+
     if (groupBy.value === 'none') {
-      const sorted = [...filteredSongs.value].sort(
-        (a, b) => direction * a.title.toLowerCase().localeCompare(b.title.toLowerCase()),
-      )
+      const sorted = [...filteredSongs.value].sort(comparator)
       return [{ groupName: 'All Songs', songs: sorted }]
     }
 
     const groups: Record<string, Song[]> = {}
 
     for (const song of filteredSongs.value) {
-      const key = song[groupBy.value]
+      const key = (song as any)[groupBy.value]
       if (!groups[key]) groups[key] = []
       groups[key].push(song)
     }
 
     return Object.entries(groups)
-      .sort(([a], [b]) => direction * a.toLowerCase().localeCompare(b.toLowerCase()))
-      .map(([groupName, songs]) => ({
+      .sort(([a], [b]) => dir * a.toLowerCase().localeCompare(b.toLowerCase()))
+      .map(([groupName, songsList]) => ({
         groupName,
-        songs: songs.sort(
-          (a, b) => direction * a.title.toLowerCase().localeCompare(b.title.toLowerCase()),
-        ),
+        songs: songsList.sort(comparator),
       }))
   })
 

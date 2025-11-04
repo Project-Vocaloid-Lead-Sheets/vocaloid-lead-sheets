@@ -278,6 +278,7 @@ class SongSyncManager:
             'singer': str(song.get('Original Voice', '')).strip(),
             'additionalVoices': self._parse_comma_separated(song.get('Additional Voices (comma sep)', '')),
             'releaseDate': self._format_date(song.get('Release Date (ISO)', '')),
+            'bpm': self._parse_bpm(song.get('BPM', '')),
             'labels': self._parse_comma_separated(song.get('Labels (comma sep)', '')),
             'transcriber': str(song.get('Transcriber', '')).strip(),
             'videoLinks': self._parse_video_links_new(song),
@@ -388,22 +389,47 @@ class SongSyncManager:
         m = re.match(r'^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$', date_str)
         if m:
             month, day, year = m.groups()
-            return f"{year}-{month.zfill(2)}-{day.zfill(2)}"
+            # return as YYYYMMDD (no separators) to match frontend expectations
+            return f"{year}{month.zfill(2)}{day.zfill(2)}"
 
         # Handle YYYY-MM-DD
         m = re.match(r'^(\d{4})-(\d{1,2})-(\d{1,2})$', date_str)
         if m:
             year, month, day = m.groups()
-            return f"{year}-{month.zfill(2)}-{day.zfill(2)}"
+            return f"{year}{month.zfill(2)}{day.zfill(2)}"
 
         # Handle YYYYMMDD
         m = re.match(r'^(\d{4})(\d{2})(\d{2})$', date_str)
         if m:
             year, month, day = m.groups()
-            return f"{year}-{month}-{day}"
+            return f"{year}{month}{day}"
 
         logger.warning(f"Could not parse date: {date_str}")
-        return date_str
+        # Fallback: remove non-digits to try to produce YYYYMMDD-like string
+        digits = re.sub(r'\D', '', date_str)
+        if len(digits) == 8:
+            return digits
+        return ''
+
+    def _parse_bpm(self, bpm_value: Any) -> Optional[int]:
+        """Parse BPM value from the sheet into an integer if possible"""
+        if bpm_value is None:
+            return None
+        bpm_str = str(bpm_value).strip()
+        if not bpm_str:
+            return None
+
+        # Try to extract a number (allow floats but store as int)
+        try:
+            # Remove common annotations like 'bpm' or 'BPM'
+            bpm_clean = re.sub(r'[^0-9.]', '', bpm_str)
+            if not bpm_clean:
+                return None
+            bpm_float = float(bpm_clean)
+            return int(round(bpm_float))
+        except Exception:
+            logger.warning(f"Unable to parse BPM value: {bpm_value}")
+            return None
 
     def _parse_labels(self, labels_value: Any) -> List[str]:
         """Parse labels from various formats - kept for compatibility"""
@@ -449,6 +475,7 @@ class SongSyncManager:
                 'singer': normalized['singer'],
                 'additionalVoices': normalized['additionalVoices'],
                 'releaseDate': normalized['releaseDate'],
+                'bpm': normalized.get('bpm'),
                 'labels': normalized['labels'],
                 'transcriber': normalized['transcriber'],
                 'videoLinks': normalized['videoLinks'],
@@ -482,6 +509,7 @@ class SongSyncManager:
                 'singer': song_data['singer'],
                 'additionalVoices': song_data.get('additionalVoices', []),
                 'releaseDate': song_data['releaseDate'],
+                'bpm': song_data.get('bpm'),
                 'labels': song_data.get('labels', []),
                 'transcriber': song_data.get('transcriber', ''),
                 'videoLinks': song_data['videoLinks'],

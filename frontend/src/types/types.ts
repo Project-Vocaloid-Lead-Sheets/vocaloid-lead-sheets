@@ -9,6 +9,7 @@ export interface Song {
   singer: string // "Hatsune Miku"
   additionalVoices?: string[]
   releaseDate: string // "20070831"
+  bpm: number // 140
   labels?: string[] // "Project Sekai, Project Diva"
   transcriber?: string // Transcriber name
   videoLinks?: Partial<Record<string, string>> // { "YouTube" : "youtube.com/..."}

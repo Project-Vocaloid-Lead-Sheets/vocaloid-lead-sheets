@@ -136,8 +136,12 @@ const hasActiveFilters = computed(() => {
             <div class="input-group input-group-sm mb-4">
               <span class="input-group-text"><i class="bi bi-sort-alpha-down"></i></span>
               <select class="form-select" v-model="sortBy">
-                <option value="a-z">A-Z</option>
-                <option value="z-a">Z-A</option>
+                <option value="title-asc">Title: A → Z</option>
+                <option value="title-desc">Title: Z → A</option>
+                <option value="bpm-asc">BPM: Low → High</option>
+                <option value="bpm-desc">BPM: High → Low</option>
+                <option value="date-asc">Release Date: Old → New</option>
+                <option value="date-desc">Release Date: New → Old</option>
               </select>
             </div>
 
