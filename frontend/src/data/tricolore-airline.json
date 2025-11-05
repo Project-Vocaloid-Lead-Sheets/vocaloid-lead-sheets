@@ -1,1 +1,26 @@
-{"additionalProducers":[],"additionalVoices":[],"alternativeNames":[],"bpm":110,"labels":[],"pdfs":{"Alto":"https://drive.google.com/file/d/1YY-NBTQrPKZ-Vvso72h607nAy2gjIx3J/view","Bass":"https://drive.google.com/file/d/1pjuPtZMCjJvJNprPGi6A_HMg1oTyCU1L/view","Bb":"https://drive.google.com/file/d/1tyNGE1Y22csCBVzPNYX7TPHSOaAxaPrT/view","C":"https://drive.google.com/file/d/1oTJfo2fMEIzFcRKn8dkwFvM_Aaeua-M7/view","Eb":"https://drive.google.com/file/d/1VMLF0BABgn5rxQlY9nFNfgPAEBP8PF7p/view","F":"https://drive.google.com/file/d/1aay5crJG9wJaDFajO5VEvgF3DW5cp8ZQ/view","G":"https://drive.google.com/file/d/12QOMuKXJBcRKatK_5EaoWS1ljTq0xV_c/view","Vocals":"https://drive.google.com/file/d/13_vjJGitBKUuoQhp88wNhSveDQSpoL7I/view"},"producer":"Atsuzou-kun","releaseDate":"20100102","singer":"Hatsune Miku","status":"under review","title":"Tricolore Airline","transcriber":"Radiak488417","videoLinks":{"YouTube":"https://www.youtube.com/watch?v=apyfJ_Y10RQ"}}
+{
+  "title": "Tricolore Airline",
+  "alternativeNames": [],
+  "producer": "Atsuzou-kun",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20100102",
+  "bpm": 110,
+  "labels": [],
+  "transcriber": "Radiak488417",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=apyfJ_Y10RQ"
+  },
+  "pdfs": {
+    "Vocals": "https://drive.google.com/file/d/13_vjJGitBKUuoQhp88wNhSveDQSpoL7I/view",
+    "Bb": "https://drive.google.com/file/d/1tyNGE1Y22csCBVzPNYX7TPHSOaAxaPrT/view",
+    "C": "https://drive.google.com/file/d/1oTJfo2fMEIzFcRKn8dkwFvM_Aaeua-M7/view",
+    "Eb": "https://drive.google.com/file/d/1VMLF0BABgn5rxQlY9nFNfgPAEBP8PF7p/view",
+    "F": "https://drive.google.com/file/d/1aay5crJG9wJaDFajO5VEvgF3DW5cp8ZQ/view",
+    "G": "https://drive.google.com/file/d/12QOMuKXJBcRKatK_5EaoWS1ljTq0xV_c/view",
+    "Alto": "https://drive.google.com/file/d/1YY-NBTQrPKZ-Vvso72h607nAy2gjIx3J/view",
+    "Bass": "https://drive.google.com/file/d/1pjuPtZMCjJvJNprPGi6A_HMg1oTyCU1L/view"
+  },
+  "status": "under review"
+}

@@ -1,1 +1,19 @@
-{"additionalProducers":[],"additionalVoices":[],"alternativeNames":[],"bpm":150,"labels":[],"pdfs":{"C":"https://drive.google.com/file/d/1ZKRCW9M3DWXMWu9tsrExlnV_WvZnztAM/view"},"producer":"kz","releaseDate":"20120312","singer":"Hatsune Miku","status":"under review","title":"Tell Your World","transcriber":"Latios212","videoLinks":{"YouTube":"https://www.youtube.com/watch?v=PqJNc9KVIZE"}}
+{
+  "title": "Tell Your World",
+  "alternativeNames": [],
+  "producer": "kz",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20120312",
+  "bpm": 150,
+  "labels": [],
+  "transcriber": "Latios212",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=PqJNc9KVIZE"
+  },
+  "pdfs": {
+    "C": "https://drive.google.com/file/d/1ZKRCW9M3DWXMWu9tsrExlnV_WvZnztAM/view"
+  },
+  "status": "under review"
+}

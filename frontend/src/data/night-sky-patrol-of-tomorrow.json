@@ -1,1 +1,27 @@
-{"additionalProducers":[],"additionalVoices":[],"alternativeNames":["Asu no Yozora Shoukaihan"],"bpm":185,"labels":["Hall of Myths"],"pdfs":{"Bass":"https://drive.google.com/file/d/14OcpqaKRRnnDX7-5Dg_8sQpcYfLn6-hW/view","Bb":"https://drive.google.com/file/d/1wFYDR2bI_4H8r_A1WdwW08lWPz8a3NYd/view","C":"https://drive.google.com/file/d/1CcH8ttNxo7n0C-59x1IJvqJgrqPQCyvW/view","Eb":"https://drive.google.com/file/d/1NYgFfOJVr8_q2IJfmpMHXbfHVW1-MK04/view","Vocals":"https://drive.google.com/file/d/17yfHGGDwBbXSL_P9kg7lylJOBD3vWR1F/view"},"producer":"Orangestar","releaseDate":"20140819","singer":"IA","status":"under review","title":"Night Sky Patrol Of Tomorrow","transcriber":"Tarediiran","videoLinks":{"YouTube":"https://www.youtube.com/watch?v=XogSflwXgpw"}}
+{
+  "title": "Night Sky Patrol Of Tomorrow",
+  "alternativeNames": [
+    "Asu no Yozora Shoukaihan"
+  ],
+  "producer": "Orangestar",
+  "additionalProducers": [],
+  "singer": "IA",
+  "additionalVoices": [],
+  "releaseDate": "20140819",
+  "bpm": 185,
+  "labels": [
+    "Hall of Myths"
+  ],
+  "transcriber": "Tarediiran",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=XogSflwXgpw"
+  },
+  "pdfs": {
+    "Vocals": "https://drive.google.com/file/d/17yfHGGDwBbXSL_P9kg7lylJOBD3vWR1F/view",
+    "Bb": "https://drive.google.com/file/d/1wFYDR2bI_4H8r_A1WdwW08lWPz8a3NYd/view",
+    "C": "https://drive.google.com/file/d/1CcH8ttNxo7n0C-59x1IJvqJgrqPQCyvW/view",
+    "Eb": "https://drive.google.com/file/d/1NYgFfOJVr8_q2IJfmpMHXbfHVW1-MK04/view",
+    "Bass": "https://drive.google.com/file/d/14OcpqaKRRnnDX7-5Dg_8sQpcYfLn6-hW/view"
+  },
+  "status": "under review"
+}

@@ -1,1 +1,24 @@
-{"additionalProducers":[],"additionalVoices":[],"alternativeNames":["Romeo to Cinderella"],"bpm":170,"labels":["Hall of Myths"],"pdfs":{"C":"https://drive.google.com/file/d/1ZPEA2NHfD3byogPqwinN4RvhslKXQrn0/view","Vocals":"https://drive.google.com/file/d/1xHK_DrGTXe1-0w8QcdpsFuO8K3Iqb069/view"},"producer":"doriko","releaseDate":"20090405","singer":"Hatsune Miku","status":"under review","title":"Romeo and Cinderella","transcriber":"zmand97","videoLinks":{"YouTube":"https://www.youtube.com/watch?v=9HrOqmiEsN8"}}
+{
+  "title": "Romeo and Cinderella",
+  "alternativeNames": [
+    "Romeo to Cinderella"
+  ],
+  "producer": "doriko",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20090405",
+  "bpm": 170,
+  "labels": [
+    "Hall of Myths"
+  ],
+  "transcriber": "zmand97",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=9HrOqmiEsN8"
+  },
+  "pdfs": {
+    "Vocals": "https://drive.google.com/file/d/1xHK_DrGTXe1-0w8QcdpsFuO8K3Iqb069/view",
+    "C": "https://drive.google.com/file/d/1ZPEA2NHfD3byogPqwinN4RvhslKXQrn0/view"
+  },
+  "status": "under review"
+}

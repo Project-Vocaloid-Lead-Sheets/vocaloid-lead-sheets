@@ -1,1 +1,30 @@
-{"additionalProducers":[],"additionalVoices":["Megurine Luka"],"alternativeNames":[],"bpm":171,"labels":["Hall of Myths"],"pdfs":{"Alto":"https://drive.google.com/file/d/1EvTu6HTGUbb1S4ahaSY3rsx5l55Vip9P/view","Bass":"https://drive.google.com/file/d/1VmBOHLl7J8ZfFpzoG8XoHTTUuDGVXimo/view","Bb":"https://drive.google.com/file/d/13HHSD7MJdisTdcrsTFc3Olcs3L2oeltj/view","C":"https://drive.google.com/file/d/1xVUrD3-U157BCQiuodkapNneMooIbrOk/view","Eb":"https://drive.google.com/file/d/1Q9IS481Pkf0xEHUiq1lzZ4VREMi5e0gV/view","F":"https://drive.google.com/file/d/1Bv2aLTaLCW9X_6eqhffrXODAqvQcNB1n/view","G":"https://drive.google.com/file/d/1JSjh0ZUVMarh3X_-swK9DmuK7HbmMbgA/view","Vocals":"https://drive.google.com/file/d/1EBvtvwxFJ7i85qwkUpcT2H74G8Tlgcoz/view"},"producer":"wowaka","releaseDate":"20100528","singer":"Hatsune Miku","status":"completed","title":"World's End Dancehall","transcriber":"Latios212","videoLinks":{"YouTube":"https://www.youtube.com/watch?v=ZB75e7vzX0I"}}
+{
+  "title": "World's End Dancehall",
+  "alternativeNames": [],
+  "producer": "wowaka",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [
+    "Megurine Luka"
+  ],
+  "releaseDate": "20100528",
+  "bpm": 171,
+  "labels": [
+    "Hall of Myths"
+  ],
+  "transcriber": "Latios212",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=ZB75e7vzX0I"
+  },
+  "pdfs": {
+    "Vocals": "https://drive.google.com/file/d/1EBvtvwxFJ7i85qwkUpcT2H74G8Tlgcoz/view",
+    "Bb": "https://drive.google.com/file/d/13HHSD7MJdisTdcrsTFc3Olcs3L2oeltj/view",
+    "C": "https://drive.google.com/file/d/1xVUrD3-U157BCQiuodkapNneMooIbrOk/view",
+    "Eb": "https://drive.google.com/file/d/1Q9IS481Pkf0xEHUiq1lzZ4VREMi5e0gV/view",
+    "F": "https://drive.google.com/file/d/1Bv2aLTaLCW9X_6eqhffrXODAqvQcNB1n/view",
+    "G": "https://drive.google.com/file/d/1JSjh0ZUVMarh3X_-swK9DmuK7HbmMbgA/view",
+    "Alto": "https://drive.google.com/file/d/1EvTu6HTGUbb1S4ahaSY3rsx5l55Vip9P/view",
+    "Bass": "https://drive.google.com/file/d/1VmBOHLl7J8ZfFpzoG8XoHTTUuDGVXimo/view"
+  },
+  "status": "completed"
+}

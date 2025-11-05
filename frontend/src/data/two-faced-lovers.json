@@ -1,1 +1,31 @@
-{"additionalProducers":[],"additionalVoices":[],"alternativeNames":["Ura-omote Lovers"],"bpm":159,"labels":["Hall of Myths","Challenging"],"pdfs":{"Alto":"https://drive.google.com/file/d/1LFeTPs3rGNzTzs50KSQCBWAk_356BWzM/view","Bass":"https://drive.google.com/file/d/1px0CJbJS7LT8yYKPdkleuaInXQoheoFZ/view","Bb":"https://drive.google.com/file/d/15BW7iOq8f99566-vYR3iHvqZmS73syE9/view","C":"https://drive.google.com/file/d/1DXncFPY2ivXDIPcYkygCEkOSTe6HCzba/view","Eb":"https://drive.google.com/file/d/11IVs9ZYIE6YrkPJuJ09oiQX9OSmCxl8e/view","F":"https://drive.google.com/file/d/1JGhth8Bjctu4Oi29Q6nosaFg7vawECIK/view","G":"https://drive.google.com/file/d/16VLJD3RQdUuQmuVoabE0LnZZDVtCqR7T/view","Vocals":"https://drive.google.com/file/d/1dtIFlaKvdroDh0CZeTkRjn9B5LOldM6q/view"},"producer":"wowaka","releaseDate":"20090829","singer":"Hatsune Miku","status":"under review","title":"Two-Faced Lovers","transcriber":"zmand97","videoLinks":{"YouTube":"https://www.youtube.com/watch?v=b_cuMcDWwsI"}}
+{
+  "title": "Two-Faced Lovers",
+  "alternativeNames": [
+    "Ura-omote Lovers"
+  ],
+  "producer": "wowaka",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20090829",
+  "bpm": 159,
+  "labels": [
+    "Hall of Myths",
+    "Challenging"
+  ],
+  "transcriber": "zmand97",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=b_cuMcDWwsI"
+  },
+  "pdfs": {
+    "Vocals": "https://drive.google.com/file/d/1dtIFlaKvdroDh0CZeTkRjn9B5LOldM6q/view",
+    "Bb": "https://drive.google.com/file/d/15BW7iOq8f99566-vYR3iHvqZmS73syE9/view",
+    "C": "https://drive.google.com/file/d/1DXncFPY2ivXDIPcYkygCEkOSTe6HCzba/view",
+    "Eb": "https://drive.google.com/file/d/11IVs9ZYIE6YrkPJuJ09oiQX9OSmCxl8e/view",
+    "F": "https://drive.google.com/file/d/1JGhth8Bjctu4Oi29Q6nosaFg7vawECIK/view",
+    "G": "https://drive.google.com/file/d/16VLJD3RQdUuQmuVoabE0LnZZDVtCqR7T/view",
+    "Alto": "https://drive.google.com/file/d/1LFeTPs3rGNzTzs50KSQCBWAk_356BWzM/view",
+    "Bass": "https://drive.google.com/file/d/1px0CJbJS7LT8yYKPdkleuaInXQoheoFZ/view"
+  },
+  "status": "under review"
+}
