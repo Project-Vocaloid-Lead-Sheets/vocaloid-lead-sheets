@@ -523,7 +523,9 @@ class SongSyncManager:
             
  
             with open(filepath, 'w', encoding='utf-8') as f:
-                json.dump(frontend_data, f, ensure_ascii=False, sort_keys=True, separators=(',', ':'))
+                # Pretty-print with indentation and preserve insertion order so
+                # fields appear in the readable order (title, alternativeNames, producer, ...).
+                json.dump(frontend_data, f, ensure_ascii=False, indent=2)
             
             logger.info(f"Updated frontend file: {filepath}")
         
