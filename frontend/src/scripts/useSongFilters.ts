@@ -5,11 +5,15 @@ import type { Song, Instrument } from '@/types/types'
 import { instruments } from '@/types/types'
 import { useSongsStore } from '@/stores/songs'
 import { generateSongSlug } from '@/utils/slugUtils'
+import { readUserSettings, writeUserSettings, SETTINGS_KEY } from '@/utils/userSettings'
+
+// Ensure storage listener installed only once per page
+let _settingsStorageListenerInstalled = false
 
 // Global reactive state to ensure all components share the same state
 const selectedInstrument = ref<Instrument>('C')
 const searchQuery = ref<string>('')
-const groupBy = ref<'none' | 'singer' | 'producer'>('singer')
+const groupBy = ref<'none' | 'singer' | 'producer'>('none')
 // sortBy format: '<field>-<order>' where field is 'title' | 'bpm' | 'date' and order is 'asc' | 'desc'
 const sortBy = ref<'title-asc' | 'title-desc' | 'bpm-asc' | 'bpm-desc' | 'date-asc' | 'date-desc'>(
   'title-asc',
@@ -22,6 +26,21 @@ const selectedProducers = ref<string[]>([])
 const selectedSingers = ref<string[]>([])
 const dateRange = ref<{ start: string; end: string }>({ start: '', end: '' })
 
+// Initialize from storage if available
+const _initialSettings = readUserSettings()
+if (_initialSettings) {
+  if (_initialSettings.selectedInstrument)
+    selectedInstrument.value = _initialSettings.selectedInstrument as any
+  if (_initialSettings.sortBy) sortBy.value = _initialSettings.sortBy as any
+  if (_initialSettings.groupBy) groupBy.value = _initialSettings.groupBy as any
+  if (_initialSettings.selectedLabels) selectedLabels.value = [..._initialSettings.selectedLabels]
+  if (_initialSettings.selectedProducers)
+    selectedProducers.value = [..._initialSettings.selectedProducers]
+  if (_initialSettings.selectedSingers)
+    selectedSingers.value = [..._initialSettings.selectedSingers]
+  if (_initialSettings.dateRange) dateRange.value = { ..._initialSettings.dateRange }
+}
+
 export const useSongFilters = () => {
   const route = useRoute()
   const router = useRouter()
@@ -32,6 +51,8 @@ export const useSongFilters = () => {
 
   watch(selectedInstrument, (value) => {
     router.replace({ query: { ...route.query, instrument: value } })
+    // persist instrument choice
+    writeUserSettings({ selectedInstrument: value })
   })
 
   const resetSearch = () => {
@@ -195,6 +216,48 @@ export const useSongFilters = () => {
         songSlug: slug,
       },
     })
+  }
+
+  // Persist relevant settings whenever they change
+  watch(
+    [
+      selectedInstrument,
+      sortBy,
+      groupBy,
+      selectedLabels,
+      selectedProducers,
+      selectedSingers,
+      dateRange,
+    ],
+    () => {
+      writeUserSettings({
+        selectedInstrument: selectedInstrument.value,
+        sortBy: sortBy.value,
+        groupBy: groupBy.value,
+        selectedLabels: selectedLabels.value,
+        selectedProducers: selectedProducers.value,
+        selectedSingers: selectedSingers.value,
+        dateRange: dateRange.value,
+      })
+    },
+    { deep: true },
+  )
+
+  // Cross-tab sync: update reactive refs if settings change in another tab/window
+  if (typeof window !== 'undefined' && !_settingsStorageListenerInstalled) {
+    window.addEventListener('storage', (e) => {
+      if (e.key !== SETTINGS_KEY) return
+      const s = readUserSettings()
+      if (!s) return
+      if (s.selectedInstrument) selectedInstrument.value = s.selectedInstrument as any
+      if (s.sortBy) sortBy.value = s.sortBy as any
+      if (s.groupBy) groupBy.value = s.groupBy as any
+      if (s.selectedLabels) selectedLabels.value = [...s.selectedLabels]
+      if (s.selectedProducers) selectedProducers.value = [...s.selectedProducers]
+      if (s.selectedSingers) selectedSingers.value = [...s.selectedSingers]
+      if (s.dateRange) dateRange.value = { ...s.dateRange }
+    })
+    _settingsStorageListenerInstalled = true
   }
 
   return {

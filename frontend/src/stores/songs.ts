@@ -1,8 +1,12 @@
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { defineStore } from 'pinia'
 import type { Song } from '@/types/types'
 import { loadAllSongs } from '@/utils/jsonLoader'
 import { generateSongSlug } from '@/utils/slugUtils'
+import { readUserSettings, writeUserSettings, SETTINGS_KEY } from '@/utils/userSettings'
+
+// Ensure songs store installs storage listener only once per page
+let _songsStorageListenerInstalled = false
 
 export const useSongsStore = defineStore('songs', () => {
   // State
@@ -10,6 +14,30 @@ export const useSongsStore = defineStore('songs', () => {
   const isLoading = ref(false)
   const error = ref<string | null>(null)
   const underReviewViewEnabled = ref(false)
+
+  // Initialize underReview flag from centralized storage
+  const _stored = readUserSettings()
+  if (_stored && typeof _stored.underReviewViewEnabled === 'boolean') {
+    underReviewViewEnabled.value = _stored.underReviewViewEnabled as boolean
+  }
+
+  // Persist underReviewViewEnabled whenever it changes (handles v-model direct updates)
+  watch(underReviewViewEnabled, (val) => {
+    writeUserSettings({ underReviewViewEnabled: val })
+  })
+
+  // Cross-tab sync for underReviewViewEnabled
+  if (typeof window !== 'undefined' && !_songsStorageListenerInstalled) {
+    window.addEventListener('storage', (e) => {
+      if (e.key !== SETTINGS_KEY) return
+      const s = readUserSettings()
+      if (!s) return
+      if (typeof s.underReviewViewEnabled === 'boolean') {
+        underReviewViewEnabled.value = s.underReviewViewEnabled
+      }
+    })
+    _songsStorageListenerInstalled = true
+  }
 
   // Getters
   const availableSongs = computed(() => {
@@ -48,6 +76,7 @@ export const useSongsStore = defineStore('songs', () => {
   // Actions
   const toggleUnderReviewView = () => {
     underReviewViewEnabled.value = !underReviewViewEnabled.value
+    writeUserSettings({ underReviewViewEnabled: underReviewViewEnabled.value })
   }
 
   const isUnderReviewSong = (song: Song) => {
