@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import gspread
 import json
 import logging
@@ -34,6 +35,8 @@ class SongSyncManager:
         
         # Set /data as JSON file output directory
         self.frontend_data_dir = os.environ.get('FRONTEND_DATA_DIR', 'frontend/src/data')
+        # Path for the committed generated manifest that persists across CI runs
+        self.generated_manifest_path = os.path.join(self.frontend_data_dir, 'generated-manifest.json')
         
     def slugify(self, text: str) -> str:
         """Convert text to a URL-friendly slug"""
@@ -113,6 +116,9 @@ class SongSyncManager:
             
             logger.info(f"Successfully connected to Google Sheet: {sheet_id}")
             logger.info(f"Active worksheet: '{self.sheet.title}'")
+
+            # Save spreadsheet id for later use
+            self.spreadsheet_id = sheet_id
             
         except Exception as e:
             logger.error(f"Failed to setup Google Sheets connection: {e}")
@@ -283,10 +289,9 @@ class SongSyncManager:
             'transcriber': str(song.get('Transcriber', '')).strip(),
             'videoLinks': self._parse_video_links_new(song),
             'pdfs': self._parse_pdfs_new(song),
-            'metadata': {
-                'status': self._normalize_status(song.get('Status', '')),
-                'lastUpdated': datetime.now().isoformat()
-            }
+                'metadata': {
+                    'status': self._normalize_status(song.get('Status', ''))
+                }
         }
         
         return normalized
@@ -481,7 +486,6 @@ class SongSyncManager:
                 'videoLinks': normalized['videoLinks'],
                 'pdfs': normalized['pdfs'],
                 'metadata': normalized['metadata'],
-                'lastUpdated': datetime.now().isoformat()
             }
         
         return grouped
@@ -517,8 +521,9 @@ class SongSyncManager:
                 'status': song_data.get('metadata', {}).get('status', 'completed')
             }
             
+ 
             with open(filepath, 'w', encoding='utf-8') as f:
-                json.dump(frontend_data, f, indent=2, ensure_ascii=False)
+                json.dump(frontend_data, f, ensure_ascii=False, sort_keys=True, separators=(',', ':'))
             
             logger.info(f"Updated frontend file: {filepath}")
         
@@ -533,16 +538,15 @@ class SongSyncManager:
             # Sort filenames for consistency
             sorted_filenames = sorted(filenames)
             
-            manifest_content = f"""// Auto-generated song manifest
+            manifest_content = """// Auto-generated song manifest
 // This file is automatically updated by the sync script
-// Last updated: {datetime.now().isoformat()}
 
 export const SONG_MANIFEST = [
-{chr(10).join(f'  {repr(filename)},' for filename in sorted_filenames)}
+%s
 ] as const
 
 export type SongFilename = typeof SONG_MANIFEST[number]
-"""
+""" % (chr(10).join(f'  {repr(filename)},' for filename in sorted_filenames))
             
             with open(manifest_path, 'w', encoding='utf-8') as f:
                 f.write(manifest_content)
@@ -552,12 +556,86 @@ export type SongFilename = typeof SONG_MANIFEST[number]
         except Exception as e:
             logger.warning(f"Failed to update song manifest: {e}")
 
-    def save_sync_state(self, songs_hash: str, forced: bool = False) -> None:
+        # Also update a small generated-manifest.json that contains the current content hash
+        # This file is committed and used by the workflow to detect meaningful changes.
+        try:
+            generated_manifest = {
+                'songs': sorted(filenames),
+            }
+            # Write deterministic JSON
+            os.makedirs(os.path.dirname(self.generated_manifest_path), exist_ok=True)
+            with open(self.generated_manifest_path, 'w', encoding='utf-8') as f:
+                json.dump(generated_manifest, f, ensure_ascii=False, sort_keys=True, separators=(',', ':'))
+            logger.info(f"Wrote generated manifest: {self.generated_manifest_path}")
+        except Exception as e:
+            logger.warning(f"Failed to write generated manifest: {e}")
+
+        # Try to also capture the remote sheet modified time so CI can short-circuit
+        try:
+            sheet_modified = None
+            if hasattr(self, 'spreadsheet_id') and self.spreadsheet_id:
+                sheet_modified = self.get_remote_sheet_modified_time()
+
+            if sheet_modified:
+                try:
+                    # Re-read manifest and include sheetModifiedTime for persistence
+                    with open(self.generated_manifest_path, 'r', encoding='utf-8') as f:
+                        generated_manifest = json.load(f)
+                    generated_manifest['sheetModifiedTime'] = sheet_modified
+                    with open(self.generated_manifest_path, 'w', encoding='utf-8') as f:
+                        json.dump(generated_manifest, f, ensure_ascii=False, sort_keys=True, separators=(',', ':'))
+                    logger.info(f"Annotated generated manifest with sheetModifiedTime: {sheet_modified}")
+                except Exception as e:
+                    logger.warning(f"Failed to annotate generated manifest with modified time: {e}")
+        except Exception:
+            # Non-fatal if we cannot fetch modified time
+            pass
+
+    def get_remote_sheet_modified_time(self) -> Optional[str]:
+        """Fetch the remote spreadsheet's modifiedTime from the Drive API."""
+        try:
+            # Use the gspread client's credentials to get an access token
+            client = self.sheet.spreadsheet.client
+            credentials = client.auth
+
+            # Ensure token is fresh
+            import requests as _req
+            if hasattr(credentials, 'token') and hasattr(credentials, 'refresh'):
+                if getattr(credentials, 'expired', False):
+                    credentials.refresh(_req.Request())
+
+            access_token = getattr(credentials, 'token', None)
+            if not access_token:
+                return None
+
+            drive_url = f"https://www.googleapis.com/drive/v3/files/{self.spreadsheet_id}"
+            params = {'fields': 'modifiedTime'}
+            headers = {'Authorization': f'Bearer {access_token}'}
+
+            r = _req.get(drive_url, params=params, headers=headers, timeout=10)
+            r.raise_for_status()
+            data = r.json()
+            return data.get('modifiedTime')
+        except Exception as e:
+            logger.warning(f"Unable to fetch remote sheet modified time: {e}")
+            return None
+
+    def read_generated_manifest(self) -> Dict[str, Any]:
+        """Read the persisted generated-manifest.json (if present) to obtain previous songs listing/hash."""
+        try:
+            if os.path.exists(self.generated_manifest_path):
+                with open(self.generated_manifest_path, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+        except Exception as e:
+            logger.warning(f"Failed to read generated manifest: {e}")
+        return {}
+
+    def save_sync_state(self, songs_hash: str, total_songs: int = 0, forced: bool = False) -> None:
         """Save current sync state"""
         state = {
             'lastSync': datetime.now().isoformat(),
             'songsHash': songs_hash,
-            'totalSongs': len(songs_hash),
+            'totalSongs': total_songs,
             'forcedSync': forced
         }
         
@@ -606,8 +684,8 @@ export type SongFilename = typeof SONG_MANIFEST[number]
             # Generate frontend JSON files only
             self.update_frontend_files(grouped_songs)
             
-            # Save sync state
-            self.save_sync_state(current_hash, self.force_sync)
+            # Save sync state (record the computed hash and total songs)
+            self.save_sync_state(current_hash, total_songs=len(songs), forced=self.force_sync)
             
             logger.info(f"Sync completed successfully! Processed {len(grouped_songs)} unique songs.")
             
@@ -625,10 +703,51 @@ def main():
         action='store_true',
         help='Force sync even if no changes are detected'
     )
+    parser.add_argument(
+        '--check-only',
+        action='store_true',
+        help='Only check whether the remote sheet has changed compared to the committed generated-manifest.json and exit (no heavy fetch/write)'
+    )
     
     args = parser.parse_args()
     
     sync_manager = SongSyncManager(force_sync=args.force)
+    # If check-only requested, run lightweight check and exit accordingly
+    if args.check_only:
+        try:
+            # Authenticate and get remote modified time
+            sync_manager.setup_google_sheets()
+            remote_time = sync_manager.get_remote_sheet_modified_time()
+
+            # Read the committed generated manifest (if present)
+            prev_manifest = sync_manager.read_generated_manifest()
+            prev_time = prev_manifest.get('sheetModifiedTime')
+
+            result = {
+                'previous': prev_time,
+                'remote': remote_time,
+            }
+
+            if not remote_time:
+                # Could not determine remote time; treat as changed (non-zero exit)
+                result['status'] = 'unknown'
+                print(json.dumps(result, ensure_ascii=False))
+                sys.exit(2)
+
+            if prev_time == remote_time:
+                result['status'] = 'unchanged'
+                print(json.dumps(result, ensure_ascii=False))
+                sys.exit(0)
+            else:
+                result['status'] = 'changed'
+                print(json.dumps(result, ensure_ascii=False))
+                sys.exit(2)
+        except Exception as e:
+            # If anything goes wrong, surface a non-zero exit so CI does not short-circuit
+            print(json.dumps({'status': 'error', 'error': str(e)}))
+            sys.exit(2)
+
+    # Default behavior: run full sync
     sync_manager.sync()
 
 if __name__ == "__main__":
