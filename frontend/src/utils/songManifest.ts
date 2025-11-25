@@ -24,6 +24,7 @@ export const SONG_MANIFEST = [
   'senbonzakura.json',
   'six-trillion-years-and-overnight-story.json',
   'tale-of-the-deep-sea-lily.json',
+  'telecaster-b-boy.json',
   'tell-your-world.json',
   'the-disappearance-of-hatsune-miku.json',
   'the-lost-ones-weeping.json',
