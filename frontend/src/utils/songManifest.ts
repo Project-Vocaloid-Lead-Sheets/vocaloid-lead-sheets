@@ -4,6 +4,7 @@
 export const SONG_MANIFEST = [
   'cendrillon.json',
   'donut-hole.json',
+  'god-ish.json',
   'goodbye-declaration.json',
   'hair-swept-back-by-gale-force-winds.json',
   'ievan-polkka.json',
