@@ -11,7 +11,9 @@
     "SAM Night Series"
   ],
   "transcriber": "stellarlights",
-  "videoLinks": {},
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=ScSW9C3DF18"
+  },
   "pdfs": {
     "Vocals": "https://drive.google.com/file/d/1g5FmWdzh7VGoieNkPljeC05ZUjTGDLEF/view",
     "Bb": "https://drive.google.com/file/d/14x36nXOATEYNpptbF2lnz9xMTncqhNog/view",
