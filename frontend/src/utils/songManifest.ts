@@ -16,6 +16,7 @@ export const SONG_MANIFEST = [
   'mesmerizer.json',
   'miku-miku-ni-shite-ageru.json',
   'miku.json',
+  'monitoring.json',
   'mugen-no-ticket.json',
   'night-sky-patrol-of-tomorrow.json',
   'oyasumination.json',
