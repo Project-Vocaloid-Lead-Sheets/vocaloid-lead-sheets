@@ -3,6 +3,7 @@
  */
 
 /**
+ * LEGACY - for use with Google Drive hosted PDFs
  * Converts a Google Drive sharing URL to an embeddable URL
  * @param url - The Google Drive URL (https://drive.google.com/file/d/FILE_ID/view)
  * @returns The embeddable URL for PDF viewers
@@ -19,17 +20,25 @@ export function convertGoogleDriveUrl(url: string): string {
 
   // If it's not a Google Drive URL, return as-is
   return url
-} /**
+}
+
+/**
  * Gets the direct PDF URL for display in PDF viewers
- * @param url - The original PDF URL
+ * For local PDFs, return as-is. For Google Drive, use download URL.
+ * @param url - The original PDF URL (can be local path or Google Drive URL)
  * @returns A URL that can be used directly in PDF embedding components
  */
 export function getPdfDisplayUrl(url: string): string {
   if (!url) return ''
 
-  // Convert Google Drive URLs to direct access format
+  // If it's a local path (starts with /), return as-is
+  if (url.startsWith('/')) {
+    return url
+  }
+
+  // For Google Drive URLs, use download format
   if (url.includes('drive.google.com')) {
-    return convertGoogleDriveUrl(url)
+    return getPdfDownloadUrl(url)
   }
 
   // For other URLs, return as-is

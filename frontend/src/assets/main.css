@@ -5,6 +5,9 @@
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
+  /* Use viewport-safe variable so the app can fill the screen height */
+  height: calc(var(--vh, 1vh) * 100);
+  box-sizing: border-box;
 }
 
 a,
@@ -31,5 +34,12 @@ a,
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
+  }
+}
+
+/* Remove vertical padding on small screens so content can reach viewport edges */
+@media (max-width: 1023px) {
+  #app {
+    padding: 0;
   }
 }
