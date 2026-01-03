@@ -907,6 +907,7 @@ export type SongFilename = typeof SONG_MANIFEST[number]
             current_sheet_time = self.get_remote_sheet_modified_time() or ''
             last_state = self.get_sync_state()
             last_sheet_time = last_state.get('sheetModifiedTime', '')
+            old_content_hash = last_state.get('contentHash', '')
             # Bootstrap mode: No cache but files exist (first CI run after local commit)
             if not last_state and os.path.exists(self.frontend_data_dir):
                 logger.info("🔄 Bootstrap mode: No cache found but files exist. Calculating hash from committed files...")
@@ -954,7 +955,6 @@ export type SongFilename = typeof SONG_MANIFEST[number]
             
             # Step 3: Compute content hash
             new_content_hash = self.calculate_content_hash(grouped_songs)
-            old_content_hash = last_state.get('contentHash', '')
             
             # Step 4: Check if content actually changed
             if not self.force_sync and new_content_hash == old_content_hash:

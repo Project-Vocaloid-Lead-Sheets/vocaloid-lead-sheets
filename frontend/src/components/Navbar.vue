@@ -57,7 +57,7 @@ const hasActiveFilters = computed(() => {
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <RouterLink class="navbar-brand" to="/">Project Vocaloid Lead Sheets</RouterLink>
+      <RouterLink class="navbar-brand" to="/">Project VocaLead Sheets</RouterLink>
 
       <div
         class="offcanvas offcanvas-top h-75"
@@ -73,7 +73,7 @@ const hasActiveFilters = computed(() => {
             data-bs-dismiss="offcanvas"
             aria-label="Close"
           ></button>
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Project Vocaloid Lead Sheets</h5>
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Project VocaLead Sheets</h5>
         </div>
         <div class="offcanvas-body d-flex flex-column p-0">
           <div class="flex-grow-1 overflow-auto p-3">
