@@ -28,7 +28,6 @@ export async function loadAllSongs(): Promise<Song[]> {
       if (result.status === 'fulfilled') {
         const song = (result.value as { default: Song }).default
         songs.push(song)
-        console.log(`✅ Loaded ${SONG_MANIFEST[index]}`)
       } else {
         console.error(`❌ Failed to load ${SONG_MANIFEST[index]}:`, result.reason)
       }
@@ -36,7 +35,6 @@ export async function loadAllSongs(): Promise<Song[]> {
   } catch (error) {
     console.error('Failed to load songs:', error)
   }
-  console.log(`📄 Total JSON files loaded: ${songs.length}/${SONG_MANIFEST.length}`)
   return songs
 }
 

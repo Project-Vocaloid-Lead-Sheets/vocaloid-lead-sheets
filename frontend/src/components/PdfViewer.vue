@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Dedicated PDF viewer built using EmbedPDF for Vue. Supports two page spread as well as other useful features. Accepts an absolute path to a pdf file.
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import {
   PDFViewer,
   ScrollStrategy,

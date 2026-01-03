@@ -43,7 +43,7 @@ export function writeUserSettings(partial: Partial<StoredSettings>): void {
   } catch (err) {
     // ignore write errors (e.g., quota)
     // Logging is helpful but avoid throwing
-    // eslint-disable-next-line no-console
+     
     console.warn('Failed to write user settings to localStorage', err)
   }
 }

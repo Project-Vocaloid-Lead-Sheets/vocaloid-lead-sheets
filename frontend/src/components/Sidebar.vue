@@ -52,7 +52,7 @@ const {
   isSidebarCollapsed,
 } = useSongFilters()
 
-const { currentSong, currentInstrument, printPdf, watchOnYouTube } = useSongActions()
+const { currentSong, currentInstrument, watchOnYouTube } = useSongActions()
 
 // Computed property to check if any advanced filters are active and should be displayed
 const hasActiveFilters = computed(() => {

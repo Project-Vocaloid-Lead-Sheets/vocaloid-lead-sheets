@@ -93,7 +93,6 @@ export const useSongsStore = defineStore('songs', () => {
       // Load from JSON files
       const jsonSongs = await loadAllSongs()
       songs.value = jsonSongs
-      console.log(`Loaded ${jsonSongs.length} songs from JSON files`)
     } catch (err) {
       console.error('Failed to load songs:', err)
       error.value = err instanceof Error ? err.message : 'Failed to load songs'
