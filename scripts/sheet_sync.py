@@ -38,6 +38,10 @@ class SongSyncManager:
         # Path for the committed generated manifest that persists across CI runs
         self.generated_manifest_path = os.path.join(self.frontend_data_dir, 'generated-manifest.json')
         
+        # PDF storage directory
+        self.pdf_dir = os.path.join('frontend', 'public', 'pdfs')
+        os.makedirs(self.pdf_dir, exist_ok=True)
+        
     def slugify(self, text: str) -> str:
         """Convert text to a URL-friendly slug"""
         text = text.lower()
@@ -273,8 +277,11 @@ class SongSyncManager:
             logger.warning(f"Failed to extract hyperlinks: {e}")
             return {}
 
-    def normalize_song_data(self, song: Dict[str, Any]) -> Dict[str, Any]:
+    def normalize_song_data(self, song: Dict[str, Any], existing_song_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Normalize song data based on the sheet structure"""
+        # Parse PDFs with change detection
+        pdfs, links = self._parse_pdfs_new(song, existing_song_data)
+        
         # Map sheet columns to JSON format
         normalized = {
             'title': str(song.get('Song Name', '')).strip(),
@@ -288,10 +295,11 @@ class SongSyncManager:
             'labels': self._parse_comma_separated(song.get('Labels (comma sep)', '')),
             'transcriber': str(song.get('Transcriber', '')).strip(),
             'videoLinks': self._parse_video_links_new(song),
-            'pdfs': self._parse_pdfs_new(song),
-                'metadata': {
-                    'status': self._normalize_status(song.get('Status', ''))
-                }
+            'pdfs': pdfs,
+            'links': links,
+            'metadata': {
+                'status': self._normalize_status(song.get('Status', ''))
+            }
         }
         
         return normalized
@@ -348,12 +356,27 @@ class SongSyncManager:
         
         return links
 
-    def _parse_pdfs_new(self, song: Dict[str, Any]) -> Dict[str, str]:
-        """Parse PDF information with chip link support"""
+    def _parse_pdfs_new(self, song: Dict[str, Any], existing_song_data: Optional[Dict[str, Any]] = None) -> tuple[Dict[str, str], Dict[str, str]]:
+        """Parse PDF information with chip link support and download PDFs locally
+        
+        Returns a tuple of (pdfs, links) where:
+        - pdfs: dict mapping key names to local PDF paths
+        - links: dict mapping key names to Google Drive URLs
+        """
+        pdf_drive_links = {}
         pdfs = {}
         
         # Get hyperlinks if available
         hyperlinks = song.get('_hyperlinks', {})
+        
+        # Get song title for filename generation
+        song_title = song.get('Song Name', '').strip()
+        song_slug = self.slugify(song_title)
+        
+        # Get existing PDF links from previous sync (if any)
+        existing_links = {}
+        if existing_song_data:
+            existing_links = existing_song_data.get('links', {})
         
         # Map the key columns to PDF entries
         key_mappings = {
@@ -368,19 +391,55 @@ class SongSyncManager:
         }
         
         for column_name, pdf_key in key_mappings.items():
+            drive_id = None
+            
             # First try to get URL from extracted hyperlinks (chip format)
             if column_name in hyperlinks:
                 drive_url = hyperlinks[column_name]
                 drive_id = self._validate_drive_id(drive_url)
-                if drive_id:
-                    pdfs[pdf_key] = f"https://drive.google.com/file/d/{drive_id}/view"
             else:
                 # Fallback to text content validation
                 drive_id = self._validate_drive_id(song.get(column_name, ''))
-                if drive_id:
-                    pdfs[pdf_key] = f"https://drive.google.com/file/d/{drive_id}/view"
+            
+            if drive_id:
+                # Store Google Drive link for reference
+                current_drive_link = f"https://drive.google.com/file/d/{drive_id}/view"
+                pdf_drive_links[pdf_key] = current_drive_link
+            
+                # Generate local filename with song name and key
+                pdf_filename = f"{song_slug}/{song_slug}-{pdf_key.lower()}.pdf"
+                pdf_path = os.path.join(self.pdf_dir, pdf_filename)
+                
+                # Check if we need to download:
+                # 1. File doesn't exist locally, OR
+                # 2. Drive link has changed (different file)
+                should_download = False
+                if not os.path.exists(pdf_path):
+                    logger.info(f"PDF not found locally: {pdf_filename}")
+                    should_download = True
+                elif pdf_key in existing_links and existing_links[pdf_key] != current_drive_link:
+                    logger.info(f"Drive link changed for {pdf_key} in {song_title}, will re-download")
+                    should_download = True
+                elif pdf_key not in existing_links:
+                    # No previous link data, assume we should download to be safe
+                    should_download = True
+                else:
+                    logger.info(f"PDF already exists and unchanged: {pdf_filename}")
+                
+                if should_download:
+                    # Download PDF from Google Drive
+                    if self.download_pdf_from_drive(drive_id, pdf_filename):
+                        # Store local path instead of Google Drive URL
+                        pdfs[pdf_key] = f"/pdfs/{pdf_filename}"
+                    else:
+                        # Fallback to Google Drive URL if download fails
+                        logger.warning(f"Download failed for {pdf_key}, using Google Drive URL as fallback")
+                        pdfs[pdf_key] = f"https://drive.google.com/file/d/{drive_id}/view"
+                else:
+                    # Use existing local path
+                    pdfs[pdf_key] = f"/pdfs/{pdf_filename}"
         
-        return pdfs
+        return pdfs, pdf_drive_links
 
     def _format_date(self, date_value: Any) -> str:
         """Format date as ISO (YYYY-MM-DD) if possible"""
@@ -460,16 +519,114 @@ class SongSyncManager:
         
         return None
 
+    def download_pdf_from_drive(self, file_id: str, output_filename: str) -> bool:
+        """Download a PDF from Google Drive and save it locally"""
+        try:
+            import requests
+            
+            download_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+            
+            logger.info(f"Downloading PDF from Google Drive: {file_id}")
+            
+            # Make request with session to handle redirects
+            session = requests.Session()
+            response = session.get(download_url, stream=True)
+            
+            # Handle large file download confirmation
+            if 'text/html' in response.headers.get('Content-Type', ''):
+                # Look for download confirmation token
+                for key, value in response.cookies.items():
+                    if key.startswith('download_warning'):
+                        params = {'id': file_id, 'confirm': value}
+                        response = session.get(download_url, params=params, stream=True)
+                        break
+            
+            response.raise_for_status()
+            
+            # Save to file (create subdirectory if needed)
+            output_path = os.path.join(self.pdf_dir, output_filename)
+            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            with open(output_path, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    if chunk:
+                        f.write(chunk)
+            
+            file_size = os.path.getsize(output_path)
+            logger.info(f"Successfully downloaded PDF: {output_filename} ({file_size} bytes)")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Failed to download PDF {file_id}: {e}")
+            return False
+
+    def cleanup_orphaned_pdfs(self, referenced_pdfs: set) -> None:
+        """Remove PDF files that are no longer referenced in any song"""
+        try:
+            if not os.path.exists(self.pdf_dir):
+                return
+            
+            deleted_count = 0
+            
+            # Walk through all PDF files
+            for root, dirs, files in os.walk(self.pdf_dir):
+                for file in files:
+                    if not file.endswith('.pdf'):
+                        continue
+                    
+                    # Get relative path from pdf_dir
+                    full_path = os.path.join(root, file)
+                    rel_path = os.path.relpath(full_path, self.pdf_dir)
+                    
+                    # Check if this PDF is referenced
+                    if rel_path not in referenced_pdfs:
+                        try:
+                            os.remove(full_path)
+                            deleted_count += 1
+                            logger.info(f"Deleted orphaned PDF: {rel_path}")
+                        except Exception as e:
+                            logger.warning(f"Failed to delete orphaned PDF {rel_path}: {e}")
+            
+            # Clean up empty directories
+            for root, dirs, files in os.walk(self.pdf_dir, topdown=False):
+                for dir_name in dirs:
+                    dir_path = os.path.join(root, dir_name)
+                    try:
+                        if not os.listdir(dir_path):  # Empty directory
+                            os.rmdir(dir_path)
+                            logger.info(f"Removed empty directory: {os.path.relpath(dir_path, self.pdf_dir)}")
+                    except Exception as e:
+                        logger.warning(f"Failed to remove directory {dir_path}: {e}")
+            
+            if deleted_count > 0:
+                logger.info(f"Cleaned up {deleted_count} orphaned PDF(s)")
+            else:
+                logger.info("No orphaned PDFs found")
+                
+        except Exception as e:
+            logger.error(f"Failed to cleanup orphaned PDFs: {e}")
+
     def group_and_merge_songs(self, songs: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
         """Group songs by title - simplified for new structure"""
         grouped = {}
         
         for song in songs:
-            normalized = self.normalize_song_data(song)
-            title = normalized['title']
-            
+            title = str(song.get('Song Name', '')).strip()
             if not title:
                 continue
+            
+            # Load existing song data if available
+            existing_song_data = None
+            filename = f"{self.slugify(title)}.json"
+            filepath = os.path.join(self.frontend_data_dir, filename)
+            if os.path.exists(filepath):
+                try:
+                    with open(filepath, 'r', encoding='utf-8') as f:
+                        existing_song_data = json.load(f)
+                except Exception as e:
+                    logger.warning(f"Failed to load existing song data for {title}: {e}")
+            
+            # Normalize with existing data for comparison
+            normalized = self.normalize_song_data(song, existing_song_data)
             
             # Create song entry
             grouped[title] = {
@@ -484,6 +641,7 @@ class SongSyncManager:
                 'labels': normalized['labels'],
                 'transcriber': normalized['transcriber'],
                 'videoLinks': normalized['videoLinks'],
+                'links': normalized['links'],
                 'pdfs': normalized['pdfs'],
                 'metadata': normalized['metadata'],
             }
@@ -498,11 +656,23 @@ class SongSyncManager:
         # Track all generated filenames for manifest
         generated_files = []
         
+        # Track all referenced PDF paths for cleanup
+        referenced_pdfs = set()
+        
         # Update individual JSON files
         for title, song_data in grouped_songs.items():
             filename = f"{self.slugify(title)}.json"
             filepath = os.path.join(self.frontend_data_dir, filename)
             generated_files.append(filename)
+            
+            # Track referenced PDFs for this song
+            for pdf_path in song_data['pdfs'].values():
+                if pdf_path.startswith('/pdfs/'):
+                    # Convert /pdfs/song/file.pdf to song/file.pdf
+                    rel_path = pdf_path[6:]  # Remove '/pdfs/' prefix
+                    # Normalize path separators for the current OS
+                    rel_path = rel_path.replace('/', os.sep)
+                    referenced_pdfs.add(rel_path)
             
             # Create frontend-compatible format (simplified structure)
             frontend_data = {
@@ -517,6 +687,7 @@ class SongSyncManager:
                 'labels': song_data.get('labels', []),
                 'transcriber': song_data.get('transcriber', ''),
                 'videoLinks': song_data['videoLinks'],
+                'links': song_data.get('links', {}),
                 'pdfs': song_data['pdfs'],
                 'status': song_data.get('metadata', {}).get('status', 'completed')
             }
@@ -528,6 +699,9 @@ class SongSyncManager:
                 json.dump(frontend_data, f, ensure_ascii=False, indent=2)
             
             logger.info(f"Updated frontend file: {filepath}")
+        
+        # Clean up orphaned PDFs
+        self.cleanup_orphaned_pdfs(referenced_pdfs)
         
         # Update the song manifest for the frontend
         self.update_song_manifest(generated_files)

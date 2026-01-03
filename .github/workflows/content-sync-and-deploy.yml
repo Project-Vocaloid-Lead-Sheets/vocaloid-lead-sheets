@@ -80,15 +80,16 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Stage generated song data and manifest
+          # Stage generated song data, manifest, and downloaded PDFs
           git add frontend/src/data || true
           git add frontend/src/utils/songManifest.ts || true
+          git add frontend/public/pdfs || true
 
           # If there are no staged changes, skip committing
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore(sync): update generated song data from Google Sheet"
+            git commit -m "chore(sync): update song data and PDFs from Google Sheet"
             git push
           fi
 
