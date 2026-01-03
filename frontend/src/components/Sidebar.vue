@@ -70,7 +70,7 @@ const hasActiveFilters = computed(() => {
   <nav
     id="sidebar"
     class="text-light pt-2 px-3 d-flex flex-column"
-    style="background-color: #206071; height: 100vh"
+    style="background-color: #206071; height: calc(var(--vh, 1vh) * 100)"
   >
     <!-- Sidebar Fixed Area -->
     <div class="d-flex flex-column mb-2">

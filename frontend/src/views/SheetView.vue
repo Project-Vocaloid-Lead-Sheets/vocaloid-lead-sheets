@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { Instrument } from '@/types/types'
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import VuePdfEmbed from 'vue-pdf-embed'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getPdfDisplayUrl } from '@/utils/pdfUtils'
 import { useSongsStore } from '@/stores/songs'
 import UnderReviewDialog from '@/components/UnderReviewDialog.vue'
+import PdfViewer from '@/components/PdfViewer.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -48,44 +48,6 @@ const pdfSource = computed(() => {
   return originalUrl ? getPdfDisplayUrl(originalUrl) : ''
 })
 
-const isGoogleDrive = computed(() => {
-  return pdfSource.value.includes('drive.google.com')
-})
-
-const NAVBAR_HEIGHT = 56
-const pdfHeight = ref<number | undefined>(undefined)
-const pdfWidth = ref<number | undefined>(undefined)
-
-// Constrain size by width if portrait and height if landscape
-const updatePdfSize = () => {
-  const width = window.innerWidth
-  const height = window.innerHeight
-  const isMobile = width < 768
-  const isLandscape = width > height
-
-  if (isLandscape) {
-    pdfHeight.value = height
-    pdfWidth.value = undefined
-  } else {
-    pdfHeight.value = undefined
-    pdfWidth.value = width
-  }
-
-  if (isMobile && pdfHeight.value !== undefined) {
-    pdfHeight.value -= NAVBAR_HEIGHT
-  }
-}
-
-onMounted(() => {
-  updatePdfSize()
-  window.addEventListener('resize', updatePdfSize)
-  checkReviewConfirmation()
-})
-
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', updatePdfSize)
-})
-
 // Watch for route changes to check for review mode confirmation
 watch(
   () => route.meta.requiresReviewConfirmation,
@@ -93,10 +55,14 @@ watch(
     checkReviewConfirmation()
   },
 )
+
+onMounted(() => {
+  checkReviewConfirmation()
+})
 </script>
 
 <template>
-  <div class="scroll-container bg-secondary pt-5 pt-lg-0">
+  <div class="scroll-container bg-secondary pt-0">
     <!-- Loading state -->
     <div v-if="songsStore.isLoading" class="d-flex justify-content-center align-items-center h-100">
       <div class="text-center text-light">
@@ -121,24 +87,8 @@ watch(
 
     <!-- PDF content (only show when song is found and not loading) -->
     <template v-else-if="currentSong">
-      <!-- Use iframe for Google Drive PDFs -->
-      <iframe
-        v-if="isGoogleDrive && pdfSource"
-        :src="pdfSource"
-        class="pdf-viewer"
-        :height="pdfHeight"
-        :width="pdfWidth"
-        frameborder="0"
-        allowfullscreen
-      />
-      <!-- Use VuePdfEmbed for regular PDFs -->
-      <VuePdfEmbed
-        v-else-if="pdfSource"
-        class="pdf-viewer"
-        :height="pdfHeight"
-        :width="pdfWidth"
-        :source="pdfSource"
-      />
+      <!-- Use PdfViewer component -->
+      <PdfViewer v-if="pdfSource" :source="pdfSource" class="pdf-viewer" />
       <!-- Show message when no PDF is available -->
       <div v-else class="d-flex justify-content-center align-items-center h-100">
         <div class="text-center text-muted">
@@ -163,18 +113,47 @@ watch(
 .scroll-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
-  height: 100vh;
+  /* Offset the whole scroll container below the fixed navbar so its
+     boundingClientRect().top equals the navbar bottom. Use margin-top
+     (not padding) so the element's top moves. Also reduce max-height
+     so the content fits within the remaining viewport. */
+  margin: 0;
+  margin-top: var(--navbar-height, 0px);
+  height: calc(var(--vh, 1vh) * 100 - var(--navbar-height, 0px));
   overflow-x: hidden;
   overflow-y: auto;
-  margin: 0;
-  padding: 0;
 }
+
+/* On small/narrow viewports where the fixed-top navbar is active, make
+   the scroll container fixed so its top is exactly the navbar bottom.
+   This avoids cumulative margins/padding from other layout elements. */
+@media (max-width: 991px) {
+  .scroll-container {
+    position: fixed;
+    top: var(--navbar-height, 0px);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    max-height: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 1;
+  }
+}
+
+/* When the fixed-top navbar is visible on small screens, add top padding
+   so the navbar does not overlap the PDF viewer. The value is provided
+   by --navbar-height (set in main.ts). Fallback to 56px. */
+/* removed padding-top here; PdfViewer handles navbar offset */
 
 .pdf-viewer {
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  max-height: 100%;
+  overflow: auto;
   display: block;
   margin: 0 auto;
 }
@@ -184,7 +163,9 @@ watch(
   .pdf-viewer {
     width: 100vw;
     max-width: 100vw;
-    height: 100vh;
+    height: 100%;
+    max-height: 100%;
+    overflow: auto;
   }
 }
 </style>

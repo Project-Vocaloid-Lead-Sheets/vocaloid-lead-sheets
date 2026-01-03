@@ -1,0 +1,277 @@
+{
+  "toolbars": {
+    "main-toolbar": {
+      "id": "main-toolbar",
+      "position": {
+        "placement": "top",
+        "slot": "main",
+        "order": 0
+      },
+      "permanent": true,
+      "responsive": {
+        "localeOverrides": {
+          "groups": [
+            {
+              "id": "germanic-languages",
+              "locales": ["de", "nl"],
+              "breakpoints": {
+                "md": {
+                  "replaceShow": []
+                }
+              }
+            }
+          ]
+        },
+        "breakpoints": {
+          "xxxs": {
+            "maxWidth": 400,
+            "show": ["page-settings-button"],
+            "hide": [
+              "spread-single-button",
+              "spread-double-button",
+              "divider-spread-scroll",
+              "scroll-vertical-button",
+              "scroll-horizontal-button",
+              "document:print",
+              "document:export",
+              "zoom-fit-page-button",
+              "zoom-fit-width-button"
+            ]
+          },
+          "xxs": {
+            "minWidth": 400,
+            "show": ["page-settings-button"],
+            "hide": [
+              "spread-single-button",
+              "spread-double-button",
+              "divider-spread-scroll",
+              "scroll-vertical-button",
+              "scroll-horizontal-button",
+              "document:print",
+              "document:export",
+              "zoom-fit-page-button",
+              "zoom-fit-width-button"
+            ]
+          },
+          "xs": {
+            "minWidth": 500,
+            "maxWidth": 640,
+            "show": ["page-settings-button"],
+            "hide": [
+              "spread-single-button",
+              "spread-double-button",
+              "divider-spread-scroll",
+              "scroll-vertical-button",
+              "scroll-horizontal-button",
+              "document:print",
+              "document:export",
+              "zoom-fit-page-button",
+              "zoom-fit-width-button"
+            ]
+          },
+          "sm": {
+            "minWidth": 640,
+            "maxWidth": 768,
+            "show": ["page-settings-button"],
+            "hide": [
+              "spread-single-button",
+              "spread-double-button",
+              "divider-spread-scroll",
+              "scroll-vertical-button",
+              "scroll-horizontal-button",
+              "document:print",
+              "document:export",
+              "zoom-fit-page-button",
+              "zoom-fit-width-button"
+            ]
+          },
+          "md": {
+            "minWidth": 768,
+            "show": [
+              "spread-single-button",
+              "spread-double-button",
+              "divider-spread-scroll",
+              "scroll-vertical-button",
+              "scroll-horizontal-button",
+              "document:print",
+              "document:export",
+              "zoom-fit-page-button",
+              "zoom-fit-width-button"
+            ],
+            "hide": ["page-settings-button"]
+          },
+          "lg": {
+            "minWidth": 1024,
+            "show": [],
+            "hide": []
+          }
+        }
+      },
+      "items": [
+        {
+          "type": "group",
+          "id": "left-group",
+          "alignment": "start",
+          "gap": 2,
+          "items": [
+            {
+              "type": "command-button",
+              "id": "page-settings-button",
+              "commandId": "page:settings",
+              "variant": "icon"
+            },
+            {
+              "type": "command-button",
+              "id": "spread-single-button",
+              "commandId": "spread:none",
+              "variant": "icon",
+              "icon": "one-page"
+            },
+            {
+              "type": "command-button",
+              "id": "spread-double-button",
+              "commandId": "spread:odd",
+              "variant": "icon",
+              "icon": "two-page"
+            },
+            {
+              "type": "divider",
+              "id": "divider-spread-scroll",
+              "orientation": "vertical"
+            },
+            {
+              "type": "command-button",
+              "id": "scroll-vertical-button",
+              "commandId": "scroll:vertical",
+              "variant": "icon",
+              "icon": "scroll-vertical"
+            },
+            {
+              "type": "command-button",
+              "id": "scroll-horizontal-button",
+              "commandId": "scroll:horizontal",
+              "variant": "icon",
+              "icon": "scroll-horizontal"
+            }
+          ]
+        },
+        {
+          "type": "spacer",
+          "id": "spacer-1",
+          "flex": true
+        },
+        {
+          "type": "group",
+          "id": "center-group",
+          "alignment": "center",
+          "gap": 2,
+          "items": [
+            {
+              "type": "command-button",
+              "id": "zoom-fit-page-button",
+              "commandId": "zoom:fit-page",
+              "variant": "icon"
+            },
+            {
+              "type": "command-button",
+              "id": "zoom-fit-width-button",
+              "commandId": "zoom:fit-width",
+              "variant": "icon"
+            },
+            {
+              "type": "custom",
+              "id": "zoom-toolbar",
+              "componentId": "zoom-toolbar"
+            }
+          ]
+        },
+        {
+          "type": "spacer",
+          "id": "spacer-2",
+          "flex": true
+        },
+        {
+          "type": "group",
+          "id": "right-group",
+          "alignment": "end",
+          "gap": 2,
+          "items": [
+            {
+              "type": "command-button",
+              "id": "document:print",
+              "commandId": "document:print",
+              "variant": "icon"
+            },
+            {
+              "type": "command-button",
+              "id": "document:export",
+              "commandId": "document:export",
+              "variant": "icon"
+            },
+            {
+              "type": "command-button",
+              "id": "document:fullscreen",
+              "commandId": "document:fullscreen",
+              "variant": "icon"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "sidebars": {
+    "search-panel": {
+      "defaultOpen": false
+    },
+    "comment-panel": {
+      "defaultOpen": false
+    }
+  },
+  "menus": {
+    "page-settings-menu": {
+      "id": "page-settings-menu",
+      "items": [
+        {
+          "type": "section",
+          "id": "spread-mode-section",
+          "labelKey": "page.spreadMode",
+          "label": "Spread Mode",
+          "items": [
+            {
+              "type": "command",
+              "id": "spread:none",
+              "commandId": "spread:none"
+            },
+            {
+              "type": "command",
+              "id": "spread:odd",
+              "commandId": "spread:odd"
+            }
+          ]
+        },
+        {
+          "type": "divider",
+          "id": "divider-13"
+        },
+        {
+          "type": "section",
+          "id": "scroll-layout-section",
+          "labelKey": "page.scrollLayout",
+          "label": "Scroll Layout",
+          "items": [
+            {
+              "type": "command",
+              "id": "scroll:vertical",
+              "commandId": "scroll:vertical"
+            },
+            {
+              "type": "command",
+              "id": "scroll:horizontal",
+              "commandId": "scroll:horizontal"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
