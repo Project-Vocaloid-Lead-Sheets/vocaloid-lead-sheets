@@ -60,11 +60,7 @@ onMounted(async () => {
   <div class="home-page d-flex flex-column">
     <!-- Banner Section -->
     <div class="banner">
-      <img
-        src="@/assets/Project_Vocalead_Sheets_SameFontSize_Logo_copy-1.png"
-        alt="VocaLeads Logo"
-        class="banner-logo"
-      />
+      <img src="/public/logo.png" alt="VocaLeads Logo" class="banner-logo" />
       <div class="title-text">
         <h1>Project VocaLead Sheets</h1>
       </div>
