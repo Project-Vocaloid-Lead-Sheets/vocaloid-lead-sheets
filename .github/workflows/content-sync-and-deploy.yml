@@ -32,8 +32,9 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: .sync_state.json
-          key: sync-state-${{ github.ref }}
+          key: sync-state-${{ github.ref }}-latest
           restore-keys: |
+            sync-state-${{ github.ref }}-
             sync-state-
 
       - name: Set up Python
@@ -55,7 +56,7 @@ jobs:
         run: |
           output=$(python scripts/sheet_sync.py)
           echo "$output"
-          
+
           # Extract the changes status from output
           if echo "$output" | grep -q "SYNC_CHANGES_DETECTED=true"; then
             echo "changed=true" >> $GITHUB_OUTPUT
@@ -68,7 +69,7 @@ jobs:
         if: always()
         with:
           path: .sync_state.json
-          key: sync-state-${{ github.ref }}
+          key: sync-state-${{ github.ref }}-${{ github.run_id }}
 
       - name: Commit changes only when files changed
         if: steps.sync.outputs.changed == 'true'
