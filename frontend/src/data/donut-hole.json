@@ -14,7 +14,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=qnX2CdOBcDI"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/11gujxloS0KMY5tx5QgG_4XRuFEnqjcza/view",
     "Bb": "https://drive.google.com/file/d/10e9V30wHAmhBEG3tqTgi8L7susIL3G3W/view",
     "C": "https://drive.google.com/file/d/1sObp6Pw9nXGXM6ssl1Cy7STowtRrjPfs/view",
@@ -23,6 +23,16 @@
     "G": "https://drive.google.com/file/d/1ss6ER3Opf2sRno_ptt-Qrh8q7zygawkB/view",
     "Alto": "https://drive.google.com/file/d/11nXxY7QUPPqNFwzQz0qe-A4AuYjS7yYg/view",
     "Bass": "https://drive.google.com/file/d/1dvPdtOBenlwslHtoj9JEC2NxiMXtU3aS/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/donut-hole/donut-hole-vocals.pdf",
+    "Bb": "/pdfs/donut-hole/donut-hole-bb.pdf",
+    "C": "/pdfs/donut-hole/donut-hole-c.pdf",
+    "Eb": "/pdfs/donut-hole/donut-hole-eb.pdf",
+    "F": "/pdfs/donut-hole/donut-hole-f.pdf",
+    "G": "/pdfs/donut-hole/donut-hole-g.pdf",
+    "Alto": "/pdfs/donut-hole/donut-hole-alto.pdf",
+    "Bass": "/pdfs/donut-hole/donut-hole-bass.pdf"
   },
   "status": "completed"
 }

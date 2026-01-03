@@ -12,9 +12,13 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=i-DZukWFR64"
   },
-  "pdfs": {
+  "links": {
     "Bb": "https://drive.google.com/file/d/1MNEERVp-tGDifZfUX6fbsERJgVf7kbWV/view",
     "C": "https://drive.google.com/file/d/1z3BeJOvxosV_GUEA0ogW0VceCc-9yNW0/view"
+  },
+  "pdfs": {
+    "Bb": "/pdfs/telecaster-b-boy/telecaster-b-boy-bb.pdf",
+    "C": "/pdfs/telecaster-b-boy/telecaster-b-boy-c.pdf"
   },
   "status": "under review"
 }

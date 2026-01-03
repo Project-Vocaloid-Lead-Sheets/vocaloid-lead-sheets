@@ -16,7 +16,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=shs0rAiwsGQ"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/1b2lx33mqGgK_A6VGwqZ5L04ofdmeydJJ/view",
     "Bb": "https://drive.google.com/file/d/1IFWariUxCRxZAVHJcZW5DjhHfHN44V0P/view",
     "C": "https://drive.google.com/file/d/14tIDg_bHfJtqjerqI9W-9fBIhiShKvvN/view",
@@ -25,6 +25,16 @@
     "G": "https://drive.google.com/file/d/14mV5GFgBgZhaDJ2WsrLPRReyLkLOsvvi/view",
     "Alto": "https://drive.google.com/file/d/1mrQlK1hDmFP9MivDJ_zn0czBru5E28xF/view",
     "Bass": "https://drive.google.com/file/d/1vDMqpo-mKsKC82lh5y5AAfNDo8kT1hFB/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/senbonzakura/senbonzakura-vocals.pdf",
+    "Bb": "/pdfs/senbonzakura/senbonzakura-bb.pdf",
+    "C": "/pdfs/senbonzakura/senbonzakura-c.pdf",
+    "Eb": "/pdfs/senbonzakura/senbonzakura-eb.pdf",
+    "F": "/pdfs/senbonzakura/senbonzakura-f.pdf",
+    "G": "/pdfs/senbonzakura/senbonzakura-g.pdf",
+    "Alto": "/pdfs/senbonzakura/senbonzakura-alto.pdf",
+    "Bass": "/pdfs/senbonzakura/senbonzakura-bass.pdf"
   },
   "status": "completed"
 }

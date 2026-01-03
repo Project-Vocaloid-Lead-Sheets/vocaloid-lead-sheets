@@ -16,7 +16,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=7JANm3jOb2k"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/11GGp1Muh8MxDj1FEEgbOHl09kf3WrTLr/view",
     "Bb": "https://drive.google.com/file/d/1a_mkilM4WGJuHKdJiZhCnHTw_Hw41dxQ/view",
     "C": "https://drive.google.com/file/d/1Hf9CJVRfq31SlfEvME_rpQGstR0dh8Ud/view",
@@ -25,6 +25,16 @@
     "G": "https://drive.google.com/file/d/1pRMvu7nJYPwXJ7GrnPJlHTyTFoGbUbbh/view",
     "Alto": "https://drive.google.com/file/d/1emQL1oqxYVL5MFKelCRBXneYDk5K8Yt5/view",
     "Bass": "https://drive.google.com/file/d/1pW-MvI7SwV3tFIq0VOKGpUAdocSl6tQj/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/tale-of-the-deep-sea-lily/tale-of-the-deep-sea-lily-vocals.pdf",
+    "Bb": "/pdfs/tale-of-the-deep-sea-lily/tale-of-the-deep-sea-lily-bb.pdf",
+    "C": "/pdfs/tale-of-the-deep-sea-lily/tale-of-the-deep-sea-lily-c.pdf",
+    "Eb": "/pdfs/tale-of-the-deep-sea-lily/tale-of-the-deep-sea-lily-eb.pdf",
+    "F": "/pdfs/tale-of-the-deep-sea-lily/tale-of-the-deep-sea-lily-f.pdf",
+    "G": "/pdfs/tale-of-the-deep-sea-lily/tale-of-the-deep-sea-lily-g.pdf",
+    "Alto": "/pdfs/tale-of-the-deep-sea-lily/tale-of-the-deep-sea-lily-alto.pdf",
+    "Bass": "/pdfs/tale-of-the-deep-sea-lily/tale-of-the-deep-sea-lily-bass.pdf"
   },
   "status": "completed"
 }

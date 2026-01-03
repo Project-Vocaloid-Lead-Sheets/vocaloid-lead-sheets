@@ -12,7 +12,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=PqJNc9KVIZE"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/1LdkviCzbeLYTuZMhxRpv1awc-aT70aWj/view",
     "Bb": "https://drive.google.com/file/d/1WVHMQAMDYKE9LlJKxkvl92q2bGmPPvxD/view",
     "C": "https://drive.google.com/file/d/1ZKRCW9M3DWXMWu9tsrExlnV_WvZnztAM/view",
@@ -21,6 +21,16 @@
     "G": "https://drive.google.com/file/d/1hz3b8VEC-9m1YIYIURlD7t0rGBFK5Q3-/view",
     "Alto": "https://drive.google.com/file/d/1PwuYtdeEeilqUFiJZXdpq_0k8wa6dvT9/view",
     "Bass": "https://drive.google.com/file/d/1hJiElvX8U32UFGPnpaf7Rs2y0Jqd0LhA/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/tell-your-world/tell-your-world-vocals.pdf",
+    "Bb": "/pdfs/tell-your-world/tell-your-world-bb.pdf",
+    "C": "/pdfs/tell-your-world/tell-your-world-c.pdf",
+    "Eb": "/pdfs/tell-your-world/tell-your-world-eb.pdf",
+    "F": "/pdfs/tell-your-world/tell-your-world-f.pdf",
+    "G": "/pdfs/tell-your-world/tell-your-world-g.pdf",
+    "Alto": "/pdfs/tell-your-world/tell-your-world-alto.pdf",
+    "Bass": "/pdfs/tell-your-world/tell-your-world-bass.pdf"
   },
   "status": "completed"
 }

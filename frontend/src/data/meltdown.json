@@ -16,7 +16,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=dSw8CucthGc"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/1JKC9wEecOdQF7uSIdFQRO-LGT1MyQ9zC/view",
     "Bb": "https://drive.google.com/file/d/1MPqjcVoukT_TH9d9K7vctjMBfTiwWv4T/view",
     "C": "https://drive.google.com/file/d/1DRdb76E6trhS7pVeOi7QOoeqpT_hg3dy/view",
@@ -25,6 +25,16 @@
     "G": "https://drive.google.com/file/d/1jRrBHxqkDKXAMDu2hPNyzS6s94hUJM7K/view",
     "Alto": "https://drive.google.com/file/d/1ZQbxgzgtywwUlY-WRwF7heJkHUmKoz0O/view",
     "Bass": "https://drive.google.com/file/d/1sgWBbnYXv6d7zfKh-o8Cu2EtrUGEogN_/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/meltdown/meltdown-vocals.pdf",
+    "Bb": "/pdfs/meltdown/meltdown-bb.pdf",
+    "C": "/pdfs/meltdown/meltdown-c.pdf",
+    "Eb": "/pdfs/meltdown/meltdown-eb.pdf",
+    "F": "/pdfs/meltdown/meltdown-f.pdf",
+    "G": "/pdfs/meltdown/meltdown-g.pdf",
+    "Alto": "/pdfs/meltdown/meltdown-alto.pdf",
+    "Bass": "/pdfs/meltdown/meltdown-bass.pdf"
   },
   "status": "completed"
 }

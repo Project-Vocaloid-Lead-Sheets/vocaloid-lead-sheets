@@ -16,7 +16,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=19y8YTbvri8"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/1Yfr4vBiSw1UtuBdVxWnLbZmoBd3GbfzO/view",
     "Bb": "https://drive.google.com/file/d/1NdUkgXyfaFgaf3OaffdgKry40gEbQ0E3/view",
     "C": "https://drive.google.com/file/d/1RZCdHE76YwN9PhoAw-qqbYqT4vBveIB-/view",
@@ -25,6 +25,16 @@
     "G": "https://drive.google.com/file/d/1Y_DIBF9LlUv-9Uitbqd3RbF7JAEYRgw_/view",
     "Alto": "https://drive.google.com/file/d/12MA8E6wukFaVl58Up5Dvix9lfxLIaSav/view",
     "Bass": "https://drive.google.com/file/d/1Qe4mCvY1I6Z70mA-88XMYOMw2mc5kgfo/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/mesmerizer/mesmerizer-vocals.pdf",
+    "Bb": "/pdfs/mesmerizer/mesmerizer-bb.pdf",
+    "C": "/pdfs/mesmerizer/mesmerizer-c.pdf",
+    "Eb": "/pdfs/mesmerizer/mesmerizer-eb.pdf",
+    "F": "/pdfs/mesmerizer/mesmerizer-f.pdf",
+    "G": "/pdfs/mesmerizer/mesmerizer-g.pdf",
+    "Alto": "/pdfs/mesmerizer/mesmerizer-alto.pdf",
+    "Bass": "/pdfs/mesmerizer/mesmerizer-bass.pdf"
   },
   "status": "completed"
 }

@@ -14,7 +14,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=vnw8zURAxkU"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/1wAIjbMDulJhn4AM1zU36YHrIUZDkSZjg/view",
     "Bb": "https://drive.google.com/file/d/15wnPWsMGFQCrtQNeQWgJ_iEKuhzmN2aq/view",
     "C": "https://drive.google.com/file/d/1BRnAkFHcx5OEx2O3ShLZIZ361lyJRGyU/view",
@@ -23,6 +23,16 @@
     "G": "https://drive.google.com/file/d/1_uhaoIiSXQAMkwXT7Iefi9aBaOjDficY/view",
     "Alto": "https://drive.google.com/file/d/1rPaarjgumBafDfD_WHAa-ltGOLgka2gZ/view",
     "Bass": "https://drive.google.com/file/d/1dfQ9EbcugE_befYLP4kHsk2N9WAVbaoq/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/rolling-girl/rolling-girl-vocals.pdf",
+    "Bb": "/pdfs/rolling-girl/rolling-girl-bb.pdf",
+    "C": "/pdfs/rolling-girl/rolling-girl-c.pdf",
+    "Eb": "/pdfs/rolling-girl/rolling-girl-eb.pdf",
+    "F": "/pdfs/rolling-girl/rolling-girl-f.pdf",
+    "G": "/pdfs/rolling-girl/rolling-girl-g.pdf",
+    "Alto": "/pdfs/rolling-girl/rolling-girl-alto.pdf",
+    "Bass": "/pdfs/rolling-girl/rolling-girl-bass.pdf"
   },
   "status": "completed"
 }

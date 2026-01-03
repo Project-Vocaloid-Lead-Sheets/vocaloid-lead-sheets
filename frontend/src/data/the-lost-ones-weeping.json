@@ -16,7 +16,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=8oBV3jPTW4s"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/1Gcg15vviiNSM2jQdNhFRD7tH4MqVzvVY/view",
     "Bb": "https://drive.google.com/file/d/1FNFSRUY1YfSFWB3fdmKH_CcSiu7R6K5R/view",
     "C": "https://drive.google.com/file/d/1jB11mjGYezW40dBp45ifQQ4wWKXQDWmg/view",
@@ -25,6 +25,16 @@
     "G": "https://drive.google.com/file/d/19gJgoAqmRTJ7UWQuUjb-9lCASf2mtYV8/view",
     "Alto": "https://drive.google.com/file/d/1pdg6zewR2X1sGKc8CG-K-geQqEHmtB9s/view",
     "Bass": "https://drive.google.com/file/d/1oJHk420o4g-u9KhcRjfjterXxZ3VQdbv/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/the-lost-ones-weeping/the-lost-ones-weeping-vocals.pdf",
+    "Bb": "/pdfs/the-lost-ones-weeping/the-lost-ones-weeping-bb.pdf",
+    "C": "/pdfs/the-lost-ones-weeping/the-lost-ones-weeping-c.pdf",
+    "Eb": "/pdfs/the-lost-ones-weeping/the-lost-ones-weeping-eb.pdf",
+    "F": "/pdfs/the-lost-ones-weeping/the-lost-ones-weeping-f.pdf",
+    "G": "/pdfs/the-lost-ones-weeping/the-lost-ones-weeping-g.pdf",
+    "Alto": "/pdfs/the-lost-ones-weeping/the-lost-ones-weeping-alto.pdf",
+    "Bass": "/pdfs/the-lost-ones-weeping/the-lost-ones-weeping-bass.pdf"
   },
   "status": "completed"
 }

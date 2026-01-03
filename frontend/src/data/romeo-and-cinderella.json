@@ -16,9 +16,13 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=9HrOqmiEsN8"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/1xHK_DrGTXe1-0w8QcdpsFuO8K3Iqb069/view",
     "C": "https://drive.google.com/file/d/1ZPEA2NHfD3byogPqwinN4RvhslKXQrn0/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/romeo-and-cinderella/romeo-and-cinderella-vocals.pdf",
+    "C": "/pdfs/romeo-and-cinderella/romeo-and-cinderella-c.pdf"
   },
   "status": "under review"
 }

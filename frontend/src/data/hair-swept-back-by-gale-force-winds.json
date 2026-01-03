@@ -14,7 +14,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=D6DVTLvOupE"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/1ut7zDwiabtbq9KoExphFBbZq-ltYxhpd/view",
     "Bb": "https://drive.google.com/file/d/1ipzoTMkMi8MiN5i0EBmcImXjUCPQ26Fc/view",
     "C": "https://drive.google.com/file/d/18KaxyK2oV8qfs4HljeWOCd848jG3UDTe/view",
@@ -23,6 +23,16 @@
     "G": "https://drive.google.com/file/d/1tLuT5atlsSijuXQ_eh2d5O5HEYtjuSuk/view",
     "Alto": "https://drive.google.com/file/d/13E34P19WhiWkRz1Ikgh92dDKuSMXN30C/view",
     "Bass": "https://drive.google.com/file/d/1PwzEL5Z69Kdes83NCet0N5zamBd1E3KB/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-vocals.pdf",
+    "Bb": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-bb.pdf",
+    "C": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-c.pdf",
+    "Eb": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-eb.pdf",
+    "F": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-f.pdf",
+    "G": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-g.pdf",
+    "Alto": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-alto.pdf",
+    "Bass": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-bass.pdf"
   },
   "status": "completed"
 }

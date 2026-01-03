@@ -12,7 +12,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=UnIhRpIT7nc"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/1L-S6hERywkyNSOPoFT3ZHIpOUGJcG8ma/view",
     "Bb": "https://drive.google.com/file/d/1VEB4Xk4TDWM3_678E_8YO6KR1I-xbkJH/view",
     "C": "https://drive.google.com/file/d/1AzZWeMPrv-h1DnglZd28ejMQfnSJQaER/view",
@@ -21,6 +21,16 @@
     "G": "https://drive.google.com/file/d/1FlOxopR8BkyTT4EzLePmpG9Z_dNhmoCi/view",
     "Alto": "https://drive.google.com/file/d/1G6Pygk4SaOK5s8gpNcQSW2RGBbFXd7V8/view",
     "Bass": "https://drive.google.com/file/d/1wo3ccElOaEm5M5CeXvQZy-u_JIWPWZjz/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/lagtrain/lagtrain-vocals.pdf",
+    "Bb": "/pdfs/lagtrain/lagtrain-bb.pdf",
+    "C": "/pdfs/lagtrain/lagtrain-c.pdf",
+    "Eb": "/pdfs/lagtrain/lagtrain-eb.pdf",
+    "F": "/pdfs/lagtrain/lagtrain-f.pdf",
+    "G": "/pdfs/lagtrain/lagtrain-g.pdf",
+    "Alto": "/pdfs/lagtrain/lagtrain-alto.pdf",
+    "Bass": "/pdfs/lagtrain/lagtrain-bass.pdf"
   },
   "status": "completed"
 }

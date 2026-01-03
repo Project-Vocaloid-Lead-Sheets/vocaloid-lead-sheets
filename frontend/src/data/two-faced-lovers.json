@@ -17,7 +17,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=b_cuMcDWwsI"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/1dtIFlaKvdroDh0CZeTkRjn9B5LOldM6q/view",
     "Bb": "https://drive.google.com/file/d/15BW7iOq8f99566-vYR3iHvqZmS73syE9/view",
     "C": "https://drive.google.com/file/d/1DXncFPY2ivXDIPcYkygCEkOSTe6HCzba/view",
@@ -26,6 +26,16 @@
     "G": "https://drive.google.com/file/d/16VLJD3RQdUuQmuVoabE0LnZZDVtCqR7T/view",
     "Alto": "https://drive.google.com/file/d/1LFeTPs3rGNzTzs50KSQCBWAk_356BWzM/view",
     "Bass": "https://drive.google.com/file/d/1px0CJbJS7LT8yYKPdkleuaInXQoheoFZ/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/two-faced-lovers/two-faced-lovers-vocals.pdf",
+    "Bb": "/pdfs/two-faced-lovers/two-faced-lovers-bb.pdf",
+    "C": "/pdfs/two-faced-lovers/two-faced-lovers-c.pdf",
+    "Eb": "/pdfs/two-faced-lovers/two-faced-lovers-eb.pdf",
+    "F": "/pdfs/two-faced-lovers/two-faced-lovers-f.pdf",
+    "G": "/pdfs/two-faced-lovers/two-faced-lovers-g.pdf",
+    "Alto": "/pdfs/two-faced-lovers/two-faced-lovers-alto.pdf",
+    "Bass": "/pdfs/two-faced-lovers/two-faced-lovers-bass.pdf"
   },
   "status": "completed"
 }

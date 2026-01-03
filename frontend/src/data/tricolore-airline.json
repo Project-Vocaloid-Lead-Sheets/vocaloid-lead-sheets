@@ -12,7 +12,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=apyfJ_Y10RQ"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/1TZKkuJLgYU45wv-0Myf50_e4PT_RxlLN/view",
     "Bb": "https://drive.google.com/file/d/1tyNGE1Y22csCBVzPNYX7TPHSOaAxaPrT/view",
     "C": "https://drive.google.com/file/d/1sI63cKk5Oi6S47ln58O9MpiJvCk7PSni/view",
@@ -21,6 +21,16 @@
     "G": "https://drive.google.com/file/d/12QOMuKXJBcRKatK_5EaoWS1ljTq0xV_c/view",
     "Alto": "https://drive.google.com/file/d/1YY-NBTQrPKZ-Vvso72h607nAy2gjIx3J/view",
     "Bass": "https://drive.google.com/file/d/1pjuPtZMCjJvJNprPGi6A_HMg1oTyCU1L/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/tricolore-airline/tricolore-airline-vocals.pdf",
+    "Bb": "/pdfs/tricolore-airline/tricolore-airline-bb.pdf",
+    "C": "/pdfs/tricolore-airline/tricolore-airline-c.pdf",
+    "Eb": "/pdfs/tricolore-airline/tricolore-airline-eb.pdf",
+    "F": "/pdfs/tricolore-airline/tricolore-airline-f.pdf",
+    "G": "/pdfs/tricolore-airline/tricolore-airline-g.pdf",
+    "Alto": "/pdfs/tricolore-airline/tricolore-airline-alto.pdf",
+    "Bass": "/pdfs/tricolore-airline/tricolore-airline-bass.pdf"
   },
   "status": "completed"
 }

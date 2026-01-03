@@ -14,7 +14,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=vSnKX7kAgIc"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/1kEzo4WHsttxH_YbGlmE80_2RcJSihumT/view",
     "Bb": "https://drive.google.com/file/d/1PWiO2QJvjzlHlEdZuFsvHjjJn2_gLovi/view",
     "C": "https://drive.google.com/file/d/1fyb2JxFBl5qVQWILoclCjQOsKBWbgf43/view",
@@ -23,6 +23,16 @@
     "G": "https://drive.google.com/file/d/1FxvmhV9pAM2Yyzf8uphGgciegHARPFAB/view",
     "Alto": "https://drive.google.com/file/d/117vtTWw0QNseUHqwZ1g1vergAzTVMnO_/view",
     "Bass": "https://drive.google.com/file/d/1ohB7Siym-j01V4i_HlXFvEBtM1OiULHq/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/magnet/magnet-vocals.pdf",
+    "Bb": "/pdfs/magnet/magnet-bb.pdf",
+    "C": "/pdfs/magnet/magnet-c.pdf",
+    "Eb": "/pdfs/magnet/magnet-eb.pdf",
+    "F": "/pdfs/magnet/magnet-f.pdf",
+    "G": "/pdfs/magnet/magnet-g.pdf",
+    "Alto": "/pdfs/magnet/magnet-alto.pdf",
+    "Bass": "/pdfs/magnet/magnet-bass.pdf"
   },
   "status": "completed"
 }

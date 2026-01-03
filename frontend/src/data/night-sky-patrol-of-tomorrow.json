@@ -16,7 +16,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=XogSflwXgpw"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/17yfHGGDwBbXSL_P9kg7lylJOBD3vWR1F/view",
     "Bb": "https://drive.google.com/file/d/1wFYDR2bI_4H8r_A1WdwW08lWPz8a3NYd/view",
     "C": "https://drive.google.com/file/d/1CcH8ttNxo7n0C-59x1IJvqJgrqPQCyvW/view",
@@ -25,6 +25,16 @@
     "G": "https://drive.google.com/file/d/1zXBuUDLtwDOKzIvghKSOJrlieDTZgArb/view",
     "Alto": "https://drive.google.com/file/d/19ayjIw9gCA_a5o0k7eTtyR8hazooahll/view",
     "Bass": "https://drive.google.com/file/d/14OcpqaKRRnnDX7-5Dg_8sQpcYfLn6-hW/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/night-sky-patrol-of-tomorrow/night-sky-patrol-of-tomorrow-vocals.pdf",
+    "Bb": "/pdfs/night-sky-patrol-of-tomorrow/night-sky-patrol-of-tomorrow-bb.pdf",
+    "C": "/pdfs/night-sky-patrol-of-tomorrow/night-sky-patrol-of-tomorrow-c.pdf",
+    "Eb": "/pdfs/night-sky-patrol-of-tomorrow/night-sky-patrol-of-tomorrow-eb.pdf",
+    "F": "/pdfs/night-sky-patrol-of-tomorrow/night-sky-patrol-of-tomorrow-f.pdf",
+    "G": "/pdfs/night-sky-patrol-of-tomorrow/night-sky-patrol-of-tomorrow-g.pdf",
+    "Alto": "/pdfs/night-sky-patrol-of-tomorrow/night-sky-patrol-of-tomorrow-alto.pdf",
+    "Bass": "/pdfs/night-sky-patrol-of-tomorrow/night-sky-patrol-of-tomorrow-bass.pdf"
   },
   "status": "completed"
 }

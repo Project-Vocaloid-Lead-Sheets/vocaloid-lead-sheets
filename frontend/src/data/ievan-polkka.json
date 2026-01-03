@@ -12,7 +12,7 @@
   "labels": [],
   "transcriber": "stellarlights",
   "videoLinks": {},
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/1eUtcGc0yFZH2lyxvLD891J8HvPRBvT56/view",
     "Bb": "https://drive.google.com/file/d/1ghTz7ULKBABlfSuyvauv7KAck5DlTtHL/view",
     "C": "https://drive.google.com/file/d/1doLQykJQGPv41FCO5SdBb6ECkbNK6s4I/view",
@@ -21,6 +21,16 @@
     "G": "https://drive.google.com/file/d/1YjXeUwHErub-S19zm7HgrLVBRsyeZYfU/view",
     "Alto": "https://drive.google.com/file/d/1xkQummMdFklewm_aA45XQA396yHdTKo4/view",
     "Bass": "https://drive.google.com/file/d/15wHQTia86BlpGTUDSK6MSJe3EJRtYTog/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/ievan-polkka/ievan-polkka-vocals.pdf",
+    "Bb": "/pdfs/ievan-polkka/ievan-polkka-bb.pdf",
+    "C": "/pdfs/ievan-polkka/ievan-polkka-c.pdf",
+    "Eb": "/pdfs/ievan-polkka/ievan-polkka-eb.pdf",
+    "F": "/pdfs/ievan-polkka/ievan-polkka-f.pdf",
+    "G": "/pdfs/ievan-polkka/ievan-polkka-g.pdf",
+    "Alto": "/pdfs/ievan-polkka/ievan-polkka-alto.pdf",
+    "Bass": "/pdfs/ievan-polkka/ievan-polkka-bass.pdf"
   },
   "status": "completed"
 }

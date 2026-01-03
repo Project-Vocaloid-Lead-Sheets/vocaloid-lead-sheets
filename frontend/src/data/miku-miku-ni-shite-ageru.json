@@ -16,7 +16,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=HYxWRTPn9vM"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/1YfkhFrggNq86zQ-z7Hz5LT1X5zsFrLJc/view",
     "Bb": "https://drive.google.com/file/d/1EvmJN0RgKpnR2a36wvLQCPfRnHYP43E1/view",
     "C": "https://drive.google.com/file/d/1yWdmSPuOVRvKmX64aCRh_P-3UzpZqr9E/view",
@@ -25,6 +25,16 @@
     "G": "https://drive.google.com/file/d/19pGsEZYoD9u3IXOQtKK1-ixEdMxSi8Rr/view",
     "Alto": "https://drive.google.com/file/d/1pKLcsWmgCzhRJ0rvu-CWIlAG7V8wgYh3/view",
     "Bass": "https://drive.google.com/file/d/1h9KbldX0VdR-RqxR_LU-WExajK1GIIn9/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/miku-miku-ni-shite-ageru/miku-miku-ni-shite-ageru-vocals.pdf",
+    "Bb": "/pdfs/miku-miku-ni-shite-ageru/miku-miku-ni-shite-ageru-bb.pdf",
+    "C": "/pdfs/miku-miku-ni-shite-ageru/miku-miku-ni-shite-ageru-c.pdf",
+    "Eb": "/pdfs/miku-miku-ni-shite-ageru/miku-miku-ni-shite-ageru-eb.pdf",
+    "F": "/pdfs/miku-miku-ni-shite-ageru/miku-miku-ni-shite-ageru-f.pdf",
+    "G": "/pdfs/miku-miku-ni-shite-ageru/miku-miku-ni-shite-ageru-g.pdf",
+    "Alto": "/pdfs/miku-miku-ni-shite-ageru/miku-miku-ni-shite-ageru-alto.pdf",
+    "Bass": "/pdfs/miku-miku-ni-shite-ageru/miku-miku-ni-shite-ageru-bass.pdf"
   },
   "status": "completed"
 }

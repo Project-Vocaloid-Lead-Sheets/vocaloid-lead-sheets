@@ -12,7 +12,7 @@
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=NocXEwsJGOQ"
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/1SbJUtcPib4WRxA2lHc-rKc9U94r-yHML/view",
     "Bb": "https://drive.google.com/file/d/1pqRDeOa48iIGnMdD4755eeKwhNdC9o8f/view",
     "C": "https://drive.google.com/file/d/1waABIZtJkPvos37KmYsh_0EpyaTYS9T2/view",
@@ -21,6 +21,16 @@
     "G": "https://drive.google.com/file/d/1KwX--8BT7iru-DtL2n3-4O_K4M46Mb3P/view",
     "Alto": "https://drive.google.com/file/d/1S0mDiShsMIQcDzp5Ghk_ElpIN1Mc79SX/view",
     "Bass": "https://drive.google.com/file/d/1SmEfFeYXOs6INCyfBIRdgVo82rhqCec8/view"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/miku/miku-vocals.pdf",
+    "Bb": "/pdfs/miku/miku-bb.pdf",
+    "C": "/pdfs/miku/miku-c.pdf",
+    "Eb": "/pdfs/miku/miku-eb.pdf",
+    "F": "/pdfs/miku/miku-f.pdf",
+    "G": "/pdfs/miku/miku-g.pdf",
+    "Alto": "/pdfs/miku/miku-alto.pdf",
+    "Bass": "/pdfs/miku/miku-bass.pdf"
   },
   "status": "completed"
 }
