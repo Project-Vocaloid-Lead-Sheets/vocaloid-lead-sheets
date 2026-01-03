@@ -746,26 +746,6 @@ export type SongFilename = typeof SONG_MANIFEST[number]
         except Exception as e:
             logger.warning(f"Failed to write generated manifest: {e}")
 
-        # Try to also capture the remote sheet modified time so CI can short-circuit
-        try:
-            sheet_modified = None
-            if hasattr(self, 'spreadsheet_id') and self.spreadsheet_id:
-                sheet_modified = self.get_remote_sheet_modified_time()
-
-            if sheet_modified:
-                try:
-                    # Re-read manifest and include sheetModifiedTime for persistence
-                    with open(self.generated_manifest_path, 'r', encoding='utf-8') as f:
-                        generated_manifest = json.load(f)
-                    generated_manifest['sheetModifiedTime'] = sheet_modified
-                    with open(self.generated_manifest_path, 'w', encoding='utf-8') as f:
-                        json.dump(generated_manifest, f, ensure_ascii=False, sort_keys=True, separators=(',', ':'))
-                    logger.info(f"Annotated generated manifest with sheetModifiedTime: {sheet_modified}")
-                except Exception as e:
-                    logger.warning(f"Failed to annotate generated manifest with modified time: {e}")
-        except Exception:
-            # Non-fatal if we cannot fetch modified time
-            pass
 
     def get_remote_sheet_modified_time(self) -> Optional[str]:
         """Fetch the remote spreadsheet's modifiedTime from the Drive API."""
@@ -806,17 +786,23 @@ export type SongFilename = typeof SONG_MANIFEST[number]
             logger.warning(f"Failed to read generated manifest: {e}")
         return {}
 
-    def save_sync_state(self, songs_hash: str, total_songs: int = 0, forced: bool = False) -> None:
-        """Save current sync state"""
+    def save_sync_state(self, content_hash: str = '', sheet_modified_time: str = '', total_songs: int = 0, forced: bool = False, changes_written: bool = False) -> None:
+        """Save current sync state to .sync_state.json (not committed)"""
+        # Read existing state to preserve lastSync if no changes
+        existing_state = self.get_sync_state()
+        
         state = {
-            'lastSync': datetime.now().isoformat(),
-            'songsHash': songs_hash,
+            'lastCheck': datetime.now().isoformat(),
+            'lastSync': datetime.now().isoformat() if changes_written else existing_state.get('lastSync', datetime.now().isoformat()),
+            'contentHash': content_hash,
+            'sheetModifiedTime': sheet_modified_time,
             'totalSongs': total_songs,
             'forcedSync': forced
         }
         
         with open(self.sync_state_file, 'w') as f:
             json.dump(state, f, indent=2)
+        logger.info(f"Updated sync state: content_hash={content_hash[:8]}..., sheet_time={sheet_modified_time}")
 
     def get_sync_state(self) -> Dict[str, Any]:
         """Get last sync state"""
@@ -830,40 +816,157 @@ export type SongFilename = typeof SONG_MANIFEST[number]
         songs_str = json.dumps(songs, sort_keys=True)
         return hashlib.md5(songs_str.encode()).hexdigest()
 
-    def sync(self) -> None:
-        """Main sync function"""
+    def calculate_content_hash(self, grouped_songs: Dict[str, Dict[str, Any]]) -> str:
+        """Calculate deterministic hash of the content that would be written to disk"""
+        # Create a deterministic representation of all files that would be written
+        content_dict = {}
+        for title, song_data in sorted(grouped_songs.items()):
+            filename = f"{self.slugify(title)}.json"
+            frontend_data = {
+                'title': song_data['title'],
+                'alternativeNames': song_data.get('alternativeNames', []),
+                'producer': song_data['producer'],
+                'additionalProducers': song_data.get('additionalProducers', []),
+                'singer': song_data['singer'],
+                'additionalVoices': song_data.get('additionalVoices', []),
+                'releaseDate': song_data['releaseDate'],
+                'bpm': song_data.get('bpm'),
+                'labels': song_data.get('labels', []),
+                'transcriber': song_data.get('transcriber', ''),
+                'videoLinks': song_data['videoLinks'],
+                'links': song_data.get('links', {}),
+                'pdfs': song_data['pdfs'],
+                'status': song_data.get('metadata', {}).get('status', 'completed')
+            }
+            content_dict[filename] = frontend_data
+        
+        # Generate deterministic JSON and hash it
+        content_json = json.dumps(content_dict, sort_keys=True, ensure_ascii=False, separators=(',', ':'))
+        return hashlib.sha256(content_json.encode()).hexdigest()
+
+    def calculate_hash_from_existing_files(self) -> Optional[str]:
+        """Calculate hash from files already committed to the repo (for bootstrap)"""
+        try:
+            if not os.path.exists(self.frontend_data_dir):
+                return None
+            
+            # Read all existing JSON files
+            content_dict = {}
+            json_files = [f for f in os.listdir(self.frontend_data_dir) if f.endswith('.json') and f != 'generated-manifest.json']
+            
+            if not json_files:
+                return None
+            
+            for filename in sorted(json_files):
+                filepath = os.path.join(self.frontend_data_dir, filename)
+                try:
+                    with open(filepath, 'r', encoding='utf-8') as f:
+                        content_dict[filename] = json.load(f)
+                except Exception as e:
+                    logger.warning(f"Failed to read {filename} for hash: {e}")
+                    return None
+            
+            # Generate same deterministic hash as calculate_content_hash
+            content_json = json.dumps(content_dict, sort_keys=True, ensure_ascii=False, separators=(',', ':'))
+            return hashlib.sha256(content_json.encode()).hexdigest()
+            
+        except Exception as e:
+            logger.warning(f"Failed to calculate hash from existing files: {e}")
+            return None
+
+    def sync(self) -> bool:
+        """Main sync function. Returns True if content changed (commit needed), False if no changes."""
         try:
             logger.info("Starting Google Sheet sync...")
             
             # Set up connection
             self.setup_google_sheets()
             
-            # Fetch accepted songs
-            songs = self.fetch_accepted_songs()
-            
-            # Check if anything changed
-            current_hash = self.calculate_songs_hash(songs)
+            # Step 1: Quick check - compare cached sheet time with current
+            current_sheet_time = self.get_remote_sheet_modified_time() or ''
             last_state = self.get_sync_state()
+            last_sheet_time = last_state.get('sheetModifiedTime', '')
+            # Bootstrap mode: No cache but files exist (first CI run after local commit)
+            if not last_state and os.path.exists(self.frontend_data_dir):
+                logger.info("🔄 Bootstrap mode: No cache found but files exist. Calculating hash from committed files...")
+                existing_hash = self.calculate_hash_from_existing_files()
+    
+                if existing_hash:
+                    # Count existing JSON files
+                    json_files = [f for f in os.listdir(self.frontend_data_dir) 
+                                    if f.endswith('.json') and f != 'generated-manifest.json']
+        
+                    logger.info(f"✅ Bootstrap complete: Found {len(json_files)} existing songs, hash={existing_hash[:8]}...")
+        
+                    # Save bootstrap state
+                    self.save_sync_state(
+                        content_hash=existing_hash,
+                        sheet_modified_time=current_sheet_time,
+                        total_songs=len(json_files),
+                        forced=False,
+                        changes_written=False
+                    )
+        
+                    # Now continue with normal flow to check if sheet has changes
+                    last_state = self.get_sync_state()
+                else:
+                    logger.warning("⚠️ Bootstrap failed: Could not read existing files. Proceeding with full sync.")
             
-            if not self.force_sync and current_hash == last_state.get('songsHash'):
-                logger.info("No changes detected. Skipping sync. Use --force to sync anyway.")
-                return
             
-            if self.force_sync:
-                logger.info(f"Force sync enabled. Processing {len(songs)} songs...")
-            else:
-                logger.info(f"Changes detected. Processing {len(songs)} songs...")
+            if not self.force_sync and current_sheet_time and current_sheet_time == last_sheet_time:
+                logger.info(f"Sheet hasn't been modified since last sync ({current_sheet_time}). Skipping.")
+                # Update lastCheck but not lastSync (no changes written)
+                self.save_sync_state(
+                    content_hash=old_content_hash,
+                    sheet_modified_time=current_sheet_time,
+                    total_songs=last_state.get('totalSongs', 0),
+                    forced=False,
+                    changes_written=False
+                )
+                return False  # No changes detected
             
-            # Group and process songs
+            logger.info(f"Sheet modified time changed: {last_sheet_time} -> {current_sheet_time}")
+            
+            # Step 2: Fetch and process data
+            songs = self.fetch_accepted_songs()
             grouped_songs = self.group_and_merge_songs(songs)
             
-            # Generate frontend JSON files only
+            # Step 3: Compute content hash
+            new_content_hash = self.calculate_content_hash(grouped_songs)
+            old_content_hash = last_state.get('contentHash', '')
+            
+            # Step 4: Check if content actually changed
+            if not self.force_sync and new_content_hash == old_content_hash:
+                logger.info("Sheet time changed but content is identical. Updating cache time only.")
+                # Update cache with new time but don't write files or commit (no changes)
+                self.save_sync_state(
+                    content_hash=new_content_hash,
+                    sheet_modified_time=current_sheet_time,
+                    total_songs=len(songs),
+                    forced=False,
+                    changes_written=False
+                )
+                return False  # No changes in actual content
+            
+            # Step 5: Content changed - write files and prepare for commit
+            if self.force_sync:
+                logger.info(f"Force sync enabled. Writing {len(grouped_songs)} songs...")
+            else:
+                logger.info(f"Content changed (hash: {old_content_hash[:8]}... -> {new_content_hash[:8]}...). Writing files.")
+            
             self.update_frontend_files(grouped_songs)
             
-            # Save sync state (record the computed hash and total songs)
-            self.save_sync_state(current_hash, total_songs=len(songs), forced=self.force_sync)
+            # Update cache with new time and hash - changes were written
+            self.save_sync_state(
+                content_hash=new_content_hash,
+                sheet_modified_time=current_sheet_time,
+                total_songs=len(songs),
+                forced=self.force_sync,
+                changes_written=True
+            )
             
-            logger.info(f"Sync completed successfully! Processed {len(grouped_songs)} unique songs.")
+            logger.info(f"✅ Sync completed! {len(grouped_songs)} songs written. Commit required.")
+            return True  # Changes detected - commit needed
             
         except Exception as e:
             logger.error(f"Sync failed: {e}")
@@ -924,7 +1027,13 @@ def main():
             sys.exit(2)
 
     # Default behavior: run full sync
-    sync_manager.sync()
+    has_changes = sync_manager.sync()
+    
+    # Output result for GitHub Actions to capture
+    print(f"SYNC_CHANGES_DETECTED={str(has_changes).lower()}")
+    
+    # Return 0 for success (standard Unix convention)
+    sys.exit(0)
 
 if __name__ == "__main__":
     main()
