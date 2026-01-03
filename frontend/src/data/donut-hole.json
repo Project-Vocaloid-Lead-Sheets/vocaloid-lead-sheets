@@ -7,9 +7,7 @@
   "additionalVoices": [],
   "releaseDate": "20131028",
   "bpm": 126,
-  "labels": [
-    "Hall of Myths"
-  ],
+  "labels": ["Hall of Myths"],
   "transcriber": "Nap1400",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=qnX2CdOBcDI"
@@ -34,5 +32,6 @@
     "Alto": "/pdfs/donut-hole/donut-hole-alto.pdf",
     "Bass": "/pdfs/donut-hole/donut-hole-bass.pdf"
   },
-  "status": "completed"
+  "status": "completed",
+  "syncedAt": "2025-11-05T00:48:25Z"
 }

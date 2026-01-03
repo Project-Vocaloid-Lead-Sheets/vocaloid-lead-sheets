@@ -7,9 +7,7 @@
   "additionalVoices": [],
   "releaseDate": "20100214",
   "bpm": 195,
-  "labels": [
-    "Hall of Myths"
-  ],
+  "labels": ["Hall of Myths"],
   "transcriber": "Nap1400",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=vnw8zURAxkU"
@@ -34,5 +32,6 @@
     "Alto": "/pdfs/rolling-girl/rolling-girl-alto.pdf",
     "Bass": "/pdfs/rolling-girl/rolling-girl-bass.pdf"
   },
-  "status": "completed"
+  "status": "completed",
+  "syncedAt": "2025-11-05T00:48:25Z"
 }

@@ -10,10 +10,7 @@
   "additionalVoices": [],
   "releaseDate": "20120411",
   "bpm": 186,
-  "labels": [
-    "Hall of Myths",
-    "Challenging"
-  ],
+  "labels": ["Hall of Myths", "Challenging"],
   "transcriber": "Tarediiran",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=Om3MTou2kPg"
@@ -38,5 +35,6 @@
     "Alto": "/pdfs/six-trillion-years-and-overnight-story/six-trillion-years-and-overnight-story-alto.pdf",
     "Bass": "/pdfs/six-trillion-years-and-overnight-story/six-trillion-years-and-overnight-story-bass.pdf"
   },
-  "status": "completed"
+  "status": "completed",
+  "syncedAt": "2025-12-02T01:49:00Z"
 }

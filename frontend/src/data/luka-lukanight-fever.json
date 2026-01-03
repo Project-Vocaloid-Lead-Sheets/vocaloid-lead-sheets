@@ -7,9 +7,7 @@
   "additionalVoices": [],
   "releaseDate": "20090212",
   "bpm": 155,
-  "labels": [
-    "SAM Night Series"
-  ],
+  "labels": ["SAM Night Series"],
   "transcriber": "stellarlights",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=ScSW9C3DF18"
@@ -34,5 +32,6 @@
     "Alto": "/pdfs/luka-lukanight-fever/luka-lukanight-fever-alto.pdf",
     "Bass": "/pdfs/luka-lukanight-fever/luka-lukanight-fever-bass.pdf"
   },
-  "status": "completed"
+  "status": "completed",
+  "syncedAt": "2025-12-25T02:57:09Z"
 }

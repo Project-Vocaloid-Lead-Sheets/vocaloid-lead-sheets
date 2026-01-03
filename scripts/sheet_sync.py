@@ -658,6 +658,9 @@ class SongSyncManager:
         
         # Track all referenced PDF paths for cleanup
         referenced_pdfs = set()
+
+        # Single run timestamp used when a song is new or changed
+        synced_at_now = datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
         
         # Update individual JSON files
         for title, song_data in grouped_songs.items():
@@ -689,8 +692,26 @@ class SongSyncManager:
                 'videoLinks': song_data['videoLinks'],
                 'links': song_data.get('links', {}),
                 'pdfs': song_data['pdfs'],
-                'status': song_data.get('metadata', {}).get('status', 'completed')
+                'status': song_data.get('metadata', {}).get('status', 'completed'),
             }
+
+            # Preserve existing syncedAt if the file content (excluding syncedAt) has not changed
+            existing_synced_at = None
+            existing_core = None
+            if os.path.exists(filepath):
+                try:
+                    with open(filepath, 'r', encoding='utf-8') as f:
+                        existing_json = json.load(f)
+                        existing_synced_at = existing_json.get('syncedAt')
+                        # Drop syncedAt before comparison
+                        existing_core = {k: v for k, v in existing_json.items() if k != 'syncedAt'}
+                except Exception as e:
+                    logger.warning(f"Failed to read existing song file for sync preservation: {filepath} ({e})")
+
+            if existing_core is not None and existing_core == frontend_data and existing_synced_at:
+                frontend_data['syncedAt'] = existing_synced_at
+            else:
+                frontend_data['syncedAt'] = synced_at_now
             
  
             with open(filepath, 'w', encoding='utf-8') as f:

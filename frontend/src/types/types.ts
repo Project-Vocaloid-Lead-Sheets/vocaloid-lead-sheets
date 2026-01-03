@@ -15,4 +15,5 @@ export interface Song {
   videoLinks?: Partial<Record<string, string>> // { "YouTube" : "youtube.com/..."}
   pdfs: Partial<Record<Instrument, string>> // Maps instrument/key to PDF URL
   status?: string // "completed" or "under review"
+  syncedAt?: string // ISO 8601 timestamp of when song was last synced/added
 }

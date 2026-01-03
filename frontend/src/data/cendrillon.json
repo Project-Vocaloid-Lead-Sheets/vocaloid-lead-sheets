@@ -4,9 +4,7 @@
   "producer": "Signal-P",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
-  "additionalVoices": [
-    "KAITO"
-  ],
+  "additionalVoices": ["KAITO"],
   "releaseDate": "20080825",
   "bpm": 140,
   "labels": [],
@@ -32,5 +30,6 @@
     "Alto": "/pdfs/cendrillon/cendrillon-alto.pdf",
     "Bass": "/pdfs/cendrillon/cendrillon-bass.pdf"
   },
-  "status": "completed"
+  "status": "completed",
+  "syncedAt": "2025-11-05T00:48:25Z"
 }

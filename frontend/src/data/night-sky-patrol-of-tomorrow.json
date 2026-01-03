@@ -1,17 +1,13 @@
 {
   "title": "Night Sky Patrol Of Tomorrow",
-  "alternativeNames": [
-    "Asu no Yozora Shoukaihan"
-  ],
+  "alternativeNames": ["Asu no Yozora Shoukaihan"],
   "producer": "Orangestar",
   "additionalProducers": [],
   "singer": "IA",
   "additionalVoices": [],
   "releaseDate": "20140819",
   "bpm": 185,
-  "labels": [
-    "Hall of Myths"
-  ],
+  "labels": ["Hall of Myths"],
   "transcriber": "Tarediiran",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=XogSflwXgpw"
@@ -36,5 +32,6 @@
     "Alto": "/pdfs/night-sky-patrol-of-tomorrow/night-sky-patrol-of-tomorrow-alto.pdf",
     "Bass": "/pdfs/night-sky-patrol-of-tomorrow/night-sky-patrol-of-tomorrow-bass.pdf"
   },
-  "status": "completed"
+  "status": "completed",
+  "syncedAt": "2025-12-11T01:52:54Z"
 }

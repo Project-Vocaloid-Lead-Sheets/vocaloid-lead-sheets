@@ -1,17 +1,13 @@
 {
   "title": "Meltdown",
-  "alternativeNames": [
-    "Roshin Yuukai"
-  ],
+  "alternativeNames": ["Roshin Yuukai"],
   "producer": "iroha(sasaki)",
   "additionalProducers": [],
   "singer": "Kagamine Rin",
   "additionalVoices": [],
   "releaseDate": "20081219",
   "bpm": 165,
-  "labels": [
-    "Hall of Myths"
-  ],
+  "labels": ["Hall of Myths"],
   "transcriber": "Nap1400",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=dSw8CucthGc"
@@ -36,5 +32,6 @@
     "Alto": "/pdfs/meltdown/meltdown-alto.pdf",
     "Bass": "/pdfs/meltdown/meltdown-bass.pdf"
   },
-  "status": "completed"
+  "status": "completed",
+  "syncedAt": "2025-11-05T00:48:25Z"
 }

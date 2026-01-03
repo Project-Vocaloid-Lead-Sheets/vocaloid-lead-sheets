@@ -1,8 +1,6 @@
 {
   "title": "Goodbye Declaration",
-  "alternativeNames": [
-    "Goodbye Sengen"
-  ],
+  "alternativeNames": ["Goodbye Sengen"],
   "producer": "Chinozo",
   "additionalProducers": [],
   "singer": "flower",
@@ -28,5 +26,6 @@
     "Eb": "/pdfs/goodbye-declaration/goodbye-declaration-eb.pdf",
     "Bass": "/pdfs/goodbye-declaration/goodbye-declaration-bass.pdf"
   },
-  "status": "under review"
+  "status": "under review",
+  "syncedAt": "2025-11-05T00:48:25Z"
 }
