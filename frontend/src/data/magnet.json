@@ -4,7 +4,9 @@
   "producer": "minato",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
-  "additionalVoices": ["Megurine Luka"],
+  "additionalVoices": [
+    "Megurine Luka"
+  ],
   "releaseDate": "20090501",
   "bpm": 108,
   "labels": [],

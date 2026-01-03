@@ -7,7 +7,9 @@
   "additionalVoices": [],
   "releaseDate": "20241025",
   "bpm": 172,
-  "labels": ["Explicit"],
+  "labels": [
+    "Explicit"
+  ],
   "transcriber": "boracci channel",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=_AjJZEcMdww"
