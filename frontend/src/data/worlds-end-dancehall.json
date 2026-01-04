@@ -4,10 +4,14 @@
   "producer": "wowaka",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
-  "additionalVoices": ["Megurine Luka"],
+  "additionalVoices": [
+    "Megurine Luka"
+  ],
   "releaseDate": "20100528",
   "bpm": 171,
-  "labels": ["Hall of Myths"],
+  "labels": [
+    "Hall of Myths"
+  ],
   "transcriber": "Latios212",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=ZB75e7vzX0I"

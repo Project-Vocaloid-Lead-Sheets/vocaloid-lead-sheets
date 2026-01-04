@@ -1,13 +1,17 @@
 {
   "title": "Tale of the Deep-sea Lily",
-  "alternativeNames": ["Umiyuri Kaiteitan"],
+  "alternativeNames": [
+    "Umiyuri Kaiteitan"
+  ],
   "producer": "n-buna",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20140224",
   "bpm": 120,
-  "labels": ["Hall of Myths"],
+  "labels": [
+    "Hall of Myths"
+  ],
   "transcriber": "Latios212",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=7JANm3jOb2k"

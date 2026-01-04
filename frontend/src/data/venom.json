@@ -7,7 +7,9 @@
   "additionalVoices": [],
   "releaseDate": "20180802",
   "bpm": 152,
-  "labels": ["Hall of Myths"],
+  "labels": [
+    "Hall of Myths"
+  ],
   "transcriber": "boracci channel",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=oRJBwaZ59fQ"

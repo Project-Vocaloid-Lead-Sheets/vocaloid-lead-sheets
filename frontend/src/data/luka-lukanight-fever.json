@@ -7,7 +7,9 @@
   "additionalVoices": [],
   "releaseDate": "20090212",
   "bpm": 155,
-  "labels": ["SAM Night Series"],
+  "labels": [
+    "SAM Night Series"
+  ],
   "transcriber": "stellarlights",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=ScSW9C3DF18"

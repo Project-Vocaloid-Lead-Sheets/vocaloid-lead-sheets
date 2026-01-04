@@ -1,6 +1,8 @@
 {
-  "title": "Hair Swept Back By Gale-Force Winds",
-  "alternativeNames": ["Kyoufuu All Back"],
+  "title": "Kyoufuu All Back",
+  "alternativeNames": [
+    "Hair Swept Back By Gale-Force Winds"
+  ],
   "producer": "Yukopi",
   "additionalProducers": [],
   "singer": "Kaai Yuki",
@@ -33,15 +35,15 @@
     "Bass": "055af19d37137182ddc060bb5624da26"
   },
   "pdfs": {
-    "Vocals": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-vocals.pdf",
-    "Bb": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-bb.pdf",
-    "C": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-c.pdf",
-    "Eb": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-eb.pdf",
-    "F": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-f.pdf",
-    "G": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-g.pdf",
-    "Alto": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-alto.pdf",
-    "Bass": "/pdfs/hair-swept-back-by-gale-force-winds/hair-swept-back-by-gale-force-winds-bass.pdf"
+    "Vocals": "/pdfs/kyoufuu-all-back/kyoufuu-all-back-vocals.pdf",
+    "Bb": "/pdfs/kyoufuu-all-back/kyoufuu-all-back-bb.pdf",
+    "C": "/pdfs/kyoufuu-all-back/kyoufuu-all-back-c.pdf",
+    "Eb": "/pdfs/kyoufuu-all-back/kyoufuu-all-back-eb.pdf",
+    "F": "/pdfs/kyoufuu-all-back/kyoufuu-all-back-f.pdf",
+    "G": "/pdfs/kyoufuu-all-back/kyoufuu-all-back-g.pdf",
+    "Alto": "/pdfs/kyoufuu-all-back/kyoufuu-all-back-alto.pdf",
+    "Bass": "/pdfs/kyoufuu-all-back/kyoufuu-all-back-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2025-12-26T01:09:55Z"
+  "syncedAt": "2026-01-04T00:58:01Z"
 }
