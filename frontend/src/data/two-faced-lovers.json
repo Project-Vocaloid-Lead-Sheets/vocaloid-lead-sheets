@@ -1,18 +1,13 @@
 {
   "title": "Two-Faced Lovers",
-  "alternativeNames": [
-    "Ura-omote Lovers"
-  ],
+  "alternativeNames": ["Ura-omote Lovers"],
   "producer": "wowaka",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20090829",
   "bpm": 159,
-  "labels": [
-    "Hall of Myths",
-    "Challenging"
-  ],
+  "labels": ["Hall of Myths", "Challenging"],
   "transcriber": "zmand97",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=b_cuMcDWwsI"
@@ -48,5 +43,5 @@
     "Bass": "/pdfs/two-faced-lovers/two-faced-lovers-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2026-01-04T00:27:45Z"
+  "syncedAt": "2025-11-30T15:44:30Z"
 }

@@ -1,8 +1,6 @@
 {
   "title": "God-ish",
-  "alternativeNames": [
-    "Kamippoi na"
-  ],
+  "alternativeNames": ["Kamippoi na"],
   "producer": "PinocchioP",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
@@ -45,5 +43,5 @@
     "Bass": "/pdfs/god-ish/god-ish-bass.pdf"
   },
   "status": "under review",
-  "syncedAt": "2026-01-04T00:27:45Z"
+  "syncedAt": "2025-11-25T03:16:17Z"
 }

@@ -1,17 +1,13 @@
 {
   "title": "Miku Miku Ni Shite Ageru♪",
-  "alternativeNames": [
-    "I'll Miku-Miku You♪ (For Reals)"
-  ],
+  "alternativeNames": ["I'll Miku-Miku You♪ (For Reals)"],
   "producer": "ika",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20070919",
   "bpm": 160,
-  "labels": [
-    "Hall of Myths"
-  ],
+  "labels": ["Hall of Myths"],
   "transcriber": "Nap1400",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=HYxWRTPn9vM"
@@ -47,5 +43,5 @@
     "Bass": "/pdfs/miku-miku-ni-shite-ageru/miku-miku-ni-shite-ageru-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2026-01-04T00:27:45Z"
+  "syncedAt": "2025-11-05T00:48:25Z"
 }

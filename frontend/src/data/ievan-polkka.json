@@ -1,8 +1,6 @@
 {
   "title": "Ievan Polkka",
-  "alternativeNames": [
-    "Eva's Polka"
-  ],
+  "alternativeNames": ["Eva's Polka"],
   "producer": "Otomania",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
@@ -43,5 +41,5 @@
     "Bass": "/pdfs/ievan-polkka/ievan-polkka-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2026-01-04T00:27:45Z"
+  "syncedAt": "2025-11-05T00:48:25Z"
 }

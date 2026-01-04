@@ -4,9 +4,7 @@
   "producer": "minato",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
-  "additionalVoices": [
-    "Megurine Luka"
-  ],
+  "additionalVoices": ["Megurine Luka"],
   "releaseDate": "20090501",
   "bpm": 108,
   "labels": [],
@@ -45,5 +43,5 @@
     "Bass": "/pdfs/magnet/magnet-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2026-01-04T00:27:45Z"
+  "syncedAt": "2025-11-05T00:48:25Z"
 }
