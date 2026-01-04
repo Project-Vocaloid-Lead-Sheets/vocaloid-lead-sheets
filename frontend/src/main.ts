@@ -44,7 +44,6 @@ window.addEventListener('orientationchange', setVh)
 function updateNavbarHeight() {
   try {
     const nav = document.querySelector('.navbar') as HTMLElement | null
-    const off = document.getElementById('offcanvasNavbar') as HTMLElement | null
 
     let maxBottom = 0
 
@@ -52,13 +51,6 @@ function updateNavbarHeight() {
       try {
         const r = nav.getBoundingClientRect()
         if (!isNaN(r.bottom)) maxBottom = Math.max(maxBottom, Math.ceil(r.bottom))
-      } catch {}
-    }
-
-    if (off && off.classList.contains('show')) {
-      try {
-        const r2 = off.getBoundingClientRect()
-        if (!isNaN(r2.bottom)) maxBottom = Math.max(maxBottom, Math.ceil(r2.bottom))
       } catch {}
     }
 
