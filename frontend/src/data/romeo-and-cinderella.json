@@ -1,17 +1,13 @@
 {
   "title": "Romeo and Cinderella",
-  "alternativeNames": [
-    "Romeo to Cinderella"
-  ],
+  "alternativeNames": ["Romeo to Cinderella"],
   "producer": "doriko",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20090405",
   "bpm": 170,
-  "labels": [
-    "Hall of Myths"
-  ],
+  "labels": ["Hall of Myths"],
   "transcriber": "zmand97",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=9HrOqmiEsN8"
@@ -19,6 +15,10 @@
   "links": {
     "Vocals": "https://drive.google.com/file/d/1xHK_DrGTXe1-0w8QcdpsFuO8K3Iqb069/view",
     "C": "https://drive.google.com/file/d/1ZPEA2NHfD3byogPqwinN4RvhslKXQrn0/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "9211b7a292d8c134ea155624456c9105",
+    "C": "75979a7a1b695b5055afedc3d4953ce8"
   },
   "pdfs": {
     "Vocals": "/pdfs/romeo-and-cinderella/romeo-and-cinderella-vocals.pdf",

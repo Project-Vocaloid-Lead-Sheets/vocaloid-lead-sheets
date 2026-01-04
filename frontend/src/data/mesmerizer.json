@@ -4,14 +4,10 @@
   "producer": "32ki",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
-  "additionalVoices": [
-    "Kasane Teto"
-  ],
+  "additionalVoices": ["Kasane Teto"],
   "releaseDate": "20240427",
   "bpm": 185,
-  "labels": [
-    "Challenging"
-  ],
+  "labels": ["Challenging"],
   "transcriber": "Nap1400",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=19y8YTbvri8"
@@ -25,6 +21,16 @@
     "G": "https://drive.google.com/file/d/1Y_DIBF9LlUv-9Uitbqd3RbF7JAEYRgw_/view",
     "Alto": "https://drive.google.com/file/d/12MA8E6wukFaVl58Up5Dvix9lfxLIaSav/view",
     "Bass": "https://drive.google.com/file/d/1Qe4mCvY1I6Z70mA-88XMYOMw2mc5kgfo/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "f1c78beee6fd8e2bfc7d63af2a676d71",
+    "Bb": "cd1ca0b9f85026b466c6a9ecff35937c",
+    "C": "a7984db5e41f9eb902eb94c558068122",
+    "Eb": "f16837f653c7eef5db82bb9a751707b9",
+    "F": "573a43bdb1122ce6043d8a1870e9061a",
+    "G": "aa7851b310b2c96ab3ff081932ffa57a",
+    "Alto": "3e2f96aba469da24173a7bd47c56c5e9",
+    "Bass": "e6faf75f851b5c24f8bdb4295cd87178"
   },
   "pdfs": {
     "Vocals": "/pdfs/mesmerizer/mesmerizer-vocals.pdf",

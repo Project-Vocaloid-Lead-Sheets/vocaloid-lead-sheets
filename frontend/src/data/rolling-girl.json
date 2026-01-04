@@ -7,9 +7,7 @@
   "additionalVoices": [],
   "releaseDate": "20100214",
   "bpm": 195,
-  "labels": [
-    "Hall of Myths"
-  ],
+  "labels": ["Hall of Myths"],
   "transcriber": "Nap1400",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=vnw8zURAxkU"
@@ -23,6 +21,16 @@
     "G": "https://drive.google.com/file/d/1_uhaoIiSXQAMkwXT7Iefi9aBaOjDficY/view",
     "Alto": "https://drive.google.com/file/d/1rPaarjgumBafDfD_WHAa-ltGOLgka2gZ/view",
     "Bass": "https://drive.google.com/file/d/1dfQ9EbcugE_befYLP4kHsk2N9WAVbaoq/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "05412f5de42eef246f568d68503d0760",
+    "Bb": "6113d51be1ec41f057081f04dd94e39a",
+    "C": "9f681b32bf24e8fa9f53c24df614934b",
+    "Eb": "dc77d209b726f2770623bcc8459f567d",
+    "F": "949220ad9140f32c901182051cf62d50",
+    "G": "815b131d15c2067a96a175364f7be6d4",
+    "Alto": "2f09d91fe7252ce359787ddd61fb5494",
+    "Bass": "60d0c9281358bae8b888e0b50b95bb16"
   },
   "pdfs": {
     "Vocals": "/pdfs/rolling-girl/rolling-girl-vocals.pdf",

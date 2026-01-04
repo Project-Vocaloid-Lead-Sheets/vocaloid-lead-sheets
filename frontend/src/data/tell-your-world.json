@@ -22,6 +22,16 @@
     "Alto": "https://drive.google.com/file/d/1PwuYtdeEeilqUFiJZXdpq_0k8wa6dvT9/view",
     "Bass": "https://drive.google.com/file/d/1hJiElvX8U32UFGPnpaf7Rs2y0Jqd0LhA/view"
   },
+  "pdfChecksums": {
+    "Vocals": "985b3705005fa28a21be172560b0e051",
+    "Bb": "7bc569fb15c27690c36d05d21988136a",
+    "C": "bf6d104a0046d66d08a08440267b7abd",
+    "Eb": "65907ded836f3ca65e42caaf7be1cc64",
+    "F": "973a451f42b5da20cf52eb66b2a262bc",
+    "G": "03a988095d0b0908e35d227487be44cc",
+    "Alto": "6ba0f612cc9bfaca4265795830704c55",
+    "Bass": "7de37f2b1fea81a7b45e2039b14849ef"
+  },
   "pdfs": {
     "Vocals": "/pdfs/tell-your-world/tell-your-world-vocals.pdf",
     "Bb": "/pdfs/tell-your-world/tell-your-world-bb.pdf",

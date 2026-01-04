@@ -17,6 +17,11 @@
     "Bb": "https://drive.google.com/file/d/1jkod_G7Am7NI8gcU61OfUzx92AFv6CWw/view",
     "C": "https://drive.google.com/file/d/1KxcT0NtclHHWYdptOeF-yDp4501EHezv/view"
   },
+  "pdfChecksums": {
+    "Vocals": "0c84b177df061ebc8058dadab8390b28",
+    "Bb": "3445da29f3da338e24c560d308cf5894",
+    "C": "f9f1005b91bf5a7c025476cb8ba8706c"
+  },
   "pdfs": {
     "Vocals": "/pdfs/monitoring/monitoring-vocals.pdf",
     "Bb": "/pdfs/monitoring/monitoring-bb.pdf",

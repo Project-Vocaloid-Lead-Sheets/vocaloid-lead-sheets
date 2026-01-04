@@ -7,9 +7,7 @@
   "additionalVoices": [],
   "releaseDate": "20211104",
   "bpm": 190,
-  "labels": [
-    "Challenging"
-  ],
+  "labels": ["Challenging"],
   "transcriber": "Soneji",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=GyjpqeKqzaQ"
@@ -20,6 +18,13 @@
     "C": "https://drive.google.com/file/d/1rU7IsC_w0eJ3kPmMotpehrBpVBUcSE_A/view",
     "Eb": "https://drive.google.com/file/d/1Gp0J8t_RmJ0Eu_70_nBBWGsekpY1aehC/view",
     "Bass": "https://drive.google.com/file/d/18s6yHzhPHdTuGIc6gbEjxz_kKZyJJSSH/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "81ea8957029e4afe3247294391e9054f",
+    "Bb": "4680d5f8d5f763aa24b6e6da96429978",
+    "C": "2058e3d77ce7179807774db2a19d499b",
+    "Eb": "90e59200ecbec3b13b49e0d94dba198d",
+    "Bass": "7eb593bae60c75fa8e0f5b70b02d2411"
   },
   "pdfs": {
     "Vocals": "/pdfs/oyasumination/oyasumination-vocals.pdf",

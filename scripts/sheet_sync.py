@@ -32,6 +32,7 @@ class SongSyncManager:
         self.sheet = None
         self.sync_state_file = '.sync_state.json'
         self.force_sync = force_sync
+        self.downloads_performed = False  # Tracks if any PDF was re-downloaded in a run
         
         # Set /data as JSON file output directory
         self.frontend_data_dir = os.environ.get('FRONTEND_DATA_DIR', 'frontend/src/data')
@@ -279,8 +280,10 @@ class SongSyncManager:
 
     def normalize_song_data(self, song: Dict[str, Any], existing_song_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Normalize song data based on the sheet structure"""
-        # Parse PDFs with change detection
-        pdfs, links = self._parse_pdfs_new(song, existing_song_data)
+        # Parse PDFs with change detection (Drive md5 checksums included)
+        pdfs, links, pdf_checksums, downloaded_any = self._parse_pdfs_new(song, existing_song_data)
+        if downloaded_any:
+            self.downloads_performed = True
         
         # Map sheet columns to JSON format
         normalized = {
@@ -297,6 +300,7 @@ class SongSyncManager:
             'videoLinks': self._parse_video_links_new(song),
             'pdfs': pdfs,
             'links': links,
+            'pdfChecksums': pdf_checksums,
             'metadata': {
                 'status': self._normalize_status(song.get('Status', ''))
             }
@@ -356,15 +360,21 @@ class SongSyncManager:
         
         return links
 
-    def _parse_pdfs_new(self, song: Dict[str, Any], existing_song_data: Optional[Dict[str, Any]] = None) -> tuple[Dict[str, str], Dict[str, str]]:
-        """Parse PDF information with chip link support and download PDFs locally
-        
-        Returns a tuple of (pdfs, links) where:
+    def _parse_pdfs_new(
+        self, song: Dict[str, Any], existing_song_data: Optional[Dict[str, Any]] = None
+    ) -> tuple[Dict[str, str], Dict[str, str], Dict[str, Optional[str]], bool]:
+        """Parse PDF information with chip link support and download PDFs locally.
+
+        Returns a tuple of (pdfs, links, checksums) where:
         - pdfs: dict mapping key names to local PDF paths
         - links: dict mapping key names to Google Drive URLs
+        - checksums: dict mapping key names to the Drive md5Checksum (if available)
+        - downloaded: True if any PDF was downloaded in this call
         """
-        pdf_drive_links = {}
-        pdfs = {}
+        pdf_drive_links: Dict[str, str] = {}
+        pdfs: Dict[str, str] = {}
+        pdf_checksums: Dict[str, Optional[str]] = {}
+        downloaded_any = False
         
         # Get hyperlinks if available
         hyperlinks = song.get('_hyperlinks', {})
@@ -405,41 +415,55 @@ class SongSyncManager:
                 # Store Google Drive link for reference
                 current_drive_link = f"https://drive.google.com/file/d/{drive_id}/view"
                 pdf_drive_links[pdf_key] = current_drive_link
-            
+
+                # Fetch Drive metadata (md5Checksum) to detect content changes without relying on sheet edits
+                metadata = self._get_drive_file_metadata(drive_id)
+                remote_md5 = metadata.get('md5Checksum') if metadata else None
+                pdf_checksums[pdf_key] = remote_md5
+
                 # Generate local filename with song name and key
                 pdf_filename = f"{song_slug}/{song_slug}-{pdf_key.lower()}.pdf"
                 pdf_path = os.path.join(self.pdf_dir, pdf_filename)
-                
-                # Check if we need to download:
-                # 1. File doesn't exist locally, OR
-                # 2. Drive link has changed (different file)
+
+                # Compare remote checksum to local file checksum (if it exists)
+                local_md5 = self._file_md5(pdf_path) if os.path.exists(pdf_path) else None
+
                 should_download = False
                 if not os.path.exists(pdf_path):
                     logger.info(f"PDF not found locally: {pdf_filename}")
                     should_download = True
-                elif pdf_key in existing_links and existing_links[pdf_key] != current_drive_link:
-                    logger.info(f"Drive link changed for {pdf_key} in {song_title}, will re-download")
+                elif remote_md5 and local_md5 and remote_md5 != local_md5:
+                    logger.info(f"Remote PDF changed for {pdf_key} in {song_title} (md5 mismatch), will re-download")
                     should_download = True
-                elif pdf_key not in existing_links:
-                    # No previous link data, assume we should download to be safe
+                elif remote_md5 and not local_md5:
+                    # Local file unreadable or md5 unavailable; be safe and re-download
                     should_download = True
-                else:
-                    logger.info(f"PDF already exists and unchanged: {pdf_filename}")
-                
+                elif not remote_md5:
+                    # No checksum available from Drive; fall back to link-change heuristic
+                    if pdf_key in existing_links and existing_links[pdf_key] != current_drive_link:
+                        logger.info(f"Drive link changed for {pdf_key} in {song_title}, will re-download")
+                        should_download = True
+                    elif pdf_key not in existing_links:
+                        should_download = True
+
                 if should_download:
-                    # Download PDF from Google Drive
                     if self.download_pdf_from_drive(drive_id, pdf_filename):
-                        # Store local path instead of Google Drive URL
                         pdfs[pdf_key] = f"/pdfs/{pdf_filename}"
+                        downloaded_any = True
+                        # Update checksum after download if remote md5 unavailable
+                        if not remote_md5:
+                            pdf_checksums[pdf_key] = self._file_md5(pdf_path)
                     else:
-                        # Fallback to Google Drive URL if download fails
-                        logger.warning(f"Download failed for {pdf_key}, using Google Drive URL as fallback")
-                        pdfs[pdf_key] = f"https://drive.google.com/file/d/{drive_id}/view"
+                        logger.warning(f"Download failed for {pdf_key}, keeping existing local file if present")
+                        if os.path.exists(pdf_path):
+                            pdfs[pdf_key] = f"/pdfs/{pdf_filename}"
+                            pdf_checksums[pdf_key] = self._file_md5(pdf_path)
+                        else:
+                            pdfs[pdf_key] = f"https://drive.google.com/file/d/{drive_id}/view"
                 else:
-                    # Use existing local path
                     pdfs[pdf_key] = f"/pdfs/{pdf_filename}"
-        
-        return pdfs, pdf_drive_links
+
+        return pdfs, pdf_drive_links, pdf_checksums, downloaded_any
 
     def _format_date(self, date_value: Any) -> str:
         """Format date as ISO (YYYY-MM-DD) if possible"""
@@ -518,6 +542,53 @@ class SongSyncManager:
             return drive_id
         
         return None
+
+    def _get_drive_file_metadata(self, file_id: str) -> Dict[str, Any]:
+        """Fetch Drive file metadata (md5Checksum, modifiedTime, size) for change detection."""
+        try:
+            client = self.sheet.spreadsheet.client
+            credentials = client.auth
+
+            # Local import to avoid hard dependency at module import time
+            import requests
+
+            if hasattr(credentials, 'token') and hasattr(credentials, 'refresh'):
+                try:
+                    credentials.refresh(None)
+                except Exception:
+                    pass
+
+            access_token = getattr(credentials, 'token', None)
+            if not access_token:
+                return {}
+
+            url = f"https://www.googleapis.com/drive/v3/files/{file_id}"
+            params = {'fields': 'md5Checksum,modifiedTime,size'}
+            headers = {
+                'Authorization': f'Bearer {access_token}',
+                'Content-Type': 'application/json'
+            }
+
+            r = requests.get(url, params=params, headers=headers, timeout=15)
+            r.raise_for_status()
+            return r.json()
+        except Exception as e:
+            logger.warning(f"Failed to fetch Drive metadata for {file_id}: {e}")
+            return {}
+
+    def _file_md5(self, path: str) -> Optional[str]:
+        """Compute md5 checksum of a local file if readable."""
+        try:
+            if not os.path.exists(path):
+                return None
+            hash_md5 = hashlib.md5()
+            with open(path, 'rb') as f:
+                for chunk in iter(lambda: f.read(8192), b''):
+                    hash_md5.update(chunk)
+            return hash_md5.hexdigest()
+        except Exception as e:
+            logger.warning(f"Unable to hash file {path}: {e}")
+            return None
 
     def download_pdf_from_drive(self, file_id: str, output_filename: str) -> bool:
         """Download a PDF from Google Drive and save it locally"""
@@ -642,6 +713,7 @@ class SongSyncManager:
                 'transcriber': normalized['transcriber'],
                 'videoLinks': normalized['videoLinks'],
                 'links': normalized['links'],
+                'pdfChecksums': normalized.get('pdfChecksums', {}),
                 'pdfs': normalized['pdfs'],
                 'metadata': normalized['metadata'],
             }
@@ -691,6 +763,7 @@ class SongSyncManager:
                 'transcriber': song_data.get('transcriber', ''),
                 'videoLinks': song_data['videoLinks'],
                 'links': song_data.get('links', {}),
+                'pdfChecksums': song_data.get('pdfChecksums', {}),
                 'pdfs': song_data['pdfs'],
                 'status': song_data.get('metadata', {}).get('status', 'completed'),
             }
@@ -708,7 +781,10 @@ class SongSyncManager:
                 except Exception as e:
                     logger.warning(f"Failed to read existing song file for sync preservation: {filepath} ({e})")
 
-            if existing_core is not None and existing_core == frontend_data and existing_synced_at:
+            if self.downloads_performed:
+                # Force bump syncedAt when any PDFs were refreshed in this run
+                frontend_data['syncedAt'] = synced_at_now
+            elif existing_core is not None and existing_core == frontend_data and existing_synced_at:
                 frontend_data['syncedAt'] = existing_synced_at
             else:
                 frontend_data['syncedAt'] = synced_at_now
@@ -807,23 +883,21 @@ export type SongFilename = typeof SONG_MANIFEST[number]
             logger.warning(f"Failed to read generated manifest: {e}")
         return {}
 
-    def save_sync_state(self, content_hash: str = '', sheet_modified_time: str = '', total_songs: int = 0, forced: bool = False, changes_written: bool = False) -> None:
-        """Save current sync state to .sync_state.json (not committed)"""
-        # Read existing state to preserve lastSync if no changes
+    def save_sync_state(self, content_hash: str = '', total_songs: int = 0, forced: bool = False, changes_written: bool = False) -> None:
+        """Save current sync state to .sync_state.json (not committed)."""
         existing_state = self.get_sync_state()
-        
+
         state = {
             'lastCheck': datetime.now().isoformat(),
             'lastSync': datetime.now().isoformat() if changes_written else existing_state.get('lastSync', datetime.now().isoformat()),
             'contentHash': content_hash,
-            'sheetModifiedTime': sheet_modified_time,
             'totalSongs': total_songs,
             'forcedSync': forced
         }
-        
+
         with open(self.sync_state_file, 'w') as f:
             json.dump(state, f, indent=2)
-        logger.info(f"Updated sync state: content_hash={content_hash[:8]}..., sheet_time={sheet_modified_time}")
+        logger.info(f"Updated sync state: content_hash={content_hash[:8]}...")
 
     def get_sync_state(self) -> Dict[str, Any]:
         """Get last sync state"""
@@ -856,6 +930,7 @@ export type SongFilename = typeof SONG_MANIFEST[number]
                 'transcriber': song_data.get('transcriber', ''),
                 'videoLinks': song_data['videoLinks'],
                 'links': song_data.get('links', {}),
+                'pdfChecksums': song_data.get('pdfChecksums', {}),
                 'pdfs': song_data['pdfs'],
                 'status': song_data.get('metadata', {}).get('status', 'completed')
             }
@@ -902,85 +977,37 @@ export type SongFilename = typeof SONG_MANIFEST[number]
             
             # Set up connection
             self.setup_google_sheets()
+            self.downloads_performed = False
             
-            # Step 1: Quick check - compare cached sheet time with current
-            current_sheet_time = self.get_remote_sheet_modified_time() or ''
             last_state = self.get_sync_state()
-            last_sheet_time = last_state.get('sheetModifiedTime', '')
             old_content_hash = last_state.get('contentHash', '')
-            # Bootstrap mode: No cache but files exist (first CI run after local commit)
-            if not last_state and os.path.exists(self.frontend_data_dir):
-                logger.info("🔄 Bootstrap mode: No cache found but files exist. Calculating hash from committed files...")
-                existing_hash = self.calculate_hash_from_existing_files()
-    
-                if existing_hash:
-                    # Count existing JSON files
-                    json_files = [f for f in os.listdir(self.frontend_data_dir) 
-                                    if f.endswith('.json') and f != 'generated-manifest.json']
-        
-                    logger.info(f"✅ Bootstrap complete: Found {len(json_files)} existing songs, hash={existing_hash[:8]}...")
-        
-                    # Save bootstrap state
-                    self.save_sync_state(
-                        content_hash=existing_hash,
-                        sheet_modified_time=current_sheet_time,
-                        total_songs=len(json_files),
-                        forced=False,
-                        changes_written=False
-                    )
-        
-                    # Now continue with normal flow to check if sheet has changes
-                    last_state = self.get_sync_state()
-                else:
-                    logger.warning("⚠️ Bootstrap failed: Could not read existing files. Proceeding with full sync.")
-            
-            
-            if not self.force_sync and current_sheet_time and current_sheet_time == last_sheet_time:
-                logger.info(f"Sheet hasn't been modified since last sync ({current_sheet_time}). Skipping.")
-                # Update lastCheck but not lastSync (no changes written)
-                self.save_sync_state(
-                    content_hash=old_content_hash,
-                    sheet_modified_time=current_sheet_time,
-                    total_songs=last_state.get('totalSongs', 0),
-                    forced=False,
-                    changes_written=False
-                )
-                return False  # No changes detected
-            
-            logger.info(f"Sheet modified time changed: {last_sheet_time} -> {current_sheet_time}")
-            
-            # Step 2: Fetch and process data
+
+            # Fetch and process data (always compute full state, including Drive md5 checksums)
             songs = self.fetch_accepted_songs()
             grouped_songs = self.group_and_merge_songs(songs)
-            
-            # Step 3: Compute content hash
             new_content_hash = self.calculate_content_hash(grouped_songs)
-            
-            # Step 4: Check if content actually changed
-            if not self.force_sync and new_content_hash == old_content_hash:
-                logger.info("Sheet time changed but content is identical. Updating cache time only.")
-                # Update cache with new time but don't write files or commit (no changes)
+
+            if not self.force_sync and new_content_hash == old_content_hash and not self.downloads_performed:
+                logger.info("Content (including PDF md5) unchanged. Skipping writes.")
                 self.save_sync_state(
                     content_hash=new_content_hash,
-                    sheet_modified_time=current_sheet_time,
                     total_songs=len(songs),
                     forced=False,
                     changes_written=False
                 )
-                return False  # No changes in actual content
-            
-            # Step 5: Content changed - write files and prepare for commit
+                return False
+
             if self.force_sync:
                 logger.info(f"Force sync enabled. Writing {len(grouped_songs)} songs...")
+            elif self.downloads_performed and new_content_hash == old_content_hash:
+                logger.info(f"PDFs were re-downloaded (md5 mismatch) even though hash is unchanged. Writing files.")
             else:
                 logger.info(f"Content changed (hash: {old_content_hash[:8]}... -> {new_content_hash[:8]}...). Writing files.")
             
             self.update_frontend_files(grouped_songs)
             
-            # Update cache with new time and hash - changes were written
             self.save_sync_state(
                 content_hash=new_content_hash,
-                sheet_modified_time=current_sheet_time,
                 total_songs=len(songs),
                 forced=self.force_sync,
                 changes_written=True
@@ -1006,42 +1033,30 @@ def main():
     parser.add_argument(
         '--check-only',
         action='store_true',
-        help='Only check whether the remote sheet has changed compared to the committed generated-manifest.json and exit (no heavy fetch/write)'
+        help='Compute current content hash (including PDF md5) and exit without writing files'
     )
     
     args = parser.parse_args()
     
     sync_manager = SongSyncManager(force_sync=args.force)
-    # If check-only requested, run lightweight check and exit accordingly
+    # If check-only requested, compute current hash (full evaluation) and exit accordingly
     if args.check_only:
         try:
-            # Authenticate and get remote modified time
             sync_manager.setup_google_sheets()
-            remote_time = sync_manager.get_remote_sheet_modified_time()
+            songs = sync_manager.fetch_accepted_songs()
+            grouped_songs = sync_manager.group_and_merge_songs(songs)
+            current_hash = sync_manager.calculate_content_hash(grouped_songs)
+            last_state = sync_manager.get_sync_state()
+            previous_hash = last_state.get('contentHash', '')
 
-            # Read the committed generated manifest (if present)
-            prev_manifest = sync_manager.read_generated_manifest()
-            prev_time = prev_manifest.get('sheetModifiedTime')
-
+            status = 'unchanged' if current_hash == previous_hash else 'changed'
             result = {
-                'previous': prev_time,
-                'remote': remote_time,
+                'previousHash': previous_hash,
+                'currentHash': current_hash,
+                'status': status,
             }
-
-            if not remote_time:
-                # Could not determine remote time; treat as changed (non-zero exit)
-                result['status'] = 'unknown'
-                print(json.dumps(result, ensure_ascii=False))
-                sys.exit(2)
-
-            if prev_time == remote_time:
-                result['status'] = 'unchanged'
-                print(json.dumps(result, ensure_ascii=False))
-                sys.exit(0)
-            else:
-                result['status'] = 'changed'
-                print(json.dumps(result, ensure_ascii=False))
-                sys.exit(2)
+            print(json.dumps(result, ensure_ascii=False))
+            sys.exit(0 if status == 'unchanged' else 2)
         except Exception as e:
             # If anything goes wrong, surface a non-zero exit so CI does not short-circuit
             print(json.dumps({'status': 'error', 'error': str(e)}))

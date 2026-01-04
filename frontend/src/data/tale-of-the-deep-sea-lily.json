@@ -1,17 +1,13 @@
 {
   "title": "Tale of the Deep-sea Lily",
-  "alternativeNames": [
-    "Umiyuri Kaiteitan"
-  ],
+  "alternativeNames": ["Umiyuri Kaiteitan"],
   "producer": "n-buna",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20140224",
   "bpm": 120,
-  "labels": [
-    "Hall of Myths"
-  ],
+  "labels": ["Hall of Myths"],
   "transcriber": "Latios212",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=7JANm3jOb2k"
@@ -25,6 +21,16 @@
     "G": "https://drive.google.com/file/d/1pRMvu7nJYPwXJ7GrnPJlHTyTFoGbUbbh/view",
     "Alto": "https://drive.google.com/file/d/1emQL1oqxYVL5MFKelCRBXneYDk5K8Yt5/view",
     "Bass": "https://drive.google.com/file/d/1pW-MvI7SwV3tFIq0VOKGpUAdocSl6tQj/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "3fe469784fdac98fbee4a42c729c191e",
+    "Bb": "bf1fbbf819cf2ccea399eba709c6b81c",
+    "C": "b80b4dcfa929bd177a5cfa2554835e7a",
+    "Eb": "ac3be1ff1469dfdc613b3fdac80c20b5",
+    "F": "103fdd386407c75b69c9b104a3d0f4f6",
+    "G": "6821db857f656603cbb7914d2067d79f",
+    "Alto": "eb1fcb2c5592db59ad2164c4a7d8d79e",
+    "Bass": "e5d8bedb2e884f6ad7178d5778bad787"
   },
   "pdfs": {
     "Vocals": "/pdfs/tale-of-the-deep-sea-lily/tale-of-the-deep-sea-lily-vocals.pdf",

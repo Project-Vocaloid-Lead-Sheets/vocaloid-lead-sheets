@@ -1,17 +1,13 @@
 {
   "title": "Senbonzakura",
-  "alternativeNames": [
-    "Thousand Cherry Blossoms"
-  ],
+  "alternativeNames": ["Thousand Cherry Blossoms"],
   "producer": "Kurousa-P",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20110917",
   "bpm": 154,
-  "labels": [
-    "Hall of Myths"
-  ],
+  "labels": ["Hall of Myths"],
   "transcriber": "Latios212",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=shs0rAiwsGQ"
@@ -25,6 +21,16 @@
     "G": "https://drive.google.com/file/d/14mV5GFgBgZhaDJ2WsrLPRReyLkLOsvvi/view",
     "Alto": "https://drive.google.com/file/d/1mrQlK1hDmFP9MivDJ_zn0czBru5E28xF/view",
     "Bass": "https://drive.google.com/file/d/1vDMqpo-mKsKC82lh5y5AAfNDo8kT1hFB/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "7223cdeeef317a384341e3bf4ea47465",
+    "Bb": "895cc5ffdf2101382c63bc535946daf5",
+    "C": "fbf13b3221d3b5a820002844e43dea20",
+    "Eb": "6655b900a6726857fee045eff4aeefc6",
+    "F": "3c8e894f77171cbcc3c3d195b53cc4e8",
+    "G": "2570eaa4585db024961d738f985a6e71",
+    "Alto": "b186a0b73c2ca84604d2a3d692b7c834",
+    "Bass": "ebede53e8a943da70f30ffa2e93f7c3e"
   },
   "pdfs": {
     "Vocals": "/pdfs/senbonzakura/senbonzakura-vocals.pdf",

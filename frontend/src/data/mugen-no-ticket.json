@@ -1,20 +1,13 @@
 {
   "title": "Mugen no Ticket",
-  "alternativeNames": [
-    "Eon Ticket"
-  ],
+  "alternativeNames": ["Eon Ticket"],
   "producer": "marasy",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
-  "additionalVoices": [
-    "KAITO"
-  ],
+  "additionalVoices": ["KAITO"],
   "releaseDate": "20240217",
   "bpm": 194,
-  "labels": [
-    "Project Voltage",
-    "Challenging"
-  ],
+  "labels": ["Project Voltage", "Challenging"],
   "transcriber": "Latios212",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=k7Y30h8S7Uw"
@@ -28,6 +21,16 @@
     "G": "https://drive.google.com/file/d/1hxMG1ov8rAfoRI2gpnHWc3Olj9VNxRwW/view",
     "Alto": "https://drive.google.com/file/d/1YUukyzJFRgMTRDPmS-f3SQbdAMQzO-4B/view",
     "Bass": "https://drive.google.com/file/d/13y2M0u1R9jVdKKdyNB1bWXVQ0N2ssKO7/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "7c82f752fa273fdebcbe0cd4074275e1",
+    "Bb": "1b532b706d6323f1ad7a4e329fb21c85",
+    "C": "d020e4da712b14ee233bcd3c6ae0af75",
+    "Eb": "809baab602eece569dff60e4465f9106",
+    "F": "7316532e77421879c07251743f746490",
+    "G": "681d6cc7182a59fe79910f7c651975bb",
+    "Alto": "29e2e1c098b80c46685edfef52c026cc",
+    "Bass": "2349bfb26c1067f20ec9caed71b18602"
   },
   "pdfs": {
     "Vocals": "/pdfs/mugen-no-ticket/mugen-no-ticket-vocals.pdf",

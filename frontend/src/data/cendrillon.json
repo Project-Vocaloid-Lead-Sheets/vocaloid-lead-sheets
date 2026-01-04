@@ -4,9 +4,7 @@
   "producer": "Signal-P",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
-  "additionalVoices": [
-    "KAITO"
-  ],
+  "additionalVoices": ["KAITO"],
   "releaseDate": "20080825",
   "bpm": 140,
   "labels": [],
@@ -21,6 +19,16 @@
     "G": "https://drive.google.com/file/d/1UkG6fJBFp7nhp7APrkJiDn3ieDVsUzfq/view",
     "Alto": "https://drive.google.com/file/d/10LrJ8GnXBfHFPljCBfW5AhebMkECd-4b/view",
     "Bass": "https://drive.google.com/file/d/1tTVnROBgfNKNv1P4Dz-Ybimnj5RkyRmF/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "4764586fe6573b015abff9f9c9938f5a",
+    "Bb": "f0634191bfb3515304cbc422b0121d11",
+    "C": "c4827e45437c4125b9ccd2a65a74fbd4",
+    "Eb": "9157bc965eecd39afb09006d343e9c31",
+    "F": "9db890504e1c4165431003cde11e79d4",
+    "G": "64b42b56a2675d133477a56398faa8e4",
+    "Alto": "a613b0537548eec0320cffdb8b67e792",
+    "Bass": "6b265ef93124c182694a28505bac74b8"
   },
   "pdfs": {
     "Vocals": "/pdfs/cendrillon/cendrillon-vocals.pdf",

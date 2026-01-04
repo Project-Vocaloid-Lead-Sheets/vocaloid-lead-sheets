@@ -1,8 +1,6 @@
 {
   "title": "Goodbye Declaration",
-  "alternativeNames": [
-    "Goodbye Sengen"
-  ],
+  "alternativeNames": ["Goodbye Sengen"],
   "producer": "Chinozo",
   "additionalProducers": [],
   "singer": "flower",
@@ -20,6 +18,13 @@
     "C": "https://drive.google.com/file/d/1RgcPZGn0Ug1YvUIikjHKFlvCoceShrwA/view",
     "Eb": "https://drive.google.com/file/d/1ApAIR-aUc6fkFnJ91eLkAceifdjacK2p/view",
     "Bass": "https://drive.google.com/file/d/1IMdMOz_d501scaOeULi75O44xv_4sI57/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "6291c764dd9ec48e9fd55e030ab46e62",
+    "Bb": "048ba1a097bdd56a126cdc5dc30354b3",
+    "C": "3037296add26b97b1d5cdd853e7394b7",
+    "Eb": "a0fac30e070e931d0849c441d06ae10f",
+    "Bass": "34d5ede3cfe23aefdd4c5404b2a35fa3"
   },
   "pdfs": {
     "Vocals": "/pdfs/goodbye-declaration/goodbye-declaration-vocals.pdf",

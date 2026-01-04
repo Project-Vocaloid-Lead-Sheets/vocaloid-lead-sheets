@@ -1,8 +1,6 @@
 {
   "title": "Ievan Polkka",
-  "alternativeNames": [
-    "Eva's Polka"
-  ],
+  "alternativeNames": ["Eva's Polka"],
   "producer": "Otomania",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
@@ -21,6 +19,16 @@
     "G": "https://drive.google.com/file/d/1YjXeUwHErub-S19zm7HgrLVBRsyeZYfU/view",
     "Alto": "https://drive.google.com/file/d/1xkQummMdFklewm_aA45XQA396yHdTKo4/view",
     "Bass": "https://drive.google.com/file/d/15wHQTia86BlpGTUDSK6MSJe3EJRtYTog/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "fac0bf26da2317b1a3639cf1014fd948",
+    "Bb": "b21618023a24969fa4b30a6b6334cc2f",
+    "C": "36d05a40e0a10d784ef40688bc17ac16",
+    "Eb": "8ac4133479adac9b55ec9a6f59e3778e",
+    "F": "523a4dca7b449e670fb943cf7507c6ff",
+    "G": "2b4bf42e6d3e4fbd4f4fd7a33416d70e",
+    "Alto": "93154ae98e602f23efb75e71e1e233b1",
+    "Bass": "c88f284650ec16103c68c49ad4085bd9"
   },
   "pdfs": {
     "Vocals": "/pdfs/ievan-polkka/ievan-polkka-vocals.pdf",

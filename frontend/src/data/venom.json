@@ -7,9 +7,7 @@
   "additionalVoices": [],
   "releaseDate": "20180802",
   "bpm": 152,
-  "labels": [
-    "Hall of Myths"
-  ],
+  "labels": ["Hall of Myths"],
   "transcriber": "boracci channel",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=oRJBwaZ59fQ"
@@ -20,6 +18,13 @@
     "C": "https://drive.google.com/file/d/1DJW4y8_CB2GvII8cqok5AHLX26iylKmd/view",
     "Eb": "https://drive.google.com/file/d/1oaHHjb9ns7ZItAZVo0N7cDdSU5ZN8QIO/view",
     "Bass": "https://drive.google.com/file/d/1jHBZHIwOs4ainZGW-CrIbgsQ-xFDzt5K/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "714ffb416a99060a9240a1c81d96b5e2",
+    "Bb": "431436a7c66479f7801c9e14b66c2945",
+    "C": "a1c138f9f92d51e2b971160a21a5efc4",
+    "Eb": "377c7c38c422103b4dda61761161b88e",
+    "Bass": "fbc9eb3b9a78a0b03a223b706a598732"
   },
   "pdfs": {
     "Vocals": "/pdfs/venom/venom-vocals.pdf",

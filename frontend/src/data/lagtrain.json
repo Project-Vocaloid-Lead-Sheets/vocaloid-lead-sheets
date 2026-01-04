@@ -22,6 +22,16 @@
     "Alto": "https://drive.google.com/file/d/1G6Pygk4SaOK5s8gpNcQSW2RGBbFXd7V8/view",
     "Bass": "https://drive.google.com/file/d/1wo3ccElOaEm5M5CeXvQZy-u_JIWPWZjz/view"
   },
+  "pdfChecksums": {
+    "Vocals": "9b99042be5144e5b255b0199500d795c",
+    "Bb": "f9b2e663372a00940132239641917e55",
+    "C": "30950b9ed637bb7599c867962ad7abd1",
+    "Eb": "c652148c641aaaee531b735b03001e6d",
+    "F": "d539f8f5e81c8a39a7b424e7f5ec8295",
+    "G": "ebf110a449bdd7db45a9c0f035f339f6",
+    "Alto": "892f955af62d75fdf1edd2182138b3ee",
+    "Bass": "d4d81ddb4f314877025fbda6359d6623"
+  },
   "pdfs": {
     "Vocals": "/pdfs/lagtrain/lagtrain-vocals.pdf",
     "Bb": "/pdfs/lagtrain/lagtrain-bb.pdf",

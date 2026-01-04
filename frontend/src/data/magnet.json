@@ -4,9 +4,7 @@
   "producer": "minato",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
-  "additionalVoices": [
-    "Megurine Luka"
-  ],
+  "additionalVoices": ["Megurine Luka"],
   "releaseDate": "20090501",
   "bpm": 108,
   "labels": [],
@@ -23,6 +21,16 @@
     "G": "https://drive.google.com/file/d/1FxvmhV9pAM2Yyzf8uphGgciegHARPFAB/view",
     "Alto": "https://drive.google.com/file/d/117vtTWw0QNseUHqwZ1g1vergAzTVMnO_/view",
     "Bass": "https://drive.google.com/file/d/1ohB7Siym-j01V4i_HlXFvEBtM1OiULHq/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "74618df724603c288b81000e1213a0be",
+    "Bb": "5e02e6756ad7d98cdd663aee9ffc068b",
+    "C": "ea1f03806f05fd1a5198fb405394484f",
+    "Eb": "61030bfee7454e8169eed75633879f85",
+    "F": "3ca3c34e38daaa5638b4e7dc5d3e760e",
+    "G": "16c56d5396baa1f94890b0ffafe53c06",
+    "Alto": "38c40bef451f2908268b735591f1dae6",
+    "Bass": "42d40ad6683bcfbb95299886e970dcbb"
   },
   "pdfs": {
     "Vocals": "/pdfs/magnet/magnet-vocals.pdf",

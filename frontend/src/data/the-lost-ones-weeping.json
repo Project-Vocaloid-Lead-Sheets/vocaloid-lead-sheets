@@ -1,17 +1,13 @@
 {
   "title": "The Lost One's Weeping",
-  "alternativeNames": [
-    "Lost One no Goukoku"
-  ],
+  "alternativeNames": ["Lost One no Goukoku"],
   "producer": "Neru",
   "additionalProducers": [],
   "singer": "Kagamine Rin",
   "additionalVoices": [],
   "releaseDate": "20130304",
   "bpm": 162,
-  "labels": [
-    "Hall of Myths"
-  ],
+  "labels": ["Hall of Myths"],
   "transcriber": "Nap1400",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=8oBV3jPTW4s"
@@ -25,6 +21,16 @@
     "G": "https://drive.google.com/file/d/19gJgoAqmRTJ7UWQuUjb-9lCASf2mtYV8/view",
     "Alto": "https://drive.google.com/file/d/1pdg6zewR2X1sGKc8CG-K-geQqEHmtB9s/view",
     "Bass": "https://drive.google.com/file/d/1oJHk420o4g-u9KhcRjfjterXxZ3VQdbv/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "b1c6e90d261e741c3333dbd87fcf0804",
+    "Bb": "4ae34a6e5b26765f61d323029f7c876b",
+    "C": "1c396215c385532ec124f3e279a33d03",
+    "Eb": "dea9be84c512957bc6bd5f332a6a05d0",
+    "F": "1fee126fa62e5d26a1ecbd680c2836ff",
+    "G": "fd8c36761d64be99a2bcf43e9ecb6f27",
+    "Alto": "b970206853eedc9e26645c59dfaf8b28",
+    "Bass": "64192f8b007ff0153645c394ae7f7986"
   },
   "pdfs": {
     "Vocals": "/pdfs/the-lost-ones-weeping/the-lost-ones-weeping-vocals.pdf",

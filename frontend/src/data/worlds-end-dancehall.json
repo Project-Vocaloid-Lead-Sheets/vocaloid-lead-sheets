@@ -4,14 +4,10 @@
   "producer": "wowaka",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
-  "additionalVoices": [
-    "Megurine Luka"
-  ],
+  "additionalVoices": ["Megurine Luka"],
   "releaseDate": "20100528",
   "bpm": 171,
-  "labels": [
-    "Hall of Myths"
-  ],
+  "labels": ["Hall of Myths"],
   "transcriber": "Latios212",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=ZB75e7vzX0I"
@@ -25,6 +21,16 @@
     "G": "https://drive.google.com/file/d/1JSjh0ZUVMarh3X_-swK9DmuK7HbmMbgA/view",
     "Alto": "https://drive.google.com/file/d/1EvTu6HTGUbb1S4ahaSY3rsx5l55Vip9P/view",
     "Bass": "https://drive.google.com/file/d/1VmBOHLl7J8ZfFpzoG8XoHTTUuDGVXimo/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "9eac90edd9b059bde25f36fb891b6c64",
+    "Bb": "810d7b0b6697da7ddbeb52b142a972a8",
+    "C": "057eb8cc36e35e27050d90a0b17ff6cc",
+    "Eb": "a3eabe8a996ee3d40bc46fe41531e3ec",
+    "F": "f2b3a3a4f39f497817c6198fb70dfb13",
+    "G": "957b1114161884f59db52f795455dd3a",
+    "Alto": "a661afa7cfcaf615c1b536845899c2e7",
+    "Bass": "f600056ffec9e2bfafbce83ca646d68d"
   },
   "pdfs": {
     "Vocals": "/pdfs/worlds-end-dancehall/worlds-end-dancehall-vocals.pdf",

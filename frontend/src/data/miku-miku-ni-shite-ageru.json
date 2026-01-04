@@ -1,17 +1,13 @@
 {
   "title": "Miku Miku Ni Shite Ageru♪",
-  "alternativeNames": [
-    "I'll Miku-Miku You♪ (For Reals)"
-  ],
+  "alternativeNames": ["I'll Miku-Miku You♪ (For Reals)"],
   "producer": "ika",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20070919",
   "bpm": 160,
-  "labels": [
-    "Hall of Myths"
-  ],
+  "labels": ["Hall of Myths"],
   "transcriber": "Nap1400",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=HYxWRTPn9vM"
@@ -25,6 +21,16 @@
     "G": "https://drive.google.com/file/d/19pGsEZYoD9u3IXOQtKK1-ixEdMxSi8Rr/view",
     "Alto": "https://drive.google.com/file/d/1pKLcsWmgCzhRJ0rvu-CWIlAG7V8wgYh3/view",
     "Bass": "https://drive.google.com/file/d/1h9KbldX0VdR-RqxR_LU-WExajK1GIIn9/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "0d675b7860ab65fe8c0936b1ae18c1f2",
+    "Bb": "42270ac45a78fc83777ab4054d47b515",
+    "C": "8a7a1da389b4b2146d547a249f6f38f9",
+    "Eb": "c91077843e88604f927a3bcab7390091",
+    "F": "d3f6b1f81b6b7d928618d197086eb9f3",
+    "G": "f3fca2e1f87d02b57d07a9efbf979fef",
+    "Alto": "6ebf3f3256c16e8c6a6420af31360e97",
+    "Bass": "241ed452e5630c7bbf04d70325e66458"
   },
   "pdfs": {
     "Vocals": "/pdfs/miku-miku-ni-shite-ageru/miku-miku-ni-shite-ageru-vocals.pdf",

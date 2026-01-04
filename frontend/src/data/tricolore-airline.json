@@ -22,6 +22,16 @@
     "Alto": "https://drive.google.com/file/d/1YY-NBTQrPKZ-Vvso72h607nAy2gjIx3J/view",
     "Bass": "https://drive.google.com/file/d/1pjuPtZMCjJvJNprPGi6A_HMg1oTyCU1L/view"
   },
+  "pdfChecksums": {
+    "Vocals": "43957a7c2b88fd3a48b9af7cd7d8a866",
+    "Bb": "a4791395cf59bac824c4b69b4cec3363",
+    "C": "90a3a748ab032c341c190ba211d1bfa2",
+    "Eb": "4f54e924645356c12445a3e603dde778",
+    "F": "4d6671a1fd22da13f6ec8a1db13b920f",
+    "G": "c6f6e27d5f89fda14d753e6ab9a95d62",
+    "Alto": "14101d61f173354f58b8db54306618ef",
+    "Bass": "0f999a4464e264804b9dd1631fa13e6e"
+  },
   "pdfs": {
     "Vocals": "/pdfs/tricolore-airline/tricolore-airline-vocals.pdf",
     "Bb": "/pdfs/tricolore-airline/tricolore-airline-bb.pdf",

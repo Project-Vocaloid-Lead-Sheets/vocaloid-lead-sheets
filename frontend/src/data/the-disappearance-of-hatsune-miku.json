@@ -1,18 +1,13 @@
 {
   "title": "The Disappearance of Hatsune Miku",
-  "alternativeNames": [
-    "Hatsune Miku no Shoushitsu"
-  ],
+  "alternativeNames": ["Hatsune Miku no Shoushitsu"],
   "producer": "cosMo",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20071108",
   "bpm": 240,
-  "labels": [
-    "Hall of Myths",
-    "Challenging"
-  ],
+  "labels": ["Hall of Myths", "Challenging"],
   "transcriber": "Nap1400",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=5qkTpJAhywg"
@@ -26,6 +21,16 @@
     "G": "https://drive.google.com/file/d/1-dNqLAj6x97ZBmIulzbVSQnlheMmIINs/view",
     "Alto": "https://drive.google.com/file/d/1n4fG-Vuy5SJ2XjUif9kuQYFy7TyABQOm/view",
     "Bass": "https://drive.google.com/file/d/1RU-6xnyFD2uZjV7t5li5gQ1nLz96MK3g/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "cfd7d048d1afbd0c62ddb297e41cb1e1",
+    "Bb": "45ea3470e30a7328f7dfd71803735d4b",
+    "C": "55b3de3968718bfa5ee53693b5644e90",
+    "Eb": "66d808d88637f9aa4c0d920c326222b9",
+    "F": "e8e1067367f371f527bebd6ba2f9d639",
+    "G": "ae83a9fefc0cc4ad172da12d2f5e5b9e",
+    "Alto": "42c0a75311d7b61c265825c946f38e46",
+    "Bass": "67d1c911a259fd53992bdd5b4e92f23f"
   },
   "pdfs": {
     "Vocals": "/pdfs/the-disappearance-of-hatsune-miku/the-disappearance-of-hatsune-miku-vocals.pdf",

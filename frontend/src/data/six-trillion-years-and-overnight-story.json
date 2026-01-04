@@ -10,10 +10,7 @@
   "additionalVoices": [],
   "releaseDate": "20120411",
   "bpm": 186,
-  "labels": [
-    "Hall of Myths",
-    "Challenging"
-  ],
+  "labels": ["Hall of Myths", "Challenging"],
   "transcriber": "Tarediiran",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=Om3MTou2kPg"
@@ -27,6 +24,16 @@
     "G": "https://drive.google.com/file/d/1UYuXUuWTfcz8-6J7V1L9uR8oWv2PqnT2/view",
     "Alto": "https://drive.google.com/file/d/1DbDoqXDQy7pJtaIoAFEUte1kZlBW9p0d/view",
     "Bass": "https://drive.google.com/file/d/1OTLh-v9HwAcjnWxzssZ08kyZ9n-XFp8z/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "758426f75e477919c50f111684f7a914",
+    "Bb": "91d627c3981de54bfe240443152d988e",
+    "C": "0123e88a2138576b34bcf5ebf60c5f63",
+    "Eb": "1af34e78c41e643d1ef8aae5e2fa14ec",
+    "F": "343eb4754f0107a17b9162c39969c5cb",
+    "G": "f4113db296cb90efca838ff27ed99712",
+    "Alto": "f21b2aea930dbd52c631fe388ef15a1b",
+    "Bass": "3b8dcbfa1c54dd02ac9630752f83fc51"
   },
   "pdfs": {
     "Vocals": "/pdfs/six-trillion-years-and-overnight-story/six-trillion-years-and-overnight-story-vocals.pdf",
