@@ -7,7 +7,9 @@
   "additionalVoices": [],
   "releaseDate": "20241025",
   "bpm": 172,
-  "labels": ["Explicit"],
+  "labels": [
+    "Explicit"
+  ],
   "transcriber": "boracci channel",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=_AjJZEcMdww"
@@ -31,5 +33,5 @@
     "Bass": "/pdfs/rot-for-clout/rot-for-clout-bass.pdf"
   },
   "status": "under review",
-  "syncedAt": "2025-12-25T01:53:28Z"
+  "syncedAt": "2026-01-04T00:27:45Z"
 }

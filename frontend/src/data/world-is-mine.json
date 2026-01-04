@@ -7,7 +7,10 @@
   "additionalVoices": [],
   "releaseDate": "20080531",
   "bpm": 165,
-  "labels": ["Hall of Myths", "Challenging"],
+  "labels": [
+    "Hall of Myths",
+    "Challenging"
+  ],
   "transcriber": "Nap1400",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=OG8iL8UEksM&list=PLK5hclnQfLy9PNE7SY9DVrk12x7c1lk9i&index=18"
@@ -43,5 +46,5 @@
     "Bass": "/pdfs/world-is-mine/world-is-mine-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2025-11-05T00:48:25Z"
+  "syncedAt": "2026-01-04T00:27:45Z"
 }

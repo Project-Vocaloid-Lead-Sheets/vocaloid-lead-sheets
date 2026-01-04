@@ -7,7 +7,9 @@
   "additionalVoices": [],
   "releaseDate": "20211104",
   "bpm": 190,
-  "labels": ["Challenging"],
+  "labels": [
+    "Challenging"
+  ],
   "transcriber": "Soneji",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=GyjpqeKqzaQ"
@@ -34,5 +36,5 @@
     "Bass": "/pdfs/oyasumination/oyasumination-bass.pdf"
   },
   "status": "under review",
-  "syncedAt": "2026-01-01T18:14:11Z"
+  "syncedAt": "2026-01-04T00:27:45Z"
 }

@@ -1,13 +1,18 @@
 {
   "title": "The Disappearance of Hatsune Miku",
-  "alternativeNames": ["Hatsune Miku no Shoushitsu"],
+  "alternativeNames": [
+    "Hatsune Miku no Shoushitsu"
+  ],
   "producer": "cosMo",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20071108",
   "bpm": 240,
-  "labels": ["Hall of Myths", "Challenging"],
+  "labels": [
+    "Hall of Myths",
+    "Challenging"
+  ],
   "transcriber": "Nap1400",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=5qkTpJAhywg"
@@ -43,5 +48,5 @@
     "Bass": "/pdfs/the-disappearance-of-hatsune-miku/the-disappearance-of-hatsune-miku-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2025-11-05T00:48:25Z"
+  "syncedAt": "2026-01-04T00:27:45Z"
 }

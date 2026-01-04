@@ -1,13 +1,17 @@
 {
   "title": "Senbonzakura",
-  "alternativeNames": ["Thousand Cherry Blossoms"],
+  "alternativeNames": [
+    "Thousand Cherry Blossoms"
+  ],
   "producer": "Kurousa-P",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20110917",
   "bpm": 154,
-  "labels": ["Hall of Myths"],
+  "labels": [
+    "Hall of Myths"
+  ],
   "transcriber": "Latios212",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=shs0rAiwsGQ"
@@ -43,5 +47,5 @@
     "Bass": "/pdfs/senbonzakura/senbonzakura-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2025-11-05T00:48:25Z"
+  "syncedAt": "2026-01-04T00:27:45Z"
 }

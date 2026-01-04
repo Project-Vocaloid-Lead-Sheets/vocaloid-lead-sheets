@@ -7,7 +7,9 @@
   "additionalVoices": [],
   "releaseDate": "20180802",
   "bpm": 152,
-  "labels": ["Hall of Myths"],
+  "labels": [
+    "Hall of Myths"
+  ],
   "transcriber": "boracci channel",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=oRJBwaZ59fQ"
@@ -34,5 +36,5 @@
     "Bass": "/pdfs/venom/venom-bass.pdf"
   },
   "status": "under review",
-  "syncedAt": "2025-11-05T00:48:25Z"
+  "syncedAt": "2026-01-04T00:27:45Z"
 }
