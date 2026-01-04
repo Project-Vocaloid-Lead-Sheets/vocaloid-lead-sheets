@@ -301,6 +301,8 @@ class SongSyncManager:
             'pdfs': pdfs,
             'links': links,
             'pdfChecksums': pdf_checksums,
+            # Track whether this song downloaded any PDFs this run for per-song syncedAt decisions
+            'downloaded': downloaded_any,
             'metadata': {
                 'status': self._normalize_status(song.get('Status', ''))
             }
@@ -715,6 +717,7 @@ class SongSyncManager:
                 'links': normalized['links'],
                 'pdfChecksums': normalized.get('pdfChecksums', {}),
                 'pdfs': normalized['pdfs'],
+                'downloaded': normalized.get('downloaded', False),
                 'metadata': normalized['metadata'],
             }
         
@@ -782,8 +785,13 @@ class SongSyncManager:
                     logger.warning(f"Failed to read existing song file for sync preservation: {filepath} ({e})")
 
             if self.downloads_performed:
-                # Force bump syncedAt when any PDFs were refreshed in this run
-                frontend_data['syncedAt'] = synced_at_now
+                # Only bump syncedAt for songs whose PDFs were refreshed
+                if song_data.get('downloaded', False):
+                    frontend_data['syncedAt'] = synced_at_now
+                elif existing_core is not None and existing_core == frontend_data and existing_synced_at:
+                    frontend_data['syncedAt'] = existing_synced_at
+                else:
+                    frontend_data['syncedAt'] = synced_at_now
             elif existing_core is not None and existing_core == frontend_data and existing_synced_at:
                 frontend_data['syncedAt'] = existing_synced_at
             else:
@@ -796,6 +804,23 @@ class SongSyncManager:
                 json.dump(frontend_data, f, ensure_ascii=False, indent=2)
             
             logger.info(f"Updated frontend file: {filepath}")
+
+        # Remove per-song JSON files that no longer correspond to sheet rows
+        try:
+            existing_jsons = [
+                f for f in os.listdir(self.frontend_data_dir)
+                if f.endswith('.json') and f != 'generated-manifest.json'
+            ]
+            for stale_file in existing_jsons:
+                if stale_file not in generated_files:
+                    stale_path = os.path.join(self.frontend_data_dir, stale_file)
+                    try:
+                        os.remove(stale_path)
+                        logger.info(f"Deleted removed-song JSON: {stale_file}")
+                    except Exception as e:
+                        logger.warning(f"Failed to delete removed-song JSON {stale_file}: {e}")
+        except Exception as e:
+            logger.warning(f"Failed to enumerate existing JSON files for cleanup: {e}")
         
         # Clean up orphaned PDFs
         self.cleanup_orphaned_pdfs(referenced_pdfs)
