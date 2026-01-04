@@ -25,6 +25,7 @@ export const SONG_MANIFEST = [
   'rot-for-clout.json',
   'senbonzakura.json',
   'six-trillion-years-and-overnight-story.json',
+  'square-up.json',
   'tale-of-the-deep-sea-lily.json',
   'telecaster-b-boy.json',
   'tell-your-world.json',

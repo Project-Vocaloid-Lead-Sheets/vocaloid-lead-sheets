@@ -1,0 +1,40 @@
+{
+  "title": "SQUARE UP",
+  "alternativeNames": [],
+  "producer": "Jamie Paige",
+  "additionalProducers": [
+    "peak divide"
+  ],
+  "singer": "GUMI",
+  "additionalVoices": [],
+  "releaseDate": "20251215",
+  "bpm": 170,
+  "labels": [],
+  "transcriber": "boracci channel",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=0ZVFAkdRMRY"
+  },
+  "links": {
+    "Vocals": "https://drive.google.com/file/d/1MR27iq1n-bdI5pusJZk6BQtyXSt-qrof/view",
+    "Bb": "https://drive.google.com/file/d/1cB-lvayuvTpUPECw4yyFmNKAGUY4QShG/view",
+    "C": "https://drive.google.com/file/d/1KkfW8gA_Tu20puw_AQh7tCEYko9lzULY/view",
+    "Eb": "https://drive.google.com/file/d/1bg9a71Aq03t9_dNyqbjeCTxmL7nVICNg/view",
+    "Bass": "https://drive.google.com/file/d/1SPD0bfAhhXp36sjckbKzEw7eem1zFaCb/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "e1b74c395cf1c6769ab6212bfd4c4cc6",
+    "Bb": "b7892ce84d4387e119a4593171607054",
+    "C": "8085840854ffe34e8d4bff0b7982dfc3",
+    "Eb": "bb9e10f6936ec31a0bc1fc1b0e81fd8d",
+    "Bass": "69a0cdfb1108f02ca785b97f2a2f8ada"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/square-up/square-up-vocals.pdf",
+    "Bb": "/pdfs/square-up/square-up-bb.pdf",
+    "C": "/pdfs/square-up/square-up-c.pdf",
+    "Eb": "/pdfs/square-up/square-up-eb.pdf",
+    "Bass": "/pdfs/square-up/square-up-bass.pdf"
+  },
+  "status": "under review",
+  "syncedAt": "2026-01-04T17:35:00Z"
+}
