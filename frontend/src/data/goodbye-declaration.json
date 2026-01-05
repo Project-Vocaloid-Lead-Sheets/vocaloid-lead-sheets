@@ -22,11 +22,11 @@
     "Bass": "https://drive.google.com/file/d/1IMdMOz_d501scaOeULi75O44xv_4sI57/view"
   },
   "pdfChecksums": {
-    "Vocals": "6291c764dd9ec48e9fd55e030ab46e62",
-    "Bb": "048ba1a097bdd56a126cdc5dc30354b3",
-    "C": "3037296add26b97b1d5cdd853e7394b7",
-    "Eb": "a0fac30e070e931d0849c441d06ae10f",
-    "Bass": "34d5ede3cfe23aefdd4c5404b2a35fa3"
+    "Vocals": "f9e2623e65cc87396bd62b73da610c01",
+    "Bb": "b76f210ddd2aebc1819c93b4a7d253bf",
+    "C": "13d64646560f8a1a37b6681f284d2bd0",
+    "Eb": "7c3c244b5e4eefd96cd5a9f0cc50a7c8",
+    "Bass": "bc6ce35ac6f29db0218bbe543b8fac25"
   },
   "pdfs": {
     "Vocals": "/pdfs/goodbye-declaration/goodbye-declaration-vocals.pdf",
@@ -36,5 +36,5 @@
     "Bass": "/pdfs/goodbye-declaration/goodbye-declaration-bass.pdf"
   },
   "status": "under review",
-  "syncedAt": "2026-01-04T00:58:01Z"
+  "syncedAt": "2026-01-05T04:55:25Z"
 }
