@@ -83,10 +83,10 @@ onMounted(async () => {
             project from VGLS, organized by a different community.
           </p>
           <p>
-            If you would like to get in contact for questions, contributions, or anything else,
+            If you would like to get in contact to ask questions, report issues, or offer to contribute,
             please reach out to
-            <a href="mailto:vocaloidleadsheets@googlegroups.com"
-              >vocaloidleadsheets@googlegroups.com</a
+            <a href="mailto:staff@projectvocaleadsheets.com"
+              >staff@projectvocaleadsheets.com</a
             >.
           </p>
         </div>
