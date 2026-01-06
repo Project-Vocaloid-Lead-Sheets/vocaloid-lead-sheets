@@ -17,14 +17,14 @@
     "YouTube": "https://www.youtube.com/watch?v=dSw8CucthGc"
   },
   "links": {
-    "Vocals": "https://drive.google.com/file/d/1JKC9wEecOdQF7uSIdFQRO-LGT1MyQ9zC/view",
-    "Bb": "https://drive.google.com/file/d/1MPqjcVoukT_TH9d9K7vctjMBfTiwWv4T/view",
-    "C": "https://drive.google.com/file/d/1DRdb76E6trhS7pVeOi7QOoeqpT_hg3dy/view",
-    "Eb": "https://drive.google.com/file/d/10Zle_9xAfWFAUF_Vrd7ZFrtTI37U1LQ2/view",
-    "F": "https://drive.google.com/file/d/16ovz5KdxMa9ppQ2FDxcDkMEG6Qpak2Kl/view",
-    "G": "https://drive.google.com/file/d/1jRrBHxqkDKXAMDu2hPNyzS6s94hUJM7K/view",
-    "Alto": "https://drive.google.com/file/d/1ZQbxgzgtywwUlY-WRwF7heJkHUmKoz0O/view",
-    "Bass": "https://drive.google.com/file/d/1sgWBbnYXv6d7zfKh-o8Cu2EtrUGEogN_/view"
+    "Vocals": "https://drive.google.com/file/d/1detBDy3txTbw90zr590BL4uxqbEimN5G/view",
+    "Bb": "https://drive.google.com/file/d/1v89vNKdIhVbm5dPTB_8OFvYduBntaI70/view",
+    "C": "https://drive.google.com/file/d/1z0U8gsGhS--WM8wdF9d2UG3nwWPwFgM8/view",
+    "Eb": "https://drive.google.com/file/d/1JSbVU0RwWHbf2PtSrUf0BghZr7OnnMxP/view",
+    "F": "https://drive.google.com/file/d/1_ZYzTstESlB_GVA82Dv0RwuqYt6bXzL1/view",
+    "G": "https://drive.google.com/file/d/1jgjTMijtrSXnxGHe6aEuou3UsCGTCS0j/view",
+    "Alto": "https://drive.google.com/file/d/1z97ABiSaLUodd-cYXuYxeS_l4GL3jlg8/view",
+    "Bass": "https://drive.google.com/file/d/1XKBmXza6M0tnSXW0QkV6Qw22KyaG38Gp/view"
   },
   "pdfChecksums": {
     "Vocals": "c21c9d4196cf495db14894177a1cafa2",
@@ -47,5 +47,5 @@
     "Bass": "/pdfs/meltdown/meltdown-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2025-11-05T00:48:25Z"
+  "syncedAt": "2026-01-06T00:53:05Z"
 }

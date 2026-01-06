@@ -15,14 +15,14 @@
     "YouTube": "https://www.youtube.com/watch?v=qnX2CdOBcDI"
   },
   "links": {
-    "Vocals": "https://drive.google.com/file/d/11gujxloS0KMY5tx5QgG_4XRuFEnqjcza/view",
-    "Bb": "https://drive.google.com/file/d/10e9V30wHAmhBEG3tqTgi8L7susIL3G3W/view",
-    "C": "https://drive.google.com/file/d/1sObp6Pw9nXGXM6ssl1Cy7STowtRrjPfs/view",
-    "Eb": "https://drive.google.com/file/d/1V2NHemm0IOnu6SA31HwiGcGbRqaPCsvQ/view",
-    "F": "https://drive.google.com/file/d/1dlsON4M3_M82YBb3btQdNxHz90wCvQOT/view",
-    "G": "https://drive.google.com/file/d/1ss6ER3Opf2sRno_ptt-Qrh8q7zygawkB/view",
-    "Alto": "https://drive.google.com/file/d/11nXxY7QUPPqNFwzQz0qe-A4AuYjS7yYg/view",
-    "Bass": "https://drive.google.com/file/d/1dvPdtOBenlwslHtoj9JEC2NxiMXtU3aS/view"
+    "Vocals": "https://drive.google.com/file/d/1NAXltMox7esurQ5ABeTKQ-8WjrnrQlGb/view",
+    "Bb": "https://drive.google.com/file/d/1stakwGZn1aIj3YLTMZ8lwoT1ETyUbt9R/view",
+    "C": "https://drive.google.com/file/d/1o67zhG6yAYW43W8TALqSeDAakiOojrUn/view",
+    "Eb": "https://drive.google.com/file/d/1TvhW5Y0dT9pCTX2i2J3HDxFH4p8bvNNz/view",
+    "F": "https://drive.google.com/file/d/1K0hz4J6lCDb-C7cQjyNimTDE8URh-yu6/view",
+    "G": "https://drive.google.com/file/d/1uceszKRVC3oNNytp9knTOG_ch7wI_ybI/view",
+    "Alto": "https://drive.google.com/file/d/16UvmpDK1ASjVTaa1nVkbAw4Fi14kbxZn/view",
+    "Bass": "https://drive.google.com/file/d/1-9elFd1vrEPw22JU27pQ6UYZbgHzt7X2/view"
   },
   "pdfChecksums": {
     "Vocals": "1cafb00b6f0e768b30309ad34b883d86",
@@ -45,5 +45,5 @@
     "Bass": "/pdfs/donut-hole/donut-hole-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2025-11-05T00:48:25Z"
+  "syncedAt": "2026-01-06T00:53:05Z"
 }
