@@ -15,24 +15,24 @@
     "YouTube": "https://www.youtube.com/watch?v=YE_S-OPHP8o"
   },
   "links": {
-    "Vocals": "https://drive.google.com/file/d/1Bn6kcBBIOzlA80AHXMHawlGbT_1Zez8h/view",
-    "Bb": "https://drive.google.com/file/d/1MPZx11H6ymkUZtRFHUZ_CzZsJ4rdX_NM/view",
-    "C": "https://drive.google.com/file/d/1rvidPc1mTvZwiNPKjCgS8yOITSmIVzDf/view",
-    "Eb": "https://drive.google.com/file/d/1floYACZ1GNI6bcwW4NJsnyFwV48m-Dx2/view",
-    "F": "https://drive.google.com/file/d/1dcCAJqgZ0u5iNYwLdz8YvBeV5c8nlI0t/view",
-    "G": "https://drive.google.com/file/d/1UkG6fJBFp7nhp7APrkJiDn3ieDVsUzfq/view",
-    "Alto": "https://drive.google.com/file/d/10LrJ8GnXBfHFPljCBfW5AhebMkECd-4b/view",
-    "Bass": "https://drive.google.com/file/d/1tTVnROBgfNKNv1P4Dz-Ybimnj5RkyRmF/view"
+    "Vocals": "https://drive.google.com/file/d/1J1otE-YqSE4_0IxSlFRe7iz1SiHquQOn/view",
+    "Bb": "https://drive.google.com/file/d/1-fsLUrCe4ewx7oym8hO6FKWlIv9TYvts/view",
+    "C": "https://drive.google.com/file/d/1kWvt_cI0Y8V4Y6UW_iZWO4MT8WyQB7JK/view",
+    "Eb": "https://drive.google.com/file/d/1jQHRweFxnHq7lhYoHXgd5Y_lyo5weNKt/view",
+    "F": "https://drive.google.com/file/d/11CkD2yIilgbgO1FrJ-rgxAgRldgVOflQ/view",
+    "G": "https://drive.google.com/file/d/1OMHv3axHPYu0UzlU5m300UkTpMHd3fAk/view",
+    "Alto": "https://drive.google.com/file/d/1asgjH13cfR5F7yEIGecmTZAShznxCtxP/view",
+    "Bass": "https://drive.google.com/file/d/16_X6ckLSoBtTiLhGfCjG59f8vYi9MEtG/view"
   },
   "pdfChecksums": {
-    "Vocals": "4764586fe6573b015abff9f9c9938f5a",
-    "Bb": "f0634191bfb3515304cbc422b0121d11",
-    "C": "c4827e45437c4125b9ccd2a65a74fbd4",
-    "Eb": "9157bc965eecd39afb09006d343e9c31",
-    "F": "9db890504e1c4165431003cde11e79d4",
-    "G": "64b42b56a2675d133477a56398faa8e4",
-    "Alto": "a613b0537548eec0320cffdb8b67e792",
-    "Bass": "6b265ef93124c182694a28505bac74b8"
+    "Vocals": "ee034f3afd74982218ee7e42b1148327",
+    "Bb": "1e20844ad93cc50f2e42bbf30ea8d33d",
+    "C": "10c370b71ce4122d15ef944a8f3796db",
+    "Eb": "949a5985fd0bf85ce504d8c4ed8f8da7",
+    "F": "c9272b50d9b92a3f9f08fa571a7fb873",
+    "G": "96aefaffa0dae91b0abd31ebb92f71e0",
+    "Alto": "a17d36e2c794642a63b9f0191079dc67",
+    "Bass": "0bc446289e22928dd9e82584fdc50cf0"
   },
   "pdfs": {
     "Vocals": "/pdfs/cendrillon/cendrillon-vocals.pdf",
@@ -45,5 +45,5 @@
     "Bass": "/pdfs/cendrillon/cendrillon-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2026-01-05T04:55:25Z"
+  "syncedAt": "2026-01-07T05:31:30Z"
 }
