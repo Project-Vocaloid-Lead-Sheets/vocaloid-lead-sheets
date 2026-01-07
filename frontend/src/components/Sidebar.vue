@@ -85,7 +85,7 @@ const hasActiveFilters = computed(() => {
           ><i class="bi bi-list"></i>
         </a>
         <span class="sidebar-nav-collapsible collapse collapse-horizontal ms-auto"
-          ><RouterLink class="navbar-brand" to="/">Project Vocaloid Lead Sheets</RouterLink>
+          ><RouterLink class="navbar-brand" to="/">Project VocaLead Sheets</RouterLink>
         </span>
       </div>
       <!-- Sidebar Body -->
