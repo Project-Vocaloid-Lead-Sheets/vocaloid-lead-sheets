@@ -9,11 +9,39 @@ import '@/scss/styles.scss'
 import * as bootstrap from 'bootstrap' // Import JS for bootstrap, even if unused here
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
+const GA_MEASUREMENT_ID = 'G-DWH4PQ3JPP'
+
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void
+  }
+}
+
 const app = createApp(App)
 const pinia = createPinia()
 
 app.use(pinia)
 app.use(router)
+
+router.afterEach((to) => {
+  const gtag = window.gtag
+  if (typeof gtag !== 'function') return
+
+  gtag('config', GA_MEASUREMENT_ID, {
+    page_path: to.fullPath,
+    page_location: window.location.href,
+    page_title: document.title,
+  })
+
+  if (to.name === 'sheetView' && typeof to.params.songSlug === 'string') {
+    const instrument = typeof to.query.instrument === 'string' ? to.query.instrument : 'unknown'
+
+    gtag('event', 'view_sheet', {
+      song_slug: to.params.songSlug,
+      instrument,
+    })
+  }
+})
 
 // Initialize songs store
 const songsStore = useSongsStore()
