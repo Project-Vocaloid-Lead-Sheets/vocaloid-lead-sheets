@@ -7,7 +7,9 @@
   "additionalVoices": [],
   "releaseDate": "20241122",
   "bpm": 130,
-  "labels": [],
+  "labels": [
+    "YouTube 100m"
+  ],
   "transcriber": "Nap1400",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=kbNdx0yqbZE"
@@ -28,5 +30,5 @@
     "C": "/pdfs/monitoring/monitoring-c.pdf"
   },
   "status": "under review",
-  "syncedAt": "2026-01-01T02:04:26Z"
+  "syncedAt": "2026-01-15T00:27:06Z"
 }

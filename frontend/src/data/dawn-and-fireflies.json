@@ -1,0 +1,31 @@
+{
+  "title": "Dawn and Fireflies",
+  "alternativeNames": [
+    "Yoake to Hotaru"
+  ],
+  "producer": "n-buna",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20141111",
+  "bpm": 80,
+  "labels": [],
+  "transcriber": "Latios212",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=EpFxTXgElLA"
+  },
+  "links": {
+    "Vocals": "https://drive.google.com/file/d/1DdjxTHfx8elHfwnN554s9q1YlPF9anO-/view",
+    "C": "https://drive.google.com/file/d/1ZI8bozn5r7kM3CwkwKyRIhtCPj_KfMn0/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "c97a1fac70fafd8affddfce115be80e9",
+    "C": "6acdf962011d93a9bd205741c0c0334f"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/dawn-and-fireflies/dawn-and-fireflies-vocals.pdf",
+    "C": "/pdfs/dawn-and-fireflies/dawn-and-fireflies-c.pdf"
+  },
+  "status": "under review",
+  "syncedAt": "2026-01-15T00:27:06Z"
+}

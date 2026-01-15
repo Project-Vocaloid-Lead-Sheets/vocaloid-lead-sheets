@@ -9,7 +9,9 @@
   "additionalVoices": [],
   "releaseDate": "20200413",
   "bpm": 170,
-  "labels": [],
+  "labels": [
+    "YouTube 100m"
+  ],
   "transcriber": "boracci channel",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=dHXC_ahjtEE"
@@ -36,5 +38,5 @@
     "Bass": "/pdfs/goodbye-declaration/goodbye-declaration-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2026-01-07T16:38:13Z"
+  "syncedAt": "2026-01-15T00:27:06Z"
 }
