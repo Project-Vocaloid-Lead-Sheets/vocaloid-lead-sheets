@@ -13,6 +13,7 @@ export const SONG_MANIFEST = [
   'lagtrain.json',
   'luka-lukanight-fever.json',
   'magnet.json',
+  'melt.json',
   'meltdown.json',
   'mesmerizer.json',
   'miku-miku-ni-shite-ageru.json',

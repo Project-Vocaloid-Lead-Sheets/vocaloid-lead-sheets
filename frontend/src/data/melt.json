@@ -1,0 +1,28 @@
+{
+  "title": "Melt",
+  "alternativeNames": [],
+  "producer": "ryo",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20071207",
+  "bpm": 170,
+  "labels": [
+    "Hall of Myths"
+  ],
+  "transcriber": "Latios212",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=o1jAMSQyVPc"
+  },
+  "links": {
+    "C": "https://drive.google.com/file/d/1LBuBptPtDAMXGPou3L5LrsmV1yuaeC1b/view"
+  },
+  "pdfChecksums": {
+    "C": "c2e704f7f180ba1fe605fd3a263b4d48"
+  },
+  "pdfs": {
+    "C": "/pdfs/melt/melt-c.pdf"
+  },
+  "status": "under review",
+  "syncedAt": "2026-01-19T02:03:13Z"
+}
