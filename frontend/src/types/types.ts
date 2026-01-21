@@ -13,7 +13,10 @@ export interface Song {
   labels?: string[] // "Project Sekai, Project Diva"
   transcriber?: string // Transcriber name
   videoLinks?: Partial<Record<string, string>> // { "YouTube" : "youtube.com/..."}
+  links?: Partial<Record<Instrument, string>> // Direct Google Drive links (reference only)
+  pdfChecksums?: Partial<Record<Instrument, string>> // Drive md5 checksums for change detection
   pdfs: Partial<Record<Instrument, string>> // Maps instrument/key to PDF URL
   status?: string // "completed" or "under review"
-  syncedAt?: string // ISO 8601 timestamp of when song was last synced/added
+  syncedAt?: string // ISO 8601 timestamp when sync script last processed this song
+  updatedAt?: string // ISO 8601 timestamp when content/status last changed (for recent activity)
 }

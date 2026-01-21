@@ -771,31 +771,57 @@ class SongSyncManager:
                 'status': song_data.get('metadata', {}).get('status', 'completed'),
             }
 
-            # Preserve existing syncedAt if the file content (excluding syncedAt) has not changed
+            # Snapshots to tell apart content-bearing changes (status + PDFs) from metadata-only changes
+            content_snapshot = {
+                'status': frontend_data['status'],
+                'pdfs': frontend_data['pdfs'],
+                'pdfChecksums': frontend_data.get('pdfChecksums', {}),
+                'links': frontend_data.get('links', {}),
+            }
+
+            existing_updated_at = None
             existing_synced_at = None
-            existing_core = None
+            existing_content_snapshot = None
+            existing_json = None
+
             if os.path.exists(filepath):
                 try:
                     with open(filepath, 'r', encoding='utf-8') as f:
                         existing_json = json.load(f)
+                        existing_updated_at = existing_json.get('updatedAt')
                         existing_synced_at = existing_json.get('syncedAt')
-                        # Drop syncedAt before comparison
-                        existing_core = {k: v for k, v in existing_json.items() if k != 'syncedAt'}
+                        existing_content_snapshot = {
+                            'status': existing_json.get('status', 'completed'),
+                            'pdfs': existing_json.get('pdfs', {}),
+                            'pdfChecksums': existing_json.get('pdfChecksums', {}),
+                            'links': existing_json.get('links', {}),
+                        }
                 except Exception as e:
                     logger.warning(f"Failed to read existing song file for sync preservation: {filepath} ({e})")
 
-            if self.downloads_performed:
-                # Only bump syncedAt for songs whose PDFs were refreshed
-                if song_data.get('downloaded', False):
-                    frontend_data['syncedAt'] = synced_at_now
-                elif existing_core is not None and existing_core == frontend_data and existing_synced_at:
-                    frontend_data['syncedAt'] = existing_synced_at
-                else:
-                    frontend_data['syncedAt'] = synced_at_now
-            elif existing_core is not None and existing_core == frontend_data and existing_synced_at:
+            content_changed = True if existing_content_snapshot is None else existing_content_snapshot != content_snapshot
+            
+            # Check if any field in the song data changed for syncedAt - exclude timestamps from comparison
+            data_changed = True if existing_json is None else (
+                {k: v for k, v in frontend_data.items()} != 
+                {k: v for k, v in existing_json.items() if k not in ['syncedAt', 'updatedAt']}
+            )
+
+            # syncedAt: only update if this song's data actually changed (any field, including metadata)
+            if data_changed:
+                frontend_data['syncedAt'] = synced_at_now
+            elif existing_synced_at:
                 frontend_data['syncedAt'] = existing_synced_at
             else:
                 frontend_data['syncedAt'] = synced_at_now
+
+            # updatedAt: only bump when real content changed (status or PDFs) for showing recent activity
+            if content_changed:
+                frontend_data['updatedAt'] = synced_at_now
+            elif existing_updated_at:
+                frontend_data['updatedAt'] = existing_updated_at
+            else:
+                frontend_data['updatedAt'] = synced_at_now
             
  
             with open(filepath, 'w', encoding='utf-8') as f:

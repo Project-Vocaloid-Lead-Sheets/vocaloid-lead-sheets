@@ -7,13 +7,13 @@ import { generateSongSlug } from '@/utils/slugUtils'
 const songsStore = useSongsStore()
 const MAX_RECENT = 20
 
-const formatSyncedDate = (syncedAt?: string) => {
-  if (!syncedAt) return ''
+const formatUpdatedDate = (updatedAt?: string) => {
+  if (!updatedAt) return ''
   return new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
     month: 'short',
     day: '2-digit',
-  }).format(new Date(syncedAt))
+  }).format(new Date(updatedAt))
 }
 
 // Get most recent songs sorted by sync timestamp
@@ -25,9 +25,9 @@ const recentSongs = computed(() => {
     : songsStore.songs.filter((song) => !song.status || song.status.toLowerCase() === 'completed')
 
   return pool
-    .filter((song) => song.syncedAt)
-    .map((song) => ({ ...song, _syncedTs: new Date(song.syncedAt as string).getTime() }))
-    .sort((a, b) => b._syncedTs - a._syncedTs)
+    .filter((song) => song.updatedAt)
+    .map((song) => ({ ...song, _updatedTs: new Date(song.updatedAt as string).getTime() }))
+    .sort((a, b) => b._updatedTs - a._updatedTs)
     .slice(0, MAX_RECENT)
 })
 
@@ -83,11 +83,9 @@ onMounted(async () => {
             project from VGLS, organized by a different community.
           </p>
           <p>
-            If you would like to get in contact to ask questions, report issues, or offer to contribute,
-            please reach out to
-            <a href="mailto:staff@projectvocaleadsheets.com"
-              >staff@projectvocaleadsheets.com</a
-            >.
+            If you would like to get in contact to ask questions, report issues, or offer to
+            contribute, please reach out to
+            <a href="mailto:staff@projectvocaleadsheets.com">staff@projectvocaleadsheets.com</a>.
           </p>
         </div>
 
@@ -134,8 +132,8 @@ onMounted(async () => {
                     (under review)
                   </span>
                 </div>
-                <span class="synced-date" v-if="song.syncedAt">{{
-                  formatSyncedDate(song.syncedAt)
+                <span class="synced-date" v-if="song.updatedAt">{{
+                  formatUpdatedDate(song.updatedAt)
                 }}</span>
               </div>
             </li>
