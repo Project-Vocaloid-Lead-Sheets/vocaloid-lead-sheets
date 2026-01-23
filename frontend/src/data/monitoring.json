@@ -20,9 +20,9 @@
     "C": "https://drive.google.com/file/d/1KxcT0NtclHHWYdptOeF-yDp4501EHezv/view"
   },
   "pdfChecksums": {
-    "Vocals": "0c84b177df061ebc8058dadab8390b28",
+    "Vocals": "d4031a8ce6b73eace103cbf23d9ff0c5",
     "Bb": "3445da29f3da338e24c560d308cf5894",
-    "C": "f9f1005b91bf5a7c025476cb8ba8706c"
+    "C": "3fb22a828532980e834b2b0a46ed3e3d"
   },
   "pdfs": {
     "Vocals": "/pdfs/monitoring/monitoring-vocals.pdf",
@@ -30,6 +30,6 @@
     "C": "/pdfs/monitoring/monitoring-c.pdf"
   },
   "status": "under review",
-  "syncedAt": "2026-01-15T00:27:06Z",
-  "updatedAt": "2026-01-15T00:27:06Z"
+  "syncedAt": "2026-01-23T01:57:34Z",
+  "updatedAt": "2026-01-23T01:57:34Z"
 }
