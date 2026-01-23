@@ -1,0 +1,32 @@
+{
+  "title": "Triple Baka",
+  "alternativeNames": [],
+  "producer": "LamazeP",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [
+    "Kasane Teto"
+  ],
+  "releaseDate": "20080713",
+  "bpm": 180,
+  "labels": [],
+  "transcriber": "zmand97",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=duPJqfKiA78"
+  },
+  "links": {
+    "Bb": "https://drive.google.com/file/d/1_vTXfKlCHNeIJJwVKb8ojfqUdGpH7fCP/view",
+    "C": "https://drive.google.com/file/d/1h772Diz7LEAWvsKwMj9nkU4ySu7dzLPO/view"
+  },
+  "pdfChecksums": {
+    "Bb": "008c35e031e021f35543f1d8d58f1404",
+    "C": "6b225d8c1d21df79b5279459cee6af6c"
+  },
+  "pdfs": {
+    "Bb": "/pdfs/triple-baka/triple-baka-bb.pdf",
+    "C": "/pdfs/triple-baka/triple-baka-c.pdf"
+  },
+  "status": "under review",
+  "syncedAt": "2026-01-23T03:30:38Z",
+  "updatedAt": "2026-01-23T03:30:38Z"
+}

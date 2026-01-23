@@ -34,6 +34,7 @@ export const SONG_MANIFEST = [
   'the-disappearance-of-hatsune-miku.json',
   'the-lost-ones-weeping.json',
   'tricolore-airline.json',
+  'triple-baka.json',
   'two-faced-lovers.json',
   'venom.json',
   'world-is-mine.json',
