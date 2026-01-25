@@ -11,7 +11,8 @@
   "bpm": 185,
   "labels": [
     "Challenging",
-    "YouTube 100m"
+    "YouTube 100m",
+    "Hall of Myths"
   ],
   "transcriber": "Nap1400",
   "videoLinks": {
@@ -48,6 +49,6 @@
     "Bass": "/pdfs/mesmerizer/mesmerizer-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2026-01-15T00:27:06Z",
+  "syncedAt": "2026-01-25T17:48:19Z",
   "updatedAt": "2026-01-15T00:27:06Z"
 }
