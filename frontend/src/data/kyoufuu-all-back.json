@@ -28,7 +28,7 @@
   },
   "pdfChecksums": {
     "Vocals": "497ec41d51289fd91d2d5f7c0c9871e9",
-    "Bb": null,
+    "Bb": "d8965d867b56f5d9cb60c2d79dbbb6c3",
     "C": "eddd0794187499a5740962a742b4fec2",
     "Eb": "ce0570de969c0c81c60adc262b921fd9",
     "F": "a6a112fa7d2f6e8895345ea976ce067b",
@@ -47,6 +47,6 @@
     "Bass": "/pdfs/kyoufuu-all-back/kyoufuu-all-back-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2026-01-27T02:04:59Z",
-  "updatedAt": "2026-01-27T02:04:59Z"
+  "syncedAt": "2026-01-27T02:55:55Z",
+  "updatedAt": "2026-01-27T02:55:55Z"
 }

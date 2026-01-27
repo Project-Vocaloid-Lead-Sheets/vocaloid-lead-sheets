@@ -15,24 +15,27 @@
     "YouTube": "https://www.youtube.com/watch?v=_AjJZEcMdww"
   },
   "links": {
-    "Bb": "https://drive.google.com/file/d/1N_RiacihNNFjc3DD1kbp8grTqDgneGMY/view",
-    "C": "https://drive.google.com/file/d/1wsyXV0RJWfbifnl05dgzbS1PFTsjLG_j/view",
-    "Eb": "https://drive.google.com/file/d/1EI8AizWpVaswcV8CSJRVOK22Zd_kN7I7/view",
-    "Bass": "https://drive.google.com/file/d/16PhTcip0Se8ChMcSjoqIXteWwGxnWkIH/view"
+    "Vocals": "https://drive.google.com/file/d/1WlVvZht5kjvv59g44UR0Fe1pWScW1Ksp/view",
+    "Bb": "https://drive.google.com/file/d/1heQEHbKGB8pdDKSyaFoL_g3TWfNJbQwt/view",
+    "C": "https://drive.google.com/file/d/1KWF48ac7gNuINN7gDAjuPe2w6PikL5yO/view",
+    "Eb": "https://drive.google.com/file/d/1sGu-aDtHayDMxIIwtYeIILM0IiW5OKp6/view",
+    "Bass": "https://drive.google.com/file/d/1Us54LZVbhhrAw4B_7eQwGrqNKwLkd5Ix/view"
   },
   "pdfChecksums": {
-    "Bb": "a861ac2213c7b49c8527370cc95ecefb",
-    "C": "38a06c6b99882ac5b580a8c390382639",
-    "Eb": "36ae9bf1a2c9f37ff7df374cce866a9d",
-    "Bass": "743a6c26163f4f1c49aed49f03412978"
+    "Vocals": "0bc49da86904c3bbc6f86e49dab906ce",
+    "Bb": "98a62e00c498e0705592a3f499e609d8",
+    "C": "83f5df26ee24a561be020e00457f80a6",
+    "Eb": "a39eedf3e7842602f90e2ca8003925e5",
+    "Bass": "82b0294687d88bb72d1941860263e712"
   },
   "pdfs": {
+    "Vocals": "/pdfs/rot-for-clout/rot-for-clout-vocals.pdf",
     "Bb": "/pdfs/rot-for-clout/rot-for-clout-bb.pdf",
     "C": "/pdfs/rot-for-clout/rot-for-clout-c.pdf",
     "Eb": "/pdfs/rot-for-clout/rot-for-clout-eb.pdf",
     "Bass": "/pdfs/rot-for-clout/rot-for-clout-bass.pdf"
   },
   "status": "under review",
-  "syncedAt": "2025-12-25T01:53:28Z",
-  "updatedAt": "2025-12-25T01:53:28Z"
+  "syncedAt": "2026-01-27T02:55:55Z",
+  "updatedAt": "2026-01-27T02:55:55Z"
 }
