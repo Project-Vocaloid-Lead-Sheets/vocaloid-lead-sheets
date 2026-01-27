@@ -13,24 +13,27 @@
     "YouTube": "https://www.youtube.com/watch?v=xxFkW3PCT5M"
   },
   "links": {
+    "Vocals": "https://drive.google.com/file/d/1TdvGqqRfbFA26xlu94pRaeAdl6sUkIDS/view",
     "Bb": "https://drive.google.com/file/d/1hB3VRN9AcLSrszttSTJFlxmuPTOHvOJk/view",
     "C": "https://drive.google.com/file/d/11TWkokPb49lSvDqd33w4oSBpIIqgCYUP/view",
     "Eb": "https://drive.google.com/file/d/194wdp0HJe0OWNQbTMuhOGvGP0_FJ2SCa/view",
     "Bass": "https://drive.google.com/file/d/1d3IYZMvtAoCuf-HCq7UJyFzGQavfqWKl/view"
   },
   "pdfChecksums": {
+    "Vocals": "e2748c6c33e983e424fa3feba93b13c9",
     "Bb": "884975d0d101d897d1adb6a2f0eceaf8",
     "C": "7218e575a76c5606503e7a489f84cc79",
     "Eb": "3a9b278737967f48ee28a554e8bd1e6e",
     "Bass": "d5db9a6205ef9e3c0550e3bc62d7ff17"
   },
   "pdfs": {
+    "Vocals": "/pdfs/karakuri-pierrot/karakuri-pierrot-vocals.pdf",
     "Bb": "/pdfs/karakuri-pierrot/karakuri-pierrot-bb.pdf",
     "C": "/pdfs/karakuri-pierrot/karakuri-pierrot-c.pdf",
     "Eb": "/pdfs/karakuri-pierrot/karakuri-pierrot-eb.pdf",
     "Bass": "/pdfs/karakuri-pierrot/karakuri-pierrot-bass.pdf"
   },
   "status": "under review",
-  "syncedAt": "2025-11-05T00:48:25Z",
-  "updatedAt": "2025-11-05T00:48:25Z"
+  "syncedAt": "2026-01-27T02:04:59Z",
+  "updatedAt": "2026-01-27T02:04:59Z"
 }

@@ -11,7 +11,9 @@
   "bpm": 118,
   "labels": [],
   "transcriber": "stellarlights",
-  "videoLinks": {},
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=6qmUTclZhUo"
+  },
   "links": {
     "Vocals": "https://drive.google.com/file/d/1eUtcGc0yFZH2lyxvLD891J8HvPRBvT56/view",
     "Bb": "https://drive.google.com/file/d/1ghTz7ULKBABlfSuyvauv7KAck5DlTtHL/view",
@@ -43,6 +45,6 @@
     "Bass": "/pdfs/ievan-polkka/ievan-polkka-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2025-11-05T00:48:25Z",
+  "syncedAt": "2026-01-27T02:04:59Z",
   "updatedAt": "2025-11-05T00:48:25Z"
 }
