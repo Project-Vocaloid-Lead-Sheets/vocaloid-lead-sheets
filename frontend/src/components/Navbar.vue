@@ -7,7 +7,13 @@ import { useSongActions } from '@/scripts/useSongActions'
 import { useSongsStore } from '@/stores/songs'
 import FilterModal from '@/components/FilterModal.vue'
 import DownloadModal from '@/components/DownloadModal.vue'
-import { generateSongSlug } from '@/utils/slugUtils'
+import InstrumentButtons from '@/components/shared/InstrumentButtons.vue'
+import SearchBar from '@/components/shared/SearchBar.vue'
+import ActionButtons from '@/components/shared/ActionButtons.vue'
+import GroupSortControls from '@/components/shared/GroupSortControls.vue'
+import UnderReviewToggle from '@/components/shared/UnderReviewToggle.vue'
+import SongActionButtons from '@/components/shared/SongActionButtons.vue'
+import SongList from '@/components/shared/SongList.vue'
 
 const songsStore = useSongsStore()
 
@@ -78,129 +84,49 @@ const hasActiveFilters = computed(() => {
         <div class="offcanvas-body d-flex flex-column p-0">
           <div class="flex-grow-1 overflow-auto p-3">
             <!-- Instrument Buttons -->
-            <div class="btn-group flex-wrap mb-3 w-100">
-              <button
-                v-for="instrument in instruments"
-                :key="instrument"
-                :class="
-                  instrument === selectedInstrument
-                    ? 'btn btn-sm btn-light'
-                    : 'btn btn-sm btn-outline-light'
-                "
-                @click="selectedInstrument = instrument"
-              >
-                {{ instrument }}
-              </button>
-            </div>
+            <InstrumentButtons
+              :instruments="instruments"
+              v-model:selected-instrument="selectedInstrument"
+              wrapper-class="mb-3 w-100"
+            />
 
             <!-- Search -->
-            <div class="input-group input-group-sm mb-3">
-              <input type="text" class="form-control" placeholder="Search" v-model="searchQuery" />
-              <button class="btn btn-outline-light" type="button" @click="resetSearch">
-                <i class="bi bi-arrow-clockwise"></i>
-              </button>
-            </div>
+            <SearchBar
+              v-model:search-query="searchQuery"
+              @reset="resetSearch"
+              placeholder="Search"
+              class="mb-3"
+            />
 
             <!-- Action Buttons -->
-            <div class="d-flex gap-2 mb-3">
-              <button
-                type="button"
-                :class="hasActiveFilters ? 'btn btn-sm btn-light' : 'btn btn-sm btn-outline-light'"
-                data-bs-toggle="modal"
-                data-bs-target="#navbarFilterModal"
-              >
-                <i class="bi bi-filter"></i>
-              </button>
-              <button class="btn btn-sm btn-outline-light" @click="pickRandomSong">
-                <i class="bi bi-shuffle"></i>
-              </button>
-              <button
-                class="btn btn-sm btn-outline-light"
-                :data-bs-target="areGroupsCollapsed ? '.song.collapse.show' : '.song.collapse'"
-                data-bs-toggle="collapse"
-                @click="toggleGroupsCollapsed"
-              >
-                <i class="bi bi-chevron-expand"></i>
-              </button>
-            </div>
+            <ActionButtons
+              :has-active-filters="hasActiveFilters"
+              :are-groups-collapsed="areGroupsCollapsed"
+              filter-modal-id="#navbarFilterModal"
+              @shuffle="pickRandomSong"
+              @toggle-collapse="toggleGroupsCollapsed"
+              class="mb-3"
+            />
 
             <!-- Grouping & Sorting -->
-            <div class="input-group input-group-sm mb-2">
-              <span class="input-group-text"><i class="bi bi-folder"></i></span>
-              <select class="form-select" v-model="groupBy">
-                <option value="none">None</option>
-                <option value="singer">Singer</option>
-                <option value="producer">Producer</option>
-              </select>
-            </div>
-            <div class="input-group input-group-sm mb-4">
-              <span class="input-group-text"><i class="bi bi-sort-alpha-down"></i></span>
-              <select class="form-select" v-model="sortBy">
-                <option value="title-asc">Title: A → Z</option>
-                <option value="title-desc">Title: Z → A</option>
-                <option value="bpm-asc">BPM: Low → High</option>
-                <option value="bpm-desc">BPM: High → Low</option>
-                <option value="date-asc">Release Date: Old → New</option>
-                <option value="date-desc">Release Date: New → Old</option>
-              </select>
+            <div class="mb-4">
+              <GroupSortControls v-model:group-by="groupBy" v-model:sort-by="sortBy" />
             </div>
 
             <!-- Song List -->
-            <ul class="navbar-nav">
-              <li
-                class="nav-item group"
-                v-for="(group, index) in orderedSongs"
-                :key="group.groupName"
-              >
-                <button
-                  class="nav-link fw-bold"
-                  :data-bs-target="'#collapse' + index"
-                  data-bs-toggle="collapse"
-                >
-                  {{ group.groupName }}
-                </button>
-                <ul class="collapse show list-unstyled small song" :id="'collapse' + index">
-                  <li class="nav-item" v-for="song in group.songs" :key="song.title">
-                    <RouterLink
-                      class="nav-link d-flex align-items-center"
-                      :to="{
-                        name: 'sheetView',
-                        params: {
-                          songSlug: generateSongSlug(song.title),
-                        },
-                        query: {
-                          instrument: selectedInstrument,
-                        },
-                      }"
-                    >
-                      <span>{{ song.title }}</span>
-                      <span
-                        v-if="songsStore.isUnderReviewSong(song)"
-                        class="badge bg-light text-dark ms-2 small"
-                      >
-                        Under Review
-                      </span>
-                    </RouterLink>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+            <SongList
+              :ordered-songs="orderedSongs"
+              :selected-instrument="selectedInstrument"
+              collapse-id-prefix="collapse"
+            />
           </div>
 
           <!-- Review Mode Toggle -->
           <div class="border-top p-3" style="background-color: #1a5064; color: #fff">
-            <div class="form-check form-switch">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                role="switch"
-                id="navbarUnderReviewToggle"
-                v-model="songsStore.underReviewViewEnabled"
-              />
-              <label class="form-check-label text-light small" for="navbarUnderReviewToggle">
-                Show sheets currently under review
-              </label>
-            </div>
+            <UnderReviewToggle
+              toggle-id="navbarUnderReviewToggle"
+              v-model:under-review-view-enabled="songsStore.underReviewViewEnabled"
+            />
           </div>
 
           <!-- Footer with actions (only show when viewing a song) -->
@@ -209,41 +135,13 @@ const hasActiveFilters = computed(() => {
             class="border-top p-3"
             style="background-color: #206071; color: #fff"
           >
-            <div class="btn-group w-100" role="group" aria-label="Song actions">
-              <button
-                type="button"
-                class="btn btn-outline-light btn-sm"
-                data-bs-toggle="modal"
-                data-bs-target="#navbarDownloadModal"
-                :disabled="!currentSong"
-                title="Download PDF"
-              >
-                <i class="bi bi-download"></i>
-                <span class="d-none d-sm-inline ms-1">Download</span>
-              </button>
-              <!-- Print button hidden for now
-              <button
-                type="button"
-                class="btn btn-outline-light btn-sm"
-                @click="printPdf"
-                :disabled="!currentSong.pdfs[currentInstrument] && !currentSong.pdfs['C']"
-                title="Print PDF"
-              >
-                <i class="bi bi-printer"></i>
-                <span class="d-none d-sm-inline ms-1">Print</span>
-              </button>
-              -->
-              <button
-                type="button"
-                class="btn btn-outline-light btn-sm"
-                @click="watchOnYouTube"
-                :disabled="!currentSong.videoLinks?.YouTube"
-                title="Watch on YouTube"
-              >
-                <i class="bi bi-youtube"></i>
-                <span class="d-none d-sm-inline ms-1">YouTube</span>
-              </button>
-            </div>
+            <SongActionButtons
+              :current-song="currentSong"
+              download-modal-id="#navbarDownloadModal"
+              download-label-class="d-none d-sm-inline ms-1"
+              youtube-label-class="d-none d-sm-inline ms-1"
+              @watch-on-you-tube="watchOnYouTube"
+            />
           </div>
         </div>
       </div>
@@ -264,20 +162,3 @@ const hasActiveFilters = computed(() => {
     />
   </Teleport>
 </template>
-
-<style scoped>
-/* Ensure toggle switch is visible on dark background */
-.form-switch .form-check-input {
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
-
-.form-switch .form-check-input:checked {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
-}
-
-.form-switch .form-check-input:focus {
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-}
-</style>

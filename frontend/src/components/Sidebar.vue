@@ -3,21 +3,6 @@
 .bi-list {
   color: #fff !important;
 }
-
-/* Ensure toggle switch is visible on dark background */
-.form-switch .form-check-input {
-  background-color: #6c757d;
-  border-color: #6c757d;
-}
-
-.form-switch .form-check-input:checked {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
-}
-
-.form-switch .form-check-input:focus {
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-}
 </style>
 <script setup lang="ts">
 /** The sidebar is for larger displays that can fit the song select list on the side.
@@ -29,7 +14,14 @@ import { useSongActions } from '@/scripts/useSongActions'
 import { useSongsStore } from '@/stores/songs'
 import FilterModal from '@/components/FilterModal.vue'
 import DownloadModal from '@/components/DownloadModal.vue'
-import { generateSongSlug } from '@/utils/slugUtils'
+import InstrumentButtons from '@/components/shared/InstrumentButtons.vue'
+import SearchBar from '@/components/shared/SearchBar.vue'
+import ActionButtons from '@/components/shared/ActionButtons.vue'
+import GroupSortControls from '@/components/shared/GroupSortControls.vue'
+import ActiveFiltersBanner from '@/components/shared/ActiveFiltersBanner.vue'
+import UnderReviewToggle from '@/components/shared/UnderReviewToggle.vue'
+import SongActionButtons from '@/components/shared/SongActionButtons.vue'
+import SongList from '@/components/shared/SongList.vue'
 
 const songsStore = useSongsStore()
 
@@ -91,98 +83,35 @@ const hasActiveFilters = computed(() => {
       <!-- Sidebar Body -->
       <div class="sidebar-nav-collapsible collapse collapse-horizontal">
         <!-- Active Filters Banner -->
-        <div v-if="hasActiveFilters" class="mb-2 p-2 bg-white text-dark rounded small border">
-          <strong>Active Filters:</strong>
-          <div v-if="selectedLabels.length > 0">Labels: {{ selectedLabels.join(', ') }}</div>
-          <div v-if="selectedProducers.length > 0">
-            Producers: {{ selectedProducers.join(', ') }}
-          </div>
-          <div v-if="selectedSingers.length > 0">Singers: {{ selectedSingers.join(', ') }}</div>
-          <div v-if="dateRange.start || dateRange.end">
-            Date: {{ dateRange.start || '...' }} to {{ dateRange.end || '...' }}
-          </div>
-        </div>
+        <ActiveFiltersBanner
+          :selected-labels="selectedLabels"
+          :selected-producers="selectedProducers"
+          :selected-singers="selectedSingers"
+          :date-range="dateRange"
+        />
+
         <!-- Search Component -->
         <div class="d-flex flex-column gap-2">
           <!-- Row 1: Instrument/Transposition Buttons -->
-          <div class="d-flex flex-row flex-wrap btn-group" role="group">
-            <button
-              v-for="instrument in instruments"
-              :key="instrument"
-              aria-label="Instruments"
-              type="button"
-              :class="
-                instrument === selectedInstrument
-                  ? 'btn btn-sm btn-light'
-                  : 'btn btn-sm btn-outline-light'
-              "
-              @click="selectedInstrument = instrument"
-            >
-              {{ instrument }}
-            </button>
-          </div>
+          <InstrumentButtons
+            :instruments="instruments"
+            v-model:selected-instrument="selectedInstrument"
+          />
+
           <!-- Row 2: Search Field + Navigation Buttons -->
           <div class="d-flex">
-            <div class="input-group input-group-sm me-2">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Search by name"
-                v-model="searchQuery"
-              />
-              <button class="btn btn-outline-light" type="button" @click="resetSearch">
-                <i class="bi bi-arrow-clockwise"></i>
-              </button>
-            </div>
-            <button
-              type="button"
-              :class="
-                hasActiveFilters ? 'btn btn-sm btn-light me-2' : 'btn btn-sm btn-outline-light me-2'
-              "
-              data-bs-toggle="modal"
-              data-bs-target="#filterModal"
-            >
-              <i class="bi bi-filter"></i>
-            </button>
-            <button class="btn btn-sm btn-outline-light me-2" @click="pickRandomSong">
-              <i class="bi bi-shuffle"></i>
-            </button>
-            <button
-              class="btn btn-sm btn-outline-light"
-              :data-bs-target="areGroupsCollapsed ? '.song.collapse.show' : '.song.collapse'"
-              data-bs-toggle="collapse"
-              @click="toggleGroupsCollapsed"
-            >
-              <i class="bi bi-chevron-expand"></i>
-            </button>
+            <SearchBar v-model:search-query="searchQuery" @reset="resetSearch" class="me-2" />
+            <ActionButtons
+              :has-active-filters="hasActiveFilters"
+              :are-groups-collapsed="areGroupsCollapsed"
+              filter-modal-id="#filterModal"
+              @shuffle="pickRandomSong"
+              @toggle-collapse="toggleGroupsCollapsed"
+            />
           </div>
 
           <!-- Row 3: Group + Sort Selects -->
-          <div class="d-flex gap-2 align-items-center">
-            <div class="input-group">
-              <span class="input-group-text" id="basic-addon1"
-                ><i class="bi bi-folder small"></i
-              ></span>
-              <select id="group-select" class="form-select form-select-sm" v-model="groupBy">
-                <option value="none">None</option>
-                <option value="singer">Singer</option>
-                <option value="producer">Producer</option>
-              </select>
-            </div>
-            <div class="input-group">
-              <span class="input-group-text" id="basic-addon1">
-                <i class="bi bi-sort-alpha-down small"></i
-              ></span>
-              <select id="sort-select" class="form-select form-select-sm" v-model="sortBy">
-                <option value="title-asc">Title: A → Z</option>
-                <option value="title-desc">Title: Z → A</option>
-                <option value="bpm-asc">BPM: Low → High</option>
-                <option value="bpm-desc">BPM: High → Low</option>
-                <option value="date-asc">Release Date: Old → New</option>
-                <option value="date-desc">Release Date: New → Old</option>
-              </select>
-            </div>
-          </div>
+          <GroupSortControls v-model:group-by="groupBy" v-model:sort-by="sortBy" />
         </div>
       </div>
     </div>
@@ -192,99 +121,31 @@ const hasActiveFilters = computed(() => {
       class="sidebar-nav-collapsible collapse collapse-horizontal overflow-auto"
       style="flex: 1 1 0; min-height: 0"
     >
-      <ul id="song-list" class="navbar-nav pe-5">
-        <li class="nav-item group" v-for="(group, index) in orderedSongs" :key="group.groupName">
-          <button
-            :id="'dropdown' + index"
-            class="nav-link fw-bold"
-            data-bs-toggle="collapse"
-            :data-bs-target="'#' + index + 'collapse'"
-          >
-            {{ group.groupName }}
-          </button>
-          <ul class="song collapse show list-unstyled small" :id="index + 'collapse'">
-            <li class="nav-item" v-for="song in group.songs" :key="song.title">
-              <RouterLink
-                class="nav-link d-flex align-items-center"
-                :to="{
-                  name: 'sheetView',
-                  params: {
-                    songSlug: generateSongSlug(song.title),
-                  },
-                  query: {
-                    instrument: selectedInstrument,
-                  },
-                }"
-              >
-                <span>{{ song.title }}</span>
-                <span
-                  v-if="songsStore.isUnderReviewSong(song)"
-                  class="badge bg-light text-dark ms-2 small"
-                >
-                  Under Review
-                </span>
-              </RouterLink>
-            </li>
-          </ul>
-        </li>
-      </ul>
+      <SongList
+        :ordered-songs="orderedSongs"
+        :selected-instrument="selectedInstrument"
+        list-class="navbar-nav pe-5"
+        collapse-id-prefix="dropdown"
+      />
     </div>
 
     <!-- Footer area (always show when sidebar is open) -->
     <div v-show="!isSidebarCollapsed" class="mt-auto">
       <!-- Song actions (only show when viewing a song) -->
       <div v-if="currentSong" class="pt-3 pb-3">
-        <div class="btn-group w-100" role="group" aria-label="Song actions">
-          <button
-            type="button"
-            class="btn btn-outline-light btn-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#downloadModal"
-            :disabled="!currentSong"
-            title="Download PDF"
-          >
-            <i class="bi bi-download"></i>
-            <span class="d-none d-xl-inline ms-1">Download</span>
-          </button>
-          <!-- Print button hidden for now
-          <button
-            type="button"
-            class="btn btn-outline-light btn-sm"
-            @click="printPdf"
-            :disabled="!currentSong.pdfs[currentInstrument] && !currentSong.pdfs['C']"
-            title="Print PDF"
-          >
-            <i class="bi bi-printer"></i>
-            <span class="d-none d-xl-inline ms-1">Print</span>
-          </button>
-          -->
-          <button
-            type="button"
-            class="btn btn-outline-light btn-sm"
-            @click="watchOnYouTube"
-            :disabled="!currentSong.videoLinks?.YouTube"
-            title="Watch on YouTube"
-          >
-            <i class="bi bi-youtube"></i>
-            <span class="d-none d-xl-inline ms-1">YouTube</span>
-          </button>
-        </div>
+        <SongActionButtons
+          :current-song="currentSong"
+          download-modal-id="#downloadModal"
+          @watch-on-you-tube="watchOnYouTube"
+        />
       </div>
 
       <!-- Review Mode Toggle -->
       <div class="pt-3 pb-3" :class="{ 'border-top': currentSong }">
-        <div class="form-check form-switch">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            role="switch"
-            id="underReviewToggle"
-            v-model="songsStore.underReviewViewEnabled"
-          />
-          <label class="form-check-label text-light small" for="underReviewToggle">
-            Show sheets currently under review
-          </label>
-        </div>
+        <UnderReviewToggle
+          toggle-id="underReviewToggle"
+          v-model:under-review-view-enabled="songsStore.underReviewViewEnabled"
+        />
       </div>
     </div>
 
