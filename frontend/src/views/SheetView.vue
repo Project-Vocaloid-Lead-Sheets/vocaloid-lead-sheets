@@ -5,6 +5,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { getPdfDisplayUrl } from '@/utils/pdfUtils'
 import { useSongsStore } from '@/stores/songs'
 import UnderReviewDialog from '@/components/UnderReviewDialog.vue'
+import ExplicitContentDialog from '@/components/ExplicitContentDialog.vue'
 import PdfViewer from '@/components/PdfViewer.vue'
 
 const route = useRoute()
@@ -21,6 +22,12 @@ const currentSong = computed(() => songsStore.getSongBySlug(songSlug.value))
 const showReviewDialog = ref(false)
 const reviewDialogRef = ref<InstanceType<typeof UnderReviewDialog>>()
 
+// Explicit content dialog handling
+const showExplicitDialog = ref(false)
+const explicitDialogRef = ref<InstanceType<typeof ExplicitContentDialog>>()
+// Track all explicit songs that have been acknowledged this session
+const acknowledgedExplicitSongs = ref<Set<string>>(new Set())
+
 const checkReviewConfirmation = () => {
   if (route.meta.requiresReviewConfirmation && currentSong.value) {
     showReviewDialog.value = true
@@ -35,11 +42,44 @@ const onReviewConfirm = () => {
   showReviewDialog.value = false
   // Clear the meta flag
   route.meta.requiresReviewConfirmation = false
+  checkExplicitDialog()
 }
 
 const onReviewCancel = () => {
   showReviewDialog.value = false
-  router.push({ name: 'home' })
+  router.back()
+}
+
+const isExplicitSong = computed(() => {
+  return currentSong.value ? songsStore.isExplicitSong(currentSong.value) : false
+})
+
+const checkExplicitDialog = () => {
+  if (!currentSong.value) return
+  if (!isExplicitSong.value) return
+  if (instrument.value !== 'Vocals') return
+  if (showReviewDialog.value) return
+
+  // Only show if this song hasn't been acknowledged this session
+  if (acknowledgedExplicitSongs.value.has(songSlug.value)) return
+
+  showExplicitDialog.value = true
+  setTimeout(() => {
+    explicitDialogRef.value?.show()
+  }, 100)
+}
+
+const onExplicitConfirm = () => {
+  // Mark this song as acknowledged for the session
+  if (currentSong.value) {
+    acknowledgedExplicitSongs.value.add(songSlug.value)
+  }
+  showExplicitDialog.value = false
+}
+
+const onExplicitCancel = () => {
+  showExplicitDialog.value = false
+  router.back()
 }
 
 const pdfSource = computed(() => {
@@ -56,47 +96,57 @@ watch(
   },
 )
 
+watch([songSlug, instrument, currentSong], () => {
+  checkExplicitDialog()
+})
+
 onMounted(() => {
   checkReviewConfirmation()
+  checkExplicitDialog()
 })
 </script>
 
 <template>
-  <div class="scroll-container bg-secondary pt-0">
-    <!-- Loading state -->
-    <div v-if="songsStore.isLoading" class="d-flex justify-content-center align-items-center h-100">
-      <div class="text-center text-light">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-        <p class="mt-2">Loading songs...</p>
-      </div>
-    </div>
-
-    <!-- Song not found -->
-    <div
-      v-else-if="!currentSong && !songsStore.isLoading"
-      class="d-flex justify-content-center align-items-center h-100"
-    >
-      <div class="text-center text-light">
-        <h4>Song not found</h4>
-        <p>The requested song could not be found.</p>
-        <RouterLink to="/" class="btn btn-primary">Go Home</RouterLink>
-      </div>
-    </div>
-
-    <!-- PDF content (only show when song is found and not loading) -->
-    <template v-else-if="currentSong">
-      <!-- Use PdfViewer component -->
-      <PdfViewer v-if="pdfSource" :source="pdfSource" class="pdf-viewer" />
-      <!-- Show message when no PDF is available -->
-      <div v-else class="d-flex justify-content-center align-items-center h-100">
-        <div class="text-center text-muted">
-          <h4>No PDF available</h4>
-          <p>The sheet music for this song and instrument is not available.</p>
+  <div>
+    <div class="scroll-container bg-secondary pt-0" :class="{ 'blur-content': showExplicitDialog }">
+      <!-- Loading state -->
+      <div
+        v-if="songsStore.isLoading"
+        class="d-flex justify-content-center align-items-center h-100"
+      >
+        <div class="text-center text-light">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-2">Loading songs...</p>
         </div>
       </div>
-    </template>
+
+      <!-- Song not found -->
+      <div
+        v-else-if="!currentSong && !songsStore.isLoading"
+        class="d-flex justify-content-center align-items-center h-100"
+      >
+        <div class="text-center text-light">
+          <h4>Song not found</h4>
+          <p>The requested song could not be found.</p>
+          <RouterLink to="/" class="btn btn-primary">Go Home</RouterLink>
+        </div>
+      </div>
+
+      <!-- PDF content (only show when song is found and not loading) -->
+      <template v-else-if="currentSong">
+        <!-- Use PdfViewer component -->
+        <PdfViewer v-if="pdfSource" :source="pdfSource" class="pdf-viewer" />
+        <!-- Show message when no PDF is available -->
+        <div v-else class="d-flex justify-content-center align-items-center h-100">
+          <div class="text-center text-muted">
+            <h4>No PDF available</h4>
+            <p>The sheet music for this song and instrument is not available.</p>
+          </div>
+        </div>
+      </template>
+    </div>
 
     <!-- Review Confirmation Dialog -->
     <UnderReviewDialog
@@ -105,6 +155,15 @@ onMounted(() => {
       ref="reviewDialogRef"
       @confirm="onReviewConfirm"
       @cancel="onReviewCancel"
+    />
+
+    <!-- Explicit Content Dialog -->
+    <ExplicitContentDialog
+      v-if="showExplicitDialog"
+      :song-title="currentSong?.title || ''"
+      ref="explicitDialogRef"
+      @confirm="onExplicitConfirm"
+      @cancel="onExplicitCancel"
     />
   </div>
 </template>
@@ -167,5 +226,11 @@ onMounted(() => {
     max-height: 100%;
     overflow: auto;
   }
+}
+
+/* Blur effect for explicit content warning */
+.scroll-container.blur-content {
+  filter: blur(10px);
+  pointer-events: none;
 }
 </style>

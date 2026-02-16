@@ -83,6 +83,10 @@ export const useSongsStore = defineStore('songs', () => {
     return song.status && song.status.toLowerCase() === 'under review'
   }
 
+  const isExplicitSong = (song: Song) => {
+    return song.labels?.some((label) => label.toLowerCase() === 'explicit') ?? false
+  }
+
   const loadSongs = async () => {
     if (isLoading.value) return
 
@@ -131,5 +135,6 @@ export const useSongsStore = defineStore('songs', () => {
     refreshSongs,
     toggleUnderReviewView,
     isUnderReviewSong,
+    isExplicitSong,
   }
 })
