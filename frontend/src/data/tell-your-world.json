@@ -28,7 +28,7 @@
     "C": "bf6d104a0046d66d08a08440267b7abd",
     "Eb": "65907ded836f3ca65e42caaf7be1cc64",
     "F": "973a451f42b5da20cf52eb66b2a262bc",
-    "G": "03a988095d0b0908e35d227487be44cc",
+    "G": null,
     "Alto": "6ba0f612cc9bfaca4265795830704c55",
     "Bass": "7de37f2b1fea81a7b45e2039b14849ef"
   },
@@ -43,6 +43,6 @@
     "Bass": "/pdfs/tell-your-world/tell-your-world-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2025-12-28T02:04:02Z",
-  "updatedAt": "2025-12-28T02:04:02Z"
+  "syncedAt": "2026-02-18T02:31:07Z",
+  "updatedAt": "2026-02-18T02:31:07Z"
 }
