@@ -27,7 +27,7 @@
   "pdfChecksums": {
     "Vocals": "fac0bf26da2317b1a3639cf1014fd948",
     "Bb": "b21618023a24969fa4b30a6b6334cc2f",
-    "C": "36d05a40e0a10d784ef40688bc17ac16",
+    "C": null,
     "Eb": "8ac4133479adac9b55ec9a6f59e3778e",
     "F": "523a4dca7b449e670fb943cf7507c6ff",
     "G": "2b4bf42e6d3e4fbd4f4fd7a33416d70e",
@@ -45,6 +45,6 @@
     "Bass": "/pdfs/ievan-polkka/ievan-polkka-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2026-01-27T02:04:59Z",
-  "updatedAt": "2025-11-05T00:48:25Z"
+  "syncedAt": "2026-02-26T02:25:32Z",
+  "updatedAt": "2026-02-26T02:25:32Z"
 }
