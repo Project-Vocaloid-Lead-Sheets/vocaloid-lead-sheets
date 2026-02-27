@@ -22,11 +22,11 @@
     "Bass": "https://drive.google.com/file/d/1Us54LZVbhhrAw4B_7eQwGrqNKwLkd5Ix/view"
   },
   "pdfChecksums": {
-    "Vocals": "9fd58bcd7bff8aef74f5d6c703767c7d",
-    "Bb": "08d5ac77bf39e5a3bf889fabddf64838",
-    "C": "9f99622beadffd71a8e578a87a434a8b",
-    "Eb": "0fde7e13cd6c1151d69c0a29480b05db",
-    "Bass": "1e7e595f146d7b049d6e637412611a57"
+    "Vocals": "0c3ab02c44cd1ca598405258bcfa1d2d",
+    "Bb": "c2d44343660d1ac209494119562fe3c6",
+    "C": "7536bb4bcce9190bb42ad432210daeb8",
+    "Eb": "0c7e2560db32e82480b615404fc08ff9",
+    "Bass": "4262b3143b411ce7484f5e7a4753e119"
   },
   "pdfs": {
     "Vocals": "/pdfs/rot-for-clout/rot-for-clout-vocals.pdf",
@@ -36,6 +36,6 @@
     "Bass": "/pdfs/rot-for-clout/rot-for-clout-bass.pdf"
   },
   "status": "under review",
-  "syncedAt": "2026-02-16T00:12:36Z",
-  "updatedAt": "2026-02-16T00:12:36Z"
+  "syncedAt": "2026-02-27T02:23:50Z",
+  "updatedAt": "2026-02-27T02:23:50Z"
 }
