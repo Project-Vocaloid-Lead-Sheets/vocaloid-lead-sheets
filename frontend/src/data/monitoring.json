@@ -17,19 +17,34 @@
   "links": {
     "Vocals": "https://drive.google.com/file/d/1wc80Q9aOGQXI0CMtMHcJlVWapaxOFF7v/view",
     "Bb": "https://drive.google.com/file/d/1jkod_G7Am7NI8gcU61OfUzx92AFv6CWw/view",
-    "C": "https://drive.google.com/file/d/1KxcT0NtclHHWYdptOeF-yDp4501EHezv/view"
+    "C": "https://drive.google.com/file/d/1KxcT0NtclHHWYdptOeF-yDp4501EHezv/view",
+    "Eb": "https://drive.google.com/file/d/1DsBhspwI_i5R5xFTL2Syg_TL2lJqO9-p/view",
+    "F": "https://drive.google.com/file/d/1BNe2VwN8j-4aGGJKnhgWj5fU_9sm2qTd/view",
+    "G": "https://drive.google.com/file/d/1wJ5Yyd5O718f1sMzjXnRb4D8XFG_2b8x/view",
+    "Alto": "https://drive.google.com/file/d/19zwitWp4wAPvum-pLqaGQrsstZq5gh0z/view",
+    "Bass": "https://drive.google.com/file/d/11vz7Urh4tOAisdgEW7JHAyw3sVunCfQz/view"
   },
   "pdfChecksums": {
-    "Vocals": "d4031a8ce6b73eace103cbf23d9ff0c5",
-    "Bb": "3445da29f3da338e24c560d308cf5894",
-    "C": "3fb22a828532980e834b2b0a46ed3e3d"
+    "Vocals": "4af2b55fdf22f11b2153808cb7778d70",
+    "Bb": "b8583b38b4f6a2a8327dcc81dcd12c4e",
+    "C": "df9db18265d345c5afcbae015d92d56e",
+    "Eb": "db55dfc7abf93196c90ffc442ee990be",
+    "F": "aa0a3775b4d361073e112a153569766b",
+    "G": "d1890ba81cd80b2d2584522615b96a78",
+    "Alto": "7f161bc895f4e60a08ce0e3b3546cb30",
+    "Bass": "56b1aea7fe8bfa8e0483c9ea21d3ccec"
   },
   "pdfs": {
     "Vocals": "/pdfs/monitoring/monitoring-vocals.pdf",
     "Bb": "/pdfs/monitoring/monitoring-bb.pdf",
-    "C": "/pdfs/monitoring/monitoring-c.pdf"
+    "C": "/pdfs/monitoring/monitoring-c.pdf",
+    "Eb": "/pdfs/monitoring/monitoring-eb.pdf",
+    "F": "/pdfs/monitoring/monitoring-f.pdf",
+    "G": "/pdfs/monitoring/monitoring-g.pdf",
+    "Alto": "/pdfs/monitoring/monitoring-alto.pdf",
+    "Bass": "/pdfs/monitoring/monitoring-bass.pdf"
   },
   "status": "under review",
-  "syncedAt": "2026-01-23T01:57:34Z",
-  "updatedAt": "2026-01-23T01:57:34Z"
+  "syncedAt": "2026-02-19T02:16:39Z",
+  "updatedAt": "2026-02-19T02:16:39Z"
 }
