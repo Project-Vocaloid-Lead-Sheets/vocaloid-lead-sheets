@@ -24,11 +24,11 @@
     "Bass": "https://drive.google.com/file/d/1MU3Fs1W0SinzT48-L0ldy8wAQ4zT0Xz5/view"
   },
   "pdfChecksums": {
-    "Vocals": "a0759d4a1f2c2c4720ed0f498df9b848",
-    "Bb": "54a431503baa8878ceab1166e9ea30d3",
-    "C": "a46c4769acc1f8a642587f585bed9f6e",
-    "Eb": "cd3b26ed427e4f0c9c0ad54fd78c535c",
-    "Bass": "ab7290234d3b613ce179e802e10ffa57"
+    "Vocals": "86bcc1fd1f1b4b563975461218cc2c47",
+    "Bb": "63ef8b03d2ef871d95d93f715148db76",
+    "C": "8a4830d4347b65a7c1ae497c82fa1b87",
+    "Eb": "f1f3d7cbefe260c9499c04e5db598a2e",
+    "Bass": "9bfd8d593a5ed2ce40f64d90ee34cc6e"
   },
   "pdfs": {
     "Vocals": "/pdfs/romeo-and-cinderella/romeo-and-cinderella-vocals.pdf",
@@ -38,6 +38,6 @@
     "Bass": "/pdfs/romeo-and-cinderella/romeo-and-cinderella-bass.pdf"
   },
   "status": "under review",
-  "syncedAt": "2026-03-01T16:05:57Z",
-  "updatedAt": "2026-03-01T16:05:57Z"
+  "syncedAt": "2026-03-02T02:26:44Z",
+  "updatedAt": "2026-03-02T02:26:44Z"
 }
