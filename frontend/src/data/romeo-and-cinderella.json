@@ -18,17 +18,26 @@
   },
   "links": {
     "Vocals": "https://drive.google.com/file/d/1xHK_DrGTXe1-0w8QcdpsFuO8K3Iqb069/view",
-    "C": "https://drive.google.com/file/d/1ZPEA2NHfD3byogPqwinN4RvhslKXQrn0/view"
+    "Bb": "https://drive.google.com/file/d/10aMVWPri2gRfzlMrY51T9Wox6UWWk8Ux/view",
+    "C": "https://drive.google.com/file/d/1ZPEA2NHfD3byogPqwinN4RvhslKXQrn0/view",
+    "Eb": "https://drive.google.com/file/d/1ZyQ9OodyWoIPAsjMLW7HPB9fUXC3y0EU/view",
+    "Bass": "https://drive.google.com/file/d/1MU3Fs1W0SinzT48-L0ldy8wAQ4zT0Xz5/view"
   },
   "pdfChecksums": {
-    "Vocals": "1ccb06d2875ed1c1ba1092b6683b0a72",
-    "C": "fb924e489922192233e862e974ef41b2"
+    "Vocals": "86bcc1fd1f1b4b563975461218cc2c47",
+    "Bb": "63ef8b03d2ef871d95d93f715148db76",
+    "C": "8a4830d4347b65a7c1ae497c82fa1b87",
+    "Eb": "f1f3d7cbefe260c9499c04e5db598a2e",
+    "Bass": "9bfd8d593a5ed2ce40f64d90ee34cc6e"
   },
   "pdfs": {
     "Vocals": "/pdfs/romeo-and-cinderella/romeo-and-cinderella-vocals.pdf",
-    "C": "/pdfs/romeo-and-cinderella/romeo-and-cinderella-c.pdf"
+    "Bb": "/pdfs/romeo-and-cinderella/romeo-and-cinderella-bb.pdf",
+    "C": "/pdfs/romeo-and-cinderella/romeo-and-cinderella-c.pdf",
+    "Eb": "/pdfs/romeo-and-cinderella/romeo-and-cinderella-eb.pdf",
+    "Bass": "/pdfs/romeo-and-cinderella/romeo-and-cinderella-bass.pdf"
   },
   "status": "under review",
-  "syncedAt": "2026-02-20T02:25:15Z",
-  "updatedAt": "2026-02-20T02:25:15Z"
+  "syncedAt": "2026-03-02T02:26:44Z",
+  "updatedAt": "2026-03-02T02:26:44Z"
 }
