@@ -9,12 +9,16 @@ import { readUserSettings, writeUserSettings, SETTINGS_KEY } from '@/utils/userS
 
 // Ensure storage listener installed only once per page
 let _settingsStorageListenerInstalled = false
+let _groupCollapseListenerInstalled = false
 
 // Global reactive state to ensure all components share the same state
 const selectedInstrument = ref<Instrument>('C')
 const searchQuery = ref<string>('')
 const groupBy = ref<'none' | 'singer' | 'producer'>('none')
-// sortBy format: '<field>-<order>' where field is 'title' | 'bpm' | 'date' | 'length' and order is 'asc' | 'desc'
+type SortField = 'title' | 'bpm' | 'date' | 'length' | 'tv-length'
+type SortOrder = 'asc' | 'desc'
+
+// sortBy format: '<field>-<order>' where field is 'title' | 'bpm' | 'date' | 'length' | 'tv-length' and order is 'asc' | 'desc'
 const sortBy = ref<
   | 'title-asc'
   | 'title-desc'
@@ -24,6 +28,8 @@ const sortBy = ref<
   | 'date-desc'
   | 'length-asc'
   | 'length-desc'
+  | 'tv-length-asc'
+  | 'tv-length-desc'
 >('title-asc')
 const isFilterModalShowing = ref(false)
 const areGroupsCollapsed = ref(false)
@@ -98,6 +104,25 @@ export const useSongFilters = () => {
     return fullLength
   }
 
+  const sortFields = new Set<SortField>(['title', 'bpm', 'date', 'length', 'tv-length'])
+  const sortOrders = new Set<SortOrder>(['asc', 'desc'])
+
+  const parseSortBy = (value: string): { field: SortField; order: SortOrder } => {
+    const lastDashIndex = value.lastIndexOf('-')
+    if (lastDashIndex === -1) {
+      return { field: 'title', order: 'asc' }
+    }
+
+    const fieldCandidate = value.slice(0, lastDashIndex) as SortField
+    const orderCandidate = value.slice(lastDashIndex + 1) as SortOrder
+
+    if (!sortFields.has(fieldCandidate) || !sortOrders.has(orderCandidate)) {
+      return { field: 'title', order: 'asc' }
+    }
+
+    return { field: fieldCandidate, order: orderCandidate }
+  }
+
   const effectiveLengthBounds = computed(() => {
     const lengths = songs.value
       .map((song) => getEffectiveSongLengthSeconds(song))
@@ -136,8 +161,54 @@ export const useSongFilters = () => {
     isFilterModalShowing.value = !isFilterModalShowing.value
   }
 
+  const syncGroupsCollapsedFromDom = () => {
+    if (typeof document === 'undefined') return
+
+    const groupElements = Array.from(document.querySelectorAll<HTMLElement>('.song.collapse'))
+    if (groupElements.length === 0) {
+      areGroupsCollapsed.value = false
+      return
+    }
+
+    const allExpanded = groupElements.every((element) => element.classList.contains('show'))
+    areGroupsCollapsed.value = !allExpanded
+  }
+
+  const setAllGroupsExpanded = (expand: boolean) => {
+    if (typeof document === 'undefined') return
+
+    const groupElements = Array.from(document.querySelectorAll<HTMLElement>('.song.collapse'))
+    if (groupElements.length === 0) {
+      areGroupsCollapsed.value = !expand
+      return
+    }
+
+    const bootstrapApi = (window as any).bootstrap
+
+    groupElements.forEach((element) => {
+      const isExpanded = element.classList.contains('show')
+      if (isExpanded === expand) return
+
+      if (bootstrapApi?.Collapse?.getOrCreateInstance) {
+        const collapse = bootstrapApi.Collapse.getOrCreateInstance(element, { toggle: false })
+        if (expand) {
+          collapse.show()
+        } else {
+          collapse.hide()
+        }
+        return
+      }
+
+      element.classList.toggle('show', expand)
+    })
+
+    areGroupsCollapsed.value = !expand
+  }
+
   const toggleGroupsCollapsed = () => {
-    areGroupsCollapsed.value = !areGroupsCollapsed.value
+    syncGroupsCollapsedFromDom()
+    const shouldExpandAll = areGroupsCollapsed.value
+    setAllGroupsExpanded(shouldExpandAll)
   }
 
   const toggleSidebarCollapsed = () => {
@@ -240,8 +311,7 @@ export const useSongFilters = () => {
 
   // Combination function that groups and sorts
   const orderedSongs = computed(() => {
-    // parse sortBy into field and direction
-    const [field, order] = sortBy.value.split('-') as [string, 'asc' | 'desc']
+    const { field, order } = parseSortBy(sortBy.value)
     const dir = order === 'asc' ? 1 : -1
 
     const comparator = (a: Song, b: Song) => {
@@ -256,6 +326,12 @@ export const useSongFilters = () => {
       if (field === 'length') {
         const aLength = getEffectiveSongLengthSeconds(a)
         const bLength = getEffectiveSongLengthSeconds(b)
+        return dir * ((aLength ?? Number.MAX_SAFE_INTEGER) - (bLength ?? Number.MAX_SAFE_INTEGER))
+      }
+
+      if (field === 'tv-length') {
+        const aLength = parseLengthToSeconds(a.tvSizeLength)
+        const bLength = parseLengthToSeconds(b.tvSizeLength)
         return dir * ((aLength ?? Number.MAX_SAFE_INTEGER) - (bLength ?? Number.MAX_SAFE_INTEGER))
       }
 
@@ -344,6 +420,23 @@ export const useSongFilters = () => {
       if (typeof s.useTvSize === 'boolean') useTvSize.value = s.useTvSize
     })
     _settingsStorageListenerInstalled = true
+  }
+
+  if (typeof window !== 'undefined' && !_groupCollapseListenerInstalled) {
+    const onCollapseStateChanged = (event: Event) => {
+      const target = event.target as HTMLElement | null
+      if (!target?.classList?.contains('song') || !target.classList.contains('collapse')) return
+      syncGroupsCollapsedFromDom()
+    }
+
+    document.addEventListener('shown.bs.collapse', onCollapseStateChanged as EventListener)
+    document.addEventListener('hidden.bs.collapse', onCollapseStateChanged as EventListener)
+
+    queueMicrotask(() => {
+      syncGroupsCollapsedFromDom()
+    })
+
+    _groupCollapseListenerInstalled = true
   }
 
   return {

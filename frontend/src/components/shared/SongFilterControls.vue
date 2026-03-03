@@ -22,14 +22,17 @@
       />
       <ActionButtons
         :has-active-filters="hasActiveFilters"
-        :are-groups-collapsed="areGroupsCollapsed"
         :filter-modal-id="filterModalId"
         @shuffle="emit('shuffle')"
-        @toggle-collapse="emit('toggleCollapse')"
       />
     </div>
 
-    <GroupSortControls v-model:group-by="groupBy" v-model:sort-by="sortBy" />
+    <GroupSortControls
+      :are-groups-collapsed="areGroupsCollapsed"
+      v-model:group-by="groupBy"
+      v-model:sort-by="sortBy"
+      @toggle-collapse="emit('toggleCollapse')"
+    />
   </div>
 </template>
 
