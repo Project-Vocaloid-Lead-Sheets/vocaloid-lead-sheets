@@ -1026,8 +1026,6 @@ class SongSyncManager:
                 'pdfsTvSize': frontend_data.get('pdfsTvSize', {}),
                 'pdfChecksums': frontend_data.get('pdfChecksums', {}),
                 'links': frontend_data.get('links', {}),
-                'length': frontend_data.get('length', ''),
-                'tvSizeLength': frontend_data.get('tvSizeLength', ''),
             }
 
             existing_updated_at = None
@@ -1047,8 +1045,6 @@ class SongSyncManager:
                             'pdfsTvSize': existing_json.get('pdfsTvSize', {}),
                             'pdfChecksums': existing_json.get('pdfChecksums', {}),
                             'links': existing_json.get('links', {}),
-                            'length': existing_json.get('length', ''),
-                            'tvSizeLength': existing_json.get('tvSizeLength', ''),
                         }
                 except Exception as e:
                     logger.warning(f"Failed to read existing song file for sync preservation: {filepath} ({e})")

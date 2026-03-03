@@ -9,6 +9,7 @@
       >
         {{ group.groupName }}
       </button>
+
       <ul
         class="song collapse show list-unstyled small"
         :id="collapseIdPrefix + 'collapse' + index"
@@ -40,18 +41,21 @@
             </span>
           </RouterLink>
 
-          <a
-            v-if="isSelectedSong(song) && song.videoLinks?.YouTube"
-            :href="song.videoLinks.YouTube"
-            class="ms-2"
-            style="color: inherit"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Watch on YouTube"
-            aria-label="Watch on YouTube"
-          >
-            <i class="bi bi-youtube"></i>
-          </a>
+          <div v-if="isSelectedSong(song)" class="ms-2 d-flex align-items-center gap-2">
+            <a
+              v-if="song.videoLinks?.YouTube"
+              :href="song.videoLinks.YouTube"
+              style="color: inherit"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Watch on YouTube"
+              aria-label="Watch on YouTube"
+            >
+              <i class="bi bi-youtube"></i>
+            </a>
+
+            <SongInfo :song="song" />
+          </div>
         </li>
       </ul>
     </li>
@@ -60,6 +64,7 @@
 
 <script setup lang="ts">
 import type { Instrument, Song } from '@/types/types'
+import SongInfo from '@/components/shared/SongInfo.vue'
 import { useSongsStore } from '@/stores/songs'
 import { generateSongSlug } from '@/utils/slugUtils'
 import { useRoute } from 'vue-router'
