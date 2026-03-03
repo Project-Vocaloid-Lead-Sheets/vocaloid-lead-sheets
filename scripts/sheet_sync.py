@@ -198,6 +198,189 @@ class SongSyncManager:
             logger.error(f"Failed to fetch songs from sheet: {e}")
             raise
 
+    def fetch_tv_size_sheets(self) -> Dict[str, Dict[str, Any]]:
+        """Fetch TV size sheet data from the 'TV Size Sheets' worksheet.
+        
+        Returns a dict mapping song names to TV size metadata:
+        {
+            'Song Name': {
+                'pdfs': {
+                    'Vocals': '/pdfs/song-name-tv/song-name-tv-vocals.pdf',
+                    'Bb': '/pdfs/song-name-tv/song-name-tv-bb.pdf',
+                    ...
+                },
+                'tvSizeLength': '1:30'
+            }
+        }
+        """
+        try:
+            # Try to get the TV Size Sheets worksheet
+            workbook = self.sheet.spreadsheet
+            tv_sheet = None
+            
+            try:
+                tv_sheet = workbook.worksheet('TV Size Sheets')
+                logger.info(f"Found 'TV Size Sheets' worksheet")
+            except gspread.exceptions.WorksheetNotFound:
+                logger.info("'TV Size Sheets' worksheet not found, skipping TV size PDFs")
+                return {}
+            
+            records = tv_sheet.get_all_records()
+            
+            # Get hyperlinks for this worksheet
+            hyperlinks_data = self._extract_hyperlinks_from_worksheet(tv_sheet)
+            
+            tv_size_pdfs = {}
+            pdf_columns = ['Vocals', 'Bb', 'C', 'Eb', 'F', 'G', 'Alto', 'Bass']
+            
+            for i, record in enumerate(records, start=2):  # Start at 2 for sheet row numbers
+                song_name = str(record.get('Song Name', '')).strip()
+                
+                if not song_name:
+                    continue
+                
+                song_slug = self.slugify(song_name)
+                pdfs = {}
+                tv_size_length = self._parse_length(record.get('TV Size Length', ''))
+                
+                # Extract hyperlinks for this row if available
+                row_hyperlinks = hyperlinks_data.get(i, {})
+                
+                # Parse PDF links for each instrument column
+                for column_name in pdf_columns:
+                    drive_id = None
+                    
+                    # First try hyperlinks (chip format)
+                    if column_name in row_hyperlinks:
+                        drive_url = row_hyperlinks[column_name]
+                        drive_id = self._validate_drive_id(drive_url)
+                    else:
+                        # Fallback to text content
+                        drive_id = self._validate_drive_id(record.get(column_name, ''))
+                    
+                    if drive_id:
+                        # Use TV size subdirectory naming: /pdfs/{song-slug}-tv/{song-slug}-tv-{instrument}.pdf
+                        pdf_filename = f"{song_slug}-tv/{song_slug}-tv-{column_name.lower()}.pdf"
+                        pdf_path = os.path.join(self.pdf_dir, pdf_filename)
+                        
+                        # Fetch Drive metadata for change detection
+                        metadata = self._get_drive_file_metadata(drive_id)
+                        remote_md5 = metadata.get('md5Checksum') if metadata else None
+                        
+                        # Compare and download if needed
+                        local_md5 = self._file_md5(pdf_path) if os.path.exists(pdf_path) else None
+                        should_download = False
+                        
+                        if not os.path.exists(pdf_path):
+                            logger.info(f"TV PDF not found locally: {pdf_filename}")
+                            should_download = True
+                        elif remote_md5 and local_md5 and remote_md5 != local_md5:
+                            logger.info(f"Remote TV PDF changed for {column_name} in {song_name}, will re-download")
+                            should_download = True
+                        elif remote_md5 and not local_md5:
+                            should_download = True
+                        elif not remote_md5 and not os.path.exists(pdf_path):
+                            should_download = True
+                        
+                        if should_download:
+                            if self.download_pdf_from_drive(drive_id, pdf_filename):
+                                pdfs[column_name] = f"/pdfs/{pdf_filename}"
+                                self.downloads_performed = True
+                            else:
+                                logger.warning(f"Failed to download TV PDF for {column_name}, keeping existing if present")
+                                if os.path.exists(pdf_path):
+                                    pdfs[column_name] = f"/pdfs/{pdf_filename}"
+                        else:
+                            pdfs[column_name] = f"/pdfs/{pdf_filename}"
+                
+                if pdfs or tv_size_length:
+                    tv_size_pdfs[song_name] = {
+                        'pdfs': pdfs,
+                        'tvSizeLength': tv_size_length,
+                    }
+            
+            logger.info(f"Found {len(tv_size_pdfs)} songs with TV size sheets")
+            return tv_size_pdfs
+            
+        except Exception as e:
+            logger.error(f"Failed to fetch TV size sheets: {e}")
+            return {}
+
+    def _extract_hyperlinks_from_worksheet(self, worksheet) -> Dict[int, Dict[str, str]]:
+        """Extract hyperlinks from a specific worksheet using Google Sheets API"""
+        try:
+            import requests
+            
+            client = worksheet.spreadsheet.client
+            credentials = client.auth
+            
+            if hasattr(credentials, 'token') and hasattr(credentials, 'refresh'):
+                if getattr(credentials, 'expired', False):
+                    credentials.refresh(requests.Request())
+            
+            access_token = getattr(credentials, 'token', None)
+            if not access_token:
+                return {}
+            
+            spreadsheet_id = worksheet.spreadsheet.id
+            url = f"https://sheets.googleapis.com/v4/spreadsheets/{spreadsheet_id}"
+            
+            params = {
+                'includeGridData': 'true',
+                'ranges': f"'{worksheet.title}'!A:Z",
+                'fields': 'sheets.data.rowData.values.chipRuns,sheets.data.rowData.values.formattedValue'
+            }
+            
+            headers = {
+                'Authorization': f'Bearer {access_token}',
+                'Content-Type': 'application/json'
+            }
+            
+            response = requests.get(url, params=params, headers=headers)
+            response.raise_for_status()
+            
+            data = response.json()
+            hyperlinks_by_row = {}
+            
+            if 'sheets' in data and len(data['sheets']) > 0:
+                sheet_data = data['sheets'][0]
+                if 'data' in sheet_data and len(sheet_data['data']) > 0:
+                    grid_data = sheet_data['data'][0]
+                    
+                    if 'rowData' in grid_data:
+                        # Get header row
+                        headers = []
+                        if len(grid_data['rowData']) > 0 and 'values' in grid_data['rowData'][0]:
+                            for cell in grid_data['rowData'][0]['values']:
+                                headers.append(cell.get('formattedValue', ''))
+                        
+                        # Process data rows
+                        for row_idx, row_data in enumerate(grid_data['rowData'][1:], start=2):
+                            if 'values' not in row_data:
+                                continue
+                            
+                            row_hyperlinks = {}
+                            
+                            for col_idx, cell_data in enumerate(row_data['values']):
+                                if 'chipRuns' in cell_data:
+                                    for chip_run in cell_data['chipRuns']:
+                                        if 'chip' in chip_run and 'richLinkProperties' in chip_run['chip']:
+                                            uri = chip_run['chip']['richLinkProperties'].get('uri')
+                                            if uri and col_idx < len(headers):
+                                                col_name = headers[col_idx]
+                                                if col_name:
+                                                    row_hyperlinks[col_name] = uri
+                            
+                            if row_hyperlinks:
+                                hyperlinks_by_row[row_idx] = row_hyperlinks
+            
+            logger.info(f"Extracted hyperlinks for {len(hyperlinks_by_row)} rows from {worksheet.title}")
+            return hyperlinks_by_row
+            
+        except Exception as e:
+            logger.warning(f"Failed to extract hyperlinks from {worksheet.title}: {e}")
+            return {}
+
     def _extract_hyperlinks_simple(self) -> Dict[int, Dict[str, str]]:
         """Extract hyperlinks from chip format using Google Sheets API"""
         try:
@@ -278,8 +461,16 @@ class SongSyncManager:
             logger.warning(f"Failed to extract hyperlinks: {e}")
             return {}
 
-    def normalize_song_data(self, song: Dict[str, Any], existing_song_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        """Normalize song data based on the sheet structure"""
+    def normalize_song_data(self, song: Dict[str, Any], existing_song_data: Optional[Dict[str, Any]] = None, tv_size_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Normalize song data based on the sheet structure
+        
+        Args:
+            song: Dict with song data from main Songs worksheet
+            existing_song_data: Existing frontend JSON data for comparison (if available)
+            tv_size_data: Dict containing TV size metadata for this song (from TV Size Sheets worksheet)
+        """
+        tv_size_data = tv_size_data or {}
+
         # Parse PDFs with change detection (Drive md5 checksums included)
         pdfs, links, pdf_checksums, downloaded_any = self._parse_pdfs_new(song, existing_song_data)
         if downloaded_any:
@@ -294,11 +485,14 @@ class SongSyncManager:
             'singer': str(song.get('Original Voice', '')).strip(),
             'additionalVoices': self._parse_comma_separated(song.get('Additional Voices (comma sep)', '')),
             'releaseDate': self._format_date(song.get('Release Date (ISO)', '')),
+            'length': self._parse_length(song.get('Length', '')),
+            'tvSizeLength': self._parse_length(tv_size_data.get('tvSizeLength', '')),
             'bpm': self._parse_bpm(song.get('BPM', '')),
             'labels': self._parse_comma_separated(song.get('Labels (comma sep)', '')),
             'transcriber': str(song.get('Transcriber', '')).strip(),
             'videoLinks': self._parse_video_links_new(song),
             'pdfs': pdfs,
+            'pdfsTvSize': tv_size_data.get('pdfs', {}),
             'links': links,
             'pdfChecksums': pdf_checksums,
             # Track whether this song downloaded any PDFs this run for per-song syncedAt decisions
@@ -501,6 +695,36 @@ class SongSyncManager:
             return digits
         return ''
 
+    def _parse_length(self, length_value: Any) -> str:
+        """Parse length value and normalize to M:SS format."""
+        if length_value is None:
+            return ''
+
+        length_str = str(length_value).strip()
+        if not length_str:
+            return ''
+
+        # MM:SS or M:SS
+        m = re.match(r'^(\d{1,3}):(\d{2})$', length_str)
+        if m:
+            minutes = int(m.group(1))
+            seconds = int(m.group(2))
+            if 0 <= seconds <= 59:
+                return f"{minutes}:{seconds:02d}"
+
+        # HH:MM:SS (convert to total minutes:seconds)
+        m = re.match(r'^(\d{1,2}):(\d{2}):(\d{2})$', length_str)
+        if m:
+            hours = int(m.group(1))
+            minutes = int(m.group(2))
+            seconds = int(m.group(3))
+            if 0 <= minutes <= 59 and 0 <= seconds <= 59:
+                total_minutes = (hours * 60) + minutes
+                return f"{total_minutes}:{seconds:02d}"
+
+        logger.warning(f"Could not parse length value: {length_str}")
+        return ''
+
     def _parse_bpm(self, bpm_value: Any) -> Optional[int]:
         """Parse BPM value from the sheet into an integer if possible"""
         if bpm_value is None:
@@ -678,8 +902,16 @@ class SongSyncManager:
         except Exception as e:
             logger.error(f"Failed to cleanup orphaned PDFs: {e}")
 
-    def group_and_merge_songs(self, songs: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
-        """Group songs by title - simplified for new structure"""
+    def group_and_merge_songs(self, songs: List[Dict[str, Any]], tv_size_pdfs: Optional[Dict[str, Dict[str, Any]]] = None) -> Dict[str, Dict[str, Any]]:
+        """Group songs by title - simplified for new structure
+        
+        Args:
+            songs: List of song records from main Songs worksheet
+            tv_size_pdfs: Dict mapping song names to their TV size PDFs from TV Size Sheets worksheet
+        """
+        if tv_size_pdfs is None:
+            tv_size_pdfs = {}
+        
         grouped = {}
         
         for song in songs:
@@ -698,8 +930,11 @@ class SongSyncManager:
                 except Exception as e:
                     logger.warning(f"Failed to load existing song data for {title}: {e}")
             
+            # Get TV size metadata for this song if available
+            song_tv_size_data = tv_size_pdfs.get(title, {})
+            
             # Normalize with existing data for comparison
-            normalized = self.normalize_song_data(song, existing_song_data)
+            normalized = self.normalize_song_data(song, existing_song_data, song_tv_size_data)
             
             # Create song entry
             grouped[title] = {
@@ -710,6 +945,8 @@ class SongSyncManager:
                 'singer': normalized['singer'],
                 'additionalVoices': normalized['additionalVoices'],
                 'releaseDate': normalized['releaseDate'],
+                'length': normalized.get('length', ''),
+                'tvSizeLength': normalized.get('tvSizeLength', ''),
                 'bpm': normalized.get('bpm'),
                 'labels': normalized['labels'],
                 'transcriber': normalized['transcriber'],
@@ -717,6 +954,7 @@ class SongSyncManager:
                 'links': normalized['links'],
                 'pdfChecksums': normalized.get('pdfChecksums', {}),
                 'pdfs': normalized['pdfs'],
+                'pdfsTvSize': normalized.get('pdfsTvSize', {}),
                 'downloaded': normalized.get('downloaded', False),
                 'metadata': normalized['metadata'],
             }
@@ -752,6 +990,13 @@ class SongSyncManager:
                     rel_path = rel_path.replace('/', os.sep)
                     referenced_pdfs.add(rel_path)
             
+            # Track TV size PDFs too
+            for tv_pdf_path in song_data.get('pdfsTvSize', {}).values():
+                if tv_pdf_path.startswith('/pdfs/'):
+                    rel_path = tv_pdf_path[6:]  # Remove '/pdfs/' prefix
+                    rel_path = rel_path.replace('/', os.sep)
+                    referenced_pdfs.add(rel_path)
+            
             # Create frontend-compatible format (simplified structure)
             frontend_data = {
                 'title': song_data['title'],
@@ -761,6 +1006,8 @@ class SongSyncManager:
                 'singer': song_data['singer'],
                 'additionalVoices': song_data.get('additionalVoices', []),
                 'releaseDate': song_data['releaseDate'],
+                'length': song_data.get('length', ''),
+                'tvSizeLength': song_data.get('tvSizeLength', ''),
                 'bpm': song_data.get('bpm'),
                 'labels': song_data.get('labels', []),
                 'transcriber': song_data.get('transcriber', ''),
@@ -768,6 +1015,7 @@ class SongSyncManager:
                 'links': song_data.get('links', {}),
                 'pdfChecksums': song_data.get('pdfChecksums', {}),
                 'pdfs': song_data['pdfs'],
+                'pdfsTvSize': song_data.get('pdfsTvSize', {}),
                 'status': song_data.get('metadata', {}).get('status', 'completed'),
             }
 
@@ -775,8 +1023,11 @@ class SongSyncManager:
             content_snapshot = {
                 'status': frontend_data['status'],
                 'pdfs': frontend_data['pdfs'],
+                'pdfsTvSize': frontend_data.get('pdfsTvSize', {}),
                 'pdfChecksums': frontend_data.get('pdfChecksums', {}),
                 'links': frontend_data.get('links', {}),
+                'length': frontend_data.get('length', ''),
+                'tvSizeLength': frontend_data.get('tvSizeLength', ''),
             }
 
             existing_updated_at = None
@@ -793,8 +1044,11 @@ class SongSyncManager:
                         existing_content_snapshot = {
                             'status': existing_json.get('status', 'completed'),
                             'pdfs': existing_json.get('pdfs', {}),
+                            'pdfsTvSize': existing_json.get('pdfsTvSize', {}),
                             'pdfChecksums': existing_json.get('pdfChecksums', {}),
                             'links': existing_json.get('links', {}),
+                            'length': existing_json.get('length', ''),
+                            'tvSizeLength': existing_json.get('tvSizeLength', ''),
                         }
                 except Exception as e:
                     logger.warning(f"Failed to read existing song file for sync preservation: {filepath} ({e})")
@@ -976,6 +1230,8 @@ export type SongFilename = typeof SONG_MANIFEST[number]
                 'singer': song_data['singer'],
                 'additionalVoices': song_data.get('additionalVoices', []),
                 'releaseDate': song_data['releaseDate'],
+                'length': song_data.get('length', ''),
+                'tvSizeLength': song_data.get('tvSizeLength', ''),
                 'bpm': song_data.get('bpm'),
                 'labels': song_data.get('labels', []),
                 'transcriber': song_data.get('transcriber', ''),
@@ -983,6 +1239,7 @@ export type SongFilename = typeof SONG_MANIFEST[number]
                 'links': song_data.get('links', {}),
                 'pdfChecksums': song_data.get('pdfChecksums', {}),
                 'pdfs': song_data['pdfs'],
+                'pdfsTvSize': song_data.get('pdfsTvSize', {}),
                 'status': song_data.get('metadata', {}).get('status', 'completed')
             }
             content_dict[filename] = frontend_data
@@ -1035,7 +1292,8 @@ export type SongFilename = typeof SONG_MANIFEST[number]
 
             # Fetch and process data (always compute full state, including Drive md5 checksums)
             songs = self.fetch_accepted_songs()
-            grouped_songs = self.group_and_merge_songs(songs)
+            tv_size_pdfs = self.fetch_tv_size_sheets()
+            grouped_songs = self.group_and_merge_songs(songs, tv_size_pdfs)
             new_content_hash = self.calculate_content_hash(grouped_songs)
 
             if not self.force_sync and new_content_hash == old_content_hash and not self.downloads_performed:
@@ -1095,7 +1353,8 @@ def main():
         try:
             sync_manager.setup_google_sheets()
             songs = sync_manager.fetch_accepted_songs()
-            grouped_songs = sync_manager.group_and_merge_songs(songs)
+            tv_size_pdfs = sync_manager.fetch_tv_size_sheets()
+            grouped_songs = sync_manager.group_and_merge_songs(songs, tv_size_pdfs)
             current_hash = sync_manager.calculate_content_hash(grouped_songs)
             last_state = sync_manager.get_sync_state()
             previous_hash = last_state.get('contentHash', '')

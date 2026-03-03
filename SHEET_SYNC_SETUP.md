@@ -14,6 +14,7 @@ The "Vocaloid Lead Sheets Progress" Google Sheet is used to track all submission
 - **At least one PDF column** must have a valid Google Drive ID or URL (make sure it is open to sharing)
 - **Use comma-separated fields** so that they can be parsed into arrays
 - **Use smart chips for links** for readability, as they are automatically extracted and used
+- **To support TV size PDFs**, there is a second worksheet named **TV Size Sheets**. Use the same song title as the main tab and only include rows for songs that have TV size PDFs.
 
 ### 2. Authentication Setup
 
@@ -79,16 +80,33 @@ The sync creates:
   "additionalProducers": ["Co-Producer"],
   "singer": "Vocaloid Name",
   "additionalVoices": ["Additional Voice"],
-  "releaseDate": "2025-01-01",
+  "releaseDate": "20250101",
+  "length": "3:42",
+  "tvSizeLength": "1:30",
   "labels": ["Hall of Myths", "Hall of Legends"],
   "transcriber": "Transcriber",
   "videoLinks": {
     "YouTube": "https://youtube.com/..."
   },
-  "pdfs": {
+  "links": {
     "Vocals": "https://drive.google.com/file/d/.../view",
     "C": "https://drive.google.com/file/d/.../view"
-  }
+  },
+  "pdfChecksums": {
+    "Vocals": "md5checksum...",
+    "C": "md5checksum..."
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/song-title/song-title-vocals.pdf",
+    "C": "/pdfs/song-title/song-title-c.pdf"
+  },
+  "pdfsTvSize": {
+    "Vocals": "/pdfs/song-title-tv/song-title-tv-vocals.pdf",
+    "C": "/pdfs/song-title-tv/song-title-tv-c.pdf"
+  },
+  "status": "completed",
+  "syncedAt": "2026-02-19T12:00:00Z",
+  "updatedAt": "2026-02-19T12:00:00Z"
 }
 ```
 
