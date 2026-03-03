@@ -6,6 +6,8 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20071207",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 170,
   "labels": [
     "Hall of Myths"
@@ -35,7 +37,8 @@
     "Alto": "/pdfs/melt/melt-alto.pdf",
     "Bass": "/pdfs/melt/melt-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-03-03T02:28:36Z",
+  "syncedAt": "2026-03-03T05:40:48Z",
   "updatedAt": "2026-03-03T02:28:36Z"
 }
