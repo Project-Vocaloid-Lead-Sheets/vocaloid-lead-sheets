@@ -9,11 +9,12 @@ const {
   selectedSingers,
   dateRange,
   lengthRange,
+  lengthFilterSource,
   // Calculated from all song metadata
   availableLabels,
   availableProducers,
   availableSingers,
-  effectiveLengthBounds,
+  getLengthBoundsForSource,
   formatSecondsAsLength,
 } = useSongFilters()
 
@@ -23,6 +24,7 @@ const tempSelectedProducers = ref<string[]>([])
 const tempSelectedSingers = ref<string[]>([])
 const tempDateRange = ref<{ start: string; end: string }>({ start: '', end: '' })
 const tempLengthRange = ref<{ min: number | null; max: number | null }>({ min: null, max: null })
+const tempLengthFilterSource = ref<'full' | 'tv' | 'either'>('full')
 
 // Initialize modal with current filter values
 const initializeTempFilters = () => {
@@ -30,6 +32,7 @@ const initializeTempFilters = () => {
   tempSelectedProducers.value = [...selectedProducers.value]
   tempSelectedSingers.value = [...selectedSingers.value]
   tempDateRange.value = { ...dateRange.value }
+  tempLengthFilterSource.value = lengthFilterSource.value
   tempLengthRange.value = { ...lengthRange.value }
   syncLengthInputsFromTempRange()
 }
@@ -40,9 +43,10 @@ const applyFilters = () => {
   selectedProducers.value = [...tempSelectedProducers.value]
   selectedSingers.value = [...tempSelectedSingers.value]
   dateRange.value = { ...tempDateRange.value }
+  lengthFilterSource.value = tempLengthFilterSource.value
 
-  const minBound = effectiveLengthBounds.value.min
-  const maxBound = effectiveLengthBounds.value.max
+  const minBound = sliderMin.value
+  const maxBound = sliderMax.value
   const selectedMin = tempLengthRange.value.min
   const selectedMax = tempLengthRange.value.max
 
@@ -239,12 +243,14 @@ const clearAllFilters = () => {
   tempSelectedProducers.value = []
   tempSelectedSingers.value = []
   tempDateRange.value = { start: '', end: '' }
+  tempLengthFilterSource.value = 'full'
   tempLengthRange.value = { min: sliderMin.value, max: sliderMax.value }
   syncLengthInputsFromTempRange()
 }
 
-const sliderMin = computed(() => effectiveLengthBounds.value.min)
-const sliderMax = computed(() => effectiveLengthBounds.value.max)
+const sliderBounds = computed(() => getLengthBoundsForSource(tempLengthFilterSource.value))
+const sliderMin = computed(() => sliderBounds.value.min)
+const sliderMax = computed(() => sliderBounds.value.max)
 const lengthMinInput = ref('')
 const lengthMaxInput = ref('')
 
@@ -341,6 +347,11 @@ const onMaxLengthTextCommit = () => {
 
   const clampedMax = clampLengthValue(parsedSeconds)
   setTempLengthRange(resolvedMinLength.value, Math.max(clampedMax, resolvedMinLength.value))
+}
+
+const onLengthSourceChange = () => {
+  tempLengthRange.value = { min: sliderMin.value, max: sliderMax.value }
+  syncLengthInputsFromTempRange()
 }
 
 // Initialize temp filters when component mounts
@@ -564,6 +575,43 @@ const hideSingerDropdown = () => {
           <!-- Length Range Section -->
           <div class="mb-4" v-if="sliderMax > 0">
             <h6 class="fw-bold mb-2"><i class="bi bi-clock me-2"></i>Length Range</h6>
+            <div class="mb-3">
+              <label class="form-label small mb-1">Length Source</label>
+              <div class="btn-group btn-group-sm w-100" role="group" aria-label="Length source">
+                <input
+                  id="lengthSourceEither"
+                  type="radio"
+                  class="btn-check"
+                  name="lengthSource"
+                  value="either"
+                  v-model="tempLengthFilterSource"
+                  @change="onLengthSourceChange"
+                />
+                <label class="btn btn-outline-secondary" for="lengthSourceEither">Either</label>
+
+                <input
+                  id="lengthSourceFull"
+                  type="radio"
+                  class="btn-check"
+                  name="lengthSource"
+                  value="full"
+                  v-model="tempLengthFilterSource"
+                  @change="onLengthSourceChange"
+                />
+                <label class="btn btn-outline-secondary" for="lengthSourceFull">Full Version</label>
+
+                <input
+                  id="lengthSourceTv"
+                  type="radio"
+                  class="btn-check"
+                  name="lengthSource"
+                  value="tv"
+                  v-model="tempLengthFilterSource"
+                  @change="onLengthSourceChange"
+                />
+                <label class="btn btn-outline-secondary" for="lengthSourceTv">TV Size</label>
+              </div>
+            </div>
             <div class="small text-muted mb-2">
               {{ displayMinLength }} to {{ displayMaxLength }}
             </div>

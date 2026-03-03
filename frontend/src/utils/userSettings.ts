@@ -7,6 +7,7 @@ export type StoredSettings = {
   selectedSingers?: string[]
   dateRange?: { start: string; end: string }
   lengthRange?: { min: number | null; max: number | null }
+  lengthFilterSource?: 'full' | 'tv' | 'either'
   underReviewViewEnabled?: boolean
   selectedInstrument?: string
   useTvSize?: boolean
