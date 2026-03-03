@@ -6,13 +6,14 @@ export type StoredSettings = {
   selectedProducers?: string[]
   selectedSingers?: string[]
   dateRange?: { start: string; end: string }
+  lengthRange?: { min: number | null; max: number | null }
   underReviewViewEnabled?: boolean
   selectedInstrument?: string
   useTvSize?: boolean
 }
 
 export const SETTINGS_KEY = 'project_vls_user_settings'
-export const SCHEMA_VERSION = 1
+export const SCHEMA_VERSION = 2
 
 export function readUserSettings(): StoredSettings | null {
   if (typeof window === 'undefined') return null
@@ -44,7 +45,7 @@ export function writeUserSettings(partial: Partial<StoredSettings>): void {
   } catch (err) {
     // ignore write errors (e.g., quota)
     // Logging is helpful but avoid throwing
-     
+
     console.warn('Failed to write user settings to localStorage', err)
   }
 }

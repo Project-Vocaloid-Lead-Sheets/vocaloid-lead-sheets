@@ -32,6 +32,7 @@ const {
   selectedProducers,
   selectedSingers,
   dateRange,
+  lengthRange,
   useTvSize,
 } = useSongFilters()
 
@@ -61,6 +62,12 @@ const hasActiveFilters = computed(() => {
     selectedProducers.value.length > 0 ||
     selectedSingers.value.length > 0 ||
     dateRange.value.start !== '' ||
+    dateRange.value.end !== '' ||
+    lengthRange.value.min !== null ||
+    lengthRange.value.max !== null
+  )
+})
+
 onMounted(() => {
   window.addEventListener(OPEN_DOWNLOAD_MODAL_EVENT, handleOpenDownloadModalEvent)
 })
@@ -119,6 +126,7 @@ onUnmounted(() => {
               :selected-producers="selectedProducers"
               :selected-singers="selectedSingers"
               :date-range="dateRange"
+              :length-range="lengthRange"
               v-model:selected-instrument="selectedInstrument"
               v-model:search-query="searchQuery"
               v-model:group-by="groupBy"
@@ -127,7 +135,7 @@ onUnmounted(() => {
               @shuffle="pickRandomSong"
               @toggle-collapse="toggleGroupsCollapsed"
             />
-            </div>
+          </div>
 
           <div class="flex-grow-1 overflow-auto p-3">
             <!-- Song List -->
@@ -148,10 +156,10 @@ onUnmounted(() => {
               </template>
 
               <template #bottom>
-            <UnderReviewToggle
-              toggle-id="navbarUnderReviewToggle"
-              v-model:under-review-view-enabled="songsStore.underReviewViewEnabled"
-            />
+                <UnderReviewToggle
+                  toggle-id="navbarUnderReviewToggle"
+                  v-model:under-review-view-enabled="songsStore.underReviewViewEnabled"
+                />
               </template>
             </BottomFooter>
           </div>

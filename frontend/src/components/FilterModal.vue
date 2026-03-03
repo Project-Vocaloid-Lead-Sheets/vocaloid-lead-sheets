@@ -8,10 +8,13 @@ const {
   selectedProducers,
   selectedSingers,
   dateRange,
+  lengthRange,
   // Calculated from all song metadata
   availableLabels,
   availableProducers,
   availableSingers,
+  effectiveLengthBounds,
+  formatSecondsAsLength,
 } = useSongFilters()
 
 // Staged filter state for tracking user editing in-modal
@@ -19,6 +22,7 @@ const tempSelectedLabels = ref<string[]>([])
 const tempSelectedProducers = ref<string[]>([])
 const tempSelectedSingers = ref<string[]>([])
 const tempDateRange = ref<{ start: string; end: string }>({ start: '', end: '' })
+const tempLengthRange = ref<{ min: number | null; max: number | null }>({ min: null, max: null })
 
 // Initialize modal with current filter values
 const initializeTempFilters = () => {
@@ -26,6 +30,8 @@ const initializeTempFilters = () => {
   tempSelectedProducers.value = [...selectedProducers.value]
   tempSelectedSingers.value = [...selectedSingers.value]
   tempDateRange.value = { ...dateRange.value }
+  tempLengthRange.value = { ...lengthRange.value }
+  syncLengthInputsFromTempRange()
 }
 
 // Apply staged filters to actual filter state
@@ -34,10 +40,20 @@ const applyFilters = () => {
   selectedProducers.value = [...tempSelectedProducers.value]
   selectedSingers.value = [...tempSelectedSingers.value]
   dateRange.value = { ...tempDateRange.value }
-}
 
-// Initialize temp filters when component mounts
-initializeTempFilters()
+  const minBound = effectiveLengthBounds.value.min
+  const maxBound = effectiveLengthBounds.value.max
+  const selectedMin = tempLengthRange.value.min
+  const selectedMax = tempLengthRange.value.max
+
+  const isFullRange =
+    selectedMin !== null &&
+    selectedMax !== null &&
+    selectedMin <= minBound &&
+    selectedMax >= maxBound
+
+  lengthRange.value = isFullRange ? { min: null, max: null } : { ...tempLengthRange.value }
+}
 
 // Input field refs and states
 const labelInput = ref('')
@@ -223,7 +239,112 @@ const clearAllFilters = () => {
   tempSelectedProducers.value = []
   tempSelectedSingers.value = []
   tempDateRange.value = { start: '', end: '' }
+  tempLengthRange.value = { min: sliderMin.value, max: sliderMax.value }
+  syncLengthInputsFromTempRange()
 }
+
+const sliderMin = computed(() => effectiveLengthBounds.value.min)
+const sliderMax = computed(() => effectiveLengthBounds.value.max)
+const lengthMinInput = ref('')
+const lengthMaxInput = ref('')
+
+const resolvedMinLength = computed(() => tempLengthRange.value.min ?? sliderMin.value)
+const resolvedMaxLength = computed(() => tempLengthRange.value.max ?? sliderMax.value)
+
+const clampLengthValue = (value: number) =>
+  Math.min(Math.max(value, sliderMin.value), sliderMax.value)
+
+const updateLengthInputs = (minSeconds: number, maxSeconds: number) => {
+  lengthMinInput.value = formatSecondsAsLength(minSeconds)
+  lengthMaxInput.value = formatSecondsAsLength(maxSeconds)
+}
+
+const setTempLengthRange = (minSeconds: number, maxSeconds: number) => {
+  const clampedMin = clampLengthValue(minSeconds)
+  const clampedMax = clampLengthValue(maxSeconds)
+  const normalizedMin = Math.min(clampedMin, clampedMax)
+  const normalizedMax = Math.max(clampedMin, clampedMax)
+
+  tempLengthRange.value = { min: normalizedMin, max: normalizedMax }
+  updateLengthInputs(normalizedMin, normalizedMax)
+}
+
+const parseLengthTextInput = (value: string): number | null => {
+  const match = value.trim().match(/^(\d+):(\d{1,2})$/)
+  if (!match) return null
+
+  const minutes = Number(match[1])
+  const seconds = Number(match[2])
+
+  if (Number.isNaN(minutes) || Number.isNaN(seconds) || seconds >= 60) {
+    return null
+  }
+
+  return minutes * 60 + seconds
+}
+
+const syncLengthInputsFromTempRange = () => {
+  const minSeconds = tempLengthRange.value.min ?? sliderMin.value
+  const maxSeconds = tempLengthRange.value.max ?? sliderMax.value
+  updateLengthInputs(minSeconds, maxSeconds)
+}
+
+const displayMinLength = computed(() => {
+  const value = resolvedMinLength.value
+  return formatSecondsAsLength(value)
+})
+
+const displayMaxLength = computed(() => {
+  const value = resolvedMaxLength.value
+  return formatSecondsAsLength(value)
+})
+
+const minThumbPosition = computed(() => {
+  const range = sliderMax.value - sliderMin.value
+  if (range <= 0) return 0
+  return ((resolvedMinLength.value - sliderMin.value) / range) * 100
+})
+
+const maxThumbPosition = computed(() => {
+  const range = sliderMax.value - sliderMin.value
+  if (range <= 0) return 100
+  return ((resolvedMaxLength.value - sliderMin.value) / range) * 100
+})
+
+const onMinLengthSliderInput = (event: Event) => {
+  const nextValue = Number((event.target as HTMLInputElement).value)
+  setTempLengthRange(Math.min(nextValue, resolvedMaxLength.value), resolvedMaxLength.value)
+}
+
+const onMaxLengthSliderInput = (event: Event) => {
+  const nextValue = Number((event.target as HTMLInputElement).value)
+  setTempLengthRange(resolvedMinLength.value, Math.max(nextValue, resolvedMinLength.value))
+}
+
+const onMinLengthTextCommit = () => {
+  const parsedSeconds = parseLengthTextInput(lengthMinInput.value)
+  if (parsedSeconds === null) {
+    lengthMinInput.value = formatSecondsAsLength(resolvedMinLength.value)
+    return
+  }
+
+  const clampedMin = clampLengthValue(parsedSeconds)
+  setTempLengthRange(Math.min(clampedMin, resolvedMaxLength.value), resolvedMaxLength.value)
+}
+
+const onMaxLengthTextCommit = () => {
+  const parsedSeconds = parseLengthTextInput(lengthMaxInput.value)
+  if (parsedSeconds === null) {
+    lengthMaxInput.value = formatSecondsAsLength(resolvedMaxLength.value)
+    return
+  }
+
+  const clampedMax = clampLengthValue(parsedSeconds)
+  setTempLengthRange(resolvedMinLength.value, Math.max(clampedMax, resolvedMinLength.value))
+}
+
+// Initialize temp filters when component mounts
+initializeTempFilters()
 
 // Helper functions for blur events
 const hideLabelDropdown = () => {
@@ -439,6 +560,66 @@ const hideSingerDropdown = () => {
               </div>
             </div>
           </div>
+
+          <!-- Length Range Section -->
+          <div class="mb-4" v-if="sliderMax > 0">
+            <h6 class="fw-bold mb-2"><i class="bi bi-clock me-2"></i>Length Range</h6>
+            <div class="small text-muted mb-2">
+              {{ displayMinLength }} to {{ displayMaxLength }}
+            </div>
+            <div class="dual-range mb-3">
+              <div class="dual-range__track"></div>
+              <div
+                class="dual-range__fill"
+                :style="{
+                  left: `${minThumbPosition}%`,
+                  width: `${Math.max(maxThumbPosition - minThumbPosition, 0)}%`,
+                }"
+              ></div>
+              <input
+                type="range"
+                class="dual-range__input"
+                :min="sliderMin"
+                :max="sliderMax"
+                :value="resolvedMinLength"
+                @input="onMinLengthSliderInput"
+                aria-label="Minimum length"
+              />
+              <input
+                type="range"
+                class="dual-range__input"
+                :min="sliderMin"
+                :max="sliderMax"
+                :value="resolvedMaxLength"
+                @input="onMaxLengthSliderInput"
+                aria-label="Maximum length"
+              />
+            </div>
+            <div class="row g-2">
+              <div class="col-6">
+                <label class="form-label small mb-1">Min (mm:ss)</label>
+                <input
+                  type="text"
+                  class="form-control form-control-sm font-monospace"
+                  v-model="lengthMinInput"
+                  placeholder="0:00"
+                  @blur="onMinLengthTextCommit"
+                  @keydown.enter.prevent="onMinLengthTextCommit"
+                />
+              </div>
+              <div class="col-6">
+                <label class="form-label small mb-1">Max (mm:ss)</label>
+                <input
+                  type="text"
+                  class="form-control form-control-sm font-monospace"
+                  v-model="lengthMaxInput"
+                  placeholder="0:00"
+                  @blur="onMaxLengthTextCommit"
+                  @keydown.enter.prevent="onMaxLengthTextCommit"
+                />
+              </div>
+            </div>
+          </div>
         </div>
         <!-- Filter Modal Footer -->
         <div class="modal-footer">
@@ -461,3 +642,68 @@ const hideSingerDropdown = () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.dual-range {
+  position: relative;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.dual-range__track,
+.dual-range__fill {
+  position: absolute;
+  height: 0.35rem;
+  border-radius: 999px;
+}
+
+.dual-range__track {
+  width: 100%;
+  background: var(--bs-border-color);
+}
+
+.dual-range__fill {
+  background: var(--bs-primary);
+}
+
+.dual-range__input {
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  background: transparent;
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.dual-range__input::-webkit-slider-runnable-track {
+  height: 0.35rem;
+  background: transparent;
+}
+
+.dual-range__input::-webkit-slider-thumb {
+  width: 1rem;
+  height: 1rem;
+  margin-top: -0.325rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--bs-primary);
+  pointer-events: auto;
+  -webkit-appearance: none;
+}
+
+.dual-range__input::-moz-range-track {
+  height: 0.35rem;
+  background: transparent;
+}
+
+.dual-range__input::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--bs-primary);
+  pointer-events: auto;
+}
+</style>

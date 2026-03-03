@@ -38,6 +38,7 @@ const {
   selectedProducers,
   selectedSingers,
   dateRange,
+  lengthRange,
   toggleSidebarCollapsed,
   isSidebarCollapsed,
   useTvSize,
@@ -69,6 +70,12 @@ const hasActiveFilters = computed(() => {
     selectedProducers.value.length > 0 ||
     selectedSingers.value.length > 0 ||
     dateRange.value.start !== '' ||
+    dateRange.value.end !== '' ||
+    lengthRange.value.min !== null ||
+    lengthRange.value.max !== null
+  )
+})
+
 onMounted(() => {
   window.addEventListener(OPEN_DOWNLOAD_MODAL_EVENT, handleOpenDownloadModalEvent)
 })
@@ -112,21 +119,15 @@ onUnmounted(() => {
           :selected-producers="selectedProducers"
           :selected-singers="selectedSingers"
           :date-range="dateRange"
-        />
-
-        <!-- Search Component -->
-        <div class="d-flex flex-column gap-2">
-          <!-- Row 1: Instrument/Transposition Buttons -->
-          <InstrumentButtons
-            :instruments="instruments"
-            v-model:selected-instrument="selectedInstrument"
+          :length-range="lengthRange"
+          v-model:selected-instrument="selectedInstrument"
           v-model:search-query="searchQuery"
           v-model:group-by="groupBy"
           v-model:sort-by="sortBy"
           @reset="resetSearch"
-              @shuffle="pickRandomSong"
-              @toggle-collapse="toggleGroupsCollapsed"
-            />
+          @shuffle="pickRandomSong"
+          @toggle-collapse="toggleGroupsCollapsed"
+        />
       </div>
     </div>
     <!-- Sidebar Scrollable Area -->
@@ -151,10 +152,10 @@ onUnmounted(() => {
         </template>
 
         <template #bottom>
-        <UnderReviewToggle
-          toggle-id="underReviewToggle"
-          v-model:under-review-view-enabled="songsStore.underReviewViewEnabled"
-        />
+          <UnderReviewToggle
+            toggle-id="underReviewToggle"
+            v-model:under-review-view-enabled="songsStore.underReviewViewEnabled"
+          />
         </template>
       </BottomFooter>
     </div>

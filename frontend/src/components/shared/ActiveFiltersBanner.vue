@@ -7,6 +7,10 @@
     <div v-if="dateRange.start || dateRange.end">
       Date: {{ dateRange.start || '...' }} to {{ dateRange.end || '...' }}
     </div>
+    <div v-if="lengthRange.min !== null || lengthRange.max !== null">
+      Length: {{ formatLength(lengthRange.min) || '...' }} to
+      {{ formatLength(lengthRange.max) || '...' }}
+    </div>
   </div>
 </template>
 
@@ -18,9 +22,17 @@ interface Props {
   selectedProducers: string[]
   selectedSingers: string[]
   dateRange: { start: string; end: string }
+  lengthRange: { min: number | null; max: number | null }
 }
 
 const props = defineProps<Props>()
+
+const formatLength = (seconds: number | null): string => {
+  if (seconds === null) return ''
+  const minutes = Math.floor(seconds / 60)
+  const remainingSeconds = seconds % 60
+  return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`
+}
 
 const hasFilters = computed(() => {
   return (
@@ -28,7 +40,9 @@ const hasFilters = computed(() => {
     props.selectedProducers.length > 0 ||
     props.selectedSingers.length > 0 ||
     props.dateRange.start !== '' ||
-    props.dateRange.end !== ''
+    props.dateRange.end !== '' ||
+    props.lengthRange.min !== null ||
+    props.lengthRange.max !== null
   )
 })
 </script>

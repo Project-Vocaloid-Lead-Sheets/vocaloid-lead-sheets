@@ -14,10 +14,17 @@ let _settingsStorageListenerInstalled = false
 const selectedInstrument = ref<Instrument>('C')
 const searchQuery = ref<string>('')
 const groupBy = ref<'none' | 'singer' | 'producer'>('none')
-// sortBy format: '<field>-<order>' where field is 'title' | 'bpm' | 'date' and order is 'asc' | 'desc'
-const sortBy = ref<'title-asc' | 'title-desc' | 'bpm-asc' | 'bpm-desc' | 'date-asc' | 'date-desc'>(
-  'title-asc',
-)
+// sortBy format: '<field>-<order>' where field is 'title' | 'bpm' | 'date' | 'length' and order is 'asc' | 'desc'
+const sortBy = ref<
+  | 'title-asc'
+  | 'title-desc'
+  | 'bpm-asc'
+  | 'bpm-desc'
+  | 'date-asc'
+  | 'date-desc'
+  | 'length-asc'
+  | 'length-desc'
+>('title-asc')
 const isFilterModalShowing = ref(false)
 const areGroupsCollapsed = ref(false)
 const isSidebarCollapsed = ref(true) // Start collapsed to match Bootstrap's default state
@@ -25,6 +32,7 @@ const selectedLabels = ref<string[]>([])
 const selectedProducers = ref<string[]>([])
 const selectedSingers = ref<string[]>([])
 const dateRange = ref<{ start: string; end: string }>({ start: '', end: '' })
+const lengthRange = ref<{ min: number | null; max: number | null }>({ min: null, max: null })
 const useTvSize = ref<boolean>(false)
 
 // Initialize from storage if available
@@ -40,6 +48,7 @@ if (_initialSettings) {
   if (_initialSettings.selectedSingers)
     selectedSingers.value = [..._initialSettings.selectedSingers]
   if (_initialSettings.dateRange) dateRange.value = { ..._initialSettings.dateRange }
+  if (_initialSettings.lengthRange) lengthRange.value = { ..._initialSettings.lengthRange }
   if (typeof _initialSettings.useTvSize === 'boolean') useTvSize.value = _initialSettings.useTvSize
 }
 
@@ -50,6 +59,59 @@ export const useSongFilters = () => {
 
   // Use availableSongs from store instead of all songs
   const songs = computed(() => songsStore.availableSongs)
+
+  const parseLengthToSeconds = (lengthValue?: string): number | null => {
+    if (!lengthValue) return null
+    const trimmed = lengthValue.trim()
+    if (!trimmed) return null
+
+    const parts = trimmed.split(':')
+    if (parts.length !== 2) return null
+
+    const minutes = Number.parseInt(parts[0], 10)
+    const seconds = Number.parseInt(parts[1], 10)
+
+    if (
+      Number.isNaN(minutes) ||
+      Number.isNaN(seconds) ||
+      minutes < 0 ||
+      seconds < 0 ||
+      seconds > 59
+    ) {
+      return null
+    }
+
+    return minutes * 60 + seconds
+  }
+
+  const formatSecondsAsLength = (totalSeconds: number): string => {
+    const safeValue = Math.max(0, Math.floor(totalSeconds))
+    const minutes = Math.floor(safeValue / 60)
+    const seconds = safeValue % 60
+    return `${minutes}:${String(seconds).padStart(2, '0')}`
+  }
+
+  const getEffectiveSongLengthSeconds = (song: Song): number | null => {
+    const fullLength = parseLengthToSeconds(song.length)
+    const tvLength = parseLengthToSeconds(song.tvSizeLength)
+    if (useTvSize.value && tvLength !== null) return tvLength
+    return fullLength
+  }
+
+  const effectiveLengthBounds = computed(() => {
+    const lengths = songs.value
+      .map((song) => getEffectiveSongLengthSeconds(song))
+      .filter((value): value is number => value !== null)
+
+    if (lengths.length === 0) {
+      return { min: 0, max: 0 }
+    }
+
+    return {
+      min: Math.min(...lengths),
+      max: Math.max(...lengths),
+    }
+  })
 
   watch(selectedInstrument, (value) => {
     router.replace({ query: { ...route.query, instrument: value } })
@@ -63,6 +125,7 @@ export const useSongFilters = () => {
     selectedProducers.value = []
     selectedSingers.value = []
     dateRange.value = { start: '', end: '' }
+    lengthRange.value = { min: null, max: null }
   }
 
   const resetAllFilters = () => {
@@ -153,13 +216,22 @@ export const useSongFilters = () => {
       const matchesDateRange =
         (!startDate || songDate >= startDate) && (!endDate || songDate <= endDate)
 
+      const effectiveLength = getEffectiveSongLengthSeconds(song)
+      const hasLengthFilter = lengthRange.value.min !== null || lengthRange.value.max !== null
+      const minLength = lengthRange.value.min ?? Number.NEGATIVE_INFINITY
+      const maxLength = lengthRange.value.max ?? Number.POSITIVE_INFINITY
+      const matchesLengthRange =
+        !hasLengthFilter ||
+        (effectiveLength !== null && effectiveLength >= minLength && effectiveLength <= maxLength)
+
       return (
         matchesQuery &&
         hasPdf &&
         matchesLabels &&
         matchesProducers &&
         matchesSingers &&
-        matchesDateRange
+        matchesDateRange &&
+        matchesLengthRange
       )
     })
 
@@ -179,6 +251,12 @@ export const useSongFilters = () => {
 
       if (field === 'bpm') {
         return dir * (a.bpm - b.bpm)
+      }
+
+      if (field === 'length') {
+        const aLength = getEffectiveSongLengthSeconds(a)
+        const bLength = getEffectiveSongLengthSeconds(b)
+        return dir * ((aLength ?? Number.MAX_SAFE_INTEGER) - (bLength ?? Number.MAX_SAFE_INTEGER))
       }
 
       // field === 'date'
@@ -230,6 +308,7 @@ export const useSongFilters = () => {
       selectedProducers,
       selectedSingers,
       dateRange,
+      lengthRange,
       useTvSize,
     ],
     () => {
@@ -241,6 +320,7 @@ export const useSongFilters = () => {
         selectedProducers: selectedProducers.value,
         selectedSingers: selectedSingers.value,
         dateRange: dateRange.value,
+        lengthRange: lengthRange.value,
         useTvSize: useTvSize.value,
       })
     },
@@ -260,6 +340,7 @@ export const useSongFilters = () => {
       if (s.selectedProducers) selectedProducers.value = [...s.selectedProducers]
       if (s.selectedSingers) selectedSingers.value = [...s.selectedSingers]
       if (s.dateRange) dateRange.value = { ...s.dateRange }
+      if (s.lengthRange) lengthRange.value = { ...s.lengthRange }
       if (typeof s.useTvSize === 'boolean') useTvSize.value = s.useTvSize
     })
     _settingsStorageListenerInstalled = true
@@ -286,9 +367,12 @@ export const useSongFilters = () => {
     selectedProducers,
     selectedSingers,
     dateRange,
+    lengthRange,
     availableLabels,
     availableProducers,
     availableSingers,
+    effectiveLengthBounds,
+    formatSecondsAsLength,
     useTvSize,
   }
 }
