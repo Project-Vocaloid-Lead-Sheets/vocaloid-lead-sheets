@@ -56,6 +56,7 @@ const showExplicitDialog = ref(false)
 const explicitDialogRef = ref<InstanceType<typeof ExplicitContentDialog>>()
 // Track all explicit songs that have been acknowledged this session
 const acknowledgedExplicitSongs = ref<Set<string>>(new Set())
+const previousInAppPath = ref<string | null>(null)
 
 const checkReviewConfirmation = () => {
   if (route.meta.requiresReviewConfirmation && currentSong.value) {
@@ -76,11 +77,40 @@ const onReviewConfirm = () => {
 
 const onReviewCancel = () => {
   showReviewDialog.value = false
-  router.back()
+  router.push('/')
+}
+
+const isSameOriginRoute = (target: string | null | undefined) => {
+  if (!target) return false
+  if (target.startsWith('/')) return true
+
+  try {
+    return new URL(target).origin === window.location.origin
+  } catch {
+    return false
+  }
+}
+
+const shouldUseBrowserBackWithinSite = () => {
+  const state = window.history.state as { back?: string | null } | null
+  if (isSameOriginRoute(state?.back)) return true
+
+  return isSameOriginRoute(document.referrer)
 }
 
 const isExplicitSong = computed(() => {
   return currentSong.value ? songsStore.isExplicitSong(currentSong.value) : false
+})
+
+const requiresExplicitAcknowledgement = computed(() => {
+  if (!currentSong.value) return false
+  if (!isExplicitSong.value) return false
+  if (instrument.value !== 'Vocals') return false
+  return !acknowledgedExplicitSongs.value.has(songSlug.value)
+})
+
+const shouldBlurContent = computed(() => {
+  return showExplicitDialog.value || requiresExplicitAcknowledgement.value
 })
 
 const checkExplicitDialog = () => {
@@ -108,7 +138,18 @@ const onExplicitConfirm = () => {
 
 const onExplicitCancel = () => {
   showExplicitDialog.value = false
-  router.back()
+
+  if (previousInAppPath.value) {
+    router.push(previousInAppPath.value)
+    return
+  }
+
+  if (shouldUseBrowserBackWithinSite()) {
+    router.back()
+    return
+  }
+
+  router.push('/')
 }
 
 const pdfSource = computed(() => {
@@ -136,6 +177,15 @@ watch(
 watch([songSlug, instrument, currentSong], () => {
   checkExplicitDialog()
 })
+
+watch(
+  () => route.fullPath,
+  (newPath, oldPath) => {
+    if (oldPath && oldPath !== newPath) {
+      previousInAppPath.value = oldPath
+    }
+  },
+)
 
 watch(
   () => route.query.tv_size,
@@ -178,7 +228,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <div class="scroll-container bg-secondary pt-0" :class="{ 'blur-content': showExplicitDialog }">
+    <div class="scroll-container bg-secondary pt-0" :class="{ 'blur-content': shouldBlurContent }">
       <!-- Loading state -->
       <div
         v-if="songsStore.isLoading"

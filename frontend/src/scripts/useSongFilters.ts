@@ -66,6 +66,14 @@ export const useSongFilters = () => {
   const route = useRoute()
   const router = useRouter()
   const songsStore = useSongsStore()
+  const isSheetViewRoute = computed(() => route.name === 'sheetView')
+
+  const normalizeInstrumentFromQuery = (queryValue: unknown): Instrument | null => {
+    const rawValue = Array.isArray(queryValue) ? queryValue[0] : queryValue
+    if (typeof rawValue !== 'string') return null
+    if (!instruments.includes(rawValue as Instrument)) return null
+    return rawValue as Instrument
+  }
 
   // Use availableSongs from store instead of all songs
   const songs = computed(() => songsStore.availableSongs)
@@ -165,8 +173,27 @@ export const useSongFilters = () => {
 
   const effectiveLengthBounds = computed(() => getLengthBoundsForSource(lengthFilterSource.value))
 
+  watch(
+    () => route.query.instrument,
+    (queryInstrument) => {
+      const normalizedInstrument = normalizeInstrumentFromQuery(queryInstrument)
+      if (!normalizedInstrument) return
+      if (selectedInstrument.value === normalizedInstrument) return
+      selectedInstrument.value = normalizedInstrument
+    },
+    { immediate: true },
+  )
+
   watch(selectedInstrument, (value) => {
-    router.replace({ query: { ...route.query, instrument: value } })
+    if (!isSheetViewRoute.value) {
+      writeUserSettings({ selectedInstrument: value })
+      return
+    }
+
+    const normalizedQueryInstrument = normalizeInstrumentFromQuery(route.query.instrument)
+    if (normalizedQueryInstrument !== value) {
+      router.replace({ query: { ...route.query, instrument: value } })
+    }
     // persist instrument choice
     writeUserSettings({ selectedInstrument: value })
   })
