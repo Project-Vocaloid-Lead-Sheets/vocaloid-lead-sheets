@@ -14,6 +14,7 @@ import GroupSortControls from '@/components/shared/GroupSortControls.vue'
 import UnderReviewToggle from '@/components/shared/UnderReviewToggle.vue'
 import SongActionButtons from '@/components/shared/SongActionButtons.vue'
 import SongList from '@/components/shared/SongList.vue'
+import TvSizeToggle from '@/components/shared/TvSizeToggle.vue'
 
 const songsStore = useSongsStore()
 
@@ -33,9 +34,14 @@ const {
   selectedProducers,
   selectedSingers,
   dateRange,
+  useTvSize,
 } = useSongFilters()
 
-const { currentSong, currentInstrument, watchOnYouTube } = useSongActions()
+const hasTvSizeForCurrentSong = computed(() => {
+  const tvSizePdfs = currentSong.value?.pdfsTvSize
+  if (!tvSizePdfs) return false
+  return Object.keys(tvSizePdfs).length > 0
+})
 
 // Computed property to check if any advanced filters are active and should be displayed
 const hasActiveFilters = computed(() => {
@@ -121,8 +127,7 @@ const hasActiveFilters = computed(() => {
             />
           </div>
 
-          <!-- Review Mode Toggle -->
-          <div class="border-top p-3" style="background-color: #1a5064; color: #fff">
+                <TvSizeToggle :current-song="currentSong" v-model:use-tv-size="useTvSize" />
             <UnderReviewToggle
               toggle-id="navbarUnderReviewToggle"
               v-model:under-review-view-enabled="songsStore.underReviewViewEnabled"

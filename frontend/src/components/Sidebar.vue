@@ -22,6 +22,7 @@ import ActiveFiltersBanner from '@/components/shared/ActiveFiltersBanner.vue'
 import UnderReviewToggle from '@/components/shared/UnderReviewToggle.vue'
 import SongActionButtons from '@/components/shared/SongActionButtons.vue'
 import SongList from '@/components/shared/SongList.vue'
+import TvSizeToggle from '@/components/shared/TvSizeToggle.vue'
 
 const songsStore = useSongsStore()
 
@@ -42,9 +43,14 @@ const {
   dateRange,
   toggleSidebarCollapsed,
   isSidebarCollapsed,
+  useTvSize,
 } = useSongFilters()
 
-const { currentSong, currentInstrument, watchOnYouTube } = useSongActions()
+const hasTvSizeForCurrentSong = computed(() => {
+  const tvSizePdfs = currentSong.value?.pdfsTvSize
+  if (!tvSizePdfs) return false
+  return Object.keys(tvSizePdfs).length > 0
+})
 
 // Computed property to check if any advanced filters are active and should be displayed
 const hasActiveFilters = computed(() => {
@@ -131,17 +137,7 @@ const hasActiveFilters = computed(() => {
 
     <!-- Footer area (always show when sidebar is open) -->
     <div v-show="!isSidebarCollapsed" class="mt-auto">
-      <!-- Song actions (only show when viewing a song) -->
-      <div v-if="currentSong" class="pt-3 pb-3">
-        <SongActionButtons
-          :current-song="currentSong"
-          download-modal-id="#downloadModal"
-          @watch-on-you-tube="watchOnYouTube"
-        />
-      </div>
-
-      <!-- Review Mode Toggle -->
-      <div class="pt-3 pb-3" :class="{ 'border-top': currentSong }">
+          <TvSizeToggle :current-song="currentSong" v-model:use-tv-size="useTvSize" />
         <UnderReviewToggle
           toggle-id="underReviewToggle"
           v-model:under-review-view-enabled="songsStore.underReviewViewEnabled"

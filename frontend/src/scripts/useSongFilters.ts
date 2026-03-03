@@ -25,6 +25,7 @@ const selectedLabels = ref<string[]>([])
 const selectedProducers = ref<string[]>([])
 const selectedSingers = ref<string[]>([])
 const dateRange = ref<{ start: string; end: string }>({ start: '', end: '' })
+const useTvSize = ref<boolean>(false)
 
 // Initialize from storage if available
 const _initialSettings = readUserSettings()
@@ -39,6 +40,7 @@ if (_initialSettings) {
   if (_initialSettings.selectedSingers)
     selectedSingers.value = [..._initialSettings.selectedSingers]
   if (_initialSettings.dateRange) dateRange.value = { ..._initialSettings.dateRange }
+  if (typeof _initialSettings.useTvSize === 'boolean') useTvSize.value = _initialSettings.useTvSize
 }
 
 export const useSongFilters = () => {
@@ -228,6 +230,7 @@ export const useSongFilters = () => {
       selectedProducers,
       selectedSingers,
       dateRange,
+      useTvSize,
     ],
     () => {
       writeUserSettings({
@@ -238,6 +241,7 @@ export const useSongFilters = () => {
         selectedProducers: selectedProducers.value,
         selectedSingers: selectedSingers.value,
         dateRange: dateRange.value,
+        useTvSize: useTvSize.value,
       })
     },
     { deep: true },
@@ -256,6 +260,7 @@ export const useSongFilters = () => {
       if (s.selectedProducers) selectedProducers.value = [...s.selectedProducers]
       if (s.selectedSingers) selectedSingers.value = [...s.selectedSingers]
       if (s.dateRange) dateRange.value = { ...s.dateRange }
+      if (typeof s.useTvSize === 'boolean') useTvSize.value = s.useTvSize
     })
     _settingsStorageListenerInstalled = true
   }
@@ -284,5 +289,6 @@ export const useSongFilters = () => {
     availableLabels,
     availableProducers,
     availableSingers,
+    useTvSize,
   }
 }
