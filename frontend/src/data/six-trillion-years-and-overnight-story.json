@@ -9,6 +9,8 @@
   "singer": "IA",
   "additionalVoices": [],
   "releaseDate": "20120411",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 186,
   "labels": [
     "Hall of Myths",
@@ -48,7 +50,8 @@
     "Alto": "/pdfs/six-trillion-years-and-overnight-story/six-trillion-years-and-overnight-story-alto.pdf",
     "Bass": "/pdfs/six-trillion-years-and-overnight-story/six-trillion-years-and-overnight-story-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2025-12-02T01:49:00Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2025-12-02T01:49:00Z"
 }

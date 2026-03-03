@@ -8,6 +8,8 @@
     "KAITO"
   ],
   "releaseDate": "20080825",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 140,
   "labels": [],
   "transcriber": "stellarlights",
@@ -44,7 +46,8 @@
     "Alto": "/pdfs/cendrillon/cendrillon-alto.pdf",
     "Bass": "/pdfs/cendrillon/cendrillon-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-01-07T05:31:30Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2026-01-07T05:31:30Z"
 }

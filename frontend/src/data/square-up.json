@@ -10,6 +10,8 @@
     "Kasane Teto"
   ],
   "releaseDate": "20251215",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 170,
   "labels": [],
   "transcriber": "boracci channel",
@@ -37,7 +39,8 @@
     "Eb": "/pdfs/square-up/square-up-eb.pdf",
     "Bass": "/pdfs/square-up/square-up-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-01-05T02:20:24Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2026-01-05T02:20:24Z"
 }

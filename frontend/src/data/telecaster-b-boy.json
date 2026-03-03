@@ -6,6 +6,8 @@
   "singer": "Kagamine Len",
   "additionalVoices": [],
   "releaseDate": "20200912",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 182,
   "labels": [],
   "transcriber": "boracci channel",
@@ -24,7 +26,8 @@
     "Bb": "/pdfs/telecaster-b-boy/telecaster-b-boy-bb.pdf",
     "C": "/pdfs/telecaster-b-boy/telecaster-b-boy-c.pdf"
   },
+  "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2025-11-25T01:24:36Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2025-11-25T01:24:36Z"
 }

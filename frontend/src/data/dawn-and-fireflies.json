@@ -8,6 +8,8 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20141111",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 80,
   "labels": [],
   "transcriber": "Latios212",
@@ -44,7 +46,8 @@
     "Alto": "/pdfs/dawn-and-fireflies/dawn-and-fireflies-alto.pdf",
     "Bass": "/pdfs/dawn-and-fireflies/dawn-and-fireflies-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-02-12T03:47:08Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2026-02-12T03:47:08Z"
 }

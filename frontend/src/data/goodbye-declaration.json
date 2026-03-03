@@ -8,6 +8,8 @@
   "singer": "flower",
   "additionalVoices": [],
   "releaseDate": "20200413",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 170,
   "labels": [
     "YouTube 100m"
@@ -46,7 +48,8 @@
     "Alto": "/pdfs/goodbye-declaration/goodbye-declaration-alto.pdf",
     "Bass": "/pdfs/goodbye-declaration/goodbye-declaration-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-01-26T16:04:43Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2026-01-26T16:04:43Z"
 }

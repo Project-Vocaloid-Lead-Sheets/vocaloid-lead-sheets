@@ -8,6 +8,8 @@
   "singer": "Kagamine Rin",
   "additionalVoices": [],
   "releaseDate": "20130304",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 162,
   "labels": [
     "Hall of Myths"
@@ -46,7 +48,8 @@
     "Alto": "/pdfs/the-lost-ones-weeping/the-lost-ones-weeping-alto.pdf",
     "Bass": "/pdfs/the-lost-ones-weeping/the-lost-ones-weeping-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-01-04T00:58:01Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2026-01-04T00:58:01Z"
 }

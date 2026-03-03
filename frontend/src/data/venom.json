@@ -6,6 +6,8 @@
   "singer": "flower",
   "additionalVoices": [],
   "releaseDate": "20180802",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 152,
   "labels": [
     "Hall of Myths"
@@ -35,7 +37,8 @@
     "Eb": "/pdfs/venom/venom-eb.pdf",
     "Bass": "/pdfs/venom/venom-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-02-27T02:23:50Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2026-02-27T02:23:50Z"
 }

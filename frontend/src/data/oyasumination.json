@@ -6,6 +6,8 @@
   "singer": "Eleanor Forte",
   "additionalVoices": [],
   "releaseDate": "20211104",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 190,
   "labels": [
     "Challenging"
@@ -35,7 +37,8 @@
     "Eb": "/pdfs/oyasumination/oyasumination-eb.pdf",
     "Bass": "/pdfs/oyasumination/oyasumination-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-01-01T18:14:11Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2026-01-01T18:14:11Z"
 }

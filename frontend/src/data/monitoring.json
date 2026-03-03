@@ -6,6 +6,8 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20241122",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 130,
   "labels": [
     "YouTube 100m"
@@ -44,7 +46,8 @@
     "Alto": "/pdfs/monitoring/monitoring-alto.pdf",
     "Bass": "/pdfs/monitoring/monitoring-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-02-19T02:16:39Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2026-02-19T02:16:39Z"
 }

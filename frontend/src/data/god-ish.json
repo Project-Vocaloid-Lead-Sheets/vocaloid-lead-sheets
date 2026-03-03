@@ -8,6 +8,8 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20210917",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 142,
   "labels": [],
   "transcriber": "SlowbroKnight",
@@ -44,7 +46,8 @@
     "Alto": "/pdfs/god-ish/god-ish-alto.pdf",
     "Bass": "/pdfs/god-ish/god-ish-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2025-11-25T03:16:17Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2025-11-25T03:16:17Z"
 }

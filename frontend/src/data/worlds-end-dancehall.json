@@ -8,6 +8,8 @@
     "Megurine Luka"
   ],
   "releaseDate": "20100528",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 171,
   "labels": [
     "Hall of Myths"
@@ -46,7 +48,8 @@
     "Alto": "/pdfs/worlds-end-dancehall/worlds-end-dancehall-alto.pdf",
     "Bass": "/pdfs/worlds-end-dancehall/worlds-end-dancehall-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2025-11-05T00:48:25Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2025-11-05T00:48:25Z"
 }

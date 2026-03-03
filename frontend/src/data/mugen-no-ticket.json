@@ -10,6 +10,8 @@
     "KAITO"
   ],
   "releaseDate": "20240217",
+  "length": "3:41",
+  "tvSizeLength": "",
   "bpm": 194,
   "labels": [
     "Project Voltage",
@@ -49,7 +51,8 @@
     "Alto": "/pdfs/mugen-no-ticket/mugen-no-ticket-alto.pdf",
     "Bass": "/pdfs/mugen-no-ticket/mugen-no-ticket-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2025-11-05T00:48:25Z",
-  "updatedAt": "2025-11-05T00:48:25Z"
+  "syncedAt": "2026-03-03T01:28:16Z",
+  "updatedAt": "2026-03-03T01:28:16Z"
 }

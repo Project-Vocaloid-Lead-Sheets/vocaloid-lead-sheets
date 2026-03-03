@@ -8,6 +8,8 @@
     "Megurine Luka"
   ],
   "releaseDate": "20090501",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 108,
   "labels": [],
   "transcriber": "Nap1400",
@@ -44,7 +46,8 @@
     "Alto": "/pdfs/magnet/magnet-alto.pdf",
     "Bass": "/pdfs/magnet/magnet-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-01-06T00:53:05Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2026-01-06T00:53:05Z"
 }

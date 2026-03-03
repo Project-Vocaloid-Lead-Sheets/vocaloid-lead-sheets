@@ -6,6 +6,8 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20160527",
+  "length": "3:43",
+  "tvSizeLength": "",
   "bpm": 128,
   "labels": [],
   "transcriber": "stellarlights",
@@ -42,7 +44,8 @@
     "Alto": "/pdfs/miku/miku-alto.pdf",
     "Bass": "/pdfs/miku/miku-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2025-11-19T23:31:02Z",
-  "updatedAt": "2025-11-19T23:31:02Z"
+  "syncedAt": "2026-02-27T02:51:02Z",
+  "updatedAt": "2026-02-27T02:51:02Z"
 }

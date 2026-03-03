@@ -8,6 +8,8 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20110917",
+  "length": "",
+  "tvSizeLength": "1:09",
   "bpm": 154,
   "labels": [
     "Hall of Myths"
@@ -46,7 +48,17 @@
     "Alto": "/pdfs/senbonzakura/senbonzakura-alto.pdf",
     "Bass": "/pdfs/senbonzakura/senbonzakura-bass.pdf"
   },
+  "pdfsTvSize": {
+    "Vocals": "/pdfs/senbonzakura-tv/senbonzakura-tv-vocals.pdf",
+    "Bb": "/pdfs/senbonzakura-tv/senbonzakura-tv-bb.pdf",
+    "C": "/pdfs/senbonzakura-tv/senbonzakura-tv-c.pdf",
+    "Eb": "/pdfs/senbonzakura-tv/senbonzakura-tv-eb.pdf",
+    "F": "/pdfs/senbonzakura-tv/senbonzakura-tv-f.pdf",
+    "G": "/pdfs/senbonzakura-tv/senbonzakura-tv-g.pdf",
+    "Alto": "/pdfs/senbonzakura-tv/senbonzakura-tv-alto.pdf",
+    "Bass": "/pdfs/senbonzakura-tv/senbonzakura-tv-bass.pdf"
+  },
   "status": "completed",
-  "syncedAt": "2026-02-28T22:31:40Z",
-  "updatedAt": "2026-02-28T22:31:40Z"
+  "syncedAt": "2026-03-03T01:28:16Z",
+  "updatedAt": "2026-03-03T01:28:16Z"
 }

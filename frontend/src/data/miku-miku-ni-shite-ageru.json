@@ -8,6 +8,8 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20070919",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 160,
   "labels": [
     "Hall of Myths"
@@ -46,7 +48,8 @@
     "Alto": "/pdfs/miku-miku-ni-shite-ageru/miku-miku-ni-shite-ageru-alto.pdf",
     "Bass": "/pdfs/miku-miku-ni-shite-ageru/miku-miku-ni-shite-ageru-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2025-11-05T00:48:25Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2025-11-05T00:48:25Z"
 }

@@ -6,6 +6,8 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20100214",
+  "length": "",
+  "tvSizeLength": "1:38",
   "bpm": 195,
   "labels": [
     "Hall of Myths"
@@ -44,7 +46,17 @@
     "Alto": "/pdfs/rolling-girl/rolling-girl-alto.pdf",
     "Bass": "/pdfs/rolling-girl/rolling-girl-bass.pdf"
   },
+  "pdfsTvSize": {
+    "Vocals": "/pdfs/rolling-girl-tv/rolling-girl-tv-vocals.pdf",
+    "Bb": "/pdfs/rolling-girl-tv/rolling-girl-tv-bb.pdf",
+    "C": "/pdfs/rolling-girl-tv/rolling-girl-tv-c.pdf",
+    "Eb": "/pdfs/rolling-girl-tv/rolling-girl-tv-eb.pdf",
+    "F": "/pdfs/rolling-girl-tv/rolling-girl-tv-f.pdf",
+    "G": "/pdfs/rolling-girl-tv/rolling-girl-tv-g.pdf",
+    "Alto": "/pdfs/rolling-girl-tv/rolling-girl-tv-alto.pdf",
+    "Bass": "/pdfs/rolling-girl-tv/rolling-girl-tv-bass.pdf"
+  },
   "status": "completed",
-  "syncedAt": "2025-11-05T00:48:25Z",
-  "updatedAt": "2025-11-05T00:48:25Z"
+  "syncedAt": "2026-02-27T02:51:02Z",
+  "updatedAt": "2026-02-27T02:51:02Z"
 }

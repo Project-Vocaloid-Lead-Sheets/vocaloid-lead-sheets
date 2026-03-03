@@ -6,6 +6,8 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20100102",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 110,
   "labels": [],
   "transcriber": "Radiak488417",
@@ -42,7 +44,8 @@
     "Alto": "/pdfs/tricolore-airline/tricolore-airline-alto.pdf",
     "Bass": "/pdfs/tricolore-airline/tricolore-airline-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2025-11-30T15:44:30Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2025-11-30T15:44:30Z"
 }

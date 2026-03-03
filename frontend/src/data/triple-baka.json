@@ -8,6 +8,8 @@
     "Kasane Teto"
   ],
   "releaseDate": "20080713",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 180,
   "labels": [],
   "transcriber": "zmand97",
@@ -26,7 +28,8 @@
     "Bb": "/pdfs/triple-baka/triple-baka-bb.pdf",
     "C": "/pdfs/triple-baka/triple-baka-c.pdf"
   },
+  "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-01-23T03:30:38Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2026-01-23T03:30:38Z"
 }

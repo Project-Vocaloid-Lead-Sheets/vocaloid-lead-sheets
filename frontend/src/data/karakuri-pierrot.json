@@ -6,6 +6,8 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20110715",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 102,
   "labels": [],
   "transcriber": "Whullum",
@@ -33,7 +35,8 @@
     "Eb": "/pdfs/karakuri-pierrot/karakuri-pierrot-eb.pdf",
     "Bass": "/pdfs/karakuri-pierrot/karakuri-pierrot-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-01-27T02:04:59Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2026-01-27T02:04:59Z"
 }

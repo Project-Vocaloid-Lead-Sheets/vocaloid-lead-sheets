@@ -6,6 +6,8 @@
   "singer": "Kasane Teto",
   "additionalVoices": [],
   "releaseDate": "20241025",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 172,
   "labels": [
     "Explicit"
@@ -35,7 +37,8 @@
     "Eb": "/pdfs/rot-for-clout/rot-for-clout-eb.pdf",
     "Bass": "/pdfs/rot-for-clout/rot-for-clout-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-02-27T02:23:50Z",
+  "syncedAt": "2026-02-27T02:51:02Z",
   "updatedAt": "2026-02-27T02:23:50Z"
 }

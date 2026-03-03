@@ -8,6 +8,8 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20090405",
+  "length": "",
+  "tvSizeLength": "",
   "bpm": 170,
   "labels": [
     "Hall of Myths"
@@ -37,7 +39,8 @@
     "Eb": "/pdfs/romeo-and-cinderella/romeo-and-cinderella-eb.pdf",
     "Bass": "/pdfs/romeo-and-cinderella/romeo-and-cinderella-bass.pdf"
   },
+  "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-03-02T02:26:44Z",
+  "syncedAt": "2026-03-03T01:28:16Z",
   "updatedAt": "2026-03-02T02:26:44Z"
 }
