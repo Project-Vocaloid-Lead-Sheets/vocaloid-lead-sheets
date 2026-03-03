@@ -1,8 +1,6 @@
 {
   "title": "Kyoufuu All Back",
-  "alternativeNames": [
-    "Hair Swept Back By Gale-Force Winds"
-  ],
+  "alternativeNames": ["Hair Swept Back By Gale-Force Winds"],
   "producer": "Yukopi",
   "additionalProducers": [],
   "singer": "Kaai Yuki",
@@ -11,9 +9,7 @@
   "length": "2:17",
   "tvSizeLength": "",
   "bpm": 135,
-  "labels": [
-    "YouTube 100m"
-  ],
+  "labels": ["YouTube 100m"],
   "transcriber": "stellarlights",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=D6DVTLvOupE"
@@ -51,5 +47,5 @@
   "pdfsTvSize": {},
   "status": "completed",
   "syncedAt": "2026-02-27T02:51:02Z",
-  "updatedAt": "2026-02-27T02:51:02Z"
+  "updatedAt": "2026-01-27T02:55:55Z"
 }
