@@ -16,17 +16,20 @@
   },
   "links": {
     "Vocals": "https://drive.google.com/file/d/1Fco1V0PG5vh3pbAMz5cQrdqrDld-lhwf/view",
+    "Bb": "https://drive.google.com/file/d/1IufbxrpSo_xxIf4QNva69V3k2M7OF4JF/view",
     "C": "https://drive.google.com/file/d/11qyA7lUq5NEOC3NtCiSBkzHIrc2FyA5W/view"
   },
   "pdfChecksums": {
     "Vocals": "2514e3abc04386b289baacaa113e1ba7",
+    "Bb": "f7b3af556744634a81faea3ef9d0da40",
     "C": "5dd1abf8078daa211f6dad01be5aca46"
   },
   "pdfs": {
     "Vocals": "/pdfs/young-girl-a/young-girl-a-vocals.pdf",
+    "Bb": "/pdfs/young-girl-a/young-girl-a-bb.pdf",
     "C": "/pdfs/young-girl-a/young-girl-a-c.pdf"
   },
   "status": "under review",
-  "syncedAt": "2026-02-18T02:31:07Z",
-  "updatedAt": "2026-02-18T02:31:07Z"
+  "syncedAt": "2026-03-03T02:28:36Z",
+  "updatedAt": "2026-03-03T02:28:36Z"
 }
