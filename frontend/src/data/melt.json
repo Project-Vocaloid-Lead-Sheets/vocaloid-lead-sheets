@@ -15,15 +15,27 @@
     "YouTube": "https://www.youtube.com/watch?v=o1jAMSQyVPc"
   },
   "links": {
-    "C": "https://drive.google.com/file/d/1LBuBptPtDAMXGPou3L5LrsmV1yuaeC1b/view"
+    "Bb": "https://drive.google.com/file/d/1pLevUmAQXrroLzB0s4hIvXnHuDx1e6kf/view",
+    "C": "https://drive.google.com/file/d/1LBuBptPtDAMXGPou3L5LrsmV1yuaeC1b/view",
+    "Eb": "https://drive.google.com/file/d/1Vgvaqx9Jb6mbkZvDjLM0RMZy7MJFKoW4/view",
+    "Alto": "https://drive.google.com/file/d/1WQ9OmErUMmW9r2haOPn__J52Dr-BF3V5/view",
+    "Bass": "https://drive.google.com/file/d/10LbC7wpsL5lm7SP3uo03BaQrt3c4k7i4/view"
   },
   "pdfChecksums": {
-    "C": "3072081b8d5c6df4f7a4fe31d4df3f6d"
+    "Bb": "c71e10c9e3d7333f73397562d23c7823",
+    "C": "3745e4f03809c75bae8c4a4299e93786",
+    "Eb": "52eba4c91847ed8906b33355da55e0f3",
+    "Alto": "de81b678ae7b11fd532acbdaf0e7c5fa",
+    "Bass": "cb08ec37591869b975122b507df6cb7d"
   },
   "pdfs": {
-    "C": "/pdfs/melt/melt-c.pdf"
+    "Bb": "/pdfs/melt/melt-bb.pdf",
+    "C": "/pdfs/melt/melt-c.pdf",
+    "Eb": "/pdfs/melt/melt-eb.pdf",
+    "Alto": "/pdfs/melt/melt-alto.pdf",
+    "Bass": "/pdfs/melt/melt-bass.pdf"
   },
   "status": "under review",
-  "syncedAt": "2026-02-28T17:45:28Z",
-  "updatedAt": "2026-02-28T17:45:28Z"
+  "syncedAt": "2026-03-03T02:28:36Z",
+  "updatedAt": "2026-03-03T02:28:36Z"
 }
