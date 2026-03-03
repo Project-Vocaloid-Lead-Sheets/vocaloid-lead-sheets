@@ -8,7 +8,7 @@
 /** The sidebar is for larger displays that can fit the song select list on the side.
  * Its counterpart is the navbar.*/
 
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useSongFilters } from '@/scripts/useSongFilters'
 import { useSongActions } from '@/scripts/useSongActions'
 import { useSongsStore } from '@/stores/songs'
@@ -23,6 +23,7 @@ import UnderReviewToggle from '@/components/shared/UnderReviewToggle.vue'
 import SongActionButtons from '@/components/shared/SongActionButtons.vue'
 import SongList from '@/components/shared/SongList.vue'
 import TvSizeToggle from '@/components/shared/TvSizeToggle.vue'
+import { OPEN_DOWNLOAD_MODAL_EVENT } from '@/utils/downloadEvents'
 
 const songsStore = useSongsStore()
 
@@ -46,6 +47,19 @@ const {
   useTvSize,
 } = useSongFilters()
 
+const { currentSong, currentInstrument } = useSongActions()
+
+const downloadModalRef = ref<InstanceType<typeof DownloadModal>>()
+
+const startDownloadFlow = () => {
+  downloadModalRef.value?.startDownloadFlow()
+}
+
+const handleOpenDownloadModalEvent = () => {
+  if (typeof window !== 'undefined' && window.innerWidth < 992) return
+  startDownloadFlow()
+}
+
 const hasTvSizeForCurrentSong = computed(() => {
   const tvSizePdfs = currentSong.value?.pdfsTvSize
   if (!tvSizePdfs) return false
@@ -59,8 +73,12 @@ const hasActiveFilters = computed(() => {
     selectedProducers.value.length > 0 ||
     selectedSingers.value.length > 0 ||
     dateRange.value.start !== '' ||
-    dateRange.value.end !== ''
-  )
+onMounted(() => {
+  window.addEventListener(OPEN_DOWNLOAD_MODAL_EVENT, handleOpenDownloadModalEvent)
+})
+
+onUnmounted(() => {
+  window.removeEventListener(OPEN_DOWNLOAD_MODAL_EVENT, handleOpenDownloadModalEvent)
 })
 </script>
 
@@ -149,6 +167,12 @@ const hasActiveFilters = computed(() => {
     <FilterModal class="modal" id="filterModal" />
 
     <!-- Download Modal -->
-    <DownloadModal :song="currentSong" :current-instrument="currentInstrument" />
+    <DownloadModal
+      ref="downloadModalRef"
+      :song="currentSong"
+      :current-instrument="currentInstrument"
+      :use-tv-size="useTvSize"
+      id="downloadModal"
+    />
   </nav>
 </template>

@@ -8,6 +8,7 @@ export type StoredSettings = {
   dateRange?: { start: string; end: string }
   underReviewViewEnabled?: boolean
   selectedInstrument?: string
+  useTvSize?: boolean
 }
 
 export const SETTINGS_KEY = 'project_vls_user_settings'

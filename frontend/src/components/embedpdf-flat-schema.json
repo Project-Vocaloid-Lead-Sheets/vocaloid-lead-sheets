@@ -205,7 +205,7 @@
             {
               "type": "command-button",
               "id": "document:export",
-              "commandId": "document:export",
+              "commandId": "app:download",
               "variant": "icon"
             },
             {
@@ -270,6 +270,15 @@
               "commandId": "scroll:horizontal"
             }
           ]
+        },
+        {
+          "type": "divider",
+          "id": "divider-download"
+        },
+        {
+          "type": "command",
+          "id": "menu:download",
+          "commandId": "app:download"
         }
       ]
     }

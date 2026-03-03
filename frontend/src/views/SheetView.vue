@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import type { Instrument } from '@/types/types'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, defineAsyncComponent, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getPdfDisplayUrl } from '@/utils/pdfUtils'
 import { useSongsStore } from '@/stores/songs'
+import { useSongFilters } from '@/scripts/useSongFilters'
 import UnderReviewDialog from '@/components/UnderReviewDialog.vue'
 import ExplicitContentDialog from '@/components/ExplicitContentDialog.vue'
-import PdfViewer from '@/components/PdfViewer.vue'
+
+const PdfViewer = defineAsyncComponent(() => import('@/components/PdfViewer.vue'))
 
 const route = useRoute()
 const router = useRouter()
@@ -14,9 +16,36 @@ const instrument = computed(() => (route.query.instrument as Instrument) || 'C')
 const songSlug = computed(() => route.params.songSlug as string)
 
 const songsStore = useSongsStore()
+const { useTvSize } = useSongFilters()
 
 //TODO: Add alias support with fixed PDF IDs/slugs
 const currentSong = computed(() => songsStore.getSongBySlug(songSlug.value))
+
+const hasTvSizeForCurrentSong = computed(() => {
+  const tvSizePdfs = currentSong.value?.pdfsTvSize
+  if (!tvSizePdfs) return false
+  return Object.values(tvSizePdfs).some((pdfUrl) => Boolean(pdfUrl?.trim()))
+})
+
+const isTvSizeQueryEnabled = (value: unknown) => {
+  if (Array.isArray(value)) return isTvSizeQueryEnabled(value[0])
+  if (value === null) return true
+  if (typeof value !== 'string') return false
+  const normalized = value.trim().toLowerCase()
+  return normalized === '' || normalized === '1' || normalized === 'true'
+}
+
+const syncTvSizeQueryParam = (enabled: boolean) => {
+  const nextQuery = { ...route.query }
+
+  if (enabled) {
+    nextQuery.tv_size = null
+  } else {
+    delete nextQuery.tv_size
+  }
+
+  router.replace({ query: nextQuery })
+}
 
 // Review mode dialog handling
 const showReviewDialog = ref(false)
@@ -83,6 +112,14 @@ const onExplicitCancel = () => {
 }
 
 const pdfSource = computed(() => {
+  // First, try TV size if enabled
+  if (useTvSize.value && currentSong.value?.pdfsTvSize) {
+    const tvSizePdfs = currentSong.value.pdfsTvSize
+    const tvSizeUrl = tvSizePdfs[instrument.value] || tvSizePdfs['C']
+    if (tvSizeUrl) return getPdfDisplayUrl(tvSizeUrl)
+  }
+
+  // Fall back to regular PDFs
   const pdfs = currentSong.value?.pdfs ?? {}
   const originalUrl = pdfs[instrument.value] || pdfs['C'] //TODO: Add fallback for missing PDFs
   return originalUrl ? getPdfDisplayUrl(originalUrl) : ''
@@ -99,6 +136,39 @@ watch(
 watch([songSlug, instrument, currentSong], () => {
   checkExplicitDialog()
 })
+
+watch(
+  () => route.query.tv_size,
+  () => {
+    const queryEnabled = isTvSizeQueryEnabled(route.query.tv_size)
+    const shouldUseTvSize = queryEnabled && hasTvSizeForCurrentSong.value
+
+    if (useTvSize.value !== shouldUseTvSize) {
+      useTvSize.value = shouldUseTvSize
+    }
+
+    if (queryEnabled && !hasTvSizeForCurrentSong.value) {
+      syncTvSizeQueryParam(false)
+    }
+  },
+  { immediate: true },
+)
+
+watch(
+  [useTvSize, hasTvSizeForCurrentSong],
+  () => {
+    if (useTvSize.value && !hasTvSizeForCurrentSong.value) {
+      useTvSize.value = false
+      return
+    }
+
+    const queryEnabled = isTvSizeQueryEnabled(route.query.tv_size)
+    if (useTvSize.value !== queryEnabled) {
+      syncTvSizeQueryParam(useTvSize.value)
+    }
+  },
+  { immediate: true },
+)
 
 onMounted(() => {
   checkReviewConfirmation()

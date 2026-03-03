@@ -9,6 +9,7 @@ import {
   ZoomMode,
   type PluginRegistry,
 } from '@embedpdf/vue-pdf-viewer'
+import { dispatchOpenDownloadModalEvent } from '@/utils/downloadEvents'
 
 // Flat schema file to fully control the viewer UI
 import flatSchema from '../components/embedpdf-flat-schema.json'
@@ -42,6 +43,17 @@ function handleReady(registry: PluginRegistry) {
   if (!commands || !ui) return
 
   ui.mergeSchema(flatSchema as Partial<any>)
+  try {
+    commands.unregisterCommand?.('app:download')
+    commands.registerCommand?.({
+      id: 'app:download',
+      label: 'Download',
+      icon: 'download',
+      action: () => {
+        dispatchOpenDownloadModalEvent()
+      },
+    })
+  } catch {}
 
   // Ensure navbar measurements update after the viewer has rendered.
   try {

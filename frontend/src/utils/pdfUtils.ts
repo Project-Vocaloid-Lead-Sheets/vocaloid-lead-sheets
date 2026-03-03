@@ -45,23 +45,30 @@ export function getPdfDisplayUrl(url: string): string {
   return url
 }
 
+function appendTvSizeParam(url: string, tvSize?: boolean): string {
+  if (!tvSize) return url
+  if (url.includes('tv_size')) return url
+  return `${url}${url.includes('?') ? '&' : '?'}tv_size`
+}
+
 /**
  * Gets the download URL for a PDF
  * @param url - The original PDF URL
  * @returns A URL that can be used for downloading
  */
-export function getPdfDownloadUrl(url: string): string {
+export function getPdfDownloadUrl(url: string, options?: { tvSize?: boolean }): string {
   if (!url) return ''
 
   // For Google Drive URLs, use the download format
   const driveMatch = url.match(/https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/)
   if (driveMatch) {
     const fileId = driveMatch[1]
-    return `https://drive.google.com/uc?export=download&id=${fileId}`
+    const driveUrl = `https://drive.google.com/uc?export=download&id=${fileId}`
+    return appendTvSizeParam(driveUrl, options?.tvSize)
   }
 
   // For other URLs, return as-is
-  return url
+  return appendTvSizeParam(url, options?.tvSize)
 }
 
 /**

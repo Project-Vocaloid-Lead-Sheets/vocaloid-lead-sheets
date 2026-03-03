@@ -23,6 +23,7 @@
               },
               query: {
                 instrument: selectedInstrument,
+                tv_size: route.query.tv_size,
               },
             }"
           >
