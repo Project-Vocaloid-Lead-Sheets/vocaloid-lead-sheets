@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex gap-2">
+  <div class="d-flex gap-2 flex-shrink-0">
     <button
       type="button"
       :class="hasActiveFilters ? 'btn btn-sm btn-light' : 'btn btn-sm btn-outline-light'"

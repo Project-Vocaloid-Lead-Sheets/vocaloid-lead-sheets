@@ -16,17 +16,8 @@ export const useSongActions = () => {
 
   const currentInstrument = computed(() => (route.query.instrument as Instrument) || 'C')
 
-  // Functions for the footer actions
-  const watchOnYouTube = () => {
-    const song = currentSong.value
-    if (!song?.videoLinks?.YouTube) return
-
-    window.open(song.videoLinks.YouTube, '_blank')
-  }
-
   return {
     currentSong,
     currentInstrument,
-    watchOnYouTube,
   }
 }

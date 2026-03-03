@@ -13,7 +13,11 @@
         class="song collapse show list-unstyled small"
         :id="collapseIdPrefix + 'collapse' + index"
       >
-        <li class="nav-item" v-for="song in group.songs" :key="song.title">
+        <li
+          class="nav-item d-flex align-items-center"
+          v-for="song in group.songs"
+          :key="song.title"
+        >
           <RouterLink
             class="nav-link d-flex align-items-center"
             :to="{
@@ -35,6 +39,19 @@
               Under Review
             </span>
           </RouterLink>
+
+          <a
+            v-if="isSelectedSong(song) && song.videoLinks?.YouTube"
+            :href="song.videoLinks.YouTube"
+            class="ms-2"
+            style="color: inherit"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Watch on YouTube"
+            aria-label="Watch on YouTube"
+          >
+            <i class="bi bi-youtube"></i>
+          </a>
         </li>
       </ul>
     </li>
@@ -45,6 +62,7 @@
 import type { Instrument, Song } from '@/types/types'
 import { useSongsStore } from '@/stores/songs'
 import { generateSongSlug } from '@/utils/slugUtils'
+import { useRoute } from 'vue-router'
 
 interface GroupedSongs {
   groupName: string
@@ -64,4 +82,11 @@ withDefaults(defineProps<Props>(), {
 })
 
 const songsStore = useSongsStore()
+const route = useRoute()
+
+const isSelectedSong = (song: Song) => {
+  const currentSlug = route.params.songSlug as string | undefined
+  if (!currentSlug) return false
+  return generateSongSlug(song.title) === currentSlug
+}
 </script>

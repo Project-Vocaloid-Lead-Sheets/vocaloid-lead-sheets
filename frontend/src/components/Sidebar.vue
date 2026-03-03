@@ -14,15 +14,11 @@ import { useSongActions } from '@/scripts/useSongActions'
 import { useSongsStore } from '@/stores/songs'
 import FilterModal from '@/components/FilterModal.vue'
 import DownloadModal from '@/components/DownloadModal.vue'
-import InstrumentButtons from '@/components/shared/InstrumentButtons.vue'
-import SearchBar from '@/components/shared/SearchBar.vue'
-import ActionButtons from '@/components/shared/ActionButtons.vue'
-import GroupSortControls from '@/components/shared/GroupSortControls.vue'
-import ActiveFiltersBanner from '@/components/shared/ActiveFiltersBanner.vue'
+import SongFilterControls from '@/components/shared/SongFilterControls.vue'
 import UnderReviewToggle from '@/components/shared/UnderReviewToggle.vue'
-import SongActionButtons from '@/components/shared/SongActionButtons.vue'
 import SongList from '@/components/shared/SongList.vue'
 import TvSizeToggle from '@/components/shared/TvSizeToggle.vue'
+import BottomFooter from '@/components/shared/BottomFooter.vue'
 import { OPEN_DOWNLOAD_MODAL_EVENT } from '@/utils/downloadEvents'
 
 const songsStore = useSongsStore()
@@ -106,8 +102,12 @@ onUnmounted(() => {
       </div>
       <!-- Sidebar Body -->
       <div class="sidebar-nav-collapsible collapse collapse-horizontal">
-        <!-- Active Filters Banner -->
-        <ActiveFiltersBanner
+        <SongFilterControls
+          :instruments="instruments"
+          :has-active-filters="hasActiveFilters"
+          :are-groups-collapsed="areGroupsCollapsed"
+          filter-modal-id="#filterModal"
+          :show-active-filters="true"
           :selected-labels="selectedLabels"
           :selected-producers="selectedProducers"
           :selected-singers="selectedSingers"
@@ -120,23 +120,13 @@ onUnmounted(() => {
           <InstrumentButtons
             :instruments="instruments"
             v-model:selected-instrument="selectedInstrument"
-          />
-
-          <!-- Row 2: Search Field + Navigation Buttons -->
-          <div class="d-flex">
-            <SearchBar v-model:search-query="searchQuery" @reset="resetSearch" class="me-2" />
-            <ActionButtons
-              :has-active-filters="hasActiveFilters"
-              :are-groups-collapsed="areGroupsCollapsed"
-              filter-modal-id="#filterModal"
+          v-model:search-query="searchQuery"
+          v-model:group-by="groupBy"
+          v-model:sort-by="sortBy"
+          @reset="resetSearch"
               @shuffle="pickRandomSong"
               @toggle-collapse="toggleGroupsCollapsed"
             />
-          </div>
-
-          <!-- Row 3: Group + Sort Selects -->
-          <GroupSortControls v-model:group-by="groupBy" v-model:sort-by="sortBy" />
-        </div>
       </div>
     </div>
     <!-- Sidebar Scrollable Area -->
@@ -155,12 +145,18 @@ onUnmounted(() => {
 
     <!-- Footer area (always show when sidebar is open) -->
     <div v-show="!isSidebarCollapsed" class="mt-auto">
+      <BottomFooter :show-top="hasTvSizeForCurrentSong" :show-bottom="true">
+        <template #top>
           <TvSizeToggle :current-song="currentSong" v-model:use-tv-size="useTvSize" />
+        </template>
+
+        <template #bottom>
         <UnderReviewToggle
           toggle-id="underReviewToggle"
           v-model:under-review-view-enabled="songsStore.underReviewViewEnabled"
         />
-      </div>
+        </template>
+      </BottomFooter>
     </div>
 
     <!-- Advanced Filter Modal-->

@@ -7,14 +7,11 @@ import { useSongActions } from '@/scripts/useSongActions'
 import { useSongsStore } from '@/stores/songs'
 import FilterModal from '@/components/FilterModal.vue'
 import DownloadModal from '@/components/DownloadModal.vue'
-import InstrumentButtons from '@/components/shared/InstrumentButtons.vue'
-import SearchBar from '@/components/shared/SearchBar.vue'
-import ActionButtons from '@/components/shared/ActionButtons.vue'
-import GroupSortControls from '@/components/shared/GroupSortControls.vue'
+import SongFilterControls from '@/components/shared/SongFilterControls.vue'
 import UnderReviewToggle from '@/components/shared/UnderReviewToggle.vue'
-import SongActionButtons from '@/components/shared/SongActionButtons.vue'
 import SongList from '@/components/shared/SongList.vue'
 import TvSizeToggle from '@/components/shared/TvSizeToggle.vue'
+import BottomFooter from '@/components/shared/BottomFooter.vue'
 import { OPEN_DOWNLOAD_MODAL_EVENT } from '@/utils/downloadEvents'
 
 const songsStore = useSongsStore()
@@ -96,47 +93,43 @@ onUnmounted(() => {
         aria-labelledby="offcanvasNavbarLabel"
         style="background-color: #206071; color: #fff"
       >
-        <div class="offcanvas-header">
+        <div class="offcanvas-header pb-2">
           <button
             type="button"
             class="btn-close btn-close-white ms-0 me-auto"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
           ></button>
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Project VocaLead Sheets</h5>
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+            <RouterLink class="navbar-brand m-0" to="/">Project VocaLead Sheets</RouterLink>
+          </h5>
         </div>
         <div class="offcanvas-body d-flex flex-column p-0">
-          <div class="flex-grow-1 overflow-auto p-3">
-            <!-- Instrument Buttons -->
-            <InstrumentButtons
+          <div
+            class="px-3 pb-3 pt-2 border-bottom navbar-filter-controls"
+            style="background-color: #206071; color: #fff"
+          >
+            <SongFilterControls
               :instruments="instruments"
-              v-model:selected-instrument="selectedInstrument"
-              wrapper-class="mb-3 w-100"
-            />
-
-            <!-- Search -->
-            <SearchBar
-              v-model:search-query="searchQuery"
-              @reset="resetSearch"
-              placeholder="Search"
-              class="mb-3"
-            />
-
-            <!-- Action Buttons -->
-            <ActionButtons
               :has-active-filters="hasActiveFilters"
               :are-groups-collapsed="areGroupsCollapsed"
               filter-modal-id="#navbarFilterModal"
+              :show-active-filters="true"
+              :selected-labels="selectedLabels"
+              :selected-producers="selectedProducers"
+              :selected-singers="selectedSingers"
+              :date-range="dateRange"
+              v-model:selected-instrument="selectedInstrument"
+              v-model:search-query="searchQuery"
+              v-model:group-by="groupBy"
+              v-model:sort-by="sortBy"
+              @reset="resetSearch"
               @shuffle="pickRandomSong"
               @toggle-collapse="toggleGroupsCollapsed"
-              class="mb-3"
             />
-
-            <!-- Grouping & Sorting -->
-            <div class="mb-4">
-              <GroupSortControls v-model:group-by="groupBy" v-model:sort-by="sortBy" />
             </div>
 
+          <div class="flex-grow-1 overflow-auto p-3">
             <!-- Song List -->
             <SongList
               :ordered-songs="orderedSongs"
@@ -145,26 +138,22 @@ onUnmounted(() => {
             />
           </div>
 
+          <div class="mt-auto px-3" style="background-color: #1a5064; color: #fff">
+            <BottomFooter
+              :show-top="Boolean(currentSong) && hasTvSizeForCurrentSong"
+              :show-bottom="true"
+            >
+              <template #top>
                 <TvSizeToggle :current-song="currentSong" v-model:use-tv-size="useTvSize" />
+              </template>
+
+              <template #bottom>
             <UnderReviewToggle
               toggle-id="navbarUnderReviewToggle"
               v-model:under-review-view-enabled="songsStore.underReviewViewEnabled"
             />
-          </div>
-
-          <!-- Footer with actions (only show when viewing a song) -->
-          <div
-            v-if="currentSong"
-            class="border-top p-3"
-            style="background-color: #206071; color: #fff"
-          >
-            <SongActionButtons
-              :current-song="currentSong"
-              download-modal-id="#navbarDownloadModal"
-              download-label-class="d-none d-sm-inline ms-1"
-              youtube-label-class="d-none d-sm-inline ms-1"
-              @watch-on-you-tube="watchOnYouTube"
-            />
+              </template>
+            </BottomFooter>
           </div>
         </div>
       </div>
@@ -187,3 +176,11 @@ onUnmounted(() => {
     />
   </Teleport>
 </template>
+
+<style scoped>
+.navbar-filter-controls {
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+</style>

@@ -29,6 +29,14 @@ const underReviewViewEnabled = defineModel<boolean>('underReviewViewEnabled', { 
   border-color: #6c757d;
 }
 
+.form-check {
+  margin-bottom: 0;
+}
+
+.form-check-label {
+  white-space: nowrap;
+}
+
 .form-switch .form-check-input:checked {
   background-color: #0d6efd;
   border-color: #0d6efd;
