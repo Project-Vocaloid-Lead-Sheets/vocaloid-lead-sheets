@@ -1,9 +1,3 @@
-<style scoped>
-/* Make the sidebar hamburger menu icon white */
-.bi-list {
-  color: #fff !important;
-}
-</style>
 <script setup lang="ts">
 /** The sidebar is for larger displays that can fit the song select list on the side.
  * Its counterpart is the navbar.*/
@@ -88,27 +82,23 @@ onUnmounted(() => {
 <template>
   <nav
     id="sidebar"
-    class="text-light pt-2 px-3 d-flex flex-column"
+    class="text-light pt-2 px-3 d-flex flex-column sidebar-shell"
+    :class="{ 'is-collapsed': isSidebarCollapsed }"
     style="background-color: #206071; height: calc(var(--vh, 1vh) * 100)"
   >
     <!-- Sidebar Fixed Area -->
     <div class="d-flex flex-column mb-2">
       <!-- Sidebar Header -->
-      <div class="d-flex flex-row mb-2">
-        <a
-          href="#"
-          data-bs-target=".sidebar-nav-collapsible"
-          data-bs-toggle="collapse"
-          class="text-decoration-none"
-          @click="toggleSidebarCollapsed"
+      <div class="d-flex flex-row mb-2 sidebar-header">
+        <a href="#" class="text-decoration-none" @click.prevent="toggleSidebarCollapsed"
           ><i class="bi bi-list"></i>
         </a>
-        <span class="sidebar-nav-collapsible collapse collapse-horizontal ms-auto"
+        <span class="ms-auto sidebar-content sidebar-title-wrap"
           ><RouterLink class="navbar-brand" to="/">Project VocaLead Sheets</RouterLink>
         </span>
       </div>
       <!-- Sidebar Body -->
-      <div class="sidebar-nav-collapsible collapse collapse-horizontal">
+      <div class="sidebar-content">
         <SongFilterControls
           :instruments="instruments"
           :has-active-filters="hasActiveFilters"
@@ -131,11 +121,7 @@ onUnmounted(() => {
       </div>
     </div>
     <!-- Sidebar Scrollable Area -->
-    <div
-      id="sidebar-nav"
-      class="sidebar-nav-collapsible collapse collapse-horizontal overflow-auto"
-      style="flex: 1 1 0; min-height: 0"
-    >
+    <div id="sidebar-nav" class="sidebar-content overflow-auto" style="flex: 1 1 0; min-height: 0">
       <SongList
         :ordered-songs="orderedSongs"
         :selected-instrument="selectedInstrument"
@@ -145,7 +131,7 @@ onUnmounted(() => {
     </div>
 
     <!-- Footer area (always show when sidebar is open) -->
-    <div v-show="!isSidebarCollapsed" class="mt-auto">
+    <div class="mt-auto sidebar-content">
       <BottomFooter :show-top="hasTvSizeForCurrentSong" :show-bottom="true">
         <template #top>
           <TvSizeToggle :current-song="currentSong" v-model:use-tv-size="useTvSize" />
@@ -173,3 +159,64 @@ onUnmounted(() => {
     />
   </nav>
 </template>
+
+<style scoped>
+.sidebar-shell {
+  width: 23rem;
+  min-width: 23rem;
+  transition:
+    width 280ms ease,
+    min-width 280ms ease;
+  overflow: hidden;
+}
+
+.sidebar-shell.is-collapsed {
+  width: 3rem;
+  min-width: 3rem;
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+}
+
+.sidebar-content {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  opacity: 1;
+  transform: translateX(0);
+  transition:
+    opacity 180ms ease,
+    transform 280ms ease,
+    visibility 280ms;
+  will-change: opacity, transform;
+}
+
+.sidebar-shell.is-collapsed .sidebar-content {
+  opacity: 0;
+  transform: translateX(-0.25rem);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.sidebar-title-wrap {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 0;
+  text-align: right;
+}
+
+.sidebar-shell.is-collapsed .sidebar-header {
+  justify-content: center;
+}
+
+.sidebar-shell.is-collapsed .sidebar-title-wrap {
+  width: 0;
+  margin-left: 0 !important;
+  overflow: hidden;
+}
+
+/* Make the sidebar hamburger menu icon white */
+.bi-list {
+  color: #fff !important;
+}
+</style>
