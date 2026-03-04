@@ -1,15 +1,22 @@
 {
   "title": "Mugen no Ticket",
-  "alternativeNames": ["Eon Ticket"],
+  "alternativeNames": [
+    "Eon Ticket"
+  ],
   "producer": "marasy",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
-  "additionalVoices": ["KAITO"],
+  "additionalVoices": [
+    "KAITO"
+  ],
   "releaseDate": "20240217",
   "length": "3:41",
   "tvSizeLength": "",
   "bpm": 194,
-  "labels": ["Project Voltage", "Challenging"],
+  "labels": [
+    "Project Voltage",
+    "Challenging"
+  ],
   "transcriber": "Latios212",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=k7Y30h8S7Uw"
