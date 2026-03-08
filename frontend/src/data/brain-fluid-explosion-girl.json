@@ -1,0 +1,40 @@
+{
+  "title": "Brain Fluid Explosion Girl",
+  "alternativeNames": [
+    "Noushou Sakuretsu Girl"
+  ],
+  "producer": "rerulili",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [
+    "GUMI"
+  ],
+  "releaseDate": "20121019",
+  "length": "",
+  "tvSizeLength": "",
+  "bpm": 155,
+  "labels": [
+    "Hall of Myths",
+    "Challenging"
+  ],
+  "transcriber": "Nap1400",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=Ey_NHZNYTeE"
+  },
+  "links": {
+    "Vocals": "https://drive.google.com/file/d/1ywqrHVwLZS-DcYawVnTQx_ViUFDvoIib/view",
+    "C": "https://drive.google.com/file/d/1HxwnlZyamEHBn90TjZtTmI21UutmE6kj/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "7583637a929bfdc051405030f7b9ab7c",
+    "C": "d5ed49e8a876b1c5884c37559d9a9b4d"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/brain-fluid-explosion-girl/brain-fluid-explosion-girl-vocals.pdf",
+    "C": "/pdfs/brain-fluid-explosion-girl/brain-fluid-explosion-girl-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-03-08T21:24:28Z",
+  "updatedAt": "2026-03-08T21:24:28Z"
+}

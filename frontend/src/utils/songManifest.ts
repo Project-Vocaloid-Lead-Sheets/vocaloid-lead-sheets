@@ -2,6 +2,7 @@
 // This file is automatically updated by the sync script
 
 export const SONG_MANIFEST = [
+  'brain-fluid-explosion-girl.json',
   'cendrillon.json',
   'dawn-and-fireflies.json',
   'donut-hole.json',
