@@ -17,19 +17,25 @@
     "YouTube": "https://www.youtube.com/watch?v=duPJqfKiA78"
   },
   "links": {
-    "Bb": "https://drive.google.com/file/d/1_vTXfKlCHNeIJJwVKb8ojfqUdGpH7fCP/view",
-    "C": "https://drive.google.com/file/d/1h772Diz7LEAWvsKwMj9nkU4ySu7dzLPO/view"
+    "Bb": "https://drive.google.com/file/d/11HAKa3BZ8JKTAuLcbMa8V53AxRSLGn4g/view",
+    "C": "https://drive.google.com/file/d/1h772Diz7LEAWvsKwMj9nkU4ySu7dzLPO/view",
+    "Eb": "https://drive.google.com/file/d/1NgbtyP0XkZ8W90S_5AdTBycFAPz00zgg/view",
+    "Bass": "https://drive.google.com/file/d/18hBUow7wueMtzDBF2Sg1wApOVnufY5-O/view"
   },
   "pdfChecksums": {
-    "Bb": "008c35e031e021f35543f1d8d58f1404",
-    "C": "6b225d8c1d21df79b5279459cee6af6c"
+    "Bb": "0c9e6423aa80347e3701defc9be13cb4",
+    "C": "6b225d8c1d21df79b5279459cee6af6c",
+    "Eb": "f68a209b99bb5ca13c054984f42a18fa",
+    "Bass": "82b67a69aae09f81b0df883563849a85"
   },
   "pdfs": {
     "Bb": "/pdfs/triple-baka/triple-baka-bb.pdf",
-    "C": "/pdfs/triple-baka/triple-baka-c.pdf"
+    "C": "/pdfs/triple-baka/triple-baka-c.pdf",
+    "Eb": "/pdfs/triple-baka/triple-baka-eb.pdf",
+    "Bass": "/pdfs/triple-baka/triple-baka-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-02-27T02:51:02Z",
-  "updatedAt": "2026-01-23T03:30:38Z"
+  "syncedAt": "2026-03-08T02:27:55Z",
+  "updatedAt": "2026-03-08T02:27:55Z"
 }
