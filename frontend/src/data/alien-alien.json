@@ -1,0 +1,33 @@
+{
+  "title": "Alien Alien",
+  "alternativeNames": [],
+  "producer": "NayutalieN",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20160405",
+  "length": "",
+  "tvSizeLength": "",
+  "bpm": 152,
+  "labels": [],
+  "transcriber": "boracci channel",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=2t1NMRse6aI"
+  },
+  "links": {
+    "Vocals": "https://drive.google.com/file/d/1b6Ml7nRsUKlCrc8sQ9REIy_75vfbvfpa/view",
+    "C": "https://drive.google.com/file/d/1H0JwqjCjhZ9T0s1mmexbfkfbfpYAYAdQ/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "f73f9eae9edc6e9142f2666c06c5ae66",
+    "C": "258e21d42814034305f42094a453d11a"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/alien-alien/alien-alien-vocals.pdf",
+    "C": "/pdfs/alien-alien/alien-alien-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-03-08T21:44:18Z",
+  "updatedAt": "2026-03-08T21:44:18Z"
+}
