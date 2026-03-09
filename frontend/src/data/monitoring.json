@@ -27,14 +27,14 @@
     "Bass": "https://drive.google.com/file/d/11vz7Urh4tOAisdgEW7JHAyw3sVunCfQz/view"
   },
   "pdfChecksums": {
-    "Vocals": "4af2b55fdf22f11b2153808cb7778d70",
-    "Bb": "b8583b38b4f6a2a8327dcc81dcd12c4e",
-    "C": "df9db18265d345c5afcbae015d92d56e",
-    "Eb": "db55dfc7abf93196c90ffc442ee990be",
-    "F": "aa0a3775b4d361073e112a153569766b",
-    "G": "d1890ba81cd80b2d2584522615b96a78",
-    "Alto": "7f161bc895f4e60a08ce0e3b3546cb30",
-    "Bass": "56b1aea7fe8bfa8e0483c9ea21d3ccec"
+    "Vocals": "6cc4d2f248a3d05b6c645d9434412abc",
+    "Bb": "158fe44ed5eb756769f1798a0c0a5f23",
+    "C": "d4a2cd11b66cacdc8cebb47489f77548",
+    "Eb": "234df6b6447fb03c46228780cfd4bc66",
+    "F": "ef95bc57042c3a45c29bb51872da6d32",
+    "G": "57f1a4cc0bf72e80df28068ed576dec6",
+    "Alto": "6c16b3e657a75f3c58592294f8ef62fb",
+    "Bass": "e3080c584edb824e3762617f02c2fac7"
   },
   "pdfs": {
     "Vocals": "/pdfs/monitoring/monitoring-vocals.pdf",
@@ -47,7 +47,7 @@
     "Bass": "/pdfs/monitoring/monitoring-bass.pdf"
   },
   "pdfsTvSize": {},
-  "status": "under review",
-  "syncedAt": "2026-02-27T02:51:02Z",
-  "updatedAt": "2026-02-19T02:16:39Z"
+  "status": "completed",
+  "syncedAt": "2026-03-09T22:34:13Z",
+  "updatedAt": "2026-03-09T22:34:13Z"
 }
