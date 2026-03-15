@@ -2,6 +2,7 @@
 // This file is automatically updated by the sync script
 
 export const SONG_MANIFEST = [
+  'aishite-aishite-aishite.json',
   'alien-alien.json',
   'brain-fluid-explosion-girl.json',
   'cendrillon.json',
