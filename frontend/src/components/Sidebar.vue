@@ -162,8 +162,8 @@ onUnmounted(() => {
 
 <style scoped>
 .sidebar-shell {
-  width: 23rem;
-  min-width: 23rem;
+  width: clamp(20rem, 32vw, 23rem);
+  min-width: clamp(20rem, 32vw, 23rem);
   transition:
     width 280ms ease,
     min-width 280ms ease;
@@ -203,6 +203,11 @@ onUnmounted(() => {
   align-items: center;
   min-width: 0;
   text-align: right;
+}
+
+.sidebar-title-wrap .navbar-brand {
+  white-space: normal;
+  line-height: 1.2;
 }
 
 .sidebar-shell.is-collapsed .sidebar-header {

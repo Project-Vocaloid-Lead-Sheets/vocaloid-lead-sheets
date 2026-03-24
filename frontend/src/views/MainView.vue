@@ -7,7 +7,7 @@ import Navbar from '@/components/Navbar.vue'
   <main class="container-fluid min-vh-100 d-flex flex-column">
     <div class="row flex-grow-1 bd-layout">
       <!-- Desktop Sidebar -->
-      <div class="col-auto p-0 d-none d-lg-block" style="max-width: 25%">
+      <div class="col-auto p-0 d-none d-lg-block">
         <Sidebar />
       </div>
       <!-- Mobile Navbar -->
