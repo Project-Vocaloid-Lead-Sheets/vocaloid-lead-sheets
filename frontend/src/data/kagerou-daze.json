@@ -1,0 +1,32 @@
+{
+  "title": "Kagerou Daze",
+  "alternativeNames": [
+    "Heat-Haze Daze"
+  ],
+  "producer": "Jin",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20110930",
+  "length": "4:05",
+  "tvSizeLength": "",
+  "bpm": 200,
+  "labels": [],
+  "transcriber": "Cadence",
+  "videoLinks": {
+    "YouTube": "https://youtu.be/EMGyiiTC7sg"
+  },
+  "links": {
+    "C": "https://drive.google.com/file/d/18rhBDSquxpCe0Bkh43vwBVWPDESM9cx4/view"
+  },
+  "pdfChecksums": {
+    "C": "8a59d5cbe5def02eff9e9d1b83cbb6a6"
+  },
+  "pdfs": {
+    "C": "/pdfs/kagerou-daze/kagerou-daze-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-04-03T21:35:36Z",
+  "updatedAt": "2026-04-03T21:35:36Z"
+}

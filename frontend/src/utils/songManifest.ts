@@ -11,6 +11,7 @@ export const SONG_MANIFEST = [
   'god-ish.json',
   'goodbye-declaration.json',
   'ievan-polkka.json',
+  'kagerou-daze.json',
   'karakuri-pierrot.json',
   'kyoufuu-all-back.json',
   'lagtrain.json',

@@ -21,24 +21,33 @@
     "Bb": "https://drive.google.com/file/d/1Iy9sSbQ25VF8VWMZyD_z3zPkUPmfK97h/view",
     "C": "https://drive.google.com/file/d/1rU7IsC_w0eJ3kPmMotpehrBpVBUcSE_A/view",
     "Eb": "https://drive.google.com/file/d/1Gp0J8t_RmJ0Eu_70_nBBWGsekpY1aehC/view",
+    "F": "https://drive.google.com/file/d/1iJ9dVjExKVqKq03V9n376g3PWDe0l7Fe/view",
+    "G": "https://drive.google.com/file/d/1mfcagk5a-FlDwOsk9d4Z2eST-uk5hnJY/view",
+    "Alto": "https://drive.google.com/file/d/1HYm2ZKR9k6I6aYvfhJFSE4snCsjz0IBG/view",
     "Bass": "https://drive.google.com/file/d/18s6yHzhPHdTuGIc6gbEjxz_kKZyJJSSH/view"
   },
   "pdfChecksums": {
-    "Vocals": "81ea8957029e4afe3247294391e9054f",
-    "Bb": "4680d5f8d5f763aa24b6e6da96429978",
-    "C": "2058e3d77ce7179807774db2a19d499b",
-    "Eb": "90e59200ecbec3b13b49e0d94dba198d",
-    "Bass": "7eb593bae60c75fa8e0f5b70b02d2411"
+    "Vocals": "d5e2e911034aed91c7a1e6b75ba290c1",
+    "Bb": "28fb5f17860fad21f1b9aa97682745a5",
+    "C": "15c0b139b23a08819cec5b4f59f7ab6e",
+    "Eb": "5bc20351a7c54c0674bdee9691c0c25a",
+    "F": "3c5953eb16874af56d05495d23b8d847",
+    "G": "185b85252061466576853664f4c84986",
+    "Alto": "a8cb4dadfc821a2b7795df5bfa500181",
+    "Bass": "4e9367ca7c38f922aae59fa6c1bd0801"
   },
   "pdfs": {
     "Vocals": "/pdfs/oyasumination/oyasumination-vocals.pdf",
     "Bb": "/pdfs/oyasumination/oyasumination-bb.pdf",
     "C": "/pdfs/oyasumination/oyasumination-c.pdf",
     "Eb": "/pdfs/oyasumination/oyasumination-eb.pdf",
+    "F": "/pdfs/oyasumination/oyasumination-f.pdf",
+    "G": "/pdfs/oyasumination/oyasumination-g.pdf",
+    "Alto": "/pdfs/oyasumination/oyasumination-alto.pdf",
     "Bass": "/pdfs/oyasumination/oyasumination-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-02-27T02:51:02Z",
-  "updatedAt": "2026-01-01T18:14:11Z"
+  "syncedAt": "2026-04-03T21:35:36Z",
+  "updatedAt": "2026-04-03T21:35:36Z"
 }
