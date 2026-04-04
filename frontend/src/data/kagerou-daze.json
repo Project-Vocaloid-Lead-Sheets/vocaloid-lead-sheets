@@ -1,6 +1,7 @@
 {
   "title": "Kagerou Daze",
   "alternativeNames": [
+    "Kagerou Days",
     "Heat-Haze Daze"
   ],
   "producer": "Jin",
@@ -12,7 +13,7 @@
   "tvSizeLength": "",
   "bpm": 200,
   "labels": [],
-  "transcriber": "Cadence",
+  "transcriber": "Cadence Meadows",
   "videoLinks": {
     "YouTube": "https://youtu.be/EMGyiiTC7sg"
   },
@@ -27,6 +28,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-04-03T21:35:36Z",
+  "syncedAt": "2026-04-04T02:28:59Z",
   "updatedAt": "2026-04-03T21:35:36Z"
 }
