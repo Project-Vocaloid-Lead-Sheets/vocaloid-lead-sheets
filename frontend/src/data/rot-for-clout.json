@@ -21,6 +21,9 @@
     "Bb": "https://drive.google.com/file/d/1heQEHbKGB8pdDKSyaFoL_g3TWfNJbQwt/view",
     "C": "https://drive.google.com/file/d/1KWF48ac7gNuINN7gDAjuPe2w6PikL5yO/view",
     "Eb": "https://drive.google.com/file/d/1sGu-aDtHayDMxIIwtYeIILM0IiW5OKp6/view",
+    "F": "https://drive.google.com/file/d/1Ucpm7Ag_1Iz15i-A8HwfKfST4jIs20EO/view",
+    "G": "https://drive.google.com/file/d/1ATxaxosaULM9ESwnX0pD2TibgqlV6vVI/view",
+    "Alto": "https://drive.google.com/file/d/1nRdqCdaNIAas7bAmNBI5KpudVJWxCj9c/view",
     "Bass": "https://drive.google.com/file/d/1Us54LZVbhhrAw4B_7eQwGrqNKwLkd5Ix/view"
   },
   "pdfChecksums": {
@@ -28,6 +31,9 @@
     "Bb": "93d8f1d9786da293da286dd7fb0dad80",
     "C": "fc85ffcd0e5b9a291b56203bae31a4ae",
     "Eb": "41f008d4a024255b3939b1ddf90b9187",
+    "F": "1a6b7fa0208c9e99a4fc885d8933b11f",
+    "G": "f3f6279a20a3f0c3185c48f7db094afb",
+    "Alto": "7ab4efb16152d0d863eae0fd1cd394d0",
     "Bass": "3511cb46212f36924a3d596bf21a8b19"
   },
   "pdfs": {
@@ -35,10 +41,13 @@
     "Bb": "/pdfs/rot-for-clout/rot-for-clout-bb.pdf",
     "C": "/pdfs/rot-for-clout/rot-for-clout-c.pdf",
     "Eb": "/pdfs/rot-for-clout/rot-for-clout-eb.pdf",
+    "F": "/pdfs/rot-for-clout/rot-for-clout-f.pdf",
+    "G": "/pdfs/rot-for-clout/rot-for-clout-g.pdf",
+    "Alto": "/pdfs/rot-for-clout/rot-for-clout-alto.pdf",
     "Bass": "/pdfs/rot-for-clout/rot-for-clout-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-04-07T02:40:55Z",
-  "updatedAt": "2026-04-07T02:40:55Z"
+  "syncedAt": "2026-04-07T02:57:21Z",
+  "updatedAt": "2026-04-07T02:57:21Z"
 }
