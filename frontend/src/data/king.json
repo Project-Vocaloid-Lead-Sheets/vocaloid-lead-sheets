@@ -1,0 +1,35 @@
+{
+  "title": "KING",
+  "alternativeNames": [],
+  "producer": "Kanaria",
+  "additionalProducers": [],
+  "singer": "GUMI",
+  "additionalVoices": [],
+  "releaseDate": "20200802",
+  "length": "2:15",
+  "tvSizeLength": "",
+  "bpm": 166,
+  "labels": [
+    "Youtube 100m"
+  ],
+  "transcriber": "boracci channel",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=cm-l2h6GB8Q"
+  },
+  "links": {
+    "Vocals": "https://drive.google.com/file/d/116qc9MA2U5V9mGXh8HsDIKNAchlOtu2W/view",
+    "C": "https://drive.google.com/file/d/1-27adG8kJAzg_vhtQfIGx0WU8AFPsHLS/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "3d0998b20c9af6cd22081d369ab8504d",
+    "C": "89f13fce09dc135b3f395e23b05b152f"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/king/king-vocals.pdf",
+    "C": "/pdfs/king/king-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-04-09T20:05:11Z",
+  "updatedAt": "2026-04-09T20:05:11Z"
+}

@@ -13,6 +13,7 @@ export const SONG_MANIFEST = [
   'ievan-polkka.json',
   'kagerou-daze.json',
   'karakuri-pierrot.json',
+  'king.json',
   'kyoufuu-all-back.json',
   'lagtrain.json',
   'luka-lukanight-fever.json',
