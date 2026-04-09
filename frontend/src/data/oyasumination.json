@@ -27,14 +27,14 @@
     "Bass": "https://drive.google.com/file/d/18s6yHzhPHdTuGIc6gbEjxz_kKZyJJSSH/view"
   },
   "pdfChecksums": {
-    "Vocals": "d5e2e911034aed91c7a1e6b75ba290c1",
-    "Bb": "28fb5f17860fad21f1b9aa97682745a5",
-    "C": "15c0b139b23a08819cec5b4f59f7ab6e",
-    "Eb": "5bc20351a7c54c0674bdee9691c0c25a",
-    "F": "3c5953eb16874af56d05495d23b8d847",
-    "G": "185b85252061466576853664f4c84986",
-    "Alto": "a8cb4dadfc821a2b7795df5bfa500181",
-    "Bass": "4e9367ca7c38f922aae59fa6c1bd0801"
+    "Vocals": "41c8548a25118997b406e9a648e1b017",
+    "Bb": "1772cb32a4931d770f6855e315419320",
+    "C": "d7be3b0f8b263d419afaba41e48685a9",
+    "Eb": "68d2169f099025fdaf98c374065b5e7f",
+    "F": "e013541dceb33e4577dc4df3202839f2",
+    "G": "f760b146427a4251886ea5f2bf5fc0c7",
+    "Alto": "30e1a6d9364a876751f843eae1ad1780",
+    "Bass": "7955701426c86d5812cd2a99f55dde4c"
   },
   "pdfs": {
     "Vocals": "/pdfs/oyasumination/oyasumination-vocals.pdf",
@@ -48,6 +48,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-04-03T21:35:36Z",
-  "updatedAt": "2026-04-03T21:35:36Z"
+  "syncedAt": "2026-04-09T21:04:23Z",
+  "updatedAt": "2026-04-09T21:04:23Z"
 }
