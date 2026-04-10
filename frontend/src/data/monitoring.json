@@ -6,7 +6,7 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20241122",
-  "length": "",
+  "length": "2:56",
   "tvSizeLength": "",
   "bpm": 130,
   "labels": [
@@ -48,6 +48,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-03-09T22:34:13Z",
+  "syncedAt": "2026-04-10T02:48:39Z",
   "updatedAt": "2026-03-09T22:34:13Z"
 }

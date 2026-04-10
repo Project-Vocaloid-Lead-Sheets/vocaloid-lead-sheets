@@ -8,7 +8,7 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20090405",
-  "length": "",
+  "length": "4:35",
   "tvSizeLength": "",
   "bpm": 170,
   "labels": [
@@ -41,6 +41,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-04-04T02:28:59Z",
+  "syncedAt": "2026-04-10T02:48:39Z",
   "updatedAt": "2026-04-04T02:28:59Z"
 }

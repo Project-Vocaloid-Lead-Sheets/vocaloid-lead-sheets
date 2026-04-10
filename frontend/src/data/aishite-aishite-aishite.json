@@ -10,7 +10,7 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20150305",
-  "length": "",
+  "length": "4:10",
   "tvSizeLength": "",
   "bpm": 77,
   "labels": [],
@@ -29,6 +29,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-03-22T02:33:26Z",
+  "syncedAt": "2026-04-10T02:48:39Z",
   "updatedAt": "2026-03-22T02:33:26Z"
 }

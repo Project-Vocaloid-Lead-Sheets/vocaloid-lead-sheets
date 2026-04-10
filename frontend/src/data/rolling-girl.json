@@ -6,7 +6,7 @@
   "singer": "Hatsune Miku",
   "additionalVoices": [],
   "releaseDate": "20100214",
-  "length": "",
+  "length": "3:09",
   "tvSizeLength": "1:38",
   "bpm": 195,
   "labels": [
@@ -57,6 +57,6 @@
     "Bass": "/pdfs/rolling-girl-tv/rolling-girl-tv-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2026-02-27T02:51:02Z",
+  "syncedAt": "2026-04-10T02:48:39Z",
   "updatedAt": "2026-02-27T02:51:02Z"
 }
