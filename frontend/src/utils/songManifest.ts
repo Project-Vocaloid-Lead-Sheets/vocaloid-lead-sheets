@@ -27,6 +27,7 @@ export const SONG_MANIFEST = [
   'mugen-no-ticket.json',
   'night-sky-patrol-of-tomorrow.json',
   'oyasumination.json',
+  'patchwork-staccato.json',
   'rolling-girl.json',
   'romeo-and-cinderella.json',
   'rot-for-clout.json',

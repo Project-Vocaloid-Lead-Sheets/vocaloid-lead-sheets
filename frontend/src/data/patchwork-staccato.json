@@ -1,0 +1,30 @@
+{
+  "title": "Patchwork Staccato",
+  "alternativeNames": [],
+  "producer": "toa",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20140612",
+  "length": "4:11",
+  "tvSizeLength": "",
+  "bpm": 139,
+  "labels": [],
+  "transcriber": "Nap1400",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=p2Irc9NPCtk"
+  },
+  "links": {
+    "C": "https://drive.google.com/file/d/1OPZuWsp3nhapMFDcxRXoJQM5c6Ts9esL/view"
+  },
+  "pdfChecksums": {
+    "C": "4bb340138d172b853a652a79155a859a"
+  },
+  "pdfs": {
+    "C": "/pdfs/patchwork-staccato/patchwork-staccato-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-04-27T23:02:46Z",
+  "updatedAt": "2026-04-27T23:02:46Z"
+}
