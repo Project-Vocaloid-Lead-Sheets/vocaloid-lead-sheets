@@ -21,8 +21,8 @@
     "C": "https://drive.google.com/file/d/1-27adG8kJAzg_vhtQfIGx0WU8AFPsHLS/view"
   },
   "pdfChecksums": {
-    "Vocals": "3d0998b20c9af6cd22081d369ab8504d",
-    "C": "89f13fce09dc135b3f395e23b05b152f"
+    "Vocals": "03d12e64b2cc3de650dbbda9f37a86d0",
+    "C": "33ed717bda62fce1d9f9256a88840056"
   },
   "pdfs": {
     "Vocals": "/pdfs/king/king-vocals.pdf",
@@ -30,6 +30,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-04-09T20:05:11Z",
-  "updatedAt": "2026-04-09T20:05:11Z"
+  "syncedAt": "2026-04-27T03:23:58Z",
+  "updatedAt": "2026-04-27T03:23:58Z"
 }
