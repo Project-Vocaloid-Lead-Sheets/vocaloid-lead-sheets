@@ -17,6 +17,7 @@
     "YouTube": "https://www.youtube.com/watch?v=o1jAMSQyVPc"
   },
   "links": {
+    "Vocals": "https://drive.google.com/file/d/1ZWBzPGC3A-51Trop1Eh1PVA_XoiAQkqi/view",
     "Bb": "https://drive.google.com/file/d/1pLevUmAQXrroLzB0s4hIvXnHuDx1e6kf/view",
     "C": "https://drive.google.com/file/d/1LBuBptPtDAMXGPou3L5LrsmV1yuaeC1b/view",
     "Eb": "https://drive.google.com/file/d/1Vgvaqx9Jb6mbkZvDjLM0RMZy7MJFKoW4/view",
@@ -24,13 +25,15 @@
     "Bass": "https://drive.google.com/file/d/10LbC7wpsL5lm7SP3uo03BaQrt3c4k7i4/view"
   },
   "pdfChecksums": {
-    "Bb": "c71e10c9e3d7333f73397562d23c7823",
-    "C": "3745e4f03809c75bae8c4a4299e93786",
-    "Eb": "52eba4c91847ed8906b33355da55e0f3",
-    "Alto": "de81b678ae7b11fd532acbdaf0e7c5fa",
-    "Bass": "cb08ec37591869b975122b507df6cb7d"
+    "Vocals": "e4b3339c5b4b11f693fc76cda5a04a70",
+    "Bb": "e3ef939a76fef6276d5ceec6e4e4c373",
+    "C": "f55769177e54e4b3339b47c50e979c51",
+    "Eb": "6b63c256b4c40eb08fca1db4184e876e",
+    "Alto": "4c2bd106f6ef55b6faad97ab975b5295",
+    "Bass": "3753063fbba500b8d61e4c08451075dd"
   },
   "pdfs": {
+    "Vocals": "/pdfs/melt/melt-vocals.pdf",
     "Bb": "/pdfs/melt/melt-bb.pdf",
     "C": "/pdfs/melt/melt-c.pdf",
     "Eb": "/pdfs/melt/melt-eb.pdf",
@@ -39,6 +42,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-04-10T02:48:39Z",
-  "updatedAt": "2026-03-03T02:28:36Z"
+  "syncedAt": "2026-04-28T00:16:40Z",
+  "updatedAt": "2026-04-28T00:16:40Z"
 }
