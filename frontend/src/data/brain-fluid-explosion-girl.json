@@ -23,18 +23,36 @@
   },
   "links": {
     "Vocals": "https://drive.google.com/file/d/1ywqrHVwLZS-DcYawVnTQx_ViUFDvoIib/view",
-    "C": "https://drive.google.com/file/d/1HxwnlZyamEHBn90TjZtTmI21UutmE6kj/view"
+    "Bb": "https://drive.google.com/file/d/1TxcTO2JC4UZ0MalGDf2itlCBAyi3pq1N/view",
+    "C": "https://drive.google.com/file/d/1HxwnlZyamEHBn90TjZtTmI21UutmE6kj/view",
+    "Eb": "https://drive.google.com/file/d/1kywpgs5jZm6plgc30791yu2NzhQCORjc/view",
+    "F": "https://drive.google.com/file/d/1fWcCeCn3QbUtJ6j_VmEt7Ahm_lgqdqYf/view",
+    "G": "https://drive.google.com/file/d/1NDN0aFTNoN_eZy7uCFqQaWwdRmr9Ypxl/view",
+    "Alto": "https://drive.google.com/file/d/1Np6Z2Su91pLY4Sq6TPltJM5fa1xVnJVb/view",
+    "Bass": "https://drive.google.com/file/d/1c3BtXgaKxFjTFmSd3gigm_CLz_8ekJPX/view"
   },
   "pdfChecksums": {
-    "Vocals": "c3f1d94dae1b5a56a426b2f7c69bcc2d",
-    "C": "0ba87d3e21c26252c38fb60fd6262249"
+    "Vocals": "96bd5dee63990fd16f147f0c3fbd4a08",
+    "Bb": "09a09b693a9553129c2ff0c2f35f3014",
+    "C": "9ae9186f0676524bf6eac9a738ca3213",
+    "Eb": "b1b3616e172ab044b78120a4af800ff6",
+    "F": "d26d20c1767dff5c38bbb0cf787b17b7",
+    "G": "59a33c4f6af1a7447ab416ee7c3c09a6",
+    "Alto": "0e2b30357a622021b74fc2fd7ca88a73",
+    "Bass": "9c13e2bb7fef94b7fc6feb34913e91b2"
   },
   "pdfs": {
     "Vocals": "/pdfs/brain-fluid-explosion-girl/brain-fluid-explosion-girl-vocals.pdf",
-    "C": "/pdfs/brain-fluid-explosion-girl/brain-fluid-explosion-girl-c.pdf"
+    "Bb": "/pdfs/brain-fluid-explosion-girl/brain-fluid-explosion-girl-bb.pdf",
+    "C": "/pdfs/brain-fluid-explosion-girl/brain-fluid-explosion-girl-c.pdf",
+    "Eb": "/pdfs/brain-fluid-explosion-girl/brain-fluid-explosion-girl-eb.pdf",
+    "F": "/pdfs/brain-fluid-explosion-girl/brain-fluid-explosion-girl-f.pdf",
+    "G": "/pdfs/brain-fluid-explosion-girl/brain-fluid-explosion-girl-g.pdf",
+    "Alto": "/pdfs/brain-fluid-explosion-girl/brain-fluid-explosion-girl-alto.pdf",
+    "Bass": "/pdfs/brain-fluid-explosion-girl/brain-fluid-explosion-girl-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-04-27T03:23:58Z",
-  "updatedAt": "2026-04-27T03:23:58Z"
+  "syncedAt": "2026-04-28T23:04:44Z",
+  "updatedAt": "2026-04-28T23:04:44Z"
 }
