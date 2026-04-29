@@ -10,6 +10,7 @@ export const SONG_MANIFEST = [
   'donut-hole.json',
   'god-ish.json',
   'goodbye-declaration.json',
+  'hand-in-hand.json',
   'ievan-polkka.json',
   'kagerou-daze.json',
   'karakuri-pierrot.json',

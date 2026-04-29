@@ -1,0 +1,45 @@
+{
+  "title": "Hand in Hand",
+  "alternativeNames": [],
+  "producer": "kz",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20150707",
+  "length": "5:08",
+  "tvSizeLength": "",
+  "bpm": 128,
+  "labels": [],
+  "transcriber": "Latios212",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=RKtoreimcQ8"
+  },
+  "links": {
+    "Vocals": "https://drive.google.com/file/d/17-e24oOPVy1A1KdCr2MHrqu_SMw0JJra/view",
+    "Bb": "https://drive.google.com/file/d/1uKsZsXWBEa6FFQb5xXUp4t8J_1o7DKeZ/view",
+    "C": "https://drive.google.com/file/d/156pJwLnMbBomHrCSPV2mG3qkfUADKZcL/view",
+    "Eb": "https://drive.google.com/file/d/1qZ87RoroB5mshKsxzymYMT6kGCv7s-rs/view",
+    "Alto": "https://drive.google.com/file/d/1sCOdlsldUz1Jg3TUX94BGxcSMVw8XD9c/view",
+    "Bass": "https://drive.google.com/file/d/1ruOieBC_6v6Il7_zCZh1XdvNsIWa9Sv_/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "7c0704c351f7704536c81b44aee13e7b",
+    "Bb": "b8fc30a774c01e787a62859265b598cc",
+    "C": "c7dcd3c16670cbe839f3bd0c6d219021",
+    "Eb": "14bcd96abc53f54da74a967737046f84",
+    "Alto": "0756d7e3f06ab8e3599c52668d59c4d3",
+    "Bass": "a2b12b70dd54fd81289ed2eb5dd08029"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/hand-in-hand/hand-in-hand-vocals.pdf",
+    "Bb": "/pdfs/hand-in-hand/hand-in-hand-bb.pdf",
+    "C": "/pdfs/hand-in-hand/hand-in-hand-c.pdf",
+    "Eb": "/pdfs/hand-in-hand/hand-in-hand-eb.pdf",
+    "Alto": "/pdfs/hand-in-hand/hand-in-hand-alto.pdf",
+    "Bass": "/pdfs/hand-in-hand/hand-in-hand-bass.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-04-29T23:30:02Z",
+  "updatedAt": "2026-04-29T23:30:02Z"
+}
