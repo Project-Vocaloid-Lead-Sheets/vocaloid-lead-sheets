@@ -9,7 +9,7 @@
   "additionalVoices": [],
   "releaseDate": "20140224",
   "length": "3:55",
-  "tvSizeLength": "",
+  "tvSizeLength": "1:18",
   "bpm": 120,
   "labels": [
     "Hall of Myths"
@@ -48,8 +48,17 @@
     "Alto": "/pdfs/tale-of-the-deep-sea-lily/tale-of-the-deep-sea-lily-alto.pdf",
     "Bass": "/pdfs/tale-of-the-deep-sea-lily/tale-of-the-deep-sea-lily-bass.pdf"
   },
-  "pdfsTvSize": {},
+  "pdfsTvSize": {
+    "Vocals": "/pdfs/tale-of-the-deep-sea-lily-tv/tale-of-the-deep-sea-lily-tv-vocals.pdf",
+    "Bb": "/pdfs/tale-of-the-deep-sea-lily-tv/tale-of-the-deep-sea-lily-tv-bb.pdf",
+    "C": "/pdfs/tale-of-the-deep-sea-lily-tv/tale-of-the-deep-sea-lily-tv-c.pdf",
+    "Eb": "/pdfs/tale-of-the-deep-sea-lily-tv/tale-of-the-deep-sea-lily-tv-eb.pdf",
+    "F": "/pdfs/tale-of-the-deep-sea-lily-tv/tale-of-the-deep-sea-lily-tv-f.pdf",
+    "G": "/pdfs/tale-of-the-deep-sea-lily-tv/tale-of-the-deep-sea-lily-tv-g.pdf",
+    "Alto": "/pdfs/tale-of-the-deep-sea-lily-tv/tale-of-the-deep-sea-lily-tv-alto.pdf",
+    "Bass": "/pdfs/tale-of-the-deep-sea-lily-tv/tale-of-the-deep-sea-lily-tv-bass.pdf"
+  },
   "status": "completed",
-  "syncedAt": "2026-04-10T02:48:39Z",
-  "updatedAt": "2025-11-05T00:48:25Z"
+  "syncedAt": "2026-05-01T01:35:46Z",
+  "updatedAt": "2026-05-01T01:35:46Z"
 }
