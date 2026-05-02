@@ -15,19 +15,22 @@
     "YouTube": "https://www.youtube.com/watch?v=i-DZukWFR64"
   },
   "links": {
+    "Vocals": "https://drive.google.com/file/d/1w3tjEWMDMXElyacOJ-gT5J3Jll7bQxbK/view",
     "Bb": "https://drive.google.com/file/d/1MNEERVp-tGDifZfUX6fbsERJgVf7kbWV/view",
     "C": "https://drive.google.com/file/d/1z3BeJOvxosV_GUEA0ogW0VceCc-9yNW0/view"
   },
   "pdfChecksums": {
+    "Vocals": "b1f719004abc143e7ce9593990705ec8",
     "Bb": "ce5ceef1e608421dc219977ab76807ee",
     "C": "c58f42e6d5c92b1f24eb1f2001d401df"
   },
   "pdfs": {
+    "Vocals": "/pdfs/telecaster-b-boy/telecaster-b-boy-vocals.pdf",
     "Bb": "/pdfs/telecaster-b-boy/telecaster-b-boy-bb.pdf",
     "C": "/pdfs/telecaster-b-boy/telecaster-b-boy-c.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-04-10T02:48:39Z",
-  "updatedAt": "2025-11-25T01:24:36Z"
+  "syncedAt": "2026-05-02T20:22:55Z",
+  "updatedAt": "2026-05-02T20:22:55Z"
 }
