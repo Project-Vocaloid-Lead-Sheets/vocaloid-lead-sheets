@@ -18,18 +18,27 @@
   },
   "links": {
     "Vocals": "https://drive.google.com/file/d/116qc9MA2U5V9mGXh8HsDIKNAchlOtu2W/view",
-    "C": "https://drive.google.com/file/d/1-27adG8kJAzg_vhtQfIGx0WU8AFPsHLS/view"
+    "Bb": "https://drive.google.com/file/d/1uTjNU6q3mMmojUCpjIx1JTo6SCxytCSz/view",
+    "C": "https://drive.google.com/file/d/1-27adG8kJAzg_vhtQfIGx0WU8AFPsHLS/view",
+    "Eb": "https://drive.google.com/file/d/1ez-_rloAcUpu1yEWeox9GjXDchOpYh3C/view",
+    "Bass": "https://drive.google.com/file/d/1DSFwXA03wQlPOGxBAUo21lyNDnfRcRAj/view"
   },
   "pdfChecksums": {
     "Vocals": "03d12e64b2cc3de650dbbda9f37a86d0",
-    "C": "33ed717bda62fce1d9f9256a88840056"
+    "Bb": "aa5fbef7fb4405a2516543a75b6bc58b",
+    "C": "33ed717bda62fce1d9f9256a88840056",
+    "Eb": "71fba704d65bfdcd79ad93a53cf3c4c6",
+    "Bass": "eab838e205dd006fffefd0b177509d3c"
   },
   "pdfs": {
     "Vocals": "/pdfs/king/king-vocals.pdf",
-    "C": "/pdfs/king/king-c.pdf"
+    "Bb": "/pdfs/king/king-bb.pdf",
+    "C": "/pdfs/king/king-c.pdf",
+    "Eb": "/pdfs/king/king-eb.pdf",
+    "Bass": "/pdfs/king/king-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-04-27T03:23:58Z",
-  "updatedAt": "2026-04-27T03:23:58Z"
+  "syncedAt": "2026-05-02T04:32:23Z",
+  "updatedAt": "2026-05-02T04:32:23Z"
 }

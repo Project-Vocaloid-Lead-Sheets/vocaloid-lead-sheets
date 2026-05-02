@@ -16,18 +16,24 @@
   },
   "links": {
     "Vocals": "https://drive.google.com/file/d/1b6Ml7nRsUKlCrc8sQ9REIy_75vfbvfpa/view",
-    "C": "https://drive.google.com/file/d/1H0JwqjCjhZ9T0s1mmexbfkfbfpYAYAdQ/view"
+    "Bb": "https://drive.google.com/file/d/1sULfDv2E3YwISWA7hud8LMZuAJzgH3g7/view",
+    "C": "https://drive.google.com/file/d/1H0JwqjCjhZ9T0s1mmexbfkfbfpYAYAdQ/view",
+    "Bass": "https://drive.google.com/file/d/1mrO78bsJVCFxhplgBuNmsL_zItaHEZLu/view"
   },
   "pdfChecksums": {
     "Vocals": "af6efa1a5d4f5e11ac9839bb4edf5335",
-    "C": "8755af19fd7952e915ae8432d4c033d3"
+    "Bb": "357fef40a71051c10f03b8e058943869",
+    "C": "8755af19fd7952e915ae8432d4c033d3",
+    "Bass": "98e7c7a631d40dd107531a9b40bcac4d"
   },
   "pdfs": {
     "Vocals": "/pdfs/alien-alien/alien-alien-vocals.pdf",
-    "C": "/pdfs/alien-alien/alien-alien-c.pdf"
+    "Bb": "/pdfs/alien-alien/alien-alien-bb.pdf",
+    "C": "/pdfs/alien-alien/alien-alien-c.pdf",
+    "Bass": "/pdfs/alien-alien/alien-alien-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-05-01T01:35:46Z",
-  "updatedAt": "2026-05-01T01:35:46Z"
+  "syncedAt": "2026-05-02T04:32:23Z",
+  "updatedAt": "2026-05-02T04:32:23Z"
 }
