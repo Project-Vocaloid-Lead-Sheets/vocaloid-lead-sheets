@@ -1,0 +1,32 @@
+{
+  "title": "Torinoko City",
+  "alternativeNames": [
+    "Urbandonment"
+  ],
+  "producer": "40mP",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20100729",
+  "length": "3:20",
+  "tvSizeLength": "",
+  "bpm": 135,
+  "labels": [],
+  "transcriber": "Nap1400",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=yIQDGwyJpSo"
+  },
+  "links": {
+    "C": "https://drive.google.com/file/d/13Ja1DUu_IQlgrtyk697uMsDoJkgMf7rs/view"
+  },
+  "pdfChecksums": {
+    "C": "3b33331b3e0b71e20efd4e2e34a45d92"
+  },
+  "pdfs": {
+    "C": "/pdfs/torinoko-city/torinoko-city-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-05-04T03:30:56Z",
+  "updatedAt": "2026-05-04T03:30:56Z"
+}

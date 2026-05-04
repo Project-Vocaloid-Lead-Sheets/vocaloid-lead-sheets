@@ -40,6 +40,7 @@ export const SONG_MANIFEST = [
   'tell-your-world.json',
   'the-disappearance-of-hatsune-miku.json',
   'the-lost-ones-weeping.json',
+  'torinoko-city.json',
   'tricolore-airline.json',
   'triple-baka.json',
   'two-faced-lovers.json',
