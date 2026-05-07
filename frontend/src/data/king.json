@@ -24,11 +24,11 @@
     "Bass": "https://drive.google.com/file/d/1DSFwXA03wQlPOGxBAUo21lyNDnfRcRAj/view"
   },
   "pdfChecksums": {
-    "Vocals": "03d12e64b2cc3de650dbbda9f37a86d0",
-    "Bb": "aa5fbef7fb4405a2516543a75b6bc58b",
-    "C": "33ed717bda62fce1d9f9256a88840056",
-    "Eb": "71fba704d65bfdcd79ad93a53cf3c4c6",
-    "Bass": "eab838e205dd006fffefd0b177509d3c"
+    "Vocals": "8087fdd7172ac3b64161ff7df7932233",
+    "Bb": "2b389b7c9e98c2f5cfe325fa3a815ec0",
+    "C": "5e87335fa01116aa72feced15e3425fe",
+    "Eb": "ba705f01c2132689f65cf4da3d7d0794",
+    "Bass": "ad7d0c5452ed6323dafe1c4353567892"
   },
   "pdfs": {
     "Vocals": "/pdfs/king/king-vocals.pdf",
@@ -39,6 +39,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-05-02T04:32:23Z",
-  "updatedAt": "2026-05-02T04:32:23Z"
+  "syncedAt": "2026-05-07T03:28:28Z",
+  "updatedAt": "2026-05-07T03:28:28Z"
 }
