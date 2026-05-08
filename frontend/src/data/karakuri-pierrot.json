@@ -22,11 +22,11 @@
     "Bass": "https://drive.google.com/file/d/1d3IYZMvtAoCuf-HCq7UJyFzGQavfqWKl/view"
   },
   "pdfChecksums": {
-    "Vocals": "48e8bfdaa816ad7cbc8d41a051c7da1b",
-    "Bb": "b51f5ce927e158566486bfef31d67cfa",
-    "C": "6bd0b8abcd2b513b17c7a6ff1ac80cf2",
-    "Eb": "57dd74cfd73021d1b8b7b8f129b42762",
-    "Bass": "90cb2f6279fe0fe2d5a333dd27ac0a32"
+    "Vocals": "d82649f65055941e77543a27aa371104",
+    "Bb": "b4752ee90db9060e8c8cae7b845cdd8e",
+    "C": "da5038b81b4ea4a82265746dc631261d",
+    "Eb": "32f62db6aec593ba3c43d824da97970d",
+    "Bass": "bb6f59bc42e87c93c386eebc72d3eedf"
   },
   "pdfs": {
     "Vocals": "/pdfs/karakuri-pierrot/karakuri-pierrot-vocals.pdf",
@@ -37,6 +37,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-05-01T01:35:46Z",
-  "updatedAt": "2026-05-01T01:35:46Z"
+  "syncedAt": "2026-05-08T03:24:51Z",
+  "updatedAt": "2026-05-08T03:24:51Z"
 }

@@ -21,24 +21,33 @@
     "Bb": "https://drive.google.com/file/d/1uTjNU6q3mMmojUCpjIx1JTo6SCxytCSz/view",
     "C": "https://drive.google.com/file/d/1-27adG8kJAzg_vhtQfIGx0WU8AFPsHLS/view",
     "Eb": "https://drive.google.com/file/d/1ez-_rloAcUpu1yEWeox9GjXDchOpYh3C/view",
+    "F": "https://drive.google.com/file/d/1QhLF_n8PNepM1iS0NXUQ4ONkfxVeOF3W/view",
+    "G": "https://drive.google.com/file/d/1sXPIO-1LUm8URWTQ2IKrhxfhnxTFRkd7/view",
+    "Alto": "https://drive.google.com/file/d/1OwZVE8GqBAM9Lgg-wcjRZT-XeVW8Eo8v/view",
     "Bass": "https://drive.google.com/file/d/1DSFwXA03wQlPOGxBAUo21lyNDnfRcRAj/view"
   },
   "pdfChecksums": {
-    "Vocals": "8087fdd7172ac3b64161ff7df7932233",
-    "Bb": "2b389b7c9e98c2f5cfe325fa3a815ec0",
-    "C": "5e87335fa01116aa72feced15e3425fe",
-    "Eb": "ba705f01c2132689f65cf4da3d7d0794",
-    "Bass": "ad7d0c5452ed6323dafe1c4353567892"
+    "Vocals": "a5d0cce1a754bbc2715315b0ce52dc27",
+    "Bb": "dda762dcc34ce6b331854bfbe1da181d",
+    "C": "47d13e9a45d2bb0f648cb6db66870ae8",
+    "Eb": "5f4f12002b9400e0eba45f1f17b80e08",
+    "F": "2331f95a99ab208ec0edb5d7b291e613",
+    "G": "e6296c5364df747424a74ac45408bb15",
+    "Alto": "fa2159389776b1703f5199edb34e072c",
+    "Bass": "f41b61b85acaed5c049d6cb8572f4f5a"
   },
   "pdfs": {
     "Vocals": "/pdfs/king/king-vocals.pdf",
     "Bb": "/pdfs/king/king-bb.pdf",
     "C": "/pdfs/king/king-c.pdf",
     "Eb": "/pdfs/king/king-eb.pdf",
+    "F": "/pdfs/king/king-f.pdf",
+    "G": "/pdfs/king/king-g.pdf",
+    "Alto": "/pdfs/king/king-alto.pdf",
     "Bass": "/pdfs/king/king-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-05-07T03:28:28Z",
-  "updatedAt": "2026-05-07T03:28:28Z"
+  "syncedAt": "2026-05-08T03:24:51Z",
+  "updatedAt": "2026-05-08T03:24:51Z"
 }
