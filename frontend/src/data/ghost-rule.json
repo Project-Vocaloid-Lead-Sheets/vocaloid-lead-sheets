@@ -1,0 +1,32 @@
+{
+  "title": "Ghost Rule",
+  "alternativeNames": [],
+  "producer": "DECO*27",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20160108",
+  "length": "3:26",
+  "tvSizeLength": "",
+  "bpm": 210,
+  "labels": [
+    "Hall of Myths"
+  ],
+  "transcriber": "Tarediiran",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=KushW6zvazM"
+  },
+  "links": {
+    "C": "https://drive.google.com/file/d/1Pa73CdgnBhE7zO-3nAAbTgA3nebrDZgF/view"
+  },
+  "pdfChecksums": {
+    "C": "e554af80c8d1efea1404e6c6e4822f22"
+  },
+  "pdfs": {
+    "C": "/pdfs/ghost-rule/ghost-rule-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-05-10T15:46:23Z",
+  "updatedAt": "2026-05-10T15:46:23Z"
+}
