@@ -27,14 +27,14 @@
     "Bass": "https://drive.google.com/file/d/1DSFwXA03wQlPOGxBAUo21lyNDnfRcRAj/view"
   },
   "pdfChecksums": {
-    "Vocals": "a5d0cce1a754bbc2715315b0ce52dc27",
-    "Bb": "dda762dcc34ce6b331854bfbe1da181d",
-    "C": "47d13e9a45d2bb0f648cb6db66870ae8",
-    "Eb": "5f4f12002b9400e0eba45f1f17b80e08",
-    "F": "2331f95a99ab208ec0edb5d7b291e613",
-    "G": "e6296c5364df747424a74ac45408bb15",
-    "Alto": "fa2159389776b1703f5199edb34e072c",
-    "Bass": "f41b61b85acaed5c049d6cb8572f4f5a"
+    "Vocals": "22bebf5088aae8e46d9dc603892ba4c7",
+    "Bb": "9d2e5a10a447487e1dcf74438b7e78f7",
+    "C": "91e2246f56e1d82c5f6ad9184d886020",
+    "Eb": "22597776624470c493ea83dfa2df2258",
+    "F": "21f7d3e43b83c122a7a3497962a78c75",
+    "G": "19777028913677ce6bbdd8e5d4c6c547",
+    "Alto": "10323c077f979b1dc5c3685f99368bb8",
+    "Bass": "c34b97766fa9ded69170da8e0d00fb3a"
   },
   "pdfs": {
     "Vocals": "/pdfs/king/king-vocals.pdf",
@@ -47,7 +47,7 @@
     "Bass": "/pdfs/king/king-bass.pdf"
   },
   "pdfsTvSize": {},
-  "status": "under review",
-  "syncedAt": "2026-05-08T03:24:51Z",
-  "updatedAt": "2026-05-08T03:24:51Z"
+  "status": "completed",
+  "syncedAt": "2026-05-10T19:57:40Z",
+  "updatedAt": "2026-05-10T19:57:40Z"
 }

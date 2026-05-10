@@ -16,7 +16,6 @@ export const SONG_MANIFEST = [
   'kagerou-daze.json',
   'karakuri-pierrot.json',
   'king.json',
-  'kisaragi-attention.json',
   'kyoufuu-all-back.json',
   'lagtrain.json',
   'luka-lukanight-fever.json',
