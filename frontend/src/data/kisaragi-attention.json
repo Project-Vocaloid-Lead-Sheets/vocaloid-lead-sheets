@@ -1,0 +1,33 @@
+{
+  "title": "Kisaragi Attention",
+  "alternativeNames": [],
+  "producer": "Jin",
+  "additionalProducers": [],
+  "singer": "IA",
+  "additionalVoices": [],
+  "releaseDate": "20120526",
+  "length": "4:06",
+  "tvSizeLength": "",
+  "bpm": 200,
+  "labels": [
+    "Kagerou Project",
+    "Mekakucity"
+  ],
+  "transcriber": "Tarediiran",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=-y3BSoHOT9A&list=RD-y3BSoHOT9A&start_radio=1"
+  },
+  "links": {
+    "C": "https://drive.google.com/file/d/1jRdNHhsF8IBKWBnV789jryzJtDMzIQj9/view"
+  },
+  "pdfChecksums": {
+    "C": "5d397f519a5d5f8c3c7bb8092163cb88"
+  },
+  "pdfs": {
+    "C": "/pdfs/kisaragi-attention/kisaragi-attention-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-05-10T04:51:46Z",
+  "updatedAt": "2026-05-10T04:51:46Z"
+}

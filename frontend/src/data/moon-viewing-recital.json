@@ -1,0 +1,35 @@
+{
+  "title": "Moon-Viewing Recital",
+  "alternativeNames": [
+    "Otsukimi Recital"
+  ],
+  "producer": "Jin",
+  "additionalProducers": [],
+  "singer": "IA",
+  "additionalVoices": [],
+  "releaseDate": "20130702",
+  "length": "3:41",
+  "tvSizeLength": "",
+  "bpm": 189,
+  "labels": [
+    "Kagerou Project",
+    "Mekakucity"
+  ],
+  "transcriber": "Tarediiran",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=gRNO6QY-GwM&list=RDgRNO6QY-GwM"
+  },
+  "links": {
+    "C": "https://drive.google.com/file/d/1pxOl5V_JjOfGx3-_7ppqVFx9vRIp3ni8/view"
+  },
+  "pdfChecksums": {
+    "C": "51ac0f25ce35c79bf841c536b7ade8aa"
+  },
+  "pdfs": {
+    "C": "/pdfs/moon-viewing-recital/moon-viewing-recital-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-05-10T04:51:46Z",
+  "updatedAt": "2026-05-10T04:51:46Z"
+}

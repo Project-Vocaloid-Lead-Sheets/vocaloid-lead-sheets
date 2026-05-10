@@ -12,7 +12,10 @@
   "length": "4:05",
   "tvSizeLength": "",
   "bpm": 200,
-  "labels": [],
+  "labels": [
+    "Kagerou Project",
+    "Mekakucity"
+  ],
   "transcriber": "Cadence Meadows",
   "videoLinks": {
     "YouTube": "https://youtu.be/EMGyiiTC7sg"
@@ -31,6 +34,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-05-01T15:02:29Z",
+  "syncedAt": "2026-05-10T04:51:46Z",
   "updatedAt": "2026-05-01T15:02:29Z"
 }
