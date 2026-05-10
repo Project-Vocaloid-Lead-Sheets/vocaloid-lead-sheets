@@ -27,14 +27,14 @@
     "Bass": "https://drive.google.com/file/d/1SLOQYEwLAkJpD0wbdd9VEUb1XKmyvs9w/view"
   },
   "pdfChecksums": {
-    "Vocals": "a90d3bd1d654c4db31cbc7250f44c0eb",
-    "Bb": "8d2f1b1d1623ba1b0a20fec364998dad",
-    "C": "93a4739be22284afc558efa157a85a35",
-    "Eb": "9ca66c0e000b1865e3b9d1970cd972c1",
-    "F": "35bb4350bd516023f3b74914d66cf99d",
-    "G": "bc2616231c00cada793209c69097500b",
-    "Alto": "feec6018d52f3ca8552186e1f8f7fd5f",
-    "Bass": "119eafb31fe5b1516d7d1c81ed6f0be6"
+    "Vocals": "f2ba12034d02ec8cbc96dfe1a60e65bb",
+    "Bb": "5a0319918fba0441b87810cd2b91f0fd",
+    "C": "a17687e310f9e5d6303aa24945dac7ec",
+    "Eb": "9068fbcbff813eeea1dde4882aef104f",
+    "F": "4e8db7c42b272b1deb368375f9245990",
+    "G": "762a3dd93bd3e5772e4597db6e15c0d7",
+    "Alto": "87a25bd214ec60a13cad910a3fd7360c",
+    "Bass": "bfbb4e7cd512afebc5811a418ee39832"
   },
   "pdfs": {
     "Vocals": "/pdfs/god-ish/god-ish-vocals.pdf",
@@ -47,7 +47,7 @@
     "Bass": "/pdfs/god-ish/god-ish-bass.pdf"
   },
   "pdfsTvSize": {},
-  "status": "under review",
-  "syncedAt": "2026-05-01T01:35:46Z",
-  "updatedAt": "2026-05-01T01:35:46Z"
+  "status": "completed",
+  "syncedAt": "2026-05-10T23:39:32Z",
+  "updatedAt": "2026-05-10T23:39:32Z"
 }
