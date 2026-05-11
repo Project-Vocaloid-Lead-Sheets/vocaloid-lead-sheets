@@ -1,0 +1,35 @@
+{
+  "title": "Leia",
+  "alternativeNames": [],
+  "producer": "yuyoyuppe",
+  "additionalProducers": [],
+  "singer": "Megurine Luka",
+  "additionalVoices": [],
+  "releaseDate": "20110101",
+  "length": "3:57",
+  "tvSizeLength": "",
+  "bpm": 190,
+  "labels": [
+    "Challenging"
+  ],
+  "transcriber": "Nap1400",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=NPU0O5mUJbs"
+  },
+  "links": {
+    "Vocals": "https://drive.google.com/file/d/1dexuOn-XJpon3MvqV3TZEslxMJYfFOXM/view",
+    "C": "https://drive.google.com/file/d/1Zj2O7tDs7b-ZJKG46g3YF5xKO-dWWasw/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "ac9c8694948c1d79fa3b0713d6320778",
+    "C": "5bd8d71f72d06e80a629a30064c77b31"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/leia/leia-vocals.pdf",
+    "C": "/pdfs/leia/leia-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-05-11T03:48:17Z",
+  "updatedAt": "2026-05-11T03:48:17Z"
+}
