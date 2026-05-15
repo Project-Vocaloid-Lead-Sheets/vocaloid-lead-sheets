@@ -47,6 +47,7 @@ export const SONG_MANIFEST = [
   'tricolore-airline.json',
   'triple-baka.json',
   'two-faced-lovers.json',
+  'unknown-mother-goose.json',
   'venom.json',
   'world-is-mine.json',
   'worlds-end-dancehall.json',

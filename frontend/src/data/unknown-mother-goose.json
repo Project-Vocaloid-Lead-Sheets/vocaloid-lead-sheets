@@ -1,0 +1,32 @@
+{
+  "title": "Unknown Mother-Goose",
+  "alternativeNames": [],
+  "producer": "wowaka",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20170822",
+  "length": "4:45",
+  "tvSizeLength": "",
+  "bpm": 222,
+  "labels": [
+    "Hall of Myths"
+  ],
+  "transcriber": "Latios212",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=P_CSdxSGfaA"
+  },
+  "links": {
+    "C": "https://drive.google.com/file/d/1X1abBREinkFrGXxBCZ7PWqqld3rXTMH0/view"
+  },
+  "pdfChecksums": {
+    "C": "f1f14ca48a8cd2112c537132af7755f2"
+  },
+  "pdfs": {
+    "C": "/pdfs/unknown-mother-goose/unknown-mother-goose-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-05-15T00:04:10Z",
+  "updatedAt": "2026-05-15T00:04:10Z"
+}
