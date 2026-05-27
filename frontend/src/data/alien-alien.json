@@ -21,10 +21,10 @@
     "Bass": "https://drive.google.com/file/d/1mrO78bsJVCFxhplgBuNmsL_zItaHEZLu/view"
   },
   "pdfChecksums": {
-    "Vocals": "af6efa1a5d4f5e11ac9839bb4edf5335",
-    "Bb": "357fef40a71051c10f03b8e058943869",
-    "C": "8755af19fd7952e915ae8432d4c033d3",
-    "Bass": "98e7c7a631d40dd107531a9b40bcac4d"
+    "Vocals": "fe0d74facc76790ecb952eaad71b4649",
+    "Bb": "1bf12a795eb05fe11732ff5129fbf0fb",
+    "C": "002ac7c759f42dc566442125de2ee660",
+    "Bass": "7218bd5d43ea92047522ec204dc98328"
   },
   "pdfs": {
     "Vocals": "/pdfs/alien-alien/alien-alien-vocals.pdf",
@@ -34,6 +34,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-05-02T04:32:23Z",
-  "updatedAt": "2026-05-02T04:32:23Z"
+  "syncedAt": "2026-05-27T04:04:56Z",
+  "updatedAt": "2026-05-27T04:04:56Z"
 }
