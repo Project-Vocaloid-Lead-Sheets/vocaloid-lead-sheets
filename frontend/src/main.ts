@@ -34,7 +34,8 @@ router.afterEach((to) => {
   })
 
   if (to.name === 'sheetView' && typeof to.params.songSlug === 'string') {
-    const instrument = typeof to.query.instrument === 'string' ? to.query.instrument : 'unknown'
+    const instrument =
+      typeof to.query.transposition === 'string' ? to.query.transposition : 'unknown'
 
     gtag('event', 'view_sheet', {
       song_slug: to.params.songSlug,

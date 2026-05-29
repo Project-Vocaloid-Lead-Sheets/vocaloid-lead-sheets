@@ -14,7 +14,10 @@ export const useSongActions = () => {
     return songsStore.getSongBySlug(songSlug) || null
   })
 
-  const currentInstrument = computed(() => (route.query.instrument as Instrument) || 'C')
+  const currentInstrument = computed(() => {
+    const transposition = route.query.transposition
+    return typeof transposition === 'string' ? (transposition as Instrument) : 'C'
+  })
 
   return {
     currentSong,

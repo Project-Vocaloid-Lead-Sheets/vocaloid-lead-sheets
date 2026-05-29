@@ -2,6 +2,7 @@
 import type { Instrument } from '@/types/types'
 import { computed, defineAsyncComponent, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import type { LocationQueryRaw } from 'vue-router'
 import { getPdfDisplayUrl } from '@/utils/pdfUtils'
 import { useSongsStore } from '@/stores/songs'
 import { useSongFilters } from '@/scripts/useSongFilters'
@@ -12,7 +13,10 @@ const PdfViewer = defineAsyncComponent(() => import('@/components/PdfViewer.vue'
 
 const route = useRoute()
 const router = useRouter()
-const instrument = computed(() => (route.query.instrument as Instrument) || 'C')
+const instrument = computed(() => {
+  const transposition = route.query.transposition
+  return typeof transposition === 'string' ? (transposition as Instrument) : 'C'
+})
 const songSlug = computed(() => route.params.songSlug as string)
 
 const songsStore = useSongsStore()
@@ -36,12 +40,14 @@ const isTvSizeQueryEnabled = (value: unknown) => {
 }
 
 const syncTvSizeQueryParam = (enabled: boolean) => {
-  const nextQuery = { ...route.query }
+  const nextQuery: LocationQueryRaw = {
+    transposition: typeof route.query.transposition === 'string' ? route.query.transposition : 'C',
+  }
 
   if (enabled) {
     nextQuery.tv_size = null
-  } else {
-    delete nextQuery.tv_size
+  } else if (typeof route.query.tv_size === 'string') {
+    nextQuery.tv_size = route.query.tv_size
   }
 
   router.replace({ query: nextQuery })

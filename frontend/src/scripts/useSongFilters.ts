@@ -1,5 +1,6 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import type { LocationQueryRaw } from 'vue-router'
 
 import type { Song, Instrument } from '@/types/types'
 import { instruments } from '@/types/types'
@@ -67,13 +68,6 @@ export const useSongFilters = () => {
   const router = useRouter()
   const songsStore = useSongsStore()
   const isSheetViewRoute = computed(() => route.name === 'sheetView')
-
-  const normalizeInstrumentFromQuery = (queryValue: unknown): Instrument | null => {
-    const rawValue = Array.isArray(queryValue) ? queryValue[0] : queryValue
-    if (typeof rawValue !== 'string') return null
-    if (!instruments.includes(rawValue as Instrument)) return null
-    return rawValue as Instrument
-  }
 
   // Use availableSongs from store instead of all songs
   const songs = computed(() => songsStore.availableSongs)
@@ -174,12 +168,32 @@ export const useSongFilters = () => {
   const effectiveLengthBounds = computed(() => getLengthBoundsForSource(lengthFilterSource.value))
 
   watch(
-    () => route.query.instrument,
-    (queryInstrument) => {
-      const normalizedInstrument = normalizeInstrumentFromQuery(queryInstrument)
-      if (!normalizedInstrument) return
-      if (selectedInstrument.value === normalizedInstrument) return
-      selectedInstrument.value = normalizedInstrument
+    () => route.query.transposition,
+    () => {
+      const raw = route.query.transposition
+      const normalizedInstrument = typeof raw === 'string' ? (raw as Instrument) : null
+
+      // Sync validated query to selector
+      if (normalizedInstrument && instruments.includes(normalizedInstrument)) {
+        if (selectedInstrument.value !== normalizedInstrument) {
+          selectedInstrument.value = normalizedInstrument
+        }
+        return
+      }
+
+      // Sync validated URL to browser
+      if (typeof raw === 'string') {
+        const newQuery: LocationQueryRaw = { transposition: 'C' }
+        const rawTvSize = route.query.tv_size
+        if (typeof rawTvSize === 'string') {
+          newQuery.tv_size = rawTvSize
+        } else if (rawTvSize === null) {
+          newQuery.tv_size = null
+        } else if (Array.isArray(rawTvSize) && typeof rawTvSize[0] === 'string') {
+          newQuery.tv_size = rawTvSize[0]
+        }
+        router.replace({ query: newQuery })
+      }
     },
     { immediate: true },
   )
@@ -190,9 +204,21 @@ export const useSongFilters = () => {
       return
     }
 
-    const normalizedQueryInstrument = normalizeInstrumentFromQuery(route.query.instrument)
+    const normalizedQueryInstrument =
+      typeof route.query.transposition === 'string'
+        ? (route.query.transposition as Instrument)
+        : null
     if (normalizedQueryInstrument !== value) {
-      router.replace({ query: { ...route.query, instrument: value } })
+      const newQuery: LocationQueryRaw = { transposition: value }
+      const rawTvSize = route.query.tv_size
+      if (typeof rawTvSize === 'string') {
+        newQuery.tv_size = rawTvSize
+      } else if (rawTvSize === null) {
+        newQuery.tv_size = null
+      } else if (Array.isArray(rawTvSize) && typeof rawTvSize[0] === 'string') {
+        newQuery.tv_size = rawTvSize[0]
+      }
+      router.replace({ query: newQuery })
     }
     // persist instrument choice
     writeUserSettings({ selectedInstrument: value })

@@ -27,7 +27,7 @@
                 songSlug: generateSongSlug(song.title),
               },
               query: {
-                instrument: selectedInstrument,
+                transposition: selectedInstrument,
                 tv_size: route.query.tv_size,
               },
             }"
