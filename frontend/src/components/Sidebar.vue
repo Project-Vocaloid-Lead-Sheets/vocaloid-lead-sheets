@@ -51,6 +51,15 @@ const handleOpenDownloadModalEvent = () => {
   startDownloadFlow()
 }
 
+const openSidebarByDefault = () => {
+  if (typeof window === 'undefined') return
+  const desktopSidebarLayout = window.matchMedia('(min-width: 992px)').matches
+  if (!desktopSidebarLayout) return
+  if (!isSidebarCollapsed.value) return
+
+  isSidebarCollapsed.value = false
+}
+
 const hasTvSizeForCurrentSong = computed(() => {
   const tvSizePdfs = currentSong.value?.pdfsTvSize
   if (!tvSizePdfs) return false
@@ -71,6 +80,7 @@ const hasActiveFilters = computed(() => {
 })
 
 onMounted(() => {
+  openSidebarByDefault()
   window.addEventListener(OPEN_DOWNLOAD_MODAL_EVENT, handleOpenDownloadModalEvent)
 })
 
