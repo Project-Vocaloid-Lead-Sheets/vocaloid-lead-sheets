@@ -23,7 +23,38 @@ const pinia = createPinia()
 app.use(pinia)
 app.use(router)
 
+// Example title: World Is Mine Lead Sheets - ryo ft. Hatsune Miku | Project VocaLead Sheets
+function buildSongTabTitle(song: any) {
+  const title = song.title || ''
+
+  let producerPart = song.producer || ''
+  if (song.additionalProducers && song.additionalProducers.length > 0) {
+    producerPart += ` + ${song.additionalProducers.join(' + ')}`
+  }
+
+  let singerPart = song.singer || ''
+  if (song.additionalVoices && song.additionalVoices.length > 0) {
+    singerPart += ` + ${song.additionalVoices.join(' + ')}`
+  }
+
+  const artistPart = `${producerPart} ft. ${singerPart}`
+  return `${title} Lead Sheets - ${artistPart} | Project VocaLead Sheets`
+}
+
 router.afterEach((to) => {
+  // Update tab title based on song metadata
+  if (to.name === 'sheetView' && typeof to.params.songSlug === 'string') {
+    const songsStore = useSongsStore()
+    const song = songsStore.getSongBySlug(to.params.songSlug as string)
+
+    if (song) {
+      document.title = buildSongTabTitle(song)
+    }
+  } else {
+    // Default title (home page)
+    document.title = 'Project VocaLead Sheets: Vocaloid Sheet Music'
+  }
+
   const gtag = window.gtag
   if (typeof gtag !== 'function') return
 
