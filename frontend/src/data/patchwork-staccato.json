@@ -21,10 +21,10 @@
     "Bass": "https://drive.google.com/file/d/1oYs1Y1f_XmszdDvsYhl6CvSy9cFoMEHP/view"
   },
   "pdfChecksums": {
-    "Bb": "55d07d28927dfe6cbb7fe8dfcac621d8",
-    "C": "0c9d7a794a29d6d3470f68e286cab8c7",
-    "Eb": "9ae3c4f99785eb2dc87440c12b6ff396",
-    "Bass": "305fae57db7ce55a2d7ad9db0518c211"
+    "Bb": "e26ce8d68e29273b0c24bb19daa1ad6b",
+    "C": "c6fb4db8082feaedbfdbe2c3e31f9b0a",
+    "Eb": "bd49812c22f10f852447430456130c58",
+    "Bass": "8d0a8b0bdd6eabb0a1a4b60915e80235"
   },
   "pdfs": {
     "Bb": "/pdfs/patchwork-staccato/patchwork-staccato-bb.pdf",
@@ -34,6 +34,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-05-02T16:19:29Z",
-  "updatedAt": "2026-05-02T16:19:29Z"
+  "syncedAt": "2026-06-17T04:02:42Z",
+  "updatedAt": "2026-06-17T04:02:42Z"
 }
