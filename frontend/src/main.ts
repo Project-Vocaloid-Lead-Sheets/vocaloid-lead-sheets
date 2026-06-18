@@ -1,9 +1,4 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-
-import App from './App.vue'
-import router from './router'
-import { useSongsStore } from '@/stores/songs'
+import { createVocaLeadApp } from '@/app/createApp'
 
 import '@/scss/styles.scss'
 import * as bootstrap from 'bootstrap' // Import JS for bootstrap, even if unused here
@@ -17,11 +12,7 @@ declare global {
   }
 }
 
-const app = createApp(App)
-const pinia = createPinia()
-
-app.use(pinia)
-app.use(router)
+const { app, router, songsStore } = createVocaLeadApp()
 
 // Example title: World Is Mine Lead Sheets - ryo ft. Hatsune Miku | Project VocaLead Sheets
 function buildSongTabTitle(song: any) {
@@ -44,7 +35,6 @@ function buildSongTabTitle(song: any) {
 router.afterEach((to) => {
   // Update tab title based on song metadata
   if (to.name === 'sheetView' && typeof to.params.songSlug === 'string') {
-    const songsStore = useSongsStore()
     const song = songsStore.getSongBySlug(to.params.songSlug as string)
 
     if (song) {
@@ -76,7 +66,6 @@ router.afterEach((to) => {
 })
 
 // Initialize songs store
-const songsStore = useSongsStore()
 songsStore.loadSongs()
 
 // Handle redirect from 404.html for GitHub Pages SPA routing

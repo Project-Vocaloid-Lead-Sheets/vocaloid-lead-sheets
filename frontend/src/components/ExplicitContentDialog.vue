@@ -37,7 +37,6 @@
 
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import { Modal } from 'bootstrap'
 
 interface Props {
   songTitle: string
@@ -51,7 +50,11 @@ const emit = defineEmits<{
 }>()
 
 const modalRef = ref<HTMLElement>()
-let modalInstance: Modal | null = null
+type BootstrapModal = {
+  show: () => void
+  hide: () => void
+}
+let modalInstance: BootstrapModal | null = null
 
 const addBackdropClass = () => {
   // Use setTimeout to ensure backdrop element exists
@@ -72,13 +75,17 @@ const removeBackdropClass = () => {
 
 onMounted(() => {
   if (modalRef.value) {
-    modalInstance = new Modal(modalRef.value, {
-      backdrop: 'static',
-      keyboard: false,
-    })
+    void import('bootstrap').then(({ Modal }) => {
+      if (!modalRef.value) return
 
-    modalRef.value.addEventListener('shown.bs.modal', addBackdropClass)
-    modalRef.value.addEventListener('hidden.bs.modal', removeBackdropClass)
+      modalInstance = new Modal(modalRef.value, {
+        backdrop: 'static',
+        keyboard: false,
+      })
+
+      modalRef.value.addEventListener('shown.bs.modal', addBackdropClass)
+      modalRef.value.addEventListener('hidden.bs.modal', removeBackdropClass)
+    })
   }
 })
 

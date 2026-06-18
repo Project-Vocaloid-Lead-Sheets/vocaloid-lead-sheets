@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { Modal } from 'bootstrap'
 import JSZip from 'jszip'
 import type { Song, Instrument } from '@/types/types'
 import { instruments } from '@/types/types'
@@ -20,6 +19,11 @@ const props = withDefaults(defineProps<Props>(), {
 
 const modalElement = ref<HTMLElement | null>(null)
 const isDownloadingAll = ref(false)
+type BootstrapModal = {
+  show: () => void
+  hide: () => void
+}
+let modalInstance: BootstrapModal | null = null
 
 const hasTvSizeForSong = computed(() => {
   const tvSizePdfs = props.song?.pdfsTvSize
@@ -112,17 +116,20 @@ const downloadAll = () => {
 }
 
 const hideModal = () => {
-  if (!modalElement.value) return
-  const instance = Modal.getOrCreateInstance(modalElement.value)
-  instance.hide()
+  modalInstance?.hide()
 }
 
 const startDownloadFlow = async () => {
   if (!props.song) return
 
   if (!modalElement.value) return
-  const instance = Modal.getOrCreateInstance(modalElement.value)
-  instance.show()
+
+  if (!modalInstance) {
+    const { Modal } = await import('bootstrap')
+    modalInstance = new Modal(modalElement.value)
+  }
+
+  modalInstance.show()
 }
 
 defineExpose({

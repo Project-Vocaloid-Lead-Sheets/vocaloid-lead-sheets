@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, nextTick, h } from 'vue'
-import { Tooltip } from 'bootstrap'
+import { computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useSongsStore } from '@/stores/songs'
 import { generateSongSlug } from '@/utils/slugUtils'
 
@@ -34,6 +33,8 @@ const recentSongs = computed(() => {
 onMounted(async () => {
   // Wait for DOM to be fully rendered
   await nextTick()
+
+  const { Tooltip } = await import('bootstrap')
 
   // Initialize all tooltips on the page
   document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((el) => {

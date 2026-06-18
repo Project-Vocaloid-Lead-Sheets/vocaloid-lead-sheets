@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "run-p type-check \"build-only {@}\" -- && node scripts/prerender.mjs",
     "preview": "vite preview",
     "build-only": "vite build",
+    "prerender": "node scripts/prerender.mjs",
     "deploy": "npm run build-only && gh-pages -d dist -b gh-pages",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",

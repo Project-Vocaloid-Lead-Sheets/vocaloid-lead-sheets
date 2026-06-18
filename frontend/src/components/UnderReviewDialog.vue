@@ -39,7 +39,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { Modal } from 'bootstrap'
 
 interface Props {
   songTitle: string
@@ -53,13 +52,21 @@ const emit = defineEmits<{
 }>()
 
 const modalRef = ref<HTMLElement>()
-let modalInstance: Modal | null = null
+type BootstrapModal = {
+  show: () => void
+  hide: () => void
+}
+let modalInstance: BootstrapModal | null = null
 
 onMounted(() => {
   if (modalRef.value) {
-    modalInstance = new Modal(modalRef.value, {
-      backdrop: 'static',
-      keyboard: false,
+    void import('bootstrap').then(({ Modal }) => {
+      if (!modalRef.value) return
+
+      modalInstance = new Modal(modalRef.value, {
+        backdrop: 'static',
+        keyboard: false,
+      })
     })
   }
 })
