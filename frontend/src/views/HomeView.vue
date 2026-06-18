@@ -60,9 +60,9 @@ onMounted(async () => {
   <div class="home-page d-flex flex-column">
     <!-- Banner Section -->
     <div class="banner">
-      <img src="/public/logo.png" alt="VocaLeads Logo" class="banner-logo" />
+      <img src="/public/logo.png" alt="Project VocaLead Sheets logo" class="banner-logo" />
       <div class="title-text">
-        <h1>Project VocaLead Sheets</h1>
+        <h1>Project VocaLead Sheets - Vocaloid Lead Sheets & Sheet Music</h1>
       </div>
     </div>
 
@@ -72,13 +72,26 @@ onMounted(async () => {
       <div class="left-content">
         <!-- About Section -->
         <div class="about">
-          <h4>Overview</h4>
+          <h2>Quality Lead Sheets for Vocaloid Fans</h2>
           <p>
-            Lead sheets of music written for vocal synthesizer software, provided for musicians to
-            jam or learn.
+            Project VocaLead Sheets is a free collection of Vocaloid lead sheets, Vocaloid sheet
+            music, and chord charts for musicians. Browse arrangements for popular vocal synth
+            songs, including a wide variety of Hatsune Miku sheet music and lead sheets, designed
+            for learning, jamming, performance, and personal study.
           </p>
           <p>
-            This is similar to / inspired by
+            Our collection includes any song originally produced for a vocal synth performance
+            regardless of its status as a broader J-Pop song or not. Our collection spans many
+            different voices, from Hatsune Miku and Kagamine Rin to GUMI, Kasane Teto, and Eleanor
+            Forte.
+          </p>
+          <p>
+            Each Vocaloid lead sheet includes the core melody in C, B-flat, E-flat, F, G, alto and
+            bass transpositions with chords, as well as vocals with lyrics. These sheets are useful
+            for pianists, guitarists, vocalists, arrangers, and small ensembles.
+          </p>
+          <p>
+            This project is inspired by
             <a href="https://www.vgleadsheets.com/">VGLeadSheets.com</a>, but it is a separate
             project from VGLS, organized by a different community.
           </p>
@@ -91,7 +104,7 @@ onMounted(async () => {
 
         <!-- How-To Section -->
         <div class="features">
-          <h4>Site navigation</h4>
+          <h2>Sheet Music Navigation</h2>
           <ul>
             <li>Search, filter, sort and switch parts from the navbar menu</li>
             <li>Open the advanced filter to filter by additional criteria</li>
@@ -201,6 +214,10 @@ onMounted(async () => {
   font-size: clamp(1rem, 2.5vw, 1.2rem);
   line-height: 1.6;
   margin-bottom: 1rem;
+  color: #555;
+}
+
+.features ul {
   color: #555;
 }
 

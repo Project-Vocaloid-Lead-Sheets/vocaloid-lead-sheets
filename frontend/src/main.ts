@@ -52,7 +52,7 @@ router.afterEach((to) => {
     }
   } else {
     // Default title (home page)
-    document.title = 'Project VocaLead Sheets: Vocaloid Sheet Music'
+    document.title = 'Project VocaLead Sheets | Vocaloid Lead Sheets & Sheet Music'
   }
 
   const gtag = window.gtag
