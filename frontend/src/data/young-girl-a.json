@@ -11,7 +11,9 @@
   "length": "4:02",
   "tvSizeLength": "",
   "bpm": 130,
-  "labels": [],
+  "labels": [
+    "YouTube 100m"
+  ],
   "transcriber": "Nap1400",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=AqI97zHMoQw"
@@ -48,6 +50,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-05-04T03:30:56Z",
+  "syncedAt": "2026-06-22T19:44:55Z",
   "updatedAt": "2026-05-04T03:30:56Z"
 }
