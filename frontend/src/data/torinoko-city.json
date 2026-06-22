@@ -17,16 +17,19 @@
     "YouTube": "https://www.youtube.com/watch?v=yIQDGwyJpSo"
   },
   "links": {
+    "Vocals": "https://drive.google.com/file/d/1c0P8YCBzBbZWtUBCMvVLD1Es7-TxTpIG/view",
     "C": "https://drive.google.com/file/d/13Ja1DUu_IQlgrtyk697uMsDoJkgMf7rs/view"
   },
   "pdfChecksums": {
-    "C": "3b33331b3e0b71e20efd4e2e34a45d92"
+    "Vocals": "66671e528fea4bf79a6b8ac1b129acac",
+    "C": "ca806951a25e12eda21ec5a5ec1362f0"
   },
   "pdfs": {
+    "Vocals": "/pdfs/torinoko-city/torinoko-city-vocals.pdf",
     "C": "/pdfs/torinoko-city/torinoko-city-c.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-05-04T03:30:56Z",
-  "updatedAt": "2026-05-04T03:30:56Z"
+  "syncedAt": "2026-06-22T19:37:41Z",
+  "updatedAt": "2026-06-22T19:37:41Z"
 }
