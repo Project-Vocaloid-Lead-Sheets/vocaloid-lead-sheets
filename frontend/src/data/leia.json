@@ -21,8 +21,8 @@
     "C": "https://drive.google.com/file/d/1Zj2O7tDs7b-ZJKG46g3YF5xKO-dWWasw/view"
   },
   "pdfChecksums": {
-    "Vocals": "ac9c8694948c1d79fa3b0713d6320778",
-    "C": "5bd8d71f72d06e80a629a30064c77b31"
+    "Vocals": "736b753d4e2dbf3b3a644395b62f733d",
+    "C": "5ff7fc604903bd2aced88f2cc51fb8d6"
   },
   "pdfs": {
     "Vocals": "/pdfs/leia/leia-vocals.pdf",
@@ -30,6 +30,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-05-11T03:48:17Z",
-  "updatedAt": "2026-05-11T03:48:17Z"
+  "syncedAt": "2026-06-23T04:12:46Z",
+  "updatedAt": "2026-06-23T04:12:46Z"
 }
