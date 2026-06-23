@@ -11,25 +11,45 @@
   "length": "2:00",
   "tvSizeLength": "",
   "bpm": 170,
-  "labels": [],
+  "labels": [
+    "Challenging"
+  ],
   "transcriber": "Radiak488417",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=F38EuG2dAyM"
   },
   "links": {
     "Vocals": "https://drive.google.com/file/d/1HxQKw1ZJTFk89WQyc5dicW3AGSFrqNtx/view",
-    "C": "https://drive.google.com/file/d/1B1Gxd26Y4N6WpJuy583T3Zyn5psG70DS/view"
+    "Bb": "https://drive.google.com/file/d/1swiOmIDZ9_j5jmCqnkDfPbR_pUHFW6zf/view",
+    "C": "https://drive.google.com/file/d/1B1Gxd26Y4N6WpJuy583T3Zyn5psG70DS/view",
+    "Eb": "https://drive.google.com/file/d/1Ins16yvXebLts_W8mQH9yXzKX69xEXly/view",
+    "F": "https://drive.google.com/file/d/18zwQdb7g_QAYlGEq-6BWC4hrrQVs50B2/view",
+    "G": "https://drive.google.com/file/d/1edfcpN1ybKQucKrzf_8vCctaeOCHY7o8/view",
+    "Alto": "https://drive.google.com/file/d/1q0B-zyiPl2zxieBS0GbREOSs9qgRnX3X/view",
+    "Bass": "https://drive.google.com/file/d/1WegIC6a0LJ_J6Wt6Bv-gm21rXVoh38GM/view"
   },
   "pdfChecksums": {
     "Vocals": "1c31515c733b32c4c2a775ea17905b12",
-    "C": "9d38c673d082938f81df6e9b2ca5b44f"
+    "Bb": "2af32d40cbe242965fb13a7498213da2",
+    "C": "9d38c673d082938f81df6e9b2ca5b44f",
+    "Eb": "7135a17784e8a261ce0820a418236a48",
+    "F": "cc53fcbaf67cdb8b73510c8d9fe0304d",
+    "G": "ae1d3b7eb22404da0ad1d862ef7346d0",
+    "Alto": "8ded6ece071999e98b7492d69a56372d",
+    "Bass": "a34ae36f0dc1eb1de6f8e05770b6029c"
   },
   "pdfs": {
     "Vocals": "/pdfs/igaku/igaku-vocals.pdf",
-    "C": "/pdfs/igaku/igaku-c.pdf"
+    "Bb": "/pdfs/igaku/igaku-bb.pdf",
+    "C": "/pdfs/igaku/igaku-c.pdf",
+    "Eb": "/pdfs/igaku/igaku-eb.pdf",
+    "F": "/pdfs/igaku/igaku-f.pdf",
+    "G": "/pdfs/igaku/igaku-g.pdf",
+    "Alto": "/pdfs/igaku/igaku-alto.pdf",
+    "Bass": "/pdfs/igaku/igaku-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-06-23T03:49:44Z",
-  "updatedAt": "2026-06-23T03:49:44Z"
+  "syncedAt": "2026-06-23T05:18:16Z",
+  "updatedAt": "2026-06-23T05:18:16Z"
 }
