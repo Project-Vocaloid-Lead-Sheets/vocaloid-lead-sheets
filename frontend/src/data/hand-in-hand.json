@@ -25,14 +25,14 @@
     "Bass": "https://drive.google.com/file/d/1ruOieBC_6v6Il7_zCZh1XdvNsIWa9Sv_/view"
   },
   "pdfChecksums": {
-    "Vocals": "ee8cc4e8bd1d928a4330de2cdd956a16",
-    "Bb": "27788449d685729fd29b58cf739aab2a",
-    "C": "7a7c92b743a71688d4f88afe85c8c92a",
-    "Eb": "fa3b400bab841fc3e5d5a6a32231c583",
-    "F": "4c013e8213c5125872bddd1fa4bea405",
-    "G": "4a29c715e44e860e4fc33f951813c3f3",
-    "Alto": "7570d317034125ecf2e55c79f7af6cec",
-    "Bass": "ee4566d5b2308a51458cba3cd32e8c79"
+    "Vocals": "dd4c97ad4cff8469ada524b918d15a71",
+    "Bb": "9a5f2ff35bdd5f7fd911153c9d0258dd",
+    "C": "0a58d558536c5ab05540057dbe6d130c",
+    "Eb": "04cfef8065392eaffa76cd7496b23a6f",
+    "F": "8da80adc93d814be3db5d06c09c21e51",
+    "G": "580d027f2f045bf3303b3dedc928813c",
+    "Alto": "ad923fd2e0b45091883a43b6b2f2c430",
+    "Bass": "ee56b1dfb89a2c69fbe59335bd2546db"
   },
   "pdfs": {
     "Vocals": "/pdfs/hand-in-hand/hand-in-hand-vocals.pdf",
@@ -46,6 +46,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-05-04T03:30:56Z",
-  "updatedAt": "2026-05-04T03:30:56Z"
+  "syncedAt": "2026-06-23T03:49:44Z",
+  "updatedAt": "2026-06-23T03:49:44Z"
 }
