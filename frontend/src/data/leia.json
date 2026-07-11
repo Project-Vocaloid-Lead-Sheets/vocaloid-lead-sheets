@@ -18,18 +18,36 @@
   },
   "links": {
     "Vocals": "https://drive.google.com/file/d/1dexuOn-XJpon3MvqV3TZEslxMJYfFOXM/view",
-    "C": "https://drive.google.com/file/d/1Zj2O7tDs7b-ZJKG46g3YF5xKO-dWWasw/view"
+    "Bb": "https://drive.google.com/file/d/1RHptgdArRPhtoAxZzu3fH4uZ5rBi7Gjr/view",
+    "C": "https://drive.google.com/file/d/1Zj2O7tDs7b-ZJKG46g3YF5xKO-dWWasw/view",
+    "Eb": "https://drive.google.com/file/d/1EGlZ-DtGkSdzIT7pIvI5WWE9N7vrTlSR/view",
+    "F": "https://drive.google.com/file/d/1M8sS4XWnmsPu1Hmb5K5fIZo2FNBq7ap3/view",
+    "G": "https://drive.google.com/file/d/1pF37CJ3F2nV-7RawvVEdcQhbOHpFkWGd/view",
+    "Alto": "https://drive.google.com/file/d/1VoGAH6CV86U-rJv-xpTiWJ2nFg8SBxF8/view",
+    "Bass": "https://drive.google.com/file/d/1bNilw8uekQQ2jc5XORoP_nQIBZVLK6fa/view"
   },
   "pdfChecksums": {
-    "Vocals": "736b753d4e2dbf3b3a644395b62f733d",
-    "C": "5ff7fc604903bd2aced88f2cc51fb8d6"
+    "Vocals": "f37d544a4fb5abbeb887705890bc7c0e",
+    "Bb": "aa17f5a7b3a0a9491b21cf08a2832ef1",
+    "C": "73746c268e541dee6d16e98e00af9268",
+    "Eb": "b6868bfc02c38d7be6497d124af8d111",
+    "F": "9e5d82cb61a998b541535231c2512aa8",
+    "G": "470d1ffd9dfe90bd09db5d70b2aee18a",
+    "Alto": "603849fcafadc1cd7b95012be20e430c",
+    "Bass": "bda1a1e8b658120517ddfadb453d3eb2"
   },
   "pdfs": {
     "Vocals": "/pdfs/leia/leia-vocals.pdf",
-    "C": "/pdfs/leia/leia-c.pdf"
+    "Bb": "/pdfs/leia/leia-bb.pdf",
+    "C": "/pdfs/leia/leia-c.pdf",
+    "Eb": "/pdfs/leia/leia-eb.pdf",
+    "F": "/pdfs/leia/leia-f.pdf",
+    "G": "/pdfs/leia/leia-g.pdf",
+    "Alto": "/pdfs/leia/leia-alto.pdf",
+    "Bass": "/pdfs/leia/leia-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-06-23T04:12:46Z",
-  "updatedAt": "2026-06-23T04:12:46Z"
+  "syncedAt": "2026-07-11T02:13:33Z",
+  "updatedAt": "2026-07-11T02:13:33Z"
 }

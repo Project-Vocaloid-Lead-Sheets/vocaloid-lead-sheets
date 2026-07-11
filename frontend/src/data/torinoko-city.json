@@ -18,18 +18,36 @@
   },
   "links": {
     "Vocals": "https://drive.google.com/file/d/1c0P8YCBzBbZWtUBCMvVLD1Es7-TxTpIG/view",
-    "C": "https://drive.google.com/file/d/13Ja1DUu_IQlgrtyk697uMsDoJkgMf7rs/view"
+    "Bb": "https://drive.google.com/file/d/1z6ohvRKvtc9VPmOr4xTae2pPGJGz1d9o/view",
+    "C": "https://drive.google.com/file/d/13Ja1DUu_IQlgrtyk697uMsDoJkgMf7rs/view",
+    "Eb": "https://drive.google.com/file/d/14Jok4Fdc9rs8kSEHxxIT9BSk5T4UOUnA/view",
+    "F": "https://drive.google.com/file/d/1ZumFTkG3FmOIImGIDVmLjkVsUjfpqeU4/view",
+    "G": "https://drive.google.com/file/d/1ihAQoNHnLC7HJ6GZgmcQZqJN1CHW3D3t/view",
+    "Alto": "https://drive.google.com/file/d/1ccLC-4eIgpxBoPKcte_VvrXfyXPZfbFT/view",
+    "Bass": "https://drive.google.com/file/d/1xjW1-j2Wt4l4FlNsxX1Kfl9LExDoHwHX/view"
   },
   "pdfChecksums": {
-    "Vocals": "ae8f129e32fb617392dc7823e8239d65",
-    "C": "9070c4ec14d2576f98e93f38787a2ed2"
+    "Vocals": "55b694d196b0ce13f45fa850b8bf148a",
+    "Bb": "ac4ec94098ea3710792d28d064e78f14",
+    "C": "f255cf02da801dd4f33dd11149a940c0",
+    "Eb": "04b22f652a3345eb1bed35796e648074",
+    "F": "dcb2238f1414525137325479c63df4d7",
+    "G": "f72b26da1e38a625c0b36337a72e7b50",
+    "Alto": "dc5351260a8b07be4cf1b411b2a44f2e",
+    "Bass": "6d83be8d467f7255c1520e755027b2cc"
   },
   "pdfs": {
     "Vocals": "/pdfs/torinoko-city/torinoko-city-vocals.pdf",
-    "C": "/pdfs/torinoko-city/torinoko-city-c.pdf"
+    "Bb": "/pdfs/torinoko-city/torinoko-city-bb.pdf",
+    "C": "/pdfs/torinoko-city/torinoko-city-c.pdf",
+    "Eb": "/pdfs/torinoko-city/torinoko-city-eb.pdf",
+    "F": "/pdfs/torinoko-city/torinoko-city-f.pdf",
+    "G": "/pdfs/torinoko-city/torinoko-city-g.pdf",
+    "Alto": "/pdfs/torinoko-city/torinoko-city-alto.pdf",
+    "Bass": "/pdfs/torinoko-city/torinoko-city-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-07-10T21:14:41Z",
-  "updatedAt": "2026-07-10T21:14:41Z"
+  "syncedAt": "2026-07-11T02:13:33Z",
+  "updatedAt": "2026-07-11T02:13:33Z"
 }
