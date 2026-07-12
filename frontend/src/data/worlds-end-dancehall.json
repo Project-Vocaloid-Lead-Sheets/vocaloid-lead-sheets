@@ -9,7 +9,7 @@
   ],
   "releaseDate": "20100528",
   "length": "3:31",
-  "tvSizeLength": "",
+  "tvSizeLength": "1:33",
   "bpm": 171,
   "labels": [
     "Hall of Myths"
@@ -29,14 +29,14 @@
     "Bass": "https://drive.google.com/file/d/1VmBOHLl7J8ZfFpzoG8XoHTTUuDGVXimo/view"
   },
   "pdfChecksums": {
-    "Vocals": "9eac90edd9b059bde25f36fb891b6c64",
-    "Bb": "810d7b0b6697da7ddbeb52b142a972a8",
-    "C": "057eb8cc36e35e27050d90a0b17ff6cc",
-    "Eb": "a3eabe8a996ee3d40bc46fe41531e3ec",
-    "F": "f2b3a3a4f39f497817c6198fb70dfb13",
-    "G": "957b1114161884f59db52f795455dd3a",
-    "Alto": "a661afa7cfcaf615c1b536845899c2e7",
-    "Bass": "f600056ffec9e2bfafbce83ca646d68d"
+    "Vocals": "852d28079885edddb7cf5efb95cd96d0",
+    "Bb": "b601c3464639033bfc0d3ae08d84db85",
+    "C": "9aba73a3e13c2c6e58d8bcbd9d1b39e8",
+    "Eb": "2e0bb87b3f6c5a32615e0a06ea1f463f",
+    "F": "05832f6f36a29df2066f584e55caa591",
+    "G": "e108b333cac50fc4ab6678722dfc2121",
+    "Alto": "d60aa0affd6df7ff4a81f9b698e118ce",
+    "Bass": "181c10427c2587fa14e6d5f7e6f8a4f6"
   },
   "pdfs": {
     "Vocals": "/pdfs/worlds-end-dancehall/worlds-end-dancehall-vocals.pdf",
@@ -48,8 +48,17 @@
     "Alto": "/pdfs/worlds-end-dancehall/worlds-end-dancehall-alto.pdf",
     "Bass": "/pdfs/worlds-end-dancehall/worlds-end-dancehall-bass.pdf"
   },
-  "pdfsTvSize": {},
+  "pdfsTvSize": {
+    "Vocals": "/pdfs/worlds-end-dancehall-tv/worlds-end-dancehall-tv-vocals.pdf",
+    "Bb": "/pdfs/worlds-end-dancehall-tv/worlds-end-dancehall-tv-bb.pdf",
+    "C": "/pdfs/worlds-end-dancehall-tv/worlds-end-dancehall-tv-c.pdf",
+    "Eb": "/pdfs/worlds-end-dancehall-tv/worlds-end-dancehall-tv-eb.pdf",
+    "F": "/pdfs/worlds-end-dancehall-tv/worlds-end-dancehall-tv-f.pdf",
+    "G": "/pdfs/worlds-end-dancehall-tv/worlds-end-dancehall-tv-g.pdf",
+    "Alto": "/pdfs/worlds-end-dancehall-tv/worlds-end-dancehall-tv-alto.pdf",
+    "Bass": "/pdfs/worlds-end-dancehall-tv/worlds-end-dancehall-tv-bass.pdf"
+  },
   "status": "completed",
-  "syncedAt": "2026-04-10T02:48:39Z",
-  "updatedAt": "2025-11-05T00:48:25Z"
+  "syncedAt": "2026-07-12T00:39:32Z",
+  "updatedAt": "2026-07-12T00:39:32Z"
 }
