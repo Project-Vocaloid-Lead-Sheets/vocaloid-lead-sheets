@@ -17,16 +17,28 @@
     "YouTube": "https://www.youtube.com/watch?v=P_CSdxSGfaA"
   },
   "links": {
-    "C": "https://drive.google.com/file/d/1X1abBREinkFrGXxBCZ7PWqqld3rXTMH0/view"
+    "Vocals": "https://drive.google.com/file/d/1AB2QfeTtzRj9bWU1XeVmy_G53a3DWsFL/view",
+    "Bb": "https://drive.google.com/file/d/1jGOiYzfyVDxJA5nN1oODFG6C2WnmZXVv/view",
+    "C": "https://drive.google.com/file/d/1X1abBREinkFrGXxBCZ7PWqqld3rXTMH0/view",
+    "Eb": "https://drive.google.com/file/d/1-a18o53ha4REW-1UgeaW0BKI0lwCYI6y/view",
+    "Bass": "https://drive.google.com/file/d/1vh1dgQrM5yM4AGRTsI8ptq9dgRSYErHO/view"
   },
   "pdfChecksums": {
-    "C": "f1f14ca48a8cd2112c537132af7755f2"
+    "Vocals": "1ff4de9f89aed34b1c65842a95761eb1",
+    "Bb": "9d5704500aa799ff6d08cee4085cf347",
+    "C": "c524304b333b060d6029c832ae3da514",
+    "Eb": "094cb6859ff922f06c35edc07f569acb",
+    "Bass": "00abfcfd8c507188c3863c1edaaf6207"
   },
   "pdfs": {
-    "C": "/pdfs/unknown-mother-goose/unknown-mother-goose-c.pdf"
+    "Vocals": "/pdfs/unknown-mother-goose/unknown-mother-goose-vocals.pdf",
+    "Bb": "/pdfs/unknown-mother-goose/unknown-mother-goose-bb.pdf",
+    "C": "/pdfs/unknown-mother-goose/unknown-mother-goose-c.pdf",
+    "Eb": "/pdfs/unknown-mother-goose/unknown-mother-goose-eb.pdf",
+    "Bass": "/pdfs/unknown-mother-goose/unknown-mother-goose-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-05-15T00:04:10Z",
-  "updatedAt": "2026-05-15T00:04:10Z"
+  "syncedAt": "2026-07-12T02:58:37Z",
+  "updatedAt": "2026-07-12T02:58:37Z"
 }
