@@ -1,0 +1,33 @@
+{
+  "title": "glow",
+  "alternativeNames": [],
+  "producer": "keeno",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20100628",
+  "length": "4:44",
+  "tvSizeLength": "",
+  "bpm": 85,
+  "labels": [],
+  "transcriber": "mastersuperfan",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=Dts89rlRB-A"
+  },
+  "links": {
+    "Vocals": "https://drive.google.com/file/d/1vwOs6bvDkEZuHDun_ezLPuraRFrcp146/view",
+    "C": "https://drive.google.com/file/d/1cDABGxX37RgoZ53at6FMYFjMhHYkpW-4/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "b6b167f5ac537d1a1d12ab420431fe3c",
+    "C": "00a205441f81be0f91ae5d4f011e2e88"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/glow/glow-vocals.pdf",
+    "C": "/pdfs/glow/glow-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-07-13T17:52:45Z",
+  "updatedAt": "2026-07-13T17:52:45Z"
+}
