@@ -17,16 +17,25 @@
     "YouTube": "https://www.youtube.com/watch?v=KushW6zvazM"
   },
   "links": {
-    "C": "https://drive.google.com/file/d/1Pa73CdgnBhE7zO-3nAAbTgA3nebrDZgF/view"
+    "Bb": "https://drive.google.com/file/d/1kaZyFJLhEf401MpxBgThNjmYyr3WTd5o/view",
+    "C": "https://drive.google.com/file/d/1Pa73CdgnBhE7zO-3nAAbTgA3nebrDZgF/view",
+    "Eb": "https://drive.google.com/file/d/11OTDAlUSZNdFwjJVO0l2aBPOYuUvNBGS/view",
+    "Bass": "https://drive.google.com/file/d/1ldADAX0P8-W7J3CESvRHDIXljN5dvIlm/view"
   },
   "pdfChecksums": {
-    "C": "1bf638dfdf4f96adb3d3a2bed7a0801d"
+    "Bb": "fe31eada16ecd42b60eec0faeb7f74b0",
+    "C": "0fcec716b949b1f68e02d2433f3f8e16",
+    "Eb": "c76f65081421036c59b1af38a043f83f",
+    "Bass": "5d4f69d69394c1c093007135b456a0b9"
   },
   "pdfs": {
-    "C": "/pdfs/ghost-rule/ghost-rule-c.pdf"
+    "Bb": "/pdfs/ghost-rule/ghost-rule-bb.pdf",
+    "C": "/pdfs/ghost-rule/ghost-rule-c.pdf",
+    "Eb": "/pdfs/ghost-rule/ghost-rule-eb.pdf",
+    "Bass": "/pdfs/ghost-rule/ghost-rule-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-05-11T12:05:19Z",
-  "updatedAt": "2026-05-11T12:05:19Z"
+  "syncedAt": "2026-07-13T03:16:48Z",
+  "updatedAt": "2026-07-13T03:16:48Z"
 }
