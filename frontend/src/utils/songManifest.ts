@@ -6,6 +6,7 @@ export const SONG_MANIFEST = [
   'alien-alien.json',
   'brain-fluid-explosion-girl.json',
   'cendrillon.json',
+  'cutie-mew-mew-magic.json',
   'dawn-and-fireflies.json',
   'donut-hole.json',
   'ghost-rule.json',
