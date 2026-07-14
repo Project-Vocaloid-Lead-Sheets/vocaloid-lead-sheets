@@ -20,9 +20,9 @@
     "C": "https://drive.google.com/file/d/1z3BeJOvxosV_GUEA0ogW0VceCc-9yNW0/view"
   },
   "pdfChecksums": {
-    "Vocals": "b1f719004abc143e7ce9593990705ec8",
-    "Bb": "ce5ceef1e608421dc219977ab76807ee",
-    "C": "c58f42e6d5c92b1f24eb1f2001d401df"
+    "Vocals": "04483dbe9ae4aba07935e5db1e04c2b1",
+    "Bb": "f0df952e9c7b344afbaf4b852163daa4",
+    "C": "e8ad11efc4e506bbb2979ef9a6be9420"
   },
   "pdfs": {
     "Vocals": "/pdfs/telecaster-b-boy/telecaster-b-boy-vocals.pdf",
@@ -31,6 +31,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-05-02T20:22:55Z",
-  "updatedAt": "2026-05-02T20:22:55Z"
+  "syncedAt": "2026-07-14T02:41:29Z",
+  "updatedAt": "2026-07-14T02:41:29Z"
 }
