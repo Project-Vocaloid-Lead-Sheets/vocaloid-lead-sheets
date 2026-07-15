@@ -26,11 +26,11 @@
     "Bass": "https://drive.google.com/file/d/17juTHZjHdHOv1-AAmDzWUV693Gia4PRS/view"
   },
   "pdfChecksums": {
-    "Vocals": "5f530a2d20c960a8ed6920ba9d310ddc",
-    "Bb": "8fb6853e550ac124c711ec2f73370bcb",
-    "C": "472b5620ebe4c61fe929169965854456",
-    "Eb": "2b8e590d674244f919f0e3507e304ede",
-    "Bass": "6ae984ccd42b66d3b89734eff34262ab"
+    "Vocals": "35ea888d9dd7ea3dc2cc0d4b34719acb",
+    "Bb": "2203eca60adb28bc0d6308dd45fcf2d2",
+    "C": "2dc8b75ea8fda8cc0dbafda428cc6346",
+    "Eb": "451c38083a6c0da8adf076f0ed6f03c1",
+    "Bass": "174140de078f51b04b2fac612483a1cd"
   },
   "pdfs": {
     "Vocals": "/pdfs/square-up/square-up-vocals.pdf",
@@ -41,6 +41,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-04-10T02:48:39Z",
-  "updatedAt": "2026-01-05T02:20:24Z"
+  "syncedAt": "2026-07-15T02:39:38Z",
+  "updatedAt": "2026-07-15T02:39:38Z"
 }
