@@ -1,7 +1,7 @@
 {
-  "title": "Moon-Viewing Recital",
+  "title": "Otsukimi Recital",
   "alternativeNames": [
-    "Otsukimi Recital"
+    "Moon-Viewing Recital"
   ],
   "producer": "Jin",
   "additionalProducers": [],
@@ -26,10 +26,10 @@
     "C": "51ac0f25ce35c79bf841c536b7ade8aa"
   },
   "pdfs": {
-    "C": "/pdfs/moon-viewing-recital/moon-viewing-recital-c.pdf"
+    "C": "/pdfs/otsukimi-recital/otsukimi-recital-c.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-05-10T04:51:46Z",
-  "updatedAt": "2026-05-10T04:51:46Z"
+  "syncedAt": "2026-07-16T13:33:09Z",
+  "updatedAt": "2026-07-16T13:33:09Z"
 }
