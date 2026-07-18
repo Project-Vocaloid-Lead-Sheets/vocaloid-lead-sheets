@@ -4,6 +4,12 @@ This system automatically syncs completed song submissions from a Google Sheet t
 
 ## Setup
 
+Dependencies are managed via `uv`.
+If you don't have it, [install uv here](https://docs.astral.sh/uv/getting-started/installation/).
+
+To set up dependencies, use `uv sync`.
+To run Python scripts, use `uv run <script>`.
+
 ### 1. Google Sheet Setup
 
 The "Vocaloid Lead Sheets Progress" Google Sheet is used to track all submissions. Follow all submission guidelines and fill in the cells according to precedent. Songs will be synced to the repository the next time the sync is run and a song has changed from a non-completed status to a completed status.
@@ -38,14 +44,14 @@ The sync can be run in several ways:
 
 ```bash
 # Install dependencies
-python -m pip install -r requirements.txt
+uv sync
 
 # Basic sync
-python scripts/sheet_sync.py
+uv run scripts/sheet_sync.py
 
 # Force sync (ignore change detection and always refresh)
-python scripts/sheet_sync.py --force
-python scripts/sheet_sync.py -f
+uv run scripts/sheet_sync.py --force
+uv run scripts/sheet_sync.py -f
 ```
 
 **GitHub Actions (if configured):**
