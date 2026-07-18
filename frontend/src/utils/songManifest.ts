@@ -22,6 +22,7 @@ export const SONG_MANIFEST = [
   'kyoufuu-all-back.json',
   'lagtrain.json',
   'leia.json',
+  'liar-dancer.json',
   'luka-lukanight-fever.json',
   'magnet.json',
   'melt.json',

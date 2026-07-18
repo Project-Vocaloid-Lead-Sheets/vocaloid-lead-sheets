@@ -1,0 +1,33 @@
+{
+  "title": "Liar Dancer",
+  "alternativeNames": [],
+  "producer": "masarada",
+  "additionalProducers": [],
+  "singer": "Kasane Teto",
+  "additionalVoices": [],
+  "releaseDate": "20230614",
+  "length": "3:59",
+  "tvSizeLength": "",
+  "bpm": 170,
+  "labels": [],
+  "transcriber": "boracci channel",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=UHbmkxv-874"
+  },
+  "links": {
+    "Vocals": "https://drive.google.com/file/d/1226jQIDfjQ_ONCpNgaRpEHdlmNamhtBv/view",
+    "C": "https://drive.google.com/file/d/1hshhwwGV-JunTICf1HJDP4diRlSBY7bm/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "d74de7bd4cbc40d13bbc7baa9dc4fe8d",
+    "C": "ee20209c5981f73de6079de02ce74f42"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/liar-dancer/liar-dancer-vocals.pdf",
+    "C": "/pdfs/liar-dancer/liar-dancer-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-07-18T02:40:56Z",
+  "updatedAt": "2026-07-18T02:40:56Z"
+}
