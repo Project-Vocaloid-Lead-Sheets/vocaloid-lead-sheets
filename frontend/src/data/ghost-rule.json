@@ -23,10 +23,10 @@
     "Bass": "https://drive.google.com/file/d/1ldADAX0P8-W7J3CESvRHDIXljN5dvIlm/view"
   },
   "pdfChecksums": {
-    "Bb": "fe31eada16ecd42b60eec0faeb7f74b0",
-    "C": "0fcec716b949b1f68e02d2433f3f8e16",
-    "Eb": "c76f65081421036c59b1af38a043f83f",
-    "Bass": "5d4f69d69394c1c093007135b456a0b9"
+    "Bb": "ef222f6403fb4959e90d3908e83cd53c",
+    "C": "bb05a3830fad0d3459e1047cb03d7bb7",
+    "Eb": "16b98d43efd9e5d3d0aec5c5825948d4",
+    "Bass": "12cba25081fe3a01ebac87558a0c02fa"
   },
   "pdfs": {
     "Bb": "/pdfs/ghost-rule/ghost-rule-bb.pdf",
@@ -36,6 +36,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-07-13T03:16:48Z",
-  "updatedAt": "2026-07-13T03:16:48Z"
+  "syncedAt": "2026-07-18T15:39:07Z",
+  "updatedAt": "2026-07-18T15:39:07Z"
 }
