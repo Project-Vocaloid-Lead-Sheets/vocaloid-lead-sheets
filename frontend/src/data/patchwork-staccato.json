@@ -15,18 +15,21 @@
     "YouTube": "https://www.youtube.com/watch?v=p2Irc9NPCtk"
   },
   "links": {
+    "Vocals": "https://drive.google.com/file/d/1BmTgkzgTkFhxuQRxChN1fuowh-Uvh9Xg/view",
     "Bb": "https://drive.google.com/file/d/1dLCSHz0Pmb-4qnaZt3VkC44vTTVZ8rwz/view",
     "C": "https://drive.google.com/file/d/1OPZuWsp3nhapMFDcxRXoJQM5c6Ts9esL/view",
     "Eb": "https://drive.google.com/file/d/1LY4TRHfzkxqshaH8Vk_vBSSNbfl-t2cH/view",
     "Bass": "https://drive.google.com/file/d/1oYs1Y1f_XmszdDvsYhl6CvSy9cFoMEHP/view"
   },
   "pdfChecksums": {
+    "Vocals": "a963cd9664dd195c401ae5903a22b9ea",
     "Bb": "e26ce8d68e29273b0c24bb19daa1ad6b",
     "C": "c6fb4db8082feaedbfdbe2c3e31f9b0a",
     "Eb": "bd49812c22f10f852447430456130c58",
     "Bass": "8d0a8b0bdd6eabb0a1a4b60915e80235"
   },
   "pdfs": {
+    "Vocals": "/pdfs/patchwork-staccato/patchwork-staccato-vocals.pdf",
     "Bb": "/pdfs/patchwork-staccato/patchwork-staccato-bb.pdf",
     "C": "/pdfs/patchwork-staccato/patchwork-staccato-c.pdf",
     "Eb": "/pdfs/patchwork-staccato/patchwork-staccato-eb.pdf",
@@ -34,6 +37,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-06-17T04:02:42Z",
-  "updatedAt": "2026-06-17T04:02:42Z"
+  "syncedAt": "2026-07-18T21:45:54Z",
+  "updatedAt": "2026-07-18T21:45:54Z"
 }
