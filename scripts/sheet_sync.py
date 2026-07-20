@@ -10,7 +10,15 @@ from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 import re
 import hashlib
+
+import gsheets
+import gdrive
+
 from typing import Dict, List, Any, Optional
+from pathlib import Path
+
+PDF_DIR = Path('frontend', 'public', 'pdfs')
+os.makedirs(PDF_DIR, exist_ok=True)
 
 # Setup logging
 logging.basicConfig(
@@ -29,7 +37,9 @@ except ImportError:
 
 class SongSyncManager:
     def __init__(self, force_sync: bool = False):
-        self.sheet = None
+        # Set up connection
+        (self.sheet_id, self.sheet) = gsheets.fetch_worksheet()
+        self.downloads_performed = False
         self.sync_state_file = '.sync_state.json'
         self.force_sync = force_sync
         self.downloads_performed = False  # Tracks if any PDF was re-downloaded in a run
@@ -49,85 +59,6 @@ class SongSyncManager:
         text = re.sub(r'[^\w\s-]', '', text)
         text = re.sub(r'[-\s]+', '-', text)
         return text.strip('-')
-
-    def setup_google_sheets(self) -> None:
-        """Set up Google Sheets API connection with better error handling and .env support"""
-        try:
-            scope = [
-                'https://spreadsheets.google.com/feeds',
-                'https://www.googleapis.com/auth/drive'
-            ]
-            
-            # Try different methods to get service account credentials
-            creds = None
-            
-            # Method 1: From JSON file path (for .env usage)
-            json_file_path = os.environ.get('GOOGLE_SERVICE_ACCOUNT_JSON_FILE')
-            if json_file_path and os.path.exists(json_file_path):
-                logger.info(f"Loading service account from file: {json_file_path}")
-                creds = ServiceAccountCredentials.from_json_keyfile_name(json_file_path, scope)
-            
-            # Method 2: From JSON content (for GitHub Actions)
-            elif os.environ.get('GOOGLE_SERVICE_ACCOUNT_JSON'):
-                logger.info("Loading service account from JSON content")
-                import tempfile
-                json_content = os.environ.get('GOOGLE_SERVICE_ACCOUNT_JSON')
-                
-                # Write to temporary file
-                with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as temp_file:
-                    temp_file.write(json_content)
-                    temp_file_path = temp_file.name
-                
-                creds = ServiceAccountCredentials.from_json_keyfile_name(temp_file_path, scope)
-                os.unlink(temp_file_path)  # Clean up temp file
-            
-            # Method 3: Fallback to default service_account.json
-            elif os.path.exists('service_account.json'):
-                logger.info("Loading service account from default service_account.json")
-                creds = ServiceAccountCredentials.from_json_keyfile_name('service_account.json', scope)
-            
-            else:
-                raise ValueError(
-                    "No service account credentials found. Please set:\n"
-                    "- GOOGLE_SERVICE_ACCOUNT_JSON_FILE (path to JSON file), or\n"
-                    "- GOOGLE_SERVICE_ACCOUNT_JSON (JSON content), or\n"
-                    "- Place service_account.json in the current directory"
-                )
-            
-            client = gspread.authorize(creds)
-            
-            sheet_id = os.environ.get('GOOGLE_SHEET_ID')
-            if not sheet_id:
-                raise ValueError("GOOGLE_SHEET_ID environment variable not set")
-            
-            # Try to open the sheet and get specific worksheet
-            workbook = client.open_by_key(sheet_id)
-            
-            # Get worksheet by name or index
-            worksheet_name = os.environ.get('GOOGLE_SHEET_WORKSHEET_NAME')
-            worksheet_index = os.environ.get('GOOGLE_SHEET_WORKSHEET_INDEX')
-            
-            if worksheet_name:
-                logger.info(f"Using worksheet by name: '{worksheet_name}'")
-                self.sheet = workbook.worksheet(worksheet_name)
-            elif worksheet_index:
-                # Convert to 0-based index (user provides 1-based)
-                index = int(worksheet_index) - 1
-                logger.info(f"Using worksheet by index: {index + 1} ('{workbook.worksheets()[index].title}')")
-                self.sheet = workbook.worksheets()[index]
-            else:
-                logger.info("Using first worksheet (default)")
-                self.sheet = workbook.sheet1  # Use first worksheet
-            
-            logger.info(f"Successfully connected to Google Sheet: {sheet_id}")
-            logger.info(f"Active worksheet: '{self.sheet.title}'")
-
-            # Save spreadsheet id for later use
-            self.spreadsheet_id = sheet_id
-            
-        except Exception as e:
-            logger.error(f"Failed to setup Google Sheets connection: {e}")
-            raise
 
     def fetch_accepted_songs(self) -> List[Dict[str, Any]]:
         """Fetch accepted songs with enhanced validation and hyperlink extraction"""
@@ -283,7 +214,7 @@ class SongSyncManager:
                             should_download = True
                         
                         if should_download:
-                            if self.download_pdf_from_drive(drive_id, pdf_filename):
+                            if gdrive.download_pdf(drive_id, PDF_DIR / pdf_filename):
                                 pdfs[column_name] = f"/pdfs/{pdf_filename}"
                                 self.downloads_performed = True
                             else:
@@ -643,7 +574,7 @@ class SongSyncManager:
                         should_download = True
 
                 if should_download:
-                    if self.download_pdf_from_drive(drive_id, pdf_filename):
+                    if gdrive.download_pdf(drive_id, PDF_DIR / pdf_filename):
                         pdfs[pdf_key] = f"/pdfs/{pdf_filename}"
                         downloaded_any = True
                         # Update checksum after download if remote md5 unavailable
@@ -815,46 +746,6 @@ class SongSyncManager:
         except Exception as e:
             logger.warning(f"Unable to hash file {path}: {e}")
             return None
-
-    def download_pdf_from_drive(self, file_id: str, output_filename: str) -> bool:
-        """Download a PDF from Google Drive and save it locally"""
-        try:
-            import requests
-            
-            download_url = f"https://drive.google.com/uc?export=download&id={file_id}"
-            
-            logger.info(f"Downloading PDF from Google Drive: {file_id}")
-            
-            # Make request with session to handle redirects
-            session = requests.Session()
-            response = session.get(download_url, stream=True)
-            
-            # Handle large file download confirmation
-            if 'text/html' in response.headers.get('Content-Type', ''):
-                # Look for download confirmation token
-                for key, value in response.cookies.items():
-                    if key.startswith('download_warning'):
-                        params = {'id': file_id, 'confirm': value}
-                        response = session.get(download_url, params=params, stream=True)
-                        break
-            
-            response.raise_for_status()
-            
-            # Save to file (create subdirectory if needed)
-            output_path = os.path.join(self.pdf_dir, output_filename)
-            os.makedirs(os.path.dirname(output_path), exist_ok=True)
-            with open(output_path, 'wb') as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    if chunk:
-                        f.write(chunk)
-            
-            file_size = os.path.getsize(output_path)
-            logger.info(f"Successfully downloaded PDF: {output_filename} ({file_size} bytes)")
-            return True
-            
-        except Exception as e:
-            logger.error(f"Failed to download PDF {file_id}: {e}")
-            return False
 
     def cleanup_orphaned_pdfs(self, referenced_pdfs: set) -> None:
         """Remove PDF files that are no longer referenced in any song"""
@@ -1278,11 +1169,7 @@ export type SongFilename = typeof SONG_MANIFEST[number]
         """Main sync function. Returns True if content changed (commit needed), False if no changes."""
         try:
             logger.info("Starting Google Sheet sync...")
-            
-            # Set up connection
-            self.setup_google_sheets()
-            self.downloads_performed = False
-            
+
             last_state = self.get_sync_state()
             old_content_hash = last_state.get('contentHash', '')
 
@@ -1347,7 +1234,6 @@ def main():
     # If check-only requested, compute current hash (full evaluation) and exit accordingly
     if args.check_only:
         try:
-            sync_manager.setup_google_sheets()
             songs = sync_manager.fetch_accepted_songs()
             tv_size_pdfs = sync_manager.fetch_tv_size_sheets()
             grouped_songs = sync_manager.group_and_merge_songs(songs, tv_size_pdfs)
