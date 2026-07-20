@@ -8,7 +8,7 @@ on:
   schedule:
     - cron: "0 0 * * *"
   push:
-    branches: [frontend-mockup]
+    branches: [main]
     paths:
       - "frontend/src/data/**"
       - "frontend/src/utils/songManifest.ts"
@@ -16,8 +16,9 @@ on:
       - "frontend/package.json"
       - "frontend/vite.config.ts"
       - "frontend/src/**"
-      - "frontend/scripts/sheet_sync.py"
-      - ".github/workflows/deploy.yml"
+      - "scripts/sheet_sync.py"
+      - "requirements.txt"
+      - ".github/workflows/content-sync-and-deploy.yml"
   workflow_dispatch:
 
 jobs:
