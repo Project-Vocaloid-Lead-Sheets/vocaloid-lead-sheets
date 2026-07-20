@@ -1,0 +1,30 @@
+{
+  "title": "Calc.",
+  "alternativeNames": [],
+  "producer": "JimmyThumb-P",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20100909",
+  "length": "3:56",
+  "tvSizeLength": "",
+  "bpm": 174,
+  "labels": [],
+  "transcriber": "Latios212",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=oidKy7khp8o"
+  },
+  "links": {
+    "C": "https://drive.google.com/file/d/14nOVpnAkOVU1mi3HArtCW-TiHSbf7cy9/view"
+  },
+  "pdfChecksums": {
+    "C": "88dd194abaa162b0730e2cad6b6d6833"
+  },
+  "pdfs": {
+    "C": "/pdfs/calc/calc-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-07-20T03:24:35Z",
+  "updatedAt": "2026-07-20T03:24:35Z"
+}
