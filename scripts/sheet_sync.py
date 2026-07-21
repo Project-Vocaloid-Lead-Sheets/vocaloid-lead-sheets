@@ -52,7 +52,7 @@ class SongSyncManager:
         text = re.sub(r'[-\s]+', '-', text)
         return text.strip('-')
 
-    def setup_google_drive(self) -> None:
+    def setup_google_sheets(self) -> None:
         """Set up Google Sheets API connection with better error handling and .env support"""
         try:
             scope = [
@@ -1245,7 +1245,7 @@ export type SongFilename = typeof SONG_MANIFEST[number]
             logger.info("Starting Google Sheet sync...")
             
             # Set up connection
-            self.setup_google_drive()
+            self.setup_google_sheets()
             self.downloads_performed = False
             
             last_state = self.get_sync_state()
@@ -1312,7 +1312,7 @@ def main():
     # If check-only requested, compute current hash (full evaluation) and exit accordingly
     if args.check_only:
         try:
-            sync_manager.setup_google_drive()
+            sync_manager.setup_google_sheets()
             songs = sync_manager.fetch_accepted_songs()
             tv_size_pdfs = sync_manager.fetch_tv_size_sheets()
             grouped_songs = sync_manager.group_and_merge_songs(songs, tv_size_pdfs)
