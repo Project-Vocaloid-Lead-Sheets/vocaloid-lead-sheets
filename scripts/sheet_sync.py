@@ -13,6 +13,7 @@ import hashlib
 from typing import Dict, List, Any, Optional
 
 from gdrive_session import GDriveSession
+from song_data_access import SongDataAccess, SongRecord
 
 # Setup logging
 logging.basicConfig(
@@ -35,7 +36,12 @@ class SongSyncManager:
         self.sync_state_file = '.sync_state.json'
         self.force_sync = force_sync
         self.downloads_performed = False  # Tracks if any PDF was re-downloaded in a run
-        
+
+        # FIXME: Until we move away from the setup_google_sheets() function, we'll end up authenticating twice.
+        #        This is fine for now, but is worth a cleanup once architecture becomes more defined
+        self.session = GDriveSession()
+        self.song_data_access = SongDataAccess(self.session)
+
         # Set /data as JSON file output directory
         self.frontend_data_dir = os.environ.get('FRONTEND_DATA_DIR', 'frontend/src/data')
         # Path for the committed generated manifest that persists across CI runs
@@ -53,6 +59,7 @@ class SongSyncManager:
         return text.strip('-')
 
     def setup_google_drive(self) -> None:
+        # TODO: Move away from this to a class that manages session login
         """Set up Google Sheets API connection with better error handling and .env support"""
         try:
             scope = [
@@ -147,6 +154,7 @@ class SongSyncManager:
                 status = str(record.get('Status', '')).lower().strip()
                 original_status = str(record.get('Status', '')).strip()
                 song_name = str(record.get('Song Name', '')).strip()
+                song_producer = str(record.get('Producer', '')).strip()
                 
                 # Log all statuses for debugging
                 if song_name:
@@ -171,13 +179,24 @@ class SongSyncManager:
                     continue
                 
                 # Check if at least one PDF is provided (check both hyperlinks and text)
-                pdf_columns = ['Vocals', 'Bb', 'C', 'Eb', 'F']
+                pdf_columns = SongDataAccess.TRANSCRIPTIONS
                 has_pdf = False
-                
-                # Check hyperlinks first
-                if i in hyperlinks_data:
-                    hyperlinks_for_row = hyperlinks_data[i]
-                    has_pdf = any(col in hyperlinks_for_row for col in pdf_columns)
+                song_record: SongRecord = None
+
+                # Attempt to autodetect PDFs from presence in the drive
+                # NOTE: If the song name is not an EXACT MATCH to what is in the drive, we're going to miss the chart
+                try:
+                    song_record = self.song_data_access.get_record_by_attrs(song_name, song_producer)
+                    has_pdf = song_record.has_any_full()
+
+                except ValueError as e:
+                    logger.warning(f"Could not autodetect PDFs for {song_name}, resolve via manual hyperlink...")
+
+                if not has_pdf:
+                    # Check hyperlinks first
+                    if i in hyperlinks_data:
+                        hyperlinks_for_row = hyperlinks_data[i]
+                        has_pdf = any(col in hyperlinks_for_row for col in pdf_columns)
                 
                 # Fallback to text validation if no hyperlinks found
                 if not has_pdf:
@@ -189,8 +208,14 @@ class SongSyncManager:
                 
                 # Add hyperlink data if available
                 if i in hyperlinks_data:
-                    record['_hyperlinks'] = hyperlinks_data[i]
-                
+                    hyperlinks_for_row = hyperlinks_data.get(i, dict())
+                    if song_record:
+                        extra_hyperlinks = song_record.compute_hyperlinks_full()
+                        for transcription, hyperlink in extra_hyperlinks.items():
+                            if transcription not in hyperlinks_for_row.keys():
+                                hyperlinks_for_row[transcription] = hyperlink
+                    record['_hyperlinks'] = hyperlinks_for_row
+
                 accepted_songs.append(record)
             
             logger.info(f"Found {len(accepted_songs)} valid songs (completed + under review)")
@@ -233,7 +258,7 @@ class SongSyncManager:
             hyperlinks_data = self._extract_hyperlinks_from_worksheet(tv_sheet)
             
             tv_size_pdfs = {}
-            pdf_columns = ['Vocals', 'Bb', 'C', 'Eb', 'F', 'G', 'Alto', 'Bass']
+            pdf_columns = SongDataAccess.TRANSCRIPTIONS
             
             for i, record in enumerate(records, start=2):  # Start at 2 for sheet row numbers
                 song_name = str(record.get('Song Name', '')).strip()

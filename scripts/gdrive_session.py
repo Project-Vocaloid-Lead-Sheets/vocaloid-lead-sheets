@@ -99,7 +99,6 @@ class GDriveSession:
                 return files
 
     def list_files(self, directory: str) -> list[dict[str, any]]:
-        _logger.info(directory)
         dir_path = pathlib.Path(directory)
         drive_id = self._drive_root_id
 
