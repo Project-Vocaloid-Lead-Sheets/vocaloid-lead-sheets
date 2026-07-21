@@ -151,11 +151,6 @@ class SongSyncManager:
             raise e
         return None
 
-
-    def drive_list_files(self, drive_path: str): List[str]:
-        pass
-
-
     def fetch_accepted_songs(self) -> List[Dict[str, Any]]:
         """Fetch accepted songs with enhanced validation and hyperlink extraction"""
         try:
@@ -308,9 +303,11 @@ class SongSyncManager:
                             should_download = True
                         elif not remote_md5 and not os.path.exists(pdf_path):
                             should_download = True
+                        else:
+                            logger.info(f"TV PDF up to date: {pdf_filename}")
                         
                         if should_download:
-                            if GDriveSession.download_file(drive_id, os.path.join(self.pdf_path, pdf_filename)):
+                            if GDriveSession.download_file(drive_id, os.path.join(self.pdf_dir, pdf_filename)):
                                 pdfs[column_name] = f"/pdfs/{pdf_filename}"
                                 self.downloads_performed = True
                             else:
@@ -670,7 +667,7 @@ class SongSyncManager:
                         should_download = True
 
                 if should_download:
-                    if GDriveSession.download_file(drive_id, os.path.join(self.pdf_path, pdf_filename)):
+                    if GDriveSession.download_file(drive_id, os.path.join(self.pdf_dir, pdf_filename)):
                         pdfs[pdf_key] = f"/pdfs/{pdf_filename}"
                         downloaded_any = True
                         # Update checksum after download if remote md5 unavailable
@@ -684,6 +681,7 @@ class SongSyncManager:
                         else:
                             pdfs[pdf_key] = f"https://drive.google.com/file/d/{drive_id}/view"
                 else:
+                    logger.info(f"PDF up to date: {pdf_filename}")
                     pdfs[pdf_key] = f"/pdfs/{pdf_filename}"
 
         return pdfs, pdf_drive_links, pdf_checksums, downloaded_any
