@@ -11,8 +11,7 @@ from datetime import datetime
 import re
 import hashlib
 
-import gsheets
-import gdrive
+import google_clients
 
 from typing import Dict, List, Any, Optional
 from pathlib import Path
@@ -38,7 +37,7 @@ except ImportError:
 class SongSyncManager:
     def __init__(self, force_sync: bool = False):
         # Set up connection
-        (self.sheet_id, self.sheet) = gsheets.fetch_worksheet()
+        (self.sheet_id, self.sheet) = google_clients.sheets.fetch_worksheet()
         self.downloads_performed = False
         self.sync_state_file = '.sync_state.json'
         self.force_sync = force_sync
@@ -214,7 +213,7 @@ class SongSyncManager:
                             should_download = True
                         
                         if should_download:
-                            if gdrive.download_pdf(drive_id, PDF_DIR / pdf_filename):
+                            if google_clients.drive.download_pdf(drive_id, PDF_DIR / pdf_filename):
                                 pdfs[column_name] = f"/pdfs/{pdf_filename}"
                                 self.downloads_performed = True
                             else:
@@ -574,7 +573,7 @@ class SongSyncManager:
                         should_download = True
 
                 if should_download:
-                    if gdrive.download_pdf(drive_id, PDF_DIR / pdf_filename):
+                    if google_clients.drive.download_pdf(drive_id, PDF_DIR / pdf_filename):
                         pdfs[pdf_key] = f"/pdfs/{pdf_filename}"
                         downloaded_any = True
                         # Update checksum after download if remote md5 unavailable
