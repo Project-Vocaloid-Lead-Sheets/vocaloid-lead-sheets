@@ -4,6 +4,7 @@ import os
 import logging
 import tempfile
 import pathlib
+import requests
 
 from google.oauth2.service_account import Credentials
 from google.auth.transport.requests import AuthorizedSession
@@ -122,6 +123,55 @@ class GDriveSession:
 
         return walk_current
 
+    def get_metadata(self, drive_id: str) -> dict[str, any]:
+        response = self._drive_session.get(
+            f"https://www.googleapis.com/drive/v3/files/{drive_id}",
+            params={
+                "fields": "id,name,mimeType,size,modifiedTime",
+            },
+        )
+        response.raise_for_status()
+        return response.json()
+
+    def download_file(file_id: str, output_file_path: str) -> bool:
+        """
+        Download a PDF from Google Drive and save it locally to the output path specified
+
+        Currently this uses an HTTP GET session, so this only works on publicly-viewable drive folders.
+        """
+        try:
+            download_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+            _logger.info(f"Downloading file: {download_url} -> {output_file_path}")
+
+            session = requests.Session()
+            response = session.get(download_url, stream=True)
+            if 'text/html' in response.headers.get('Content-Type', ''):
+                for key, value in response.cookies.items():
+                    if key.startswith('download_warning'):
+                        params = {'id': file_id, 'confirm': value}
+                        response = session.get(download_url, params=params, stream=True)
+                        break
+
+            response.raise_for_status()
+
+            # Save download to file (create subdirectory if needed)
+            directory = os.path.dirname(output_file_path)
+            if directory:
+                os.makedirs(directory, exist_ok=True)
+
+            with open(output_file_path, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    if chunk:
+                        f.write(chunk)
+
+            file_size = os.path.getsize(output_file_path)
+            _logger.info(f"Downloaded file: {output_file_path} ({file_size}B)")
+            return True
+
+        except Exception as e:
+            _logger.error(f"Download failed ({file_id}): {e}")
+            return False
+
 def main():
     import argparse
     import pprint
@@ -131,12 +181,31 @@ def main():
     )
 
     parser.add_argument("-l", "--list", help="List files in a specific subdirectory of the drive")
+    parser.add_argument("-d", "--download", help="Download a file to the directory specified", nargs="+")
     args = vars(parser.parse_args())
 
     session = GDriveSession()
     if args["list"]:
         files = session.list_files(args["list"])
         print(tabulate.tabulate(files))
+    elif args["download"]:
+        if len(args["download"]) != 2:
+            print("Download usage: python3 scripts/gdrive_session.py -d /gdrive/remote/path /path/to/local.ext")
+            print("Example: python3 scripts/gdrive_session.py -d 'Lead Sheets/wowaka - Rolling Girl/wowaka - Rolling Girl-C.pdf ' /./RollingGirl.pdf")
+            exit(1)
+
+        directory = os.path.dirname(args["download"][0])
+        basename = os.path.basename(args["download"][0])
+        download_path = args["download"][1]
+
+        files = session.list_files(directory)
+        for file_metadata in files:
+            if file_metadata["name"] == basename:
+                _logger.info(f"File selected: {file_metadata}")
+                GDriveSession.download_file(file_metadata["id"], download_path)
+                exit(0)
+        print(f"Could not find file '{args['download'][0]}' to download")
+
     else:
         parser.print_help()
         exit(1)
