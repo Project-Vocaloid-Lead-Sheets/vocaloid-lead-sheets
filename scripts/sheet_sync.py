@@ -16,6 +16,8 @@ import google_clients
 from typing import Dict, List, Any, Optional
 from pathlib import Path
 
+from config import get_env_or_fail
+
 PDF_DIR = Path('frontend', 'public', 'pdfs')
 os.makedirs(PDF_DIR, exist_ok=True)
 
@@ -25,14 +27,6 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
-# Try to load python-dotenv for .env file support
-try:
-    from dotenv import load_dotenv
-    load_dotenv()
-    logger.info("✅ Loaded .env file")
-except ImportError:
-    logger.info("ℹ️ python-dotenv not installed, using environment variables only")
 
 class SongSyncManager:
     def __init__(self, force_sync: bool = False):

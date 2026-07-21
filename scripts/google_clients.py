@@ -10,6 +10,8 @@ from pathlib import Path
 from oauth2client.service_account import ServiceAccountCredentials
 from typing import Optional
 
+from config import get_env_or_fail
+
 # Setup logging
 logging.basicConfig(
     level=logging.INFO,
@@ -18,15 +20,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-# TODO: move to some common "config" file
-def _get_env_or_fail(varname: str) -> str:
-    val = os.environ.get(varname)
-    if val is None:
-        raise ValueError(f"Missing environment variable {varname}; please add to .env")
-    return val
-
-
-GOOGLE_DRIVE_LEAD_SHEETS_FOLDER_ID = _get_env_or_fail("GOOGLE_DRIVE_LEAD_SHEETS_FOLDER_ID")
+GOOGLE_DRIVE_LEAD_SHEETS_FOLDER_ID = get_env_or_fail("GOOGLE_DRIVE_LEAD_SHEETS_FOLDER_ID")
 
 
 def _fetch_creds(scopes: list[str]) -> ServiceAccountCredentials:
