@@ -50,7 +50,7 @@ class SongSyncManager:
         text = re.sub(r'[-\s]+', '-', text)
         return text.strip('-')
 
-    def setup_google_sheets(self) -> None:
+    def setup_google_drive(self) -> None:
         """Set up Google Sheets API connection with better error handling and .env support"""
         try:
             scope = [
@@ -128,6 +128,31 @@ class SongSyncManager:
         except Exception as e:
             logger.error(f"Failed to setup Google Sheets connection: {e}")
             raise
+
+    def fetch_songs(self) -> List[Dict[str, Any]]:
+        try:
+            records = self.sheet.get_all_records()
+            required_fields = ["Song Name", "Producer", "Status"]
+
+            valid_records = []
+            for i, record in enumerate(records, start=2):
+                missing_fields = [field for field in required_fields if not record.get(field)]
+                if missing_fields:
+                    logger.warning(f"Row {i}: Missing required fields: {missing_fields}")
+                    continue
+
+                valid_records.append(record)
+            return valid_records
+
+        except Exception as e:
+            logger.error(f"Failed to fetch songs from sheet: {e}")
+            raise e
+        return None
+
+
+    def drive_list_files(self, drive_path: str): List[str]:
+        pass
+
 
     def fetch_accepted_songs(self) -> List[Dict[str, Any]]:
         """Fetch accepted songs with enhanced validation and hyperlink extraction"""
@@ -1280,7 +1305,7 @@ export type SongFilename = typeof SONG_MANIFEST[number]
             logger.info("Starting Google Sheet sync...")
             
             # Set up connection
-            self.setup_google_sheets()
+            self.setup_google_drive()
             self.downloads_performed = False
             
             last_state = self.get_sync_state()
@@ -1347,7 +1372,7 @@ def main():
     # If check-only requested, compute current hash (full evaluation) and exit accordingly
     if args.check_only:
         try:
-            sync_manager.setup_google_sheets()
+            sync_manager.setup_google_drive()
             songs = sync_manager.fetch_accepted_songs()
             tv_size_pdfs = sync_manager.fetch_tv_size_sheets()
             grouped_songs = sync_manager.group_and_merge_songs(songs, tv_size_pdfs)
