@@ -131,26 +131,6 @@ class SongSyncManager:
             logger.error(f"Failed to setup Google Sheets connection: {e}")
             raise
 
-    def fetch_songs(self) -> List[Dict[str, Any]]:
-        try:
-            records = self.sheet.get_all_records()
-            required_fields = ["Song Name", "Producer", "Status"]
-
-            valid_records = []
-            for i, record in enumerate(records, start=2):
-                missing_fields = [field for field in required_fields if not record.get(field)]
-                if missing_fields:
-                    logger.warning(f"Row {i}: Missing required fields: {missing_fields}")
-                    continue
-
-                valid_records.append(record)
-            return valid_records
-
-        except Exception as e:
-            logger.error(f"Failed to fetch songs from sheet: {e}")
-            raise e
-        return None
-
     def fetch_accepted_songs(self) -> List[Dict[str, Any]]:
         """Fetch accepted songs with enhanced validation and hyperlink extraction"""
         try:
