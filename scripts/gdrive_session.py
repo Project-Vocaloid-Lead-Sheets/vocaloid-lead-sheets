@@ -6,9 +6,10 @@ import tempfile
 import pathlib
 import requests
 
-from google.oauth2.service_account import Credentials
 from google.auth.transport.requests import AuthorizedSession
 import gspread
+
+import env_config
 
 logging.basicConfig(
     level=logging.INFO,
@@ -16,78 +17,44 @@ logging.basicConfig(
 )
 _logger = logging.getLogger(__name__)
 
-try:
-    from dotenv import load_dotenv
-    load_dotenv()
-    _logger.info("Loaded .env file")
-except ImportError:
-    _logger.info("python-dotenv not installed, using environment variables only")
-
 class GDriveSession:
     DRIVE_FILES_URL = "https://www.googleapis.com/drive/v3/files"
-    SCOPES = [
-        "https://www.googleapis.com/auth/spreadsheets.readonly",
-        "https://www.googleapis.com/auth/drive.readonly",
-    ]
-
     MIME_TYPE_DRIVE_FOLDER = "application/vnd.google-apps.folder"
 
     def __init__(self):
-        credential_path = "service_account.json"
-        temp_file_path = None
-
-        json_file_path = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON_FILE")
-        if json_file_path and os.path.exists(json_file_path):
-            _logger.info(f"Loading service account from file: {json_file_path}")
-            credential_path = json_file_path
-        elif json_content := os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON"):
-            _logger.info("Loading service account from JSON content")
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as temp_file:
-                temp_file.write(json_content)
-                temp_file_path = temp_file.name
-                credential_path = temp_file_path
-        elif os.path.exists("service_account.json"):
-            _logger.info("No environment service account JSONs exist - default to service_account.json")
-        else:
-            raise ValueError(
-                "No service account credentials found. Please set:\n"
-                "- GOOGLE_SERVICE_ACCOUNT_JSON_FILE (path to JSON file), or\n"
-                "- GOOGLE_SERVICE_ACCOUNT_JSON (JSON content), or\n"
-                "- Place service_account.json in the current directory"
-            )
-
-        credentials = Credentials.from_service_account_file(
-            credential_path,
-            scopes=GDriveSession.SCOPES,
-        )
-
-        self._sheet_client = gspread.authorize(credentials)
+        credentials = env_config.get_gdrive_credentials()
         self._drive_session = AuthorizedSession(credentials)
+        self._drive_root_id = env_config.get_env_or_fail("GOOGLE_DRIVE_ID")
 
-        self._drive_root_id = os.environ.get("GOOGLE_DRIVE_ID")
-        if not self._drive_root_id:
-            raise ValueError(
-                "No root drive ID detected. Please set GOOGLE_DRIVE_ID to the drive folder root we're using.\n"
-                "You can extract the ID from the drive URL: https://drive.google.com/drive/folders/{GOOGLE_DRIVE_ID}\n"
-                "Example: https://drive.google.com/drive/folders/1SOXrZuHqaj_JLTEEjUCsM5YBnqhARUhi\n"
-                " -> set GOOGLE_DRIVE_ID=1SOXrZuHqaj_JLTEEjUCsM5YBnqhARUhi"
-            )
+    def find_all_files_in(self, drive_id: str) -> list[dict]:
+        """
+        Searches the folder that drive_id point to and returns a list of GDrive metadata dictionaries (one dict per
+        file discovered inside of the folder which points to drive_id)
 
-        if temp_file_path:
-            os.unlink(temp_file_path)
+        Args:
+            drive_id: Drive ID (hash as supplied from Google Drive APIs or from URL). Must be a folder.
 
-    def _list_files_from_drive_id(self, drive_id: str) -> list[dict]:
+        Returns:
+            a list of dictionaries, each of which contains the following contents:
+            {
+                "id": <GDrive file ID>
+                "name": <Name of file>
+                "md5Checksum": <File checksum>
+                "modifiedTime": Last modified time
+            }
+
+            Or an empty list if the folder is empty.
+        """
+        params = {
+            "q": f"'{drive_id}' in parents and trashed=false",
+            "pageSize": 1000,
+            "fields": "nextPageToken,files(id,name,mimeType,md5Checksum,modifiedTime)",
+        }
+
         files = []
         page_token = None
         while True:
-            params = {
-                "q": f"'{drive_id}' in parents and trashed=false",
-                "pageSize": 1000,
-                "fields": "nextPageToken,files(id,name,mimeType,size,modifiedTime)",
-            }
-
-            if page_token:
-                params["pageToken"] = page_token
+            params["pageToken"] = page_token
 
             response = self._drive_session.get(GDriveSession.DRIVE_FILES_URL, params=params, timeout=30)
             response.raise_for_status()
@@ -98,40 +65,90 @@ class GDriveSession:
             if not page_token:
                 return files
 
-    def list_files(self, directory: str) -> list[dict[str, any]]:
-        _logger.info(directory)
-        dir_path = pathlib.Path(directory)
+    def find_file(self, drive_id: str, name: str, mime_type: str | None) -> dict:
+        """
+        Searches the folder that drive_id point to and returns a GDrive metadata dictionary for a file whose name
+        and mime_type matches the arguments.
+
+        Args:
+            drive_id: Drive ID (hash as supplied from Google Drive APIs or from URL). Must be a folder.
+            name: Name of file to look for inside of target directory
+            mime_type: Type of file to look for inside of target directory
+
+        Returns:
+            a dictionary which contains the following contents:
+            {
+                "id": <GDrive file ID>
+                "name": <Name of file>
+                "md5Checksum": <File checksum>
+                "modifiedTime": Last modified time
+            }
+
+            Or None if we couldn't find the file.
+        """
+        params = {
+            "q": f"'{drive_id}' in parents and trashed=false and name='{name}'",
+            "pageSize": 1000,
+            "fields": "nextPageToken,files(id,name,md5Checksum,modifiedTime)",
+        }
+
+        response = self._drive_session.get(GDriveSession.DRIVE_FILES_URL, params=params, timeout=30)
+        response.raise_for_status()
+        payload = response.json()
+
+        file_result = payload.get("files", None)
+        if not file_result:
+            return None
+        if len(file_result) > 1:
+            _logger.warning(f"find_file() returned more than one file - query={params}")
+        return file_result[0]
+
+
+    def find_drive_id_by_dir(self, dir_path: pathlib.Path) -> list[dict[str, any]]:
+        """
+        Searches for the drive_id which represents the folder which dir_path refers to. The path is absolute, based on
+        the root of the drive folder this context works under.
+
+        Args:
+            dir_path: Path (in pathlib.Path format) of directory to search
+
+        Returns:
+            a list of Google Drive dictionary metadata (one metadata per file) for each file discovered in the dir_path
+            specified, or an empty list if no files are within that directory
+        """
+
         drive_id = self._drive_root_id
 
-        walk_current = self._list_files_from_drive_id(drive_id)
         path_successful = ["."]
         for part in dir_path.parts:
-            selected_metadata = None
-            for file_metadata in walk_current:
-                if file_metadata["name"] == part:
-                    selected_metadata = file_metadata
-                    break
+            selected_metadata = self.find_file(drive_id, part, GDriveSession.MIME_TYPE_DRIVE_FOLDER)
 
-            if not selected_metadata or selected_metadata["mimeType"] != GDriveSession.MIME_TYPE_DRIVE_FOLDER:
+            if not selected_metadata:
                 partial_path = os.path.join(*path_successful)
                 raise ValueError(
                     f"Drive does not contain '{directory}'\n"
                     f"Successfully walked '{partial_path}', but could not find '{part}' next",
                 )
+
             path_successful.append(part)
-            walk_current = self._list_files_from_drive_id(selected_metadata["id"])
+            drive_id = selected_metadata["id"]
 
-        return walk_current
+        return drive_id
 
-    def get_metadata(self, drive_id: str) -> dict[str, any]:
-        response = self._drive_session.get(
-            f"https://www.googleapis.com/drive/v3/files/{drive_id}",
-            params={
-                "fields": "id,name,mimeType,size,modifiedTime",
-            },
-        )
-        response.raise_for_status()
-        return response.json()
+
+    def find_files_in_dir(self, dir_path: pathlib.Path) -> list[dict[str, any]]:
+        """
+        Searches for files which are stored in dir_path, which is based off of the root of the Google Drive.
+
+        Args:
+            dir_path: Path (in pathlib.Path format) of directory to search
+
+        Returns:
+            a list of Google Drive dictionary metadata (one metadata per file) for each file discovered in the dir_path
+            specified, or an empty list if no files are within that directory
+        """
+
+        return self.find_all_files_in(self.find_drive_id_by_dir(dir_path))
 
     def download_file(file_id: str, output_file_path: str) -> bool:
         """
@@ -186,7 +203,7 @@ def main():
 
     session = GDriveSession()
     if args["list"]:
-        files = session.list_files(args["list"])
+        files = session.find_files_in_dir(pathlib.Path(args["list"]))
         print(tabulate.tabulate(files))
     elif args["download"]:
         if len(args["download"]) != 2:
@@ -194,17 +211,15 @@ def main():
             print("Example: python3 scripts/gdrive_session.py -d 'Lead Sheets/wowaka - Rolling Girl/wowaka - Rolling Girl-C.pdf ' /./RollingGirl.pdf")
             exit(1)
 
-        directory = os.path.dirname(args["download"][0])
+        directory = pathlib.Path(os.path.dirname(args["download"][0]))
         basename = os.path.basename(args["download"][0])
         download_path = args["download"][1]
 
-        files = session.list_files(directory)
-        for file_metadata in files:
-            if file_metadata["name"] == basename:
-                _logger.info(f"File selected: {file_metadata}")
-                GDriveSession.download_file(file_metadata["id"], download_path)
-                exit(0)
-        print(f"Could not find file '{args['download'][0]}' to download")
+        dir_id = session.find_drive_id_by_dir(directory)
+        target_drive_id = session.find_file(dir_id)
+
+        GDriveSession.download_file(target_drive_id, download_path)
+        exit(0)
 
     else:
         parser.print_help()
