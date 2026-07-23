@@ -24,11 +24,11 @@
     "Bass": "https://drive.google.com/file/d/1vh1dgQrM5yM4AGRTsI8ptq9dgRSYErHO/view"
   },
   "pdfChecksums": {
-    "Vocals": "1ff4de9f89aed34b1c65842a95761eb1",
-    "Bb": "9d5704500aa799ff6d08cee4085cf347",
-    "C": "c524304b333b060d6029c832ae3da514",
-    "Eb": "094cb6859ff922f06c35edc07f569acb",
-    "Bass": "00abfcfd8c507188c3863c1edaaf6207"
+    "Vocals": "eaf94a9111f62860fb421b1b8b265024",
+    "Bb": "8aa747792209a9d9b52353badd8b9cf3",
+    "C": "e417c1d0a15294eb4dccdba5b94fbb9b",
+    "Eb": "6124c426fcfa4c0c2a84ba0e1b16909b",
+    "Bass": "b51b8d5dea9ae37a9920e875fca04454"
   },
   "pdfs": {
     "Vocals": "/pdfs/unknown-mother-goose/unknown-mother-goose-vocals.pdf",
@@ -39,6 +39,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-07-12T02:58:37Z",
-  "updatedAt": "2026-07-12T02:58:37Z"
+  "syncedAt": "2026-07-21T02:52:39Z",
+  "updatedAt": "2026-07-21T02:52:39Z"
 }
