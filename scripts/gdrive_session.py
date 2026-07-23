@@ -65,7 +65,7 @@ class GDriveSession:
             if not page_token:
                 return files
 
-    def find_file(self, drive_id: str, name: str, mime_type: str | None = None) -> dict:
+    def find_file(self, drive_id: str, name: str, mime_type: str | None = None) -> dict | None:
         """
         Searches the folder that drive_id point to and returns a GDrive metadata dictionary for a file whose name
         and mime_type matches the arguments.
@@ -104,11 +104,11 @@ class GDriveSession:
         if not file_result:
             return None
         if len(file_result) > 1:
-            _logger.warning(f"find_file() returned more than one file - query={params}")
+            raise ValueError(f"find_file() returned more than one file - query={params}")
         return file_result[0]
 
 
-    def find_drive_id_by_dir(self, dir_path: pathlib.Path) -> list[dict[str, any]]:
+    def find_drive_id_by_dir(self, dir_path: pathlib.Path) -> str:
         """
         Searches for the drive_id which represents the folder which dir_path refers to. The path is absolute, based on
         the root of the drive folder this context works under.
@@ -117,8 +117,7 @@ class GDriveSession:
             dir_path: Path (in pathlib.Path format) of directory to search
 
         Returns:
-            a list of Google Drive dictionary metadata (one metadata per file) for each file discovered in the dir_path
-            specified, or an empty list if no files are within that directory
+            The google drive ID which points to the directory specified
         """
 
         drive_id = self._drive_root_id
