@@ -1,17 +1,14 @@
 FROM python:3.13-slim AS base
 
 WORKDIR /app
-COPY pyproject.toml uv.lock ./
+
 RUN pip install --no-cache-dir uv
+COPY pyproject.toml uv.lock ./
 
 FROM base AS development
-RUN uv sync --frozen --all-groups
+RUN uv sync --frozen --all-groups --no-install-project
 
 COPY . .
-CMD ["uv", "run", "python", "-m", "discord_bot"]
 
-
-FROM base AS production
-RUN uv sync --frozen --no-dev
-COPY src ./src
-CMD ["uv", "run", "python", "-m", "discord_bot"]
+RUN uv sync --frozen --all-groups
+CMD ["uv", "run", "watchfiles", "python -m discord_bot", "src"]
