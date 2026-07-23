@@ -2,6 +2,7 @@ from gdrive_session import GDriveSession
 
 import os
 import enum
+import pathlib
 
 class SongRecord:
     def __init__(self, name: str):
@@ -33,7 +34,8 @@ class SongDataAccess:
         song_file_basename = f"{song_producer} - {song_name}"
         full_chart_dir = os.path.join(self.CHART_BASE_DIR, song_file_basename)
 
-        filename_to_meta = {song["name"] : song for song in self._session.list_files(full_chart_dir)}
+        file_drive_ids = self._session.find_files_in_dir(pathlib.Path(full_chart_dir))
+        filename_to_meta = {song["name"] : song for song in file_drive_ids}
         record = SongRecord(song_name)
         for transcription in self.TRANSCRIPTIONS:
             song_filename = f"{song_file_basename}-{transcription}.pdf"
