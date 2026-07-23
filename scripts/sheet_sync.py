@@ -12,6 +12,8 @@ import re
 import hashlib
 from typing import Dict, List, Any, Optional
 
+from gdrive_session import GDriveSession
+
 # Setup logging
 logging.basicConfig(
     level=logging.INFO,
@@ -281,9 +283,11 @@ class SongSyncManager:
                             should_download = True
                         elif not remote_md5 and not os.path.exists(pdf_path):
                             should_download = True
+                        else:
+                            logger.info(f"TV PDF up to date: {pdf_filename}")
                         
                         if should_download:
-                            if self.download_pdf_from_drive(drive_id, pdf_filename):
+                            if GDriveSession.download_file(drive_id, os.path.join(self.pdf_dir, pdf_filename)):
                                 pdfs[column_name] = f"/pdfs/{pdf_filename}"
                                 self.downloads_performed = True
                             else:
@@ -643,7 +647,7 @@ class SongSyncManager:
                         should_download = True
 
                 if should_download:
-                    if self.download_pdf_from_drive(drive_id, pdf_filename):
+                    if GDriveSession.download_file(drive_id, os.path.join(self.pdf_dir, pdf_filename)):
                         pdfs[pdf_key] = f"/pdfs/{pdf_filename}"
                         downloaded_any = True
                         # Update checksum after download if remote md5 unavailable
@@ -657,6 +661,7 @@ class SongSyncManager:
                         else:
                             pdfs[pdf_key] = f"https://drive.google.com/file/d/{drive_id}/view"
                 else:
+                    logger.info(f"PDF up to date: {pdf_filename}")
                     pdfs[pdf_key] = f"/pdfs/{pdf_filename}"
 
         return pdfs, pdf_drive_links, pdf_checksums, downloaded_any
@@ -815,46 +820,6 @@ class SongSyncManager:
         except Exception as e:
             logger.warning(f"Unable to hash file {path}: {e}")
             return None
-
-    def download_pdf_from_drive(self, file_id: str, output_filename: str) -> bool:
-        """Download a PDF from Google Drive and save it locally"""
-        try:
-            import requests
-            
-            download_url = f"https://drive.google.com/uc?export=download&id={file_id}"
-            
-            logger.info(f"Downloading PDF from Google Drive: {file_id}")
-            
-            # Make request with session to handle redirects
-            session = requests.Session()
-            response = session.get(download_url, stream=True)
-            
-            # Handle large file download confirmation
-            if 'text/html' in response.headers.get('Content-Type', ''):
-                # Look for download confirmation token
-                for key, value in response.cookies.items():
-                    if key.startswith('download_warning'):
-                        params = {'id': file_id, 'confirm': value}
-                        response = session.get(download_url, params=params, stream=True)
-                        break
-            
-            response.raise_for_status()
-            
-            # Save to file (create subdirectory if needed)
-            output_path = os.path.join(self.pdf_dir, output_filename)
-            os.makedirs(os.path.dirname(output_path), exist_ok=True)
-            with open(output_path, 'wb') as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    if chunk:
-                        f.write(chunk)
-            
-            file_size = os.path.getsize(output_path)
-            logger.info(f"Successfully downloaded PDF: {output_filename} ({file_size} bytes)")
-            return True
-            
-        except Exception as e:
-            logger.error(f"Failed to download PDF {file_id}: {e}")
-            return False
 
     def cleanup_orphaned_pdfs(self, referenced_pdfs: set) -> None:
         """Remove PDF files that are no longer referenced in any song"""

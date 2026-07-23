@@ -491,3 +491,9 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Don't commit your secrets :)
+service-account.json
+
+# Python virtual environments if you use them
+*venv
