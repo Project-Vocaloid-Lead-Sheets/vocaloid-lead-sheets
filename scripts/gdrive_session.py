@@ -201,28 +201,27 @@ def main():
         description="Google Drive handle for basic file viewing operations.",
     )
 
-    parser.add_argument("-l", "--list", help="List files in a specific subdirectory of the drive")
-    parser.add_argument("-d", "--download", help="Download a file to the directory specified", nargs="+")
+    subparsers = parser.add_subparsers(help='subcommand help')
+    parser_list = subparsers.add_parser('list', help='list help')
+    parser_list.add_argument("list_path", help="List files in a specific subdirectory of the drive")
+
+    parser_download = subparsers.add_parser("download", help="download help")
+    parser_download.add_argument("download_path", help="Path to file in Google Drive")
+    parser_download.add_argument("-o", "--output", help="Download a file to the local path specified", required=True)
     args = vars(parser.parse_args())
 
     session = GDriveSession()
-    if args["list"]:
-        files = session.find_files_in_dir(pathlib.Path(args["list"]))
+    if args.get("list_path", None):
+        files = session.find_files_in_dir(pathlib.Path(args["list_path"]))
         print(tabulate.tabulate(files))
-    elif args["download"]:
-        if len(args["download"]) != 2:
-            print("Download usage: python3 scripts/gdrive_session.py -d /gdrive/remote/path /path/to/local.ext")
-            print("Example: python3 scripts/gdrive_session.py -d 'Lead Sheets/wowaka - Rolling Girl/wowaka - Rolling Girl-C.pdf ' /./RollingGirl.pdf")
-            exit(1)
-
-        directory = pathlib.Path(os.path.dirname(args["download"][0]))
-        basename = os.path.basename(args["download"][0])
-        download_path = args["download"][1]
+    elif args.get("download_path", None):
+        directory = pathlib.Path(os.path.dirname(args["download_path"]))
+        basename = os.path.basename(args["download_path"])
 
         dir_id = session.find_drive_id_by_dir(directory)
         target_meta = session.find_file(dir_id, basename)
 
-        GDriveSession.download_file(target_meta["id"], download_path)
+        GDriveSession.download_file(target_meta["id"], args["output"])
         exit(0)
 
     else:
