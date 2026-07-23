@@ -65,7 +65,7 @@ class GDriveSession:
             if not page_token:
                 return files
 
-    def find_file(self, drive_id: str, name: str, mime_type: str | None) -> dict:
+    def find_file(self, drive_id: str, name: str, mime_type: str | None = None) -> dict:
         """
         Searches the folder that drive_id point to and returns a GDrive metadata dictionary for a file whose name
         and mime_type matches the arguments.
@@ -86,8 +86,12 @@ class GDriveSession:
 
             Or None if we couldn't find the file.
         """
+
+        query = f"'{drive_id}' in parents and trashed=false and name='{name}'"
+        if mime_type:
+            query += f" and mimeType='{mime_type}'"
         params = {
-            "q": f"'{drive_id}' in parents and trashed=false and name='{name}'",
+            "q": query,
             "pageSize": 1000,
             "fields": "nextPageToken,files(id,name,md5Checksum,modifiedTime)",
         }
@@ -216,9 +220,9 @@ def main():
         download_path = args["download"][1]
 
         dir_id = session.find_drive_id_by_dir(directory)
-        target_drive_id = session.find_file(dir_id)
+        target_meta = session.find_file(dir_id, basename)
 
-        GDriveSession.download_file(target_drive_id, download_path)
+        GDriveSession.download_file(target_meta["id"], download_path)
         exit(0)
 
     else:
