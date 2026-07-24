@@ -27,6 +27,5 @@ class GitHubClient:
 
         async with self._session.post(url, json=payload) as response:
             body = await response.text()
-            _logger.info("Found: {response.body}")
             if response.status != 204:
                 raise RuntimeError(f"GitHub workflow dispatch failed ({response.status}): {body}")
