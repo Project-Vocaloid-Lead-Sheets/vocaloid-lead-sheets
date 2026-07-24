@@ -6,7 +6,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 _logger = logging.getLogger(__name__)
 
 SCRIPT_DIR = pathlib.Path(__file__).parent
-SEKAI_TEXT = (SCRIPT_DIR / "sekai.txt").read_text(encoding="utf-8")
+SEKAI_TEXT = (SCRIPT_DIR / "sekai.txt").read_text(encoding="utf-8").splitlines()
 BOT_CHANNEL_NAME = "bot-terminal"
 
 
@@ -29,19 +29,21 @@ class PVLSGroup(discord.app_commands.Group):
 
 class PvlsBotCore:
     def __init__(self):
-        self.client = discord.Client(intents=discord.Intents.default())
-        self.tree = discord.app_commands.CommandTree(self.client)
+        self._client = discord.Client(intents=discord.Intents.default())
+        self._tree = discord.app_commands.CommandTree(self._client)
         self._register_events()
         self._register_commands()
 
+        self._sekai_counter = 0
+
     def _register_events(self):
-        @self.client.event
+        @self._client.event
         async def on_ready():
-            _logger.info(f"Logged in as {self.client.user}")
-            await self.tree.sync()
+            _logger.info(f"Logged in as {self._client.user}")
+            await self._tree.sync()
             _logger.info("Slash commands synced")
 
-        @self.tree.error
+        @self._tree.error
         async def on_error(interaction, error):
             if isinstance(error, WrongChannel):
                 bot_channel = find_bot_channel(interaction)
@@ -55,9 +57,11 @@ class PvlsBotCore:
         async def sekai(interaction: discord.Interaction):
             calling_user = interaction.user
             _logger.info(f"User {calling_user.display_name} ({calling_user.id}) really wants to listen to World is Mine")
-            await interaction.response.send_message(SEKAI_TEXT)
+            line = SEKAI_TEXT[self._sekai_counter % len(SEKAI_TEXT)]
+            self._sekai_counter += 1
+            await interaction.response.send_message(line)
 
-        self.tree.add_command(group)
+        self._tree.add_command(group)
 
     def run(self, token: str):
-        self.client.run(token)
+        self._client.run(token)
