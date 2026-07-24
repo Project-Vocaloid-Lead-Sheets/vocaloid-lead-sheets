@@ -26,10 +26,7 @@
               params: {
                 songSlug: generateSongSlug(song.title),
               },
-              query: {
-                transposition: selectedInstrument,
-                tv_size: route.query.tv_size,
-              },
+              query: buildSongRouteQuery(),
             }"
           >
             <span>{{ song.title }}</span>
@@ -68,6 +65,7 @@ import SongInfo from '@/components/shared/SongInfo.vue'
 import { useSongsStore } from '@/stores/songs'
 import { generateSongSlug } from '@/utils/slugUtils'
 import { useRoute } from 'vue-router'
+import { normalizeTvSizeQuery, buildCleanQuery } from '@/utils/queryNormalization'
 
 interface GroupedSongs {
   groupName: string
@@ -81,13 +79,18 @@ interface Props {
   collapseIdPrefix?: string
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   listClass: 'navbar-nav',
   collapseIdPrefix: '',
 })
 
 const songsStore = useSongsStore()
 const route = useRoute()
+
+const buildSongRouteQuery = () => {
+  const normalizedTvSize = normalizeTvSizeQuery(route.query.tv_size)
+  return buildCleanQuery(props.selectedInstrument, normalizedTvSize)
+}
 
 const isSelectedSong = (song: Song) => {
   const currentSlug = route.params.songSlug as string | undefined

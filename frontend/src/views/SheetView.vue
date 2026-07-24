@@ -40,8 +40,12 @@ const isTvSizeQueryEnabled = (value: unknown) => {
 }
 
 const syncTvSizeQueryParam = (enabled: boolean) => {
-  const nextQuery: LocationQueryRaw = {
-    transposition: typeof route.query.transposition === 'string' ? route.query.transposition : 'C',
+  const nextQuery: LocationQueryRaw = {}
+  const currentTransposition =
+    typeof route.query.transposition === 'string' ? route.query.transposition : null
+
+  if (currentTransposition && currentTransposition !== 'C') {
+    nextQuery.transposition = currentTransposition
   }
 
   if (enabled) {
