@@ -7,6 +7,12 @@ import { instruments } from '@/types/types'
 import { useSongsStore } from '@/stores/songs'
 import { generateSongSlug } from '@/utils/slugUtils'
 import { readUserSettings, writeUserSettings, SETTINGS_KEY } from '@/utils/userSettings'
+import {
+  normalizeTranspositionQuery,
+  normalizeTvSizeQuery,
+  buildCleanQuery,
+  areQueriesEquivalent,
+} from '@/utils/queryNormalization'
 
 // Ensure storage listener installed only once per page
 let _settingsStorageListenerInstalled = false
@@ -168,31 +174,29 @@ export const useSongFilters = () => {
   const effectiveLengthBounds = computed(() => getLengthBoundsForSource(lengthFilterSource.value))
 
   watch(
-    () => route.query.transposition,
+    () => route.query,
     () => {
-      const raw = route.query.transposition
-      const normalizedInstrument = typeof raw === 'string' ? (raw as Instrument) : null
+      if (!isSheetViewRoute.value) return
 
-      // Sync validated query to selector
-      if (normalizedInstrument && instruments.includes(normalizedInstrument)) {
-        if (selectedInstrument.value !== normalizedInstrument) {
-          selectedInstrument.value = normalizedInstrument
-        }
-        return
+      const normalizedInstrument = normalizeTranspositionQuery(
+        route.query.transposition,
+        instruments,
+      )
+      const normalizedTvSize = normalizeTvSizeQuery(route.query.tv_size)
+
+      // Sync query to selector. Missing query means default C.
+      const nextSelectedInstrument = normalizedInstrument ?? 'C'
+      if (selectedInstrument.value !== nextSelectedInstrument) {
+        selectedInstrument.value = nextSelectedInstrument
       }
 
-      // Sync validated URL to browser
-      if (typeof raw === 'string') {
-        const newQuery: LocationQueryRaw = { transposition: 'C' }
-        const rawTvSize = route.query.tv_size
-        if (typeof rawTvSize === 'string') {
-          newQuery.tv_size = rawTvSize
-        } else if (rawTvSize === null) {
-          newQuery.tv_size = null
-        } else if (Array.isArray(rawTvSize) && typeof rawTvSize[0] === 'string') {
-          newQuery.tv_size = rawTvSize[0]
-        }
-        router.replace({ query: newQuery })
+      // Build expected clean query
+      const expectedQuery = buildCleanQuery(normalizedInstrument, normalizedTvSize)
+
+      // Check if current query matches expected clean state
+      const isClean = areQueriesEquivalent(route.query, expectedQuery)
+      if (!isClean) {
+        router.replace({ query: expectedQuery })
       }
     },
     { immediate: true },
@@ -204,20 +208,13 @@ export const useSongFilters = () => {
       return
     }
 
-    const normalizedQueryInstrument =
-      typeof route.query.transposition === 'string'
-        ? (route.query.transposition as Instrument)
-        : null
+    const normalizedQueryInstrument = normalizeTranspositionQuery(
+      route.query.transposition,
+      instruments,
+    )
     if (normalizedQueryInstrument !== value) {
-      const newQuery: LocationQueryRaw = { transposition: value }
-      const rawTvSize = route.query.tv_size
-      if (typeof rawTvSize === 'string') {
-        newQuery.tv_size = rawTvSize
-      } else if (rawTvSize === null) {
-        newQuery.tv_size = null
-      } else if (Array.isArray(rawTvSize) && typeof rawTvSize[0] === 'string') {
-        newQuery.tv_size = rawTvSize[0]
-      }
+      const normalizedTvSize = normalizeTvSizeQuery(route.query.tv_size)
+      const newQuery = buildCleanQuery(value, normalizedTvSize)
       router.replace({ query: newQuery })
     }
     // persist instrument choice
