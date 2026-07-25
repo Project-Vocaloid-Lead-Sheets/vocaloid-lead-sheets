@@ -5,6 +5,7 @@ services:
 
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
       PYTHONUNBUFFERED: "1"
       WATCHFILES_FORCE_POLLING: "true"
 
