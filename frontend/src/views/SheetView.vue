@@ -9,7 +9,10 @@ import { useSongFilters } from '@/scripts/useSongFilters'
 import UnderReviewDialog from '@/components/UnderReviewDialog.vue'
 import ExplicitContentDialog from '@/components/ExplicitContentDialog.vue'
 
-const PdfViewer = defineAsyncComponent(() => import('@/components/PdfViewer.vue'))
+const isClient = ref(!import.meta.env.SSR)
+const PdfViewer = import.meta.env.SSR
+  ? null
+  : defineAsyncComponent(() => import('@/components/PdfViewer.vue'))
 
 const route = useRoute()
 const router = useRouter()
@@ -40,8 +43,12 @@ const isTvSizeQueryEnabled = (value: unknown) => {
 }
 
 const syncTvSizeQueryParam = (enabled: boolean) => {
-  const nextQuery: LocationQueryRaw = {
-    transposition: typeof route.query.transposition === 'string' ? route.query.transposition : 'C',
+  const nextQuery: LocationQueryRaw = {}
+  const currentTransposition =
+    typeof route.query.transposition === 'string' ? route.query.transposition : null
+
+  if (currentTransposition && currentTransposition !== 'C') {
+    nextQuery.transposition = currentTransposition
   }
 
   if (enabled) {
@@ -227,6 +234,7 @@ watch(
 )
 
 onMounted(() => {
+  isClient.value = true
   checkReviewConfirmation()
   checkExplicitDialog()
 })
@@ -263,9 +271,14 @@ onMounted(() => {
       <!-- PDF content (only show when song is found and not loading) -->
       <template v-else-if="currentSong">
         <!-- Use PdfViewer component -->
-        <PdfViewer v-if="pdfSource" :source="pdfSource" class="pdf-viewer" />
+        <component
+          :is="PdfViewer"
+          v-if="isClient && PdfViewer && pdfSource"
+          :source="pdfSource"
+          class="pdf-viewer"
+        />
         <!-- Show message when no PDF is available -->
-        <div v-else class="d-flex justify-content-center align-items-center h-100">
+        <div v-else-if="!pdfSource" class="d-flex justify-content-center align-items-center h-100">
           <div class="text-center text-muted">
             <h4>No PDF available</h4>
             <p>The sheet music for this song and instrument is not available.</p>
