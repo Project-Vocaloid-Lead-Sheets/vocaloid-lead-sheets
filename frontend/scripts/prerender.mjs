@@ -62,6 +62,21 @@ const injectDocumentMetadata = (template, title, description, options = {}) => {
   return result.replace('</head>', `  ${ogTags}\n  </head>`)
 }
 
+// A song is indexable only when it is completed (or has no status as a fallback)
+const isIndexableSong = (song) => {
+  const status = typeof song?.status === 'string' ? song.status.toLowerCase() : ''
+  return status === '' || status === 'completed'
+}
+
+// Add a robots noindex directive to under-review non-indexable songs
+const injectRobotsNoindex = (template) => {
+  const robotsTag = '<meta name="robots" content="noindex, follow" />'
+  if (/<meta\s+name="robots"/i.test(template)) {
+    return template.replace(/<meta\s+name="robots"[^>]*>/i, robotsTag)
+  }
+  return template.replace('</head>', `  ${robotsTag}\n  </head>`)
+}
+
 const injectCanonicalLink = (template, routePath) => {
   const canonicalPath = routePath.startsWith('/') ? routePath : `/${routePath}`
   const canonicalUrl = `${siteOrigin}${canonicalPath}`
@@ -162,7 +177,9 @@ const toLastmod = (song) => {
  * Uses flat structure URLs (no trailing slashes)
  */
 const generateSitemap = async (songRoutes) => {
-  const songLastmods = songRoutes
+  const indexableRoutes = songRoutes.filter(({ song }) => isIndexableSong(song))
+
+  const songLastmods = indexableRoutes
     .map(({ song }) => toLastmod(song))
     .filter(Boolean)
     .sort()
@@ -172,7 +189,7 @@ const generateSitemap = async (songRoutes) => {
 
   const urls = [
     { path: '/', priority: '1.0', lastmod: homeLastmod },
-    ...songRoutes.map(({ routePath, song }) => ({
+    ...indexableRoutes.map(({ routePath, song }) => ({
       path: routePath,
       priority: '0.8',
       lastmod: toLastmod(song),
@@ -195,6 +212,8 @@ ${urls
 
   const sitemapPath = path.resolve(distRoot, 'sitemap.xml')
   await writeFile(sitemapPath, sitemapContent, 'utf-8')
+
+  return indexableRoutes.length
 }
 
 try {
@@ -242,8 +261,12 @@ try {
       )
       const songHtmlWithCanonical = injectCanonicalLink(songHtml, routePath)
 
+      const finalSongHtml = isIndexableSong(song)
+        ? songHtmlWithCanonical
+        : injectRobotsNoindex(songHtmlWithCanonical)
+
       // Write only to flat structure (song-name.html)
-      await writeFlatRouteHtml(routePath, songHtmlWithCanonical)
+      await writeFlatRouteHtml(routePath, finalSongHtml)
       claimedRoutes.set(routePath, song.title)
     } catch (err) {
       console.error(`✗ Failed to prerender "${song.title}" at ${routePath}:`, err.message)
@@ -252,8 +275,12 @@ try {
   }
 
   // Generate sitemap.xml for search engines
-  await generateSitemap(songRoutes)
-  console.log(`✓ Generated sitemap.xml with ${songRoutes.length} song routes`)
+  const indexedCount = await generateSitemap(songRoutes)
+  const excludedCount = songRoutes.length - indexedCount
+  console.log(
+    `✓ Generated sitemap.xml with ${indexedCount} song routes` +
+      (excludedCount > 0 ? ` (${excludedCount} non-public excluded, marked noindex)` : ''),
+  )
   console.log(`✓ Prerendered ${songRoutes.length} song pages into dist/view/*.html`)
 } catch (err) {
   console.error('✗ Prerender failed:', err)
