@@ -27,14 +27,14 @@
     "Bass": "https://drive.google.com/file/d/1xjW1-j2Wt4l4FlNsxX1Kfl9LExDoHwHX/view"
   },
   "pdfChecksums": {
-    "Vocals": "5ab16d6bd2f42f84875c920cab2e8c70",
-    "Bb": "9f84a6abcfd238e05b22bf3978e33b35",
-    "C": "e12a5db20a597190c74b80c35c1cc104",
-    "Eb": "e9d3d8428191aac35d5d76a6e2c9bfe8",
-    "F": "807f74e6c9097863c084ed2c917ebf12",
-    "G": "8e7fe65319d725d6e2754d145fd52778",
-    "Alto": "20f6b14f045cf33f703af0ce8d708512",
-    "Bass": "4f31d42058c99ab468dec57815758d80"
+    "Vocals": "e510a07d55d1f555b3d6fa2a464517f3",
+    "Bb": "fe02a99a7f395b000aae9a787281513f",
+    "C": "cde8ee2d18ad965d6e69cc1a453c10f4",
+    "Eb": "56b4a984fe5c11276b231dd3e55f5d29",
+    "F": "4276492dd321ea9e5ff78885379aec65",
+    "G": "e485812e1539da28f2048fda1f42cf6d",
+    "Alto": "9355e1cb7755b24399d0e8b1d6bca1de",
+    "Bass": "1f05fac00b9f4db267173941bb56e89f"
   },
   "pdfs": {
     "Vocals": "/pdfs/torinoko-city/torinoko-city-vocals.pdf",
@@ -48,6 +48,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-07-11T02:49:54Z",
-  "updatedAt": "2026-07-11T02:49:54Z"
+  "syncedAt": "2026-07-30T20:14:00Z",
+  "updatedAt": "2026-07-30T20:14:00Z"
 }
