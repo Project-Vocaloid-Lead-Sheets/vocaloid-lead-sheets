@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://projectvocaleadsheets.com/</loc>
-    <lastmod>2026-07-23T02:35:32.000Z</lastmod>
+    <lastmod>2026-07-30T03:26:31.000Z</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
@@ -43,6 +43,11 @@
   <url>
     <loc>https://projectvocaleadsheets.com/view/ievan-polkka</loc>
     <lastmod>2026-02-27T02:51:02.000Z</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://projectvocaleadsheets.com/view/igaku</loc>
+    <lastmod>2026-07-30T03:26:31.000Z</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
