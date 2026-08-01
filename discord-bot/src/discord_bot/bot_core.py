@@ -2,8 +2,11 @@ import os
 import logging
 import discord
 import pathlib
+import asyncio
 
 from discord_bot.github_client import GitHubClient
+from discord_bot.db import Database
+from discord_bot.repo import Repository
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 _logger = logging.getLogger(__name__)
@@ -11,6 +14,11 @@ _logger = logging.getLogger(__name__)
 SCRIPT_DIR = pathlib.Path(__file__).parent
 SEKAI_TEXT = (SCRIPT_DIR / "sekai.txt").read_text(encoding="utf-8").splitlines()
 BOT_CHANNEL_NAME = "bot-terminal"
+
+
+def asyncio_exception_handler(loop: asyncio.AbstractEventLoop, context: dict[str, any]) -> None:
+    exception = context.get("exception")
+    _logger.critical("Unhandled asyncio error: %s", context.get("message", "unknown asyncio error"), exc_info=exception)
 
 
 def find_bot_channel(interaction: discord.Interaction) -> discord.TextChannel | None:
@@ -37,19 +45,31 @@ class PvlsBotCore:
         self._register_events()
         self._register_commands()
 
-        # Since the GitHub client relies on aiohttp, you have to wait for the async loop to start to initialize one
+        self._db = Database(os.environ["DATABASE_URL"])
+        self._repo = Repository(self._db)
+
+        # These resources require allocation from an async context so we can't initialize them here
         self._github: GitHubClient = None
 
-        self._sekai_counter = 0
+    async def setup_hook(self):
+        # I hate how asyncio fails silently.
+        asyncio.get_running_loop().set_exception_handler(asyncio_exception_handler)
+
+        _logger.info(f"Logged in as {self._client.user}")
+        # await self._tree.sync()
+        _logger.info("Slash commands synced")
+
+        self._github = GitHubClient("Project-Vocaloid-Lead-Sheets", "vocaloid-lead-sheets", os.environ["GITHUB_TOKEN"])
+        _logger.info("GitHub client initialized!")
+
+        await self._db.start()
+        _logger.info("Database connected!")
+
 
     def _register_events(self):
         @self._client.event
         async def on_ready():
-            _logger.info(f"Logged in as {self._client.user}")
-            await self._tree.sync()
-            _logger.info("Slash commands synced")
-            self._github = GitHubClient("Project-Vocaloid-Lead-Sheets", "vocaloid-lead-sheets", os.environ["GITHUB_TOKEN"])
-            _logger.info("GitHub client initialized!")
+            await self.setup_hook()
 
         @self._tree.error
         async def on_error(interaction, error):
@@ -65,8 +85,8 @@ class PvlsBotCore:
         async def sekai(interaction: discord.Interaction):
             calling_user = interaction.user
             _logger.info(f"User {calling_user.display_name} ({calling_user.id}) really wants to listen to World is Mine")
-            line = SEKAI_TEXT[self._sekai_counter % len(SEKAI_TEXT)]
-            self._sekai_counter += 1
+            sekai_idx = await self._repo.log_sekai(calling_user.id, calling_user.display_name)
+            line = SEKAI_TEXT[sekai_idx % len(SEKAI_TEXT)]
             await interaction.response.send_message(line)
 
         @group.command(name="sync", description="Sync and deploy website with updated Google Drive contents")
