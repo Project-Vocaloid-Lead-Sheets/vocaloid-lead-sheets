@@ -50,13 +50,14 @@ class PvlsBotCore:
 
         # These resources require allocation from an async context so we can't initialize them here
         self._github: GitHubClient = None
+        self._workflow_poll_task: asyncio.Task[None] | None = None
 
     async def setup_hook(self):
         # I hate how asyncio fails silently. Asyncio is the scourge of modern computing but unironically a good option
         asyncio.get_running_loop().set_exception_handler(asyncio_exception_handler)
 
         _logger.info(f"Logged in as {self._client.user}")
-        # await self._tree.sync()
+        await self._tree.sync()
         _logger.info("Slash commands synced!")
 
         self._github = GitHubClient("Project-Vocaloid-Lead-Sheets", "vocaloid-lead-sheets", os.environ["GITHUB_TOKEN"])
@@ -64,6 +65,9 @@ class PvlsBotCore:
 
         await self._db.start()
         _logger.info("Database connected!")
+
+        self._workflow_poll_task = asyncio.create_task(self._poll_workflows(), name="workflow-poller")
+        _logger.info("Status polling task started!")
 
 
     def _register_events(self):
@@ -107,11 +111,34 @@ class PvlsBotCore:
         await self._repo.add_workflow(workflow, interaction)
 
         await interaction.response.send_message(
-            f"""
-            {calling_user.mention} started a site content sync.
-            GitHub Link: <{workflow.html_url}>
-            """
+            f"{calling_user.mention} started a site content sync.\n"
+            f"GitHub Link: <{workflow.html_url}>"
         )
+
+    async def _poll_workflows_once(self) -> None:
+        workflows = await self._repo.get_active_workflows()
+        for workflow in workflows:
+            status = await self._github.get_workflow_status(workflow.run_id)
+            if status.status == "completed":
+                _logger.info(f"Job {workflow.run_id} finished with status {status.conclusion}")
+                await self._repo.mark_run_completed(workflow.run_id, conclusion=status.conclusion or "unknown")
+
+                channel = await self._client.fetch_channel(workflow.channel_id)
+                await channel.send(
+                    f"Sync status: {status.status}\n"
+                    f"GitHub Link: <{workflow.html_url}>"
+                )
+            else:
+                _logger.info(f"Job {workflow.run_id} still running...")
+
+    async def _poll_workflows(self):
+        while True:
+            _logger.debug("Poll all workflows!")
+            try:
+                await self._poll_workflows_once()
+                await asyncio.sleep(3)
+            except Exception as e:
+                _logger.error(f"Poll failed - {e}")
 
 
     def run(self, token: str):

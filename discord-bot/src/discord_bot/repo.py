@@ -34,3 +34,38 @@ class Repository:
             workflow.run_id, workflow.html_url, interaction.user.id, interaction.channel_id
         )
 
+    async def get_active_workflows(self) -> list[GitHubWorkflow]:
+        rows = await self._db.pool.fetch(
+            """
+            SELECT
+                github_run_id, github_run_url, discord_channel_id
+            FROM github_workflow_runs
+            WHERE conclusion IS NULL
+            ORDER BY requested_at
+            """
+        )
+
+        return [
+            GitHubWorkflow(
+                run_id=row["github_run_id"],
+                html_url=row["github_run_url"],
+                channel_id=row["discord_channel_id"],
+                status=None,
+                conclusion=None,
+            )
+            for row in rows
+        ]
+
+
+
+    async def mark_run_completed(self, github_run_id: int, conclusion: str):
+        await self._db.pool.execute(
+            """
+            UPDATE github_workflow_runs
+            SET
+                conclusion = $2,
+                completed_at = now()
+            WHERE github_run_id = $1
+            """,
+            github_run_id, conclusion,
+        )
