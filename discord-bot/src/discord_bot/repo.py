@@ -38,10 +38,10 @@ class Repository:
         await self._db.connection.execute(
             """
             INSERT INTO github_workflow_runs
-                (github_run_id, github_run_url, discord_user_id, discord_channel_id)
-            VALUES (?, ?, ?, ?)
+                (github_run_id, github_run_url, git_sha, discord_user_id, discord_channel_id)
+            VALUES (?, ?, ?, ?, ?)
             """,
-            (workflow.run_id, workflow.html_url, interaction.user.id, interaction.channel_id),
+            (workflow.run_id, workflow.html_url, workflow.git_sha, interaction.user.id, interaction.channel_id),
         )
         await self._db.connection.commit()
 
@@ -49,7 +49,7 @@ class Repository:
         async with self._db.connection.execute(
             """
             SELECT
-                github_run_id, github_run_url, discord_channel_id
+                github_run_id, github_run_url, git_sha, discord_channel_id
             FROM github_workflow_runs
             WHERE conclusion IS NULL
             ORDER BY requested_at
@@ -61,6 +61,7 @@ class Repository:
             GitHubWorkflow(
                 run_id=row["github_run_id"],
                 html_url=row["github_run_url"],
+                git_sha=row["git_sha"],
                 channel_id=row["discord_channel_id"],
                 status=None,
                 conclusion=None,

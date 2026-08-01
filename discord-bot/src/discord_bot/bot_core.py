@@ -4,7 +4,7 @@ import discord
 import pathlib
 import asyncio
 
-from discord_bot.github_client import GitHubClient
+from discord_bot.github_client import GitHubClient, GitHubWorkflow
 from discord_bot.db import Database
 from discord_bot.repo import Repository
 
@@ -61,7 +61,8 @@ class PvlsBotCore:
         _logger.info("Slash commands synced!")
 
         self._github = GitHubClient("Project-Vocaloid-Lead-Sheets", "vocaloid-lead-sheets", os.environ["GITHUB_TOKEN"])
-        _logger.info("GitHub client initialized!")
+        repo_hash = await self._github.get_branch_sha()
+        _logger.info(f"GitHub client initialized - main hash: {repo_hash}")
 
         await self._db.start()
 
@@ -114,6 +115,38 @@ class PvlsBotCore:
             f"GitHub Link: <{workflow.html_url}>"
         )
 
+    async def send_sync_response_message(self, workflow: GitHubWorkflow):
+        channel = await self._client.fetch_channel(workflow.channel_id)
+        after_sync_hash = await self._github.get_branch_sha()
+        before_sync_hash = workflow.git_sha
+        _logger.info("Compare hashes:")
+        _logger.info(f"    Before: {before_sync_hash}")
+        _logger.info(f"     After: {after_sync_hash}")
+
+        message = f"Sync status: **{workflow.status}**\n"
+        diff_discovered = False
+        if before_sync_hash != after_sync_hash:
+            changed_files = await self._github.get_diff_file_list(before_sync_hash, after_sync_hash)
+            changed_songs_meta_paths = [
+                path for path in changed_files
+                if (p := pathlib.PurePosixPath(path)).suffix == ".json"
+                and p.parent == pathlib.PurePosixPath("frontend/src/data")
+            ]
+
+            if changed_songs_meta_paths:
+                for song_meta_path in changed_songs_meta_paths:
+                    meta = await self._github.download_json_at(song_meta_path)
+                    update_line = f"- {meta['title']}\n"
+                    message += update_line
+                    _logger.info(update_line)
+                    diff_discovered = True
+
+        if not diff_discovered:
+            message += f"All songs up to date!\n"
+        message += f"GitHub: <{workflow.html_url}>"
+        await channel.send(message)
+
+
     async def _poll_workflows_once(self) -> None:
         workflows = await self._repo.get_active_workflows()
         for workflow in workflows:
@@ -121,12 +154,9 @@ class PvlsBotCore:
             if status.status == "completed":
                 _logger.info(f"Job {workflow.run_id} finished with status {status.conclusion}")
                 await self._repo.mark_run_completed(workflow.run_id, conclusion=status.conclusion or "unknown")
+                workflow.status = status.status
+                await self.send_sync_response_message(workflow)
 
-                channel = await self._client.fetch_channel(workflow.channel_id)
-                await channel.send(
-                    f"Sync status: {status.status}\n"
-                    f"GitHub Link: <{workflow.html_url}>"
-                )
             else:
                 _logger.info(f"Job {workflow.run_id} still running...")
 

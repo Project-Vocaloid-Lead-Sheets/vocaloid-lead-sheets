@@ -1,5 +1,7 @@
 import aiohttp
 import logging
+import pathlib
+import base64
 import json
 
 from typing import Any
@@ -12,6 +14,7 @@ _logger = logging.getLogger(__name__)
 class GitHubWorkflow:
     run_id: int
     html_url: str
+    git_sha: str
     status: str
     channel_id: str
     conclusion: str | None
@@ -37,11 +40,19 @@ class GitHubClient:
     async def close(self) -> None:
         await self._session.close()
 
+    async def get_branch_sha(self, branch: str = "main") -> str:
+        url = f"https://api.github.com/repos/{self._owner}/{self._repo}/git/ref/heads/{branch}"
+        async with self._session.get(url) as response:
+            response.raise_for_status()
+            body = await response.json()
+        return body["object"]["sha"]
+
     async def post_workflow(
         self, workflow: str, *, ref: str = "main", inputs: dict[str, Any] | None = None
     ) -> GitHubWorkflow:
         url = f"https://api.github.com/repos/{self._owner}/{self._repo}/actions/workflows/{workflow}/dispatches"
         payload = {"ref": ref, "inputs": inputs or {}, "return_run_details": True}
+        sha = await self.get_branch_sha(ref)
 
         async with self._session.post(url, json=payload) as response:
             body = await response.text()
@@ -57,9 +68,10 @@ class GitHubClient:
             return GitHubWorkflow(
                 run_id=int(data["workflow_run_id"]),
                 html_url=str(data["html_url"]),
-                conclusion=None,
+                git_sha=sha,
                 status=None,
-                channel_id=None
+                channel_id=None,
+                conclusion=None
             )
         except (KeyError, TypeError, ValueError) as exc:
             raise RuntimeError(f"GitHub returned an invalid dispatch response: {data!r}") from exc
@@ -79,10 +91,27 @@ class GitHubClient:
         try:
             return GitHubWorkflow(
                 run_id=int(data["id"]),
-                status=str(data["status"]),
-                conclusion=str(data["conclusion"]) if data["conclusion"] is not None else None,
                 html_url=str(data["html_url"]),
-                channel_id=None
+                git_sha=None,
+                status=str(data["status"]),
+                channel_id=None,
+                conclusion=str(data["conclusion"]) if data["conclusion"] is not None else None
             )
         except (KeyError, TypeError, ValueError) as exc:
             raise RuntimeError(f"GitHub returned an invalid workflow response: {data!r}") from exc
+
+    async def get_diff_file_list(self, before_sha: str, after_sha: str) -> list[str]:
+        url = f"https://api.github.com/repos/{self._owner}/{self._repo}/compare/{before_sha}...{after_sha}"
+
+        async with self._session.get(url) as response:
+            response.raise_for_status()
+            body = await response.json()
+
+        return [file["filename"] for file in body["files"] if file["status"] != "removed"]
+
+    async def download_json_at(self, path: str, ref: str = "main") -> dict:
+        url = f"https://api.github.com/repos/{self._owner}/{self._repo}/contents/{path}"
+        async with self._session.get(url, params={"ref": ref}) as response:
+            response.raise_for_status()
+            body = await response.json()
+            return json.loads(base64.b64decode(body["content"]))
