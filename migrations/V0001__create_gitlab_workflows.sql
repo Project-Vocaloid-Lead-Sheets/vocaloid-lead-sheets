@@ -7,14 +7,14 @@ CREATE TABLE sekai_log (
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE TABLE workflow_runs (
-    request_id UUID PRIMARY KEY,
+CREATE TABLE github_workflow_runs (
+    request_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 
     github_run_id BIGINT UNIQUE,
     github_run_url TEXT,
 
-    requested_by_discord_user_id BIGINT NOT NULL,
-    requested_in_channel_id BIGINT NOT NULL,
+    discord_user_id BIGINT NOT NULL,
+    discord_channel_id BIGINT NOT NULL,
 
     conclusion TEXT,
 

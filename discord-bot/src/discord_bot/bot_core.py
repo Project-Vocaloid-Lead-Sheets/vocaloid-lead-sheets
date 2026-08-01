@@ -52,12 +52,12 @@ class PvlsBotCore:
         self._github: GitHubClient = None
 
     async def setup_hook(self):
-        # I hate how asyncio fails silently.
+        # I hate how asyncio fails silently. Asyncio is the scourge of modern computing but unironically a good option
         asyncio.get_running_loop().set_exception_handler(asyncio_exception_handler)
 
         _logger.info(f"Logged in as {self._client.user}")
         # await self._tree.sync()
-        _logger.info("Slash commands synced")
+        _logger.info("Slash commands synced!")
 
         self._github = GitHubClient("Project-Vocaloid-Lead-Sheets", "vocaloid-lead-sheets", os.environ["GITHUB_TOKEN"])
         _logger.info("GitHub client initialized!")
@@ -83,21 +83,36 @@ class PvlsBotCore:
 
         @group.command(name="sekai", description="Print the lyrics to World is Mine")
         async def sekai(interaction: discord.Interaction):
-            calling_user = interaction.user
-            _logger.info(f"User {calling_user.display_name} ({calling_user.id}) really wants to listen to World is Mine")
-            sekai_idx = await self._repo.log_sekai(calling_user.id, calling_user.display_name)
-            line = SEKAI_TEXT[sekai_idx % len(SEKAI_TEXT)]
-            await interaction.response.send_message(line)
+            await self._do_sekai(interaction)
 
         @group.command(name="sync", description="Sync and deploy website with updated Google Drive contents")
         async def sync(interaction: discord.Interaction):
-            calling_user = interaction.user
-            _logger.info(f"User {calling_user.display_name} ({calling_user.id}) started a site sync and deploy")
-            await self._github.dispatch_workflow("content-sync-and-deploy.yml")
-            await interaction.response.send_message("Content sync started!")
-
+            await self._do_sync(interaction)
 
         self._tree.add_command(group)
+
+
+    async def _do_sekai(self, interaction: discord.Interaction):
+        calling_user = interaction.user
+        _logger.info(f"User {calling_user.display_name} ({calling_user.id}) really wants to listen to World is Mine")
+        sekai_idx = await self._repo.log_sekai(calling_user.id, calling_user.display_name)
+        line = SEKAI_TEXT[sekai_idx % len(SEKAI_TEXT)]
+        await interaction.response.send_message(line)
+
+
+    async def _do_sync(self, interaction: discord.Interaction):
+        calling_user = interaction.user
+        _logger.info(f"User {calling_user.display_name} ({calling_user.id}) started a site sync and deploy")
+        workflow = await self._github.post_workflow("content-sync-and-deploy.yml")
+        await self._repo.add_workflow(workflow, interaction)
+
+        await interaction.response.send_message(
+            f"""
+            {calling_user.mention} started a site content sync.
+            GitHub Link: <{workflow.html_url}>
+            """
+        )
+
 
     def run(self, token: str):
         self._client.run(token)
