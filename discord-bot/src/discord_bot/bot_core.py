@@ -45,7 +45,7 @@ class PvlsBotCore:
         self._register_events()
         self._register_commands()
 
-        self._db = Database(os.environ["DATABASE_URL"])
+        self._db = Database(pathlib.Path(os.environ.get("DATABASE_PATH", "/data/discord-bot.sqlite3")))
         self._repo = Repository(self._db)
 
         # These resources require allocation from an async context so we can't initialize them here
@@ -64,10 +64,9 @@ class PvlsBotCore:
         _logger.info("GitHub client initialized!")
 
         await self._db.start()
-        _logger.info("Database connected!")
 
         self._workflow_poll_task = asyncio.create_task(self._poll_workflows(), name="workflow-poller")
-        _logger.info("Status polling task started!")
+        _logger.info("Polling task started!")
 
 
     def _register_events(self):
@@ -97,21 +96,21 @@ class PvlsBotCore:
 
 
     async def _do_sekai(self, interaction: discord.Interaction):
-        calling_user = interaction.user
-        _logger.info(f"User {calling_user.display_name} ({calling_user.id}) really wants to listen to World is Mine")
-        sekai_idx = await self._repo.log_sekai(calling_user.id, calling_user.display_name)
-        line = SEKAI_TEXT[sekai_idx % len(SEKAI_TEXT)]
+        user = interaction.user
+        sekai_id = await self._repo.log_sekai(user.id, user.display_name)
+        _logger.info(f"User {user.display_name} ({user.id}) really wants to listen to World is Mine ({sekai_id})")
+        line = SEKAI_TEXT[max(0, sekai_id - 1) % len(SEKAI_TEXT)]
         await interaction.response.send_message(line)
 
 
     async def _do_sync(self, interaction: discord.Interaction):
-        calling_user = interaction.user
-        _logger.info(f"User {calling_user.display_name} ({calling_user.id}) started a site sync and deploy")
+        user = interaction.user
+        _logger.info(f"User {user.display_name} ({user.id}) started a site sync and deploy")
         workflow = await self._github.post_workflow("content-sync-and-deploy.yml")
         await self._repo.add_workflow(workflow, interaction)
 
         await interaction.response.send_message(
-            f"{calling_user.mention} started a site content sync.\n"
+            f"{user.mention} started a site content sync.\n"
             f"GitHub Link: <{workflow.html_url}>"
         )
 

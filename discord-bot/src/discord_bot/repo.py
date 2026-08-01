@@ -13,29 +13,40 @@ class Repository:
         self._db = db
 
     async def log_sekai(self, user_id: int, display_name: str) -> int:
-        sekai_idx = await self._db.pool.fetchval(
+        cursor = await self._db.connection.execute(
             """
             INSERT INTO sekai_log
                 (discord_user_id, discord_user_display_name)
-            VALUES ($1, $2)
+            VALUES (?, ?)
             RETURNING id
             """,
-            user_id, display_name
+            (user_id, display_name)
         )
-        return sekai_idx
+
+        row = await cursor.fetchone()
+        await cursor.close()
+        await self._db.connection.commit()
+        if row is None:
+            raise RuntimeError("INSERT did not return a sekai_log ID")
+
+        return row["id"]
 
     async def add_workflow(self, workflow: GitHubWorkflow, interaction: discord.Interaction):
-        await self._db.pool.execute(
+        if interaction.channel_id is None:
+            raise ValueError("Interaction did not originate in a channel")
+
+        await self._db.connection.execute(
             """
             INSERT INTO github_workflow_runs
                 (github_run_id, github_run_url, discord_user_id, discord_channel_id)
-            VALUES ($1, $2, $3, $4)
+            VALUES (?, ?, ?, ?)
             """,
-            workflow.run_id, workflow.html_url, interaction.user.id, interaction.channel_id
+            (workflow.run_id, workflow.html_url, interaction.user.id, interaction.channel_id),
         )
+        await self._db.connection.commit()
 
     async def get_active_workflows(self) -> list[GitHubWorkflow]:
-        rows = await self._db.pool.fetch(
+        async with self._db.connection.execute(
             """
             SELECT
                 github_run_id, github_run_url, discord_channel_id
@@ -43,7 +54,8 @@ class Repository:
             WHERE conclusion IS NULL
             ORDER BY requested_at
             """
-        )
+        ) as cursor:
+            rows = await cursor.fetchall()
 
         return [
             GitHubWorkflow(
@@ -56,16 +68,18 @@ class Repository:
             for row in rows
         ]
 
-
-
     async def mark_run_completed(self, github_run_id: int, conclusion: str):
-        await self._db.pool.execute(
+        cursor = await self._db.connection.execute(
             """
             UPDATE github_workflow_runs
-            SET
-                conclusion = $2,
-                completed_at = now()
-            WHERE github_run_id = $1
+            SET conclusion = ?, completed_at = CURRENT_TIMESTAMP
+            WHERE github_run_id = ?
+            AND conclusion IS NULL
             """,
-            github_run_id, conclusion,
+            (conclusion, github_run_id),
         )
+        await cursor.close()
+        await self._db.connection.commit()
+
+        if cursor.rowcount == 0:
+            raise LookupError(f"No active workflow found for GitHub run {github_run_id}")

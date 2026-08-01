@@ -6,9 +6,9 @@ services:
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       GITHUB_TOKEN: ${GITHUB_TOKEN}
+      DATABASE_PATH: /data/discord-bot.sqlite3
       PYTHONUNBUFFERED: "1"
       WATCHFILES_FORCE_POLLING: "true"
-      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
 
     volumes:
       - ./discord-bot:/app
@@ -16,37 +16,7 @@ services:
 
     restart: unless-stopped
 
-  postgres:
-    image: postgres:17
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    healthcheck:
-      test:
-        - CMD-SHELL
-        - pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
-      interval: 2s
-      timeout: 5s
-      retries: 5
-
-  migrate:
-    image: flyway/flyway
-    command:
-      - -url=jdbc:postgresql://postgres:5432/${POSTGRES_DB}
-      - -user=${POSTGRES_USER}
-      - -password=${POSTGRES_PASSWORD}
-      - -connectRetries=5
-      - migrate
-    volumes:
-      - ./migrations:/flyway/sql:ro
-    depends_on:
-      postgres:
-        condition: service_healthy
-    restart: "no"
 
 volumes:
   discord-bot-venv:
-  postgres-data:
+  discord-bot-data:
