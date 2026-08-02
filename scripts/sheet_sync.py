@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-
+import concurrent.futures
 import os
 import sys
 import gspread
 import json
 import logging
 import argparse
+import threading
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 import re
@@ -50,6 +51,9 @@ class SongSyncManager:
         # PDF storage directory
         self.pdf_dir = os.path.join('frontend', 'public', 'pdfs')
         os.makedirs(self.pdf_dir, exist_ok=True)
+
+        # Hyperlinks cache
+        self.hyperlinks_data: Dict[int, Dict[str, str]] = {}
         
     def slugify(self, text: str) -> str:
         """Convert text to a URL-friendly slug"""
@@ -132,23 +136,91 @@ class SongSyncManager:
 
             # Save spreadsheet id for later use
             self.spreadsheet_id = sheet_id
+            self.hyperlinks_data = self._extract_hyperlinks_simple()
             
         except Exception as e:
             logger.error(f"Failed to setup Google Sheets connection: {e}")
             raise
+
+    def _sync_record_fetch_metadata(self, row_idx: int, sync_record: dict[str, Any]) -> dict[str, Any]:
+        # Check if at least one PDF is provided (check both hyperlinks and text)
+        pdf_columns = SongDataAccess.TRANSCRIPTIONS
+        has_pdf = False
+        song_record: SongRecord = None
+
+        song_name = sync_record.get("Song Name", "").strip()
+        song_producer = sync_record.get("Producer", "").strip()
+
+        # Attempt to autodetect PDFs from presence in the drive
+        # NOTE: If the song name is not an EXACT MATCH to what is in the drive, we're going to miss the chart
+        try:
+            song_record = self.song_data_access.get_record_by_attrs(song_name, song_producer)
+            has_pdf = song_record.has_any_full()
+        except ValueError as e:
+            logger.warning(f"Could not autodetect PDFs for {song_name}, resolve via manual hyperlink...")
+
+        if not has_pdf:
+            # Check hyperlinks first
+            if row_idx in self.hyperlinks_data:
+                hyperlinks_for_row = self.hyperlinks_data[row_idx]
+                has_pdf = any(col in hyperlinks_for_row for col in pdf_columns)
+
+        # Fallback to text validation if no hyperlinks found
+        if not has_pdf:
+            has_pdf = any(self._validate_drive_id(sync_record.get(col, '')) for col in pdf_columns)
+
+        if not has_pdf:
+            logger.warning(f"No valid PDF files found for '{song_name}'")
+            return None
+
+        # Add hyperlink data if available
+        if row_idx in self.hyperlinks_data:
+            hyperlinks_for_row = self.hyperlinks_data.get(row_idx, dict())
+
+            if song_record:
+                extra_hyperlinks = song_record.compute_hyperlinks_full()
+                for transcription, hyperlink in extra_hyperlinks.items():
+                    if transcription not in hyperlinks_for_row.keys():
+                        hyperlinks_for_row[transcription] = hyperlink
+            sync_record['_song_record'] = song_record
+            sync_record['_hyperlinks'] = hyperlinks_for_row
+        return sync_record
+
+
+    def _sync_record_fetch_all_metadata(self, sync_records: dict[int, dict[str, Any]]) -> list[dict[str, Any]]:
+        populated_songs = []
+        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+            futures = {
+                executor.submit(self._sync_record_fetch_metadata, row_idx, record): row_idx
+                for row_idx, record in sync_records.items()
+            }
+
+            for future in concurrent.futures.as_completed(futures):
+                row_idx = futures[future]
+                try:
+                    sync_record = future.result()
+                except Exception:
+                    logger.exception(f"Row {row_idx}: failed to autopopulate metadata")
+                    continue
+
+                song_name = str(sync_record.get("Song Name", "")).strip()
+                if sync_record:
+                    populated_songs.append(sync_record)
+                    logger.info(f"Row {row_idx}: Selected '{song_name}' for sync")
+                else:
+                    logger.warning(f"Row {row_idx}: Ignoring '{song_name}' from sync process")
+
+        return populated_songs
 
     def fetch_accepted_songs(self) -> List[Dict[str, Any]]:
         """Fetch accepted songs with enhanced validation and hyperlink extraction"""
         try:
             records = self.sheet.get_all_records()
             
-            # Get hyperlinks for video columns
-            hyperlinks_data = self._extract_hyperlinks_simple()
-            
             # Filter for accepted songs and under review songs, validate required fields
-            accepted_songs = []
             required_fields = ['Song Name', 'Status']
-            
+
+            candidate_records: dict[int, dict[str, Any]] = {}
             for i, record in enumerate(records, start=2):  # Start at 2 for sheet row numbers
                 status = str(record.get('Status', '')).lower().strip()
                 original_status = str(record.get('Status', '')).strip()
@@ -176,50 +248,13 @@ class SongSyncManager:
                 if not song_name:
                     logger.warning(f"Row {i}: Empty song name")
                     continue
-                
-                # Check if at least one PDF is provided (check both hyperlinks and text)
-                pdf_columns = SongDataAccess.TRANSCRIPTIONS
-                has_pdf = False
-                song_record: SongRecord = None
 
-                # Attempt to autodetect PDFs from presence in the drive
-                # NOTE: If the song name is not an EXACT MATCH to what is in the drive, we're going to miss the chart
-                try:
-                    song_record = self.song_data_access.get_record_by_attrs(song_name, song_producer)
-                    has_pdf = song_record.has_any_full()
+                candidate_records[i] = record
 
-                except ValueError as e:
-                    logger.warning(f"Could not autodetect PDFs for {song_name}, resolve via manual hyperlink...")
-
-                if not has_pdf:
-                    # Check hyperlinks first
-                    if i in hyperlinks_data:
-                        hyperlinks_for_row = hyperlinks_data[i]
-                        has_pdf = any(col in hyperlinks_for_row for col in pdf_columns)
-                
-                # Fallback to text validation if no hyperlinks found
-                if not has_pdf:
-                    has_pdf = any(self._validate_drive_id(record.get(col, '')) for col in pdf_columns)
-                
-                if not has_pdf:
-                    logger.warning(f"Row {i}: No valid PDF files found for '{song_name}'")
-                    continue
-                
-                # Add hyperlink data if available
-                if i in hyperlinks_data:
-                    hyperlinks_for_row = hyperlinks_data.get(i, dict())
-                    if song_record:
-                        extra_hyperlinks = song_record.compute_hyperlinks_full()
-                        for transcription, hyperlink in extra_hyperlinks.items():
-                            if transcription not in hyperlinks_for_row.keys():
-                                hyperlinks_for_row[transcription] = hyperlink
-                    record['_hyperlinks'] = hyperlinks_for_row
-
-                accepted_songs.append(record)
-            
+            accepted_songs = self._sync_record_fetch_all_metadata(candidate_records)
             logger.info(f"Found {len(accepted_songs)} valid songs (completed + under review)")
             return accepted_songs
-            
+
         except Exception as e:
             logger.error(f"Failed to fetch songs from sheet: {e}")
             raise
@@ -602,6 +637,7 @@ class SongSyncManager:
         
         # Get hyperlinks if available
         hyperlinks = song.get('_hyperlinks', {})
+        song_record = song.get('_song_record', None)
         
         # Get song title for filename generation
         song_title = song.get('Song Name', '').strip()
@@ -640,8 +676,11 @@ class SongSyncManager:
                 current_drive_link = f"https://drive.google.com/file/d/{drive_id}/view"
                 pdf_drive_links[pdf_key] = current_drive_link
 
-                # Fetch Drive metadata (md5Checksum) to detect content changes without relying on sheet edits
-                metadata = self._get_drive_file_metadata(drive_id)
+                try:
+                    metadata = song_record.pdfs_full[pdf_key]
+                except Exception as e:
+                    metadata = self.session.get_file_metadata(drive_id)
+
                 remote_md5 = metadata.get('md5Checksum') if metadata else None
                 pdf_checksums[pdf_key] = remote_md5
 
