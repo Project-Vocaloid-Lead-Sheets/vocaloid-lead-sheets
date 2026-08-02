@@ -263,7 +263,7 @@ class SongSyncManager:
             logger.error(f"Failed to fetch songs from sheet: {e}")
             raise
 
-    def fetch_tv_size_sheets(self) -> Dict[str, Dict[str, Any]]:
+    def fetch_tv_size_sheets(self, slug_match: str = None) -> Dict[str, Dict[str, Any]]:
         """Fetch TV size sheet data from the 'TV Size Sheets' worksheet.
         
         Returns a dict mapping song names to TV size metadata:
@@ -303,8 +303,12 @@ class SongSyncManager:
                 
                 if not song_name:
                     continue
-                
+
                 song_slug = self.slugify(song_name)
+                if slug_match is not None and song_slug != slug_match:
+                    logger.info(f"Row {i}: '{song_name}' doesn't match the requested slug '{slug_match}'")
+                    continue
+
                 pdfs = {}
                 tv_size_length = self._parse_length(record.get('TV Size Length', ''))
                 
@@ -1335,7 +1339,11 @@ export type SongFilename = typeof SONG_MANIFEST[number]
 
             # Fetch and process data (always compute full state, including Drive md5 checksums)
             songs = self.fetch_accepted_songs(song_slug)
-            tv_size_pdfs = self.fetch_tv_size_sheets()
+            tv_size_pdfs = self.fetch_tv_size_sheets(song_slug)
+            if not songs:
+                logger.warning("No songs detected. Giving up on sync!")
+                return False
+
             grouped_songs = self.group_and_merge_songs(songs, tv_size_pdfs)
             new_content_hash = self.calculate_content_hash(grouped_songs)
 
