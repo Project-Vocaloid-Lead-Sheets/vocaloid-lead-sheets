@@ -57,6 +57,7 @@ jobs:
         id: sync
         env:
           GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          GOOGLE_DRIVE_ID: ${{ secrets.GOOGLE_DRIVE_ID }}
           GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
           GOOGLE_SHEET_WORKSHEET_NAME: ${{ secrets.GOOGLE_SHEET_WORKSHEET_NAME }}
         run: |
