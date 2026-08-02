@@ -6,14 +6,18 @@ services:
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       GITHUB_TOKEN: ${GITHUB_TOKEN}
+      DATABASE_PATH: /data/discord-bot.sqlite3
       PYTHONUNBUFFERED: "1"
       WATCHFILES_FORCE_POLLING: "true"
 
     volumes:
       - ./discord-bot:/app
       - discord-bot-venv:/app/.venv
+      - discord-bot-data:/data
 
     restart: unless-stopped
 
+
 volumes:
   discord-bot-venv:
+  discord-bot-data:

@@ -2,8 +2,11 @@ import os
 import logging
 import discord
 import pathlib
+import asyncio
 
 from discord_bot.github_client import GitHubClient
+from discord_bot.db import Database
+from discord_bot.repo import Repository
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 _logger = logging.getLogger(__name__)
@@ -11,6 +14,11 @@ _logger = logging.getLogger(__name__)
 SCRIPT_DIR = pathlib.Path(__file__).parent
 SEKAI_TEXT = (SCRIPT_DIR / "sekai.txt").read_text(encoding="utf-8").splitlines()
 BOT_CHANNEL_NAME = "bot-terminal"
+
+
+def asyncio_exception_handler(loop: asyncio.AbstractEventLoop, context: dict[str, any]) -> None:
+    exception = context.get("exception")
+    _logger.critical("Unhandled asyncio error: %s", context.get("message", "unknown asyncio error"), exc_info=exception)
 
 
 def find_bot_channel(interaction: discord.Interaction) -> discord.TextChannel | None:
@@ -37,19 +45,34 @@ class PvlsBotCore:
         self._register_events()
         self._register_commands()
 
-        # Since the GitHub client relies on aiohttp, you have to wait for the async loop to start to initialize one
-        self._github: GitHubClient = None
+        self._db = Database(pathlib.Path(os.environ.get("DATABASE_PATH", "/data/discord-bot.sqlite3")))
+        self._repo = Repository(self._db)
 
-        self._sekai_counter = 0
+        # These resources require allocation from an async context so we can't initialize them here
+        self._github: GitHubClient = None
+        self._workflow_poll_task: asyncio.Task[None] | None = None
+
+    async def setup_hook(self):
+        # I hate how asyncio fails silently. Asyncio is the scourge of modern computing but unironically a good option
+        asyncio.get_running_loop().set_exception_handler(asyncio_exception_handler)
+
+        _logger.info(f"Logged in as {self._client.user}")
+        await self._tree.sync()
+        _logger.info("Slash commands synced!")
+
+        self._github = GitHubClient("Project-Vocaloid-Lead-Sheets", "vocaloid-lead-sheets", os.environ["GITHUB_TOKEN"])
+        _logger.info("GitHub client initialized!")
+
+        await self._db.start()
+
+        self._workflow_poll_task = asyncio.create_task(self._poll_workflows(), name="workflow-poller")
+        _logger.info("Polling task started!")
+
 
     def _register_events(self):
         @self._client.event
         async def on_ready():
-            _logger.info(f"Logged in as {self._client.user}")
-            await self._tree.sync()
-            _logger.info("Slash commands synced")
-            self._github = GitHubClient("Project-Vocaloid-Lead-Sheets", "vocaloid-lead-sheets", os.environ["GITHUB_TOKEN"])
-            _logger.info("GitHub client initialized!")
+            await self.setup_hook()
 
         @self._tree.error
         async def on_error(interaction, error):
@@ -63,21 +86,59 @@ class PvlsBotCore:
 
         @group.command(name="sekai", description="Print the lyrics to World is Mine")
         async def sekai(interaction: discord.Interaction):
-            calling_user = interaction.user
-            _logger.info(f"User {calling_user.display_name} ({calling_user.id}) really wants to listen to World is Mine")
-            line = SEKAI_TEXT[self._sekai_counter % len(SEKAI_TEXT)]
-            self._sekai_counter += 1
-            await interaction.response.send_message(line)
+            await self._do_sekai(interaction)
 
         @group.command(name="sync", description="Sync and deploy website with updated Google Drive contents")
         async def sync(interaction: discord.Interaction):
-            calling_user = interaction.user
-            _logger.info(f"User {calling_user.display_name} ({calling_user.id}) started a site sync and deploy")
-            await self._github.dispatch_workflow("content-sync-and-deploy.yml")
-            await interaction.response.send_message("Content sync started!")
-
+            await self._do_sync(interaction)
 
         self._tree.add_command(group)
+
+
+    async def _do_sekai(self, interaction: discord.Interaction):
+        user = interaction.user
+        sekai_id = await self._repo.log_sekai(user.id, user.display_name)
+        _logger.info(f"User {user.display_name} ({user.id}) really wants to listen to World is Mine ({sekai_id})")
+        line = SEKAI_TEXT[max(0, sekai_id - 1) % len(SEKAI_TEXT)]
+        await interaction.response.send_message(line)
+
+
+    async def _do_sync(self, interaction: discord.Interaction):
+        user = interaction.user
+        _logger.info(f"User {user.display_name} ({user.id}) started a site sync and deploy")
+        workflow = await self._github.post_workflow("content-sync-and-deploy.yml")
+        await self._repo.add_workflow(workflow, interaction)
+
+        await interaction.response.send_message(
+            f"{user.mention} started a site content sync.\n"
+            f"GitHub Link: <{workflow.html_url}>"
+        )
+
+    async def _poll_workflows_once(self) -> None:
+        workflows = await self._repo.get_active_workflows()
+        for workflow in workflows:
+            status = await self._github.get_workflow_status(workflow.run_id)
+            if status.status == "completed":
+                _logger.info(f"Job {workflow.run_id} finished with status {status.conclusion}")
+                await self._repo.mark_run_completed(workflow.run_id, conclusion=status.conclusion or "unknown")
+
+                channel = await self._client.fetch_channel(workflow.channel_id)
+                await channel.send(
+                    f"Sync status: {status.status}\n"
+                    f"GitHub Link: <{workflow.html_url}>"
+                )
+            else:
+                _logger.info(f"Job {workflow.run_id} still running...")
+
+    async def _poll_workflows(self):
+        while True:
+            _logger.debug("Poll all workflows!")
+            try:
+                await self._poll_workflows_once()
+                await asyncio.sleep(3)
+            except Exception as e:
+                _logger.error(f"Poll failed - {e}")
+
 
     def run(self, token: str):
         self._client.run(token)
