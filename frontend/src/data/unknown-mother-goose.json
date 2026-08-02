@@ -21,6 +21,9 @@
     "Bb": "https://drive.google.com/file/d/1jGOiYzfyVDxJA5nN1oODFG6C2WnmZXVv/view",
     "C": "https://drive.google.com/file/d/1X1abBREinkFrGXxBCZ7PWqqld3rXTMH0/view",
     "Eb": "https://drive.google.com/file/d/1-a18o53ha4REW-1UgeaW0BKI0lwCYI6y/view",
+    "F": "https://drive.google.com/file/d/1I7kb7-WWENIRRNswF0fLmyBDpHT275Kf/view",
+    "G": "https://drive.google.com/file/d/1W-EguEl4D0hlHLYp-6EFF8duzpvEN7YS/view",
+    "Alto": "https://drive.google.com/file/d/1_pB89EWftob_NHoB3rxeHi0HJ5Ihdpnt/view",
     "Bass": "https://drive.google.com/file/d/1vh1dgQrM5yM4AGRTsI8ptq9dgRSYErHO/view"
   },
   "pdfChecksums": {
@@ -28,6 +31,9 @@
     "Bb": "8aa747792209a9d9b52353badd8b9cf3",
     "C": "e417c1d0a15294eb4dccdba5b94fbb9b",
     "Eb": "6124c426fcfa4c0c2a84ba0e1b16909b",
+    "F": "b01f5342ba811e7c326d49120b70d0e9",
+    "G": "44f3488ee2e72bbc429ebd61e6583e0c",
+    "Alto": "2a49ac4179e98be4c5aefe9e24e14828",
     "Bass": "b51b8d5dea9ae37a9920e875fca04454"
   },
   "pdfs": {
@@ -35,10 +41,13 @@
     "Bb": "/pdfs/unknown-mother-goose/unknown-mother-goose-bb.pdf",
     "C": "/pdfs/unknown-mother-goose/unknown-mother-goose-c.pdf",
     "Eb": "/pdfs/unknown-mother-goose/unknown-mother-goose-eb.pdf",
+    "F": "/pdfs/unknown-mother-goose/unknown-mother-goose-f.pdf",
+    "G": "/pdfs/unknown-mother-goose/unknown-mother-goose-g.pdf",
+    "Alto": "/pdfs/unknown-mother-goose/unknown-mother-goose-alto.pdf",
     "Bass": "/pdfs/unknown-mother-goose/unknown-mother-goose-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-08-01T21:54:56Z",
-  "updatedAt": "2026-08-01T21:54:56Z"
+  "syncedAt": "2026-08-02T19:10:19Z",
+  "updatedAt": "2026-08-02T19:10:19Z"
 }

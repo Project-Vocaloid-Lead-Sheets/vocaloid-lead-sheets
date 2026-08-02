@@ -124,12 +124,13 @@ class GDriveSession:
 
         path_successful = ["."]
         for part in dir_path.parts:
-            selected_metadata = self.find_file(drive_id, part, GDriveSession.MIME_TYPE_DRIVE_FOLDER)
+            escaped_part = part.replace("\\", "\\\\").replace("'", "\\'")
+            selected_metadata = self.find_file(drive_id, escaped_part, GDriveSession.MIME_TYPE_DRIVE_FOLDER)
 
             if not selected_metadata:
                 partial_path = os.path.join(*path_successful)
                 raise ValueError(
-                    f"Drive does not contain '{directory}'\n"
+                    f"Drive does not contain '{dir_path}'\n"
                     f"Successfully walked '{partial_path}', but could not find '{part}' next",
                 )
 
