@@ -17,20 +17,26 @@
   "links": {
     "Vocals": "https://drive.google.com/file/d/1w3tjEWMDMXElyacOJ-gT5J3Jll7bQxbK/view",
     "Bb": "https://drive.google.com/file/d/1MNEERVp-tGDifZfUX6fbsERJgVf7kbWV/view",
-    "C": "https://drive.google.com/file/d/1z3BeJOvxosV_GUEA0ogW0VceCc-9yNW0/view"
+    "C": "https://drive.google.com/file/d/1z3BeJOvxosV_GUEA0ogW0VceCc-9yNW0/view",
+    "Eb": "https://drive.google.com/file/d/1yGFMmoX4SpOcT73hMb_gwm5XpPx7C5ai/view",
+    "Bass": "https://drive.google.com/file/d/1_ZsCW1G01oQnTXxfE-Iv1oKwddPJqp6p/view"
   },
   "pdfChecksums": {
     "Vocals": "04483dbe9ae4aba07935e5db1e04c2b1",
     "Bb": "f0df952e9c7b344afbaf4b852163daa4",
-    "C": "e8ad11efc4e506bbb2979ef9a6be9420"
+    "C": "e8ad11efc4e506bbb2979ef9a6be9420",
+    "Eb": "5275e209265873e459501427629605ae",
+    "Bass": "88b54358029d66276632afedab5b9158"
   },
   "pdfs": {
     "Vocals": "/pdfs/telecaster-b-boy/telecaster-b-boy-vocals.pdf",
     "Bb": "/pdfs/telecaster-b-boy/telecaster-b-boy-bb.pdf",
-    "C": "/pdfs/telecaster-b-boy/telecaster-b-boy-c.pdf"
+    "C": "/pdfs/telecaster-b-boy/telecaster-b-boy-c.pdf",
+    "Eb": "/pdfs/telecaster-b-boy/telecaster-b-boy-eb.pdf",
+    "Bass": "/pdfs/telecaster-b-boy/telecaster-b-boy-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-07-14T02:41:29Z",
-  "updatedAt": "2026-07-14T02:41:29Z"
+  "syncedAt": "2026-08-02T19:10:19Z",
+  "updatedAt": "2026-08-02T19:10:19Z"
 }
