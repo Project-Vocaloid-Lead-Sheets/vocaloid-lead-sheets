@@ -1,0 +1,35 @@
+{
+  "title": "Love is War",
+  "alternativeNames": [
+    "Koi wa Sensou"
+  ],
+  "producer": "ryo",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20080222",
+  "length": "3:56",
+  "tvSizeLength": "",
+  "bpm": 88,
+  "labels": [],
+  "transcriber": "Nap1400",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=jDop41Bxq2A"
+  },
+  "links": {
+    "Vocals": "https://drive.google.com/file/d/1UR23bg7yDcAaZgjG9KrK9PgMu6Nuqy0p/view",
+    "C": "https://drive.google.com/file/d/12ZUI7awYCQBOcQVvIE6gNskbPawxanWc/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "62b83a87a4a5017cbcdebf0ea64aaace",
+    "C": "68b6636316817b46ca735e0330008945"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/love-is-war/love-is-war-vocals.pdf",
+    "C": "/pdfs/love-is-war/love-is-war-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-08-02T05:33:11Z",
+  "updatedAt": "2026-08-02T05:33:11Z"
+}
