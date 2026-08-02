@@ -939,14 +939,13 @@ class SongSyncManager:
         """
         if tv_size_pdfs is None:
             tv_size_pdfs = {}
-        
-        grouped = {}
-        
+
+        normalization_args = {}
         for song in songs:
             title = str(song.get('Song Name', '')).strip()
             if not title:
                 continue
-            
+
             # Load existing song data if available
             existing_song_data = None
             filename = f"{self.slugify(title)}.json"
@@ -957,36 +956,51 @@ class SongSyncManager:
                         existing_song_data = json.load(f)
                 except Exception as e:
                     logger.warning(f"Failed to load existing song data for {title}: {e}")
-            
+
             # Get TV size metadata for this song if available
             song_tv_size_data = tv_size_pdfs.get(title, {})
-            
+
             # Normalize with existing data for comparison
-            normalized = self.normalize_song_data(song, existing_song_data, song_tv_size_data)
-            
-            # Create song entry
-            grouped[title] = {
-                'title': normalized['title'],
-                'alternativeNames': normalized['alternativeNames'],
-                'producer': normalized['producer'],
-                'additionalProducers': normalized['additionalProducers'],
-                'singer': normalized['singer'],
-                'additionalVoices': normalized['additionalVoices'],
-                'releaseDate': normalized['releaseDate'],
-                'length': normalized.get('length', ''),
-                'tvSizeLength': normalized.get('tvSizeLength', ''),
-                'bpm': normalized.get('bpm'),
-                'labels': normalized['labels'],
-                'transcriber': normalized['transcriber'],
-                'videoLinks': normalized['videoLinks'],
-                'links': normalized['links'],
-                'pdfChecksums': normalized.get('pdfChecksums', {}),
-                'pdfs': normalized['pdfs'],
-                'pdfsTvSize': normalized.get('pdfsTvSize', {}),
-                'downloaded': normalized.get('downloaded', False),
-                'metadata': normalized['metadata'],
+            normalization_args[title] = (song, existing_song_data, song_tv_size_data)
+
+        grouped = {}
+        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+            title = str(song.get('Song Name', '')).strip()
+            futures = {
+                executor.submit(self.normalize_song_data, *args): title
+                for title, args in normalization_args.items()
             }
-        
+
+            for future in concurrent.futures.as_completed(futures):
+                title = futures[future]
+                try:
+                    normalized = future.result()
+                except Exception:
+                    logger.exception(f"Song '{title}': failed to autopopulate metadata")
+
+                # Create song entry
+                grouped[title] = {
+                    'title': normalized['title'],
+                    'alternativeNames': normalized['alternativeNames'],
+                    'producer': normalized['producer'],
+                    'additionalProducers': normalized['additionalProducers'],
+                    'singer': normalized['singer'],
+                    'additionalVoices': normalized['additionalVoices'],
+                    'releaseDate': normalized['releaseDate'],
+                    'length': normalized.get('length', ''),
+                    'tvSizeLength': normalized.get('tvSizeLength', ''),
+                    'bpm': normalized.get('bpm'),
+                    'labels': normalized['labels'],
+                    'transcriber': normalized['transcriber'],
+                    'videoLinks': normalized['videoLinks'],
+                    'links': normalized['links'],
+                    'pdfChecksums': normalized.get('pdfChecksums', {}),
+                    'pdfs': normalized['pdfs'],
+                    'pdfsTvSize': normalized.get('pdfsTvSize', {}),
+                    'downloaded': normalized.get('downloaded', False),
+                    'metadata': normalized['metadata'],
+                }
+
         return grouped
 
     def update_frontend_files(self, grouped_songs: Dict[str, Dict[str, Any]]) -> None:
