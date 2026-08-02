@@ -3,6 +3,7 @@ import logging
 import discord
 import pathlib
 import asyncio
+import aiohttp
 
 from discord_bot.github_client import GitHubClient, GitHubWorkflow
 from discord_bot.db import Database
@@ -123,7 +124,8 @@ class PvlsBotCore:
         _logger.info(f"    Before: {before_sync_hash}")
         _logger.info(f"     After: {after_sync_hash}")
 
-        message = f"Sync status: **{workflow.status}**\n"
+        message_header = f"Sync status: **{workflow.status}**. "
+        message = ""
         diff_discovered = False
         if before_sync_hash != after_sync_hash:
             changed_files = await self._github.get_diff_file_list(before_sync_hash, after_sync_hash)
@@ -131,20 +133,40 @@ class PvlsBotCore:
                 path for path in changed_files
                 if (p := pathlib.PurePosixPath(path)).suffix == ".json"
                 and p.parent == pathlib.PurePosixPath("frontend/src/data")
+                and p.name != "generated-manifest.json"
             ]
 
-            if changed_songs_meta_paths:
-                for song_meta_path in changed_songs_meta_paths:
-                    meta = await self._github.download_json_at(song_meta_path)
-                    update_line = f"- {meta['title']}\n"
-                    message += update_line
-                    _logger.info(update_line)
-                    diff_discovered = True
+            for song_meta_path in changed_songs_meta_paths:
+                keys = ["Vocals", "Bb", "C", "Eb", "F", "G", "Alto", "Bass"]
 
-        if not diff_discovered:
-            message += f"All songs up to date!\n"
-        message += f"GitHub: <{workflow.html_url}>"
-        await channel.send(message)
+                old_checksums = { key: "" for key in keys }
+                try:
+                    old_meta = await self._github.download_json_at(song_meta_path, before_sync_hash)
+                    old_pdf_checksums = old_meta.get("pdfChecksums", {})
+                except aiohttp.ClientResponseError as e:
+                    if e.status != 404:
+                        raise e
+                    _logger.info(f"{song_meta_path} - Old JSON doesn't exist, assuming it was newly created")
+
+                new_meta = await self._github.download_json_at(song_meta_path, after_sync_hash)
+                new_checksums = new_meta.get("pdfChecksums", {})
+
+                changed_transpositions = []
+                for key in keys:
+                    if new_checksums.get(key, "") != old_checksums.get(key, ""):
+                        changed_transpositions.append(key)
+
+                update_line = f"- {new_meta['title']}: ({', '.join(changed_transpositions)})\n"
+                message += update_line
+                _logger.info(update_line)
+                diff_discovered = True
+
+        if diff_discovered:
+            message_header += "The following songs were updated:\n"
+        else:
+            message_header += "All songs up to date!\n"
+
+        await channel.send(message_header + message)
 
 
     async def _poll_workflows_once(self) -> None:
