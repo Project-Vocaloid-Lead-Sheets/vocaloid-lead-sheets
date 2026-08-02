@@ -212,7 +212,7 @@ class SongSyncManager:
 
         return populated_songs
 
-    def fetch_accepted_songs(self) -> List[Dict[str, Any]]:
+    def fetch_accepted_songs(self, slug_match: str = None) -> List[Dict[str, Any]]:
         """Fetch accepted songs with enhanced validation and hyperlink extraction"""
         try:
             records = self.sheet.get_all_records()
@@ -243,10 +243,14 @@ class SongSyncManager:
                 if missing_fields:
                     logger.warning(f"Row {i}: Missing required fields: {missing_fields}")
                     continue
-                
+
                 # Clean and validate song name
                 if not song_name:
                     logger.warning(f"Row {i}: Empty song name")
+                    continue
+
+                if slug_match is not None and self.slugify(song_name) != slug_match:
+                    logger.info(f"Row {i}: '{song_name}' doesn't match the requested slug '{slug_match}'")
                     continue
 
                 candidate_records[i] = record
@@ -1003,7 +1007,7 @@ class SongSyncManager:
 
         return grouped
 
-    def update_frontend_files(self, grouped_songs: Dict[str, Dict[str, Any]]) -> None:
+    def update_frontend_files(self, grouped_songs: Dict[str, Dict[str, Any]], remove_orphans: bool = True) -> None:
         """Update frontend data files"""
         # Ensure frontend data directory exists
         os.makedirs(self.frontend_data_dir, exist_ok=True)
@@ -1124,25 +1128,26 @@ class SongSyncManager:
             logger.info(f"Updated frontend file: {filepath}")
 
         # Remove per-song JSON files that no longer correspond to sheet rows
-        try:
-            existing_jsons = [
-                f for f in os.listdir(self.frontend_data_dir)
-                if f.endswith('.json') and f != 'generated-manifest.json'
-            ]
-            for stale_file in existing_jsons:
-                if stale_file not in generated_files:
-                    stale_path = os.path.join(self.frontend_data_dir, stale_file)
-                    try:
-                        os.remove(stale_path)
-                        logger.info(f"Deleted removed-song JSON: {stale_file}")
-                    except Exception as e:
-                        logger.warning(f"Failed to delete removed-song JSON {stale_file}: {e}")
-        except Exception as e:
-            logger.warning(f"Failed to enumerate existing JSON files for cleanup: {e}")
-        
-        # Clean up orphaned PDFs
-        self.cleanup_orphaned_pdfs(referenced_pdfs)
-        
+        if remove_orphans:
+            try:
+                existing_jsons = [
+                    f for f in os.listdir(self.frontend_data_dir)
+                    if f.endswith('.json') and f != 'generated-manifest.json'
+                ]
+                for stale_file in existing_jsons:
+                    if stale_file not in generated_files:
+                        stale_path = os.path.join(self.frontend_data_dir, stale_file)
+                        try:
+                            os.remove(stale_path)
+                            logger.info(f"Deleted removed-song JSON: {stale_file}")
+                        except Exception as e:
+                            logger.warning(f"Failed to delete removed-song JSON {stale_file}: {e}")
+            except Exception as e:
+                logger.warning(f"Failed to enumerate existing JSON files for cleanup: {e}")
+
+            # Clean up orphaned PDFs
+            self.cleanup_orphaned_pdfs(referenced_pdfs)
+
         # Update the song manifest for the frontend
         self.update_song_manifest(generated_files)
 
@@ -1316,23 +1321,28 @@ export type SongFilename = typeof SONG_MANIFEST[number]
             logger.warning(f"Failed to calculate hash from existing files: {e}")
             return None
 
-    def sync(self) -> bool:
+    def sync(self, song_slug: str = None, check_only: bool = False) -> bool:
         """Main sync function. Returns True if content changed (commit needed), False if no changes."""
         try:
             logger.info("Starting Google Sheet sync...")
-            
+
             # Set up connection
             self.setup_google_sheets()
             self.downloads_performed = False
-            
+
             last_state = self.get_sync_state()
             old_content_hash = last_state.get('contentHash', '')
 
             # Fetch and process data (always compute full state, including Drive md5 checksums)
-            songs = self.fetch_accepted_songs()
+            songs = self.fetch_accepted_songs(song_slug)
             tv_size_pdfs = self.fetch_tv_size_sheets()
             grouped_songs = self.group_and_merge_songs(songs, tv_size_pdfs)
             new_content_hash = self.calculate_content_hash(grouped_songs)
+
+            if check_only:
+                result = {'previousHash': old_cotent_hash, 'currentHash': new_cotent_hash, 'status': status}
+                print(json.dumps(result, ensure_ascii=False))
+                return
 
             if not self.force_sync and new_content_hash == old_content_hash and not self.downloads_performed:
                 logger.info("Content (including PDF md5) unchanged. Skipping writes.")
@@ -1350,9 +1360,8 @@ export type SongFilename = typeof SONG_MANIFEST[number]
                 logger.info(f"PDFs were re-downloaded (md5 mismatch) even though hash is unchanged. Writing files.")
             else:
                 logger.info(f"Content changed (hash: {old_content_hash[:8]}... -> {new_content_hash[:8]}...). Writing files.")
-            
-            self.update_frontend_files(grouped_songs)
-            
+
+            self.update_frontend_files(grouped_songs, remove_orphans=(song_slug is None))
             self.save_sync_state(
                 content_hash=new_content_hash,
                 total_songs=len(songs),
@@ -1378,45 +1387,26 @@ def main():
         help='Force sync even if no changes are detected'
     )
     parser.add_argument(
+        '--song-slug', '-s',
+        default=None,
+        help='If specified, only synchronizes a song which matches the corresponding song slug'
+    )
+    parser.add_argument(
         '--check-only',
         action='store_true',
         help='Compute current content hash (including PDF md5) and exit without writing files'
     )
-    
+
     args = parser.parse_args()
-    
     sync_manager = SongSyncManager(force_sync=args.force)
-    # If check-only requested, compute current hash (full evaluation) and exit accordingly
-    if args.check_only:
-        try:
-            sync_manager.setup_google_sheets()
-            songs = sync_manager.fetch_accepted_songs()
-            tv_size_pdfs = sync_manager.fetch_tv_size_sheets()
-            grouped_songs = sync_manager.group_and_merge_songs(songs, tv_size_pdfs)
-            current_hash = sync_manager.calculate_content_hash(grouped_songs)
-            last_state = sync_manager.get_sync_state()
-            previous_hash = last_state.get('contentHash', '')
+    has_changes = sync_manager.sync(args.song_slug, args.check_only)
 
-            status = 'unchanged' if current_hash == previous_hash else 'changed'
-            result = {
-                'previousHash': previous_hash,
-                'currentHash': current_hash,
-                'status': status,
-            }
-            print(json.dumps(result, ensure_ascii=False))
-            sys.exit(0 if status == 'unchanged' else 2)
-        except Exception as e:
-            # If anything goes wrong, surface a non-zero exit so CI does not short-circuit
-            print(json.dumps({'status': 'error', 'error': str(e)}))
-            sys.exit(2)
-
-    # Default behavior: run full sync
-    has_changes = sync_manager.sync()
-    
     # Output result for GitHub Actions to capture
-    print(f"SYNC_CHANGES_DETECTED={str(has_changes).lower()}")
-    
+    if args.check_only:
+        sys.exit(2 if has_changes else 0)
+
     # Return 0 for success (standard Unix convention)
+    print(f"SYNC_CHANGES_DETECTED={str(has_changes).lower()}")
     sys.exit(0)
 
 if __name__ == "__main__":
