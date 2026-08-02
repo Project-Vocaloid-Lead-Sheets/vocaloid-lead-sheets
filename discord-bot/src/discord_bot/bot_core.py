@@ -142,7 +142,6 @@ class PvlsBotCore:
                 old_checksums = { key: "" for key in keys }
                 try:
                     old_meta = await self._github.download_json_at(song_meta_path, before_sync_hash)
-                    old_pdf_checksums = old_meta.get("pdfChecksums", {})
                 except aiohttp.ClientResponseError as e:
                     if e.status != 404:
                         raise e
