@@ -27,14 +27,14 @@
     "Bass": "https://drive.google.com/file/d/1bNilw8uekQQ2jc5XORoP_nQIBZVLK6fa/view"
   },
   "pdfChecksums": {
-    "Vocals": "8cdfa332789719d5374b21b15b959901",
-    "Bb": "3640f9019a7a955112be335f5abc2a06",
-    "C": "a3a1a995ae53d7b72d2b439ae59c12e8",
-    "Eb": "8f0450f676db2d880e4ca58d70a19292",
-    "F": "d0097a054d68f49923f0576f2948d4b6",
-    "G": "1e7f7be9c129e3cbea854cdfee0efc83",
-    "Alto": "9aba8098d487e6bed5da51a687fa475c",
-    "Bass": "9bb4afdce224fc267ced2641ec1cfbc5"
+    "Vocals": "37baced35bb725e49d9808d7396f1bbe",
+    "Bb": "f3176177b92b137d09199cea56881a8a",
+    "C": "32b4b402e2152900493cd283297d7372",
+    "Eb": "195c19b630a03907c96f5a860ab4ca55",
+    "F": "1c4244c6469e07638a4017db5bc4bd33",
+    "G": "d211ed4dcf1e685ba58a4edb17332c25",
+    "Alto": "a4ae2b94a6f62fbc84f436375c682642",
+    "Bass": "743e38096b90d2696f617b526234c58c"
   },
   "pdfs": {
     "Vocals": "/pdfs/leia/leia-vocals.pdf",
@@ -47,7 +47,7 @@
     "Bass": "/pdfs/leia/leia-bass.pdf"
   },
   "pdfsTvSize": {},
-  "status": "under review",
-  "syncedAt": "2026-07-30T20:03:14Z",
-  "updatedAt": "2026-07-30T20:03:14Z"
+  "status": "completed",
+  "syncedAt": "2026-08-02T05:22:21Z",
+  "updatedAt": "2026-08-02T05:22:21Z"
 }
