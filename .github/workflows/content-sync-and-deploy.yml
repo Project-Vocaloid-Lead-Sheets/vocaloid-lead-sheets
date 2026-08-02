@@ -21,6 +21,11 @@ on:
       - ".github/workflows/content-sync-and-deploy.yml"
   workflow_dispatch:
 
+# If people spam the workflow button it'll enqueue them one at a time
+concurrency:
+  group: sync
+  cancel-in-progress: false
+
 jobs:
   sync-build-deploy:
     runs-on: ubuntu-latest
