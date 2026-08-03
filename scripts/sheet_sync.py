@@ -1123,7 +1123,7 @@ class SongSyncManager:
             else:
                 frontend_data['updatedAt'] = synced_at_now
             
- 
+
             with open(filepath, 'w', encoding='utf-8') as f:
                 # Pretty-print with indentation and preserve insertion order so
                 # fields appear in the readable order (title, alternativeNames, producer, ...).
@@ -1152,8 +1152,8 @@ class SongSyncManager:
             # Clean up orphaned PDFs
             self.cleanup_orphaned_pdfs(referenced_pdfs)
 
-        # Update the song manifest for the frontend
-        self.update_song_manifest(generated_files)
+            # Update the song manifest for the frontend
+            self.update_song_manifest(generated_files)
 
     def update_song_manifest(self, filenames: List[str]) -> None:
         """Update the TypeScript manifest file with available song files"""
