@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-
+import concurrent.futures
 import os
 import sys
 import gspread
 import json
 import logging
 import argparse
+import threading
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 import re
@@ -50,6 +51,9 @@ class SongSyncManager:
         # PDF storage directory
         self.pdf_dir = os.path.join('frontend', 'public', 'pdfs')
         os.makedirs(self.pdf_dir, exist_ok=True)
+
+        # Hyperlinks cache
+        self.hyperlinks_data: Dict[int, Dict[str, str]] = {}
         
     def slugify(self, text: str) -> str:
         """Convert text to a URL-friendly slug"""
@@ -132,23 +136,91 @@ class SongSyncManager:
 
             # Save spreadsheet id for later use
             self.spreadsheet_id = sheet_id
+            self.hyperlinks_data = self._extract_hyperlinks_simple()
             
         except Exception as e:
             logger.error(f"Failed to setup Google Sheets connection: {e}")
             raise
 
-    def fetch_accepted_songs(self) -> List[Dict[str, Any]]:
+    def _sync_record_fetch_metadata(self, row_idx: int, sync_record: dict[str, Any]) -> dict[str, Any]:
+        # Check if at least one PDF is provided (check both hyperlinks and text)
+        pdf_columns = SongDataAccess.TRANSCRIPTIONS
+        has_pdf = False
+        song_record: SongRecord = None
+
+        song_name = sync_record.get("Song Name", "").strip()
+        song_producer = sync_record.get("Producer", "").strip()
+
+        # Attempt to autodetect PDFs from presence in the drive
+        # NOTE: If the song name is not an EXACT MATCH to what is in the drive, we're going to miss the chart
+        try:
+            song_record = self.song_data_access.get_record_by_attrs(song_name, song_producer)
+            has_pdf = song_record.has_any_full()
+        except ValueError as e:
+            logger.warning(f"Could not autodetect PDFs for {song_name}, resolve via manual hyperlink...")
+
+        if not has_pdf:
+            # Check hyperlinks first
+            if row_idx in self.hyperlinks_data:
+                hyperlinks_for_row = self.hyperlinks_data[row_idx]
+                has_pdf = any(col in hyperlinks_for_row for col in pdf_columns)
+
+        # Fallback to text validation if no hyperlinks found
+        if not has_pdf:
+            has_pdf = any(self._validate_drive_id(sync_record.get(col, '')) for col in pdf_columns)
+
+        if not has_pdf:
+            logger.warning(f"No valid PDF files found for '{song_name}'")
+            return None
+
+        # Add hyperlink data if available
+        if row_idx in self.hyperlinks_data:
+            hyperlinks_for_row = self.hyperlinks_data.get(row_idx, dict())
+
+            if song_record:
+                extra_hyperlinks = song_record.compute_hyperlinks_full()
+                for transcription, hyperlink in extra_hyperlinks.items():
+                    if transcription not in hyperlinks_for_row.keys():
+                        hyperlinks_for_row[transcription] = hyperlink
+            sync_record['_song_record'] = song_record
+            sync_record['_hyperlinks'] = hyperlinks_for_row
+        return sync_record
+
+
+    def _sync_record_fetch_all_metadata(self, sync_records: dict[int, dict[str, Any]]) -> list[dict[str, Any]]:
+        populated_songs = []
+        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+            futures = {
+                executor.submit(self._sync_record_fetch_metadata, row_idx, record): row_idx
+                for row_idx, record in sync_records.items()
+            }
+
+            for future in concurrent.futures.as_completed(futures):
+                row_idx = futures[future]
+                try:
+                    sync_record = future.result()
+                except Exception:
+                    logger.exception(f"Row {row_idx}: failed to autopopulate metadata")
+                    continue
+
+                song_name = str(sync_record.get("Song Name", "")).strip()
+                if sync_record:
+                    populated_songs.append(sync_record)
+                    logger.info(f"Row {row_idx}: Selected '{song_name}' for sync")
+                else:
+                    logger.warning(f"Row {row_idx}: Ignoring '{song_name}' from sync process")
+
+        return populated_songs
+
+    def fetch_accepted_songs(self, slug_match: str = None) -> List[Dict[str, Any]]:
         """Fetch accepted songs with enhanced validation and hyperlink extraction"""
         try:
             records = self.sheet.get_all_records()
             
-            # Get hyperlinks for video columns
-            hyperlinks_data = self._extract_hyperlinks_simple()
-            
             # Filter for accepted songs and under review songs, validate required fields
-            accepted_songs = []
             required_fields = ['Song Name', 'Status']
-            
+
+            candidate_records: dict[int, dict[str, Any]] = {}
             for i, record in enumerate(records, start=2):  # Start at 2 for sheet row numbers
                 status = str(record.get('Status', '')).lower().strip()
                 original_status = str(record.get('Status', '')).strip()
@@ -171,60 +243,27 @@ class SongSyncManager:
                 if missing_fields:
                     logger.warning(f"Row {i}: Missing required fields: {missing_fields}")
                     continue
-                
+
                 # Clean and validate song name
                 if not song_name:
                     logger.warning(f"Row {i}: Empty song name")
                     continue
-                
-                # Check if at least one PDF is provided (check both hyperlinks and text)
-                pdf_columns = SongDataAccess.TRANSCRIPTIONS
-                has_pdf = False
-                song_record: SongRecord = None
 
-                # Attempt to autodetect PDFs from presence in the drive
-                # NOTE: If the song name is not an EXACT MATCH to what is in the drive, we're going to miss the chart
-                try:
-                    song_record = self.song_data_access.get_record_by_attrs(song_name, song_producer)
-                    has_pdf = song_record.has_any_full()
-
-                except ValueError as e:
-                    logger.warning(f"Could not autodetect PDFs for {song_name}, resolve via manual hyperlink...")
-
-                if not has_pdf:
-                    # Check hyperlinks first
-                    if i in hyperlinks_data:
-                        hyperlinks_for_row = hyperlinks_data[i]
-                        has_pdf = any(col in hyperlinks_for_row for col in pdf_columns)
-                
-                # Fallback to text validation if no hyperlinks found
-                if not has_pdf:
-                    has_pdf = any(self._validate_drive_id(record.get(col, '')) for col in pdf_columns)
-                
-                if not has_pdf:
-                    logger.warning(f"Row {i}: No valid PDF files found for '{song_name}'")
+                if slug_match is not None and self.slugify(song_name) != slug_match:
+                    logger.info(f"Row {i}: '{song_name}' doesn't match the requested slug '{slug_match}'")
                     continue
-                
-                # Add hyperlink data if available
-                if i in hyperlinks_data:
-                    hyperlinks_for_row = hyperlinks_data.get(i, dict())
-                    if song_record:
-                        extra_hyperlinks = song_record.compute_hyperlinks_full()
-                        for transcription, hyperlink in extra_hyperlinks.items():
-                            if transcription not in hyperlinks_for_row.keys():
-                                hyperlinks_for_row[transcription] = hyperlink
-                    record['_hyperlinks'] = hyperlinks_for_row
 
-                accepted_songs.append(record)
-            
+                candidate_records[i] = record
+
+            accepted_songs = self._sync_record_fetch_all_metadata(candidate_records)
             logger.info(f"Found {len(accepted_songs)} valid songs (completed + under review)")
             return accepted_songs
-            
+
         except Exception as e:
             logger.error(f"Failed to fetch songs from sheet: {e}")
             raise
 
-    def fetch_tv_size_sheets(self) -> Dict[str, Dict[str, Any]]:
+    def fetch_tv_size_sheets(self, slug_match: str = None) -> Dict[str, Dict[str, Any]]:
         """Fetch TV size sheet data from the 'TV Size Sheets' worksheet.
         
         Returns a dict mapping song names to TV size metadata:
@@ -264,8 +303,12 @@ class SongSyncManager:
                 
                 if not song_name:
                     continue
-                
+
                 song_slug = self.slugify(song_name)
+                if slug_match is not None and song_slug != slug_match:
+                    logger.info(f"Row {i}: '{song_name}' doesn't match the requested slug '{slug_match}'")
+                    continue
+
                 pdfs = {}
                 tv_size_length = self._parse_length(record.get('TV Size Length', ''))
                 
@@ -602,6 +645,7 @@ class SongSyncManager:
         
         # Get hyperlinks if available
         hyperlinks = song.get('_hyperlinks', {})
+        song_record = song.get('_song_record', None)
         
         # Get song title for filename generation
         song_title = song.get('Song Name', '').strip()
@@ -640,8 +684,11 @@ class SongSyncManager:
                 current_drive_link = f"https://drive.google.com/file/d/{drive_id}/view"
                 pdf_drive_links[pdf_key] = current_drive_link
 
-                # Fetch Drive metadata (md5Checksum) to detect content changes without relying on sheet edits
-                metadata = self._get_drive_file_metadata(drive_id)
+                try:
+                    metadata = song_record.pdfs_full[pdf_key]
+                except Exception as e:
+                    metadata = self.session.get_file_metadata(drive_id)
+
                 remote_md5 = metadata.get('md5Checksum') if metadata else None
                 pdf_checksums[pdf_key] = remote_md5
 
@@ -900,14 +947,13 @@ class SongSyncManager:
         """
         if tv_size_pdfs is None:
             tv_size_pdfs = {}
-        
-        grouped = {}
-        
+
+        normalization_args = {}
         for song in songs:
             title = str(song.get('Song Name', '')).strip()
             if not title:
                 continue
-            
+
             # Load existing song data if available
             existing_song_data = None
             filename = f"{self.slugify(title)}.json"
@@ -918,39 +964,54 @@ class SongSyncManager:
                         existing_song_data = json.load(f)
                 except Exception as e:
                     logger.warning(f"Failed to load existing song data for {title}: {e}")
-            
+
             # Get TV size metadata for this song if available
             song_tv_size_data = tv_size_pdfs.get(title, {})
-            
+
             # Normalize with existing data for comparison
-            normalized = self.normalize_song_data(song, existing_song_data, song_tv_size_data)
-            
-            # Create song entry
-            grouped[title] = {
-                'title': normalized['title'],
-                'alternativeNames': normalized['alternativeNames'],
-                'producer': normalized['producer'],
-                'additionalProducers': normalized['additionalProducers'],
-                'singer': normalized['singer'],
-                'additionalVoices': normalized['additionalVoices'],
-                'releaseDate': normalized['releaseDate'],
-                'length': normalized.get('length', ''),
-                'tvSizeLength': normalized.get('tvSizeLength', ''),
-                'bpm': normalized.get('bpm'),
-                'labels': normalized['labels'],
-                'transcriber': normalized['transcriber'],
-                'videoLinks': normalized['videoLinks'],
-                'links': normalized['links'],
-                'pdfChecksums': normalized.get('pdfChecksums', {}),
-                'pdfs': normalized['pdfs'],
-                'pdfsTvSize': normalized.get('pdfsTvSize', {}),
-                'downloaded': normalized.get('downloaded', False),
-                'metadata': normalized['metadata'],
+            normalization_args[title] = (song, existing_song_data, song_tv_size_data)
+
+        grouped = {}
+        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+            title = str(song.get('Song Name', '')).strip()
+            futures = {
+                executor.submit(self.normalize_song_data, *args): title
+                for title, args in normalization_args.items()
             }
-        
+
+            for future in concurrent.futures.as_completed(futures):
+                title = futures[future]
+                try:
+                    normalized = future.result()
+                except Exception:
+                    logger.exception(f"Song '{title}': failed to autopopulate metadata")
+
+                # Create song entry
+                grouped[title] = {
+                    'title': normalized['title'],
+                    'alternativeNames': normalized['alternativeNames'],
+                    'producer': normalized['producer'],
+                    'additionalProducers': normalized['additionalProducers'],
+                    'singer': normalized['singer'],
+                    'additionalVoices': normalized['additionalVoices'],
+                    'releaseDate': normalized['releaseDate'],
+                    'length': normalized.get('length', ''),
+                    'tvSizeLength': normalized.get('tvSizeLength', ''),
+                    'bpm': normalized.get('bpm'),
+                    'labels': normalized['labels'],
+                    'transcriber': normalized['transcriber'],
+                    'videoLinks': normalized['videoLinks'],
+                    'links': normalized['links'],
+                    'pdfChecksums': normalized.get('pdfChecksums', {}),
+                    'pdfs': normalized['pdfs'],
+                    'pdfsTvSize': normalized.get('pdfsTvSize', {}),
+                    'downloaded': normalized.get('downloaded', False),
+                    'metadata': normalized['metadata'],
+                }
+
         return grouped
 
-    def update_frontend_files(self, grouped_songs: Dict[str, Dict[str, Any]]) -> None:
+    def update_frontend_files(self, grouped_songs: Dict[str, Dict[str, Any]], remove_orphans: bool = True) -> None:
         """Update frontend data files"""
         # Ensure frontend data directory exists
         os.makedirs(self.frontend_data_dir, exist_ok=True)
@@ -1062,7 +1123,7 @@ class SongSyncManager:
             else:
                 frontend_data['updatedAt'] = synced_at_now
             
- 
+
             with open(filepath, 'w', encoding='utf-8') as f:
                 # Pretty-print with indentation and preserve insertion order so
                 # fields appear in the readable order (title, alternativeNames, producer, ...).
@@ -1071,27 +1132,28 @@ class SongSyncManager:
             logger.info(f"Updated frontend file: {filepath}")
 
         # Remove per-song JSON files that no longer correspond to sheet rows
-        try:
-            existing_jsons = [
-                f for f in os.listdir(self.frontend_data_dir)
-                if f.endswith('.json') and f != 'generated-manifest.json'
-            ]
-            for stale_file in existing_jsons:
-                if stale_file not in generated_files:
-                    stale_path = os.path.join(self.frontend_data_dir, stale_file)
-                    try:
-                        os.remove(stale_path)
-                        logger.info(f"Deleted removed-song JSON: {stale_file}")
-                    except Exception as e:
-                        logger.warning(f"Failed to delete removed-song JSON {stale_file}: {e}")
-        except Exception as e:
-            logger.warning(f"Failed to enumerate existing JSON files for cleanup: {e}")
-        
-        # Clean up orphaned PDFs
-        self.cleanup_orphaned_pdfs(referenced_pdfs)
-        
-        # Update the song manifest for the frontend
-        self.update_song_manifest(generated_files)
+        if remove_orphans:
+            try:
+                existing_jsons = [
+                    f for f in os.listdir(self.frontend_data_dir)
+                    if f.endswith('.json') and f != 'generated-manifest.json'
+                ]
+                for stale_file in existing_jsons:
+                    if stale_file not in generated_files:
+                        stale_path = os.path.join(self.frontend_data_dir, stale_file)
+                        try:
+                            os.remove(stale_path)
+                            logger.info(f"Deleted removed-song JSON: {stale_file}")
+                        except Exception as e:
+                            logger.warning(f"Failed to delete removed-song JSON {stale_file}: {e}")
+            except Exception as e:
+                logger.warning(f"Failed to enumerate existing JSON files for cleanup: {e}")
+
+            # Clean up orphaned PDFs
+            self.cleanup_orphaned_pdfs(referenced_pdfs)
+
+            # Update the song manifest for the frontend
+            self.update_song_manifest(generated_files)
 
     def update_song_manifest(self, filenames: List[str]) -> None:
         """Update the TypeScript manifest file with available song files"""
@@ -1263,23 +1325,32 @@ export type SongFilename = typeof SONG_MANIFEST[number]
             logger.warning(f"Failed to calculate hash from existing files: {e}")
             return None
 
-    def sync(self) -> bool:
+    def sync(self, song_slug: str = None, check_only: bool = False) -> bool:
         """Main sync function. Returns True if content changed (commit needed), False if no changes."""
         try:
             logger.info("Starting Google Sheet sync...")
-            
+
             # Set up connection
             self.setup_google_sheets()
             self.downloads_performed = False
-            
+
             last_state = self.get_sync_state()
             old_content_hash = last_state.get('contentHash', '')
 
             # Fetch and process data (always compute full state, including Drive md5 checksums)
-            songs = self.fetch_accepted_songs()
-            tv_size_pdfs = self.fetch_tv_size_sheets()
+            songs = self.fetch_accepted_songs(song_slug)
+            tv_size_pdfs = self.fetch_tv_size_sheets(song_slug)
+            if not songs:
+                logger.warning("No songs detected. Giving up on sync!")
+                return False
+
             grouped_songs = self.group_and_merge_songs(songs, tv_size_pdfs)
             new_content_hash = self.calculate_content_hash(grouped_songs)
+
+            if check_only:
+                result = {'previousHash': old_cotent_hash, 'currentHash': new_cotent_hash, 'status': status}
+                print(json.dumps(result, ensure_ascii=False))
+                return
 
             if not self.force_sync and new_content_hash == old_content_hash and not self.downloads_performed:
                 logger.info("Content (including PDF md5) unchanged. Skipping writes.")
@@ -1297,9 +1368,8 @@ export type SongFilename = typeof SONG_MANIFEST[number]
                 logger.info(f"PDFs were re-downloaded (md5 mismatch) even though hash is unchanged. Writing files.")
             else:
                 logger.info(f"Content changed (hash: {old_content_hash[:8]}... -> {new_content_hash[:8]}...). Writing files.")
-            
-            self.update_frontend_files(grouped_songs)
-            
+
+            self.update_frontend_files(grouped_songs, remove_orphans=(song_slug is None))
             self.save_sync_state(
                 content_hash=new_content_hash,
                 total_songs=len(songs),
@@ -1325,45 +1395,26 @@ def main():
         help='Force sync even if no changes are detected'
     )
     parser.add_argument(
+        '--song-slug', '-s',
+        default=None,
+        help='If specified, only synchronizes a song which matches the corresponding song slug'
+    )
+    parser.add_argument(
         '--check-only',
         action='store_true',
         help='Compute current content hash (including PDF md5) and exit without writing files'
     )
-    
+
     args = parser.parse_args()
-    
     sync_manager = SongSyncManager(force_sync=args.force)
-    # If check-only requested, compute current hash (full evaluation) and exit accordingly
-    if args.check_only:
-        try:
-            sync_manager.setup_google_sheets()
-            songs = sync_manager.fetch_accepted_songs()
-            tv_size_pdfs = sync_manager.fetch_tv_size_sheets()
-            grouped_songs = sync_manager.group_and_merge_songs(songs, tv_size_pdfs)
-            current_hash = sync_manager.calculate_content_hash(grouped_songs)
-            last_state = sync_manager.get_sync_state()
-            previous_hash = last_state.get('contentHash', '')
+    has_changes = sync_manager.sync(args.song_slug, args.check_only)
 
-            status = 'unchanged' if current_hash == previous_hash else 'changed'
-            result = {
-                'previousHash': previous_hash,
-                'currentHash': current_hash,
-                'status': status,
-            }
-            print(json.dumps(result, ensure_ascii=False))
-            sys.exit(0 if status == 'unchanged' else 2)
-        except Exception as e:
-            # If anything goes wrong, surface a non-zero exit so CI does not short-circuit
-            print(json.dumps({'status': 'error', 'error': str(e)}))
-            sys.exit(2)
-
-    # Default behavior: run full sync
-    has_changes = sync_manager.sync()
-    
     # Output result for GitHub Actions to capture
-    print(f"SYNC_CHANGES_DETECTED={str(has_changes).lower()}")
-    
+    if args.check_only:
+        sys.exit(2 if has_changes else 0)
+
     # Return 0 for success (standard Unix convention)
+    print(f"SYNC_CHANGES_DETECTED={str(has_changes).lower()}")
     sys.exit(0)
 
 if __name__ == "__main__":

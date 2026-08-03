@@ -5,11 +5,13 @@ import logging
 import tempfile
 import pathlib
 import requests
+import threading
 
 from google.auth.transport.requests import AuthorizedSession
 import gspread
 
 import env_config
+from typing import Any
 
 logging.basicConfig(
     level=logging.INFO,
@@ -22,9 +24,16 @@ class GDriveSession:
     MIME_TYPE_DRIVE_FOLDER = "application/vnd.google-apps.folder"
 
     def __init__(self):
-        credentials = env_config.get_gdrive_credentials()
-        self._drive_session = AuthorizedSession(credentials)
+        self._credentials = env_config.get_gdrive_credentials()
+        self._local = threading.local()
+
         self._drive_root_id = env_config.get_env_or_fail("GOOGLE_DRIVE_ID")
+
+    @property
+    def _drive_session(self) -> AuthorizedSession:
+        if not hasattr(self._local, "session"):
+            self._local.session = AuthorizedSession(self._credentials)
+        return self._local.session
 
     def find_all_files_in(self, drive_id: str) -> list[dict]:
         """
@@ -39,6 +48,7 @@ class GDriveSession:
             {
                 "id": <GDrive file ID>
                 "name": <Name of file>
+                "mimeType": <File type>
                 "md5Checksum": <File checksum>
                 "modifiedTime": Last modified time
             }
@@ -192,6 +202,16 @@ class GDriveSession:
         except Exception as e:
             _logger.error(f"Download failed ({file_id}): {e}")
             return False
+
+    def get_file_metadata(self, file_id: str) -> dict[str, Any]:
+        response = self._drive_session.get(
+            f"https://www.googleapis.com/drive/v3/files/{file_id}",
+            params={"fields": "id,name,mimeType,md5Checksum,modifiedTime", "supportsAllDrives": "true"},
+            timeout=15,
+        )
+        response.raise_for_status()
+        return response.json()
+
 
 def main():
     import argparse
