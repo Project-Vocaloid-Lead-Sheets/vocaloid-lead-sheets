@@ -30,14 +30,14 @@
     "Bass": "https://drive.google.com/file/d/1RU-6xnyFD2uZjV7t5li5gQ1nLz96MK3g/view"
   },
   "pdfChecksums": {
-    "Vocals": "cfd7d048d1afbd0c62ddb297e41cb1e1",
-    "Bb": "45ea3470e30a7328f7dfd71803735d4b",
-    "C": "55b3de3968718bfa5ee53693b5644e90",
-    "Eb": "66d808d88637f9aa4c0d920c326222b9",
-    "F": "e8e1067367f371f527bebd6ba2f9d639",
-    "G": "ae83a9fefc0cc4ad172da12d2f5e5b9e",
-    "Alto": "42c0a75311d7b61c265825c946f38e46",
-    "Bass": "67d1c911a259fd53992bdd5b4e92f23f"
+    "Vocals": "b379053f7627aaf968b1feeb1c95d54c",
+    "Bb": "9cae68990761f29a4f00e8705d392db7",
+    "C": "5a2806dd01a055a8b15c912a494eca90",
+    "Eb": "5f791621704c77dff8b8f2a19d308fc5",
+    "F": "293e03f339546d8e94a8dcaa9750fdac",
+    "G": "3d639418c3093799f97828d173de9290",
+    "Alto": "7096556f8225b0a54de89be3d521335d",
+    "Bass": "1ea8ada1d747039f1baf3e78e5595fca"
   },
   "pdfs": {
     "Vocals": "/pdfs/the-disappearance-of-hatsune-miku/the-disappearance-of-hatsune-miku-vocals.pdf",
@@ -51,6 +51,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-04-10T02:48:39Z",
-  "updatedAt": "2025-11-05T00:48:25Z"
+  "syncedAt": "2026-08-05T18:50:22Z",
+  "updatedAt": "2026-08-05T18:50:22Z"
 }
