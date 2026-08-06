@@ -59,6 +59,7 @@ const scrollStrategyPreference = ref<ScrollStrategy>(
 
 const viewerConfig = computed(() => ({
   src: pdfUrl.value,
+  pan: { defaultMode: 'always' as const },
   spread: { defaultSpreadMode: spreadModePreference.value },
   scroll: { defaultStrategy: scrollStrategyPreference.value },
   zoom: { defaultZoomLevel: ZoomMode.FitPage },
@@ -93,6 +94,7 @@ function handleReady(registry: PluginRegistry) {
   if (!commands || !ui) return
 
   ui.mergeSchema(flatSchema as Partial<any>)
+  ui.setDisabledCategories(['annotation', 'redaction'])
 
   try {
     commands.unregisterCommand?.('app:download')
