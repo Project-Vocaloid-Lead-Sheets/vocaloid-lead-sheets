@@ -29,14 +29,14 @@
     "Bass": "https://drive.google.com/file/d/1oJHk420o4g-u9KhcRjfjterXxZ3VQdbv/view"
   },
   "pdfChecksums": {
-    "Vocals": "685ba42af990110611792bf9801a5797",
-    "Bb": "99399fa4e966d4d6d8e505e4d34f0656",
-    "C": "950fcd966353ce78e8873d48d30306be",
-    "Eb": "31024a607e1f689fbc58e0d2188d5155",
-    "F": "8da219e78cd1ed11050d59729638edcc",
-    "G": "a00941224b3637fea2351e164894243c",
-    "Alto": "648f68e10d587d1252cdf5a78bff08c7",
-    "Bass": "49a53b569babbaff69d41e5ced8a42c5"
+    "Vocals": "c66d7818bc22e837bb3e8d17ecdbda06",
+    "Bb": "09dc3361427b260decd4ca2e44a1bb6e",
+    "C": "c5579651367c42ff8f27b725ad1f8760",
+    "Eb": "dcb79f51451db1e60906ee7b61f5bcd3",
+    "F": "c07b4e5f747d6198fcfc5ea32d8fcc2d",
+    "G": "7a0743e2dd3d3af3730eac76f5126143",
+    "Alto": "8bf66f2084fefa8ebb539c289aebd909",
+    "Bass": "ae69fa128d28bff4ffbbc76370f49697"
   },
   "pdfs": {
     "Vocals": "/pdfs/the-lost-ones-weeping/the-lost-ones-weeping-vocals.pdf",
@@ -50,6 +50,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-08-11T00:56:35Z",
-  "updatedAt": "2026-08-11T00:56:35Z"
+  "syncedAt": "2026-08-11T01:13:55Z",
+  "updatedAt": "2026-08-11T01:13:55Z"
 }
