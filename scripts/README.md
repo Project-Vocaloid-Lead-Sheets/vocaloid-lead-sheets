@@ -41,17 +41,19 @@ Set these environment variables in an .env file for local sync testing:
 The sync can be run in several ways:
 
 **Manual Local Execution:**
+All of the following commands must be executed from the **repo root directory**, and not from the `script/` directory!
 
 ```bash
+
 # Install dependencies
-uv sync
+uv sync --project scripts
 
 # Basic sync
-uv run scripts/sheet_sync.py
+uv run --project scripts scripts/sheet_sync.py
 
 # Force sync (ignore change detection and always refresh)
-uv run scripts/sheet_sync.py --force
-uv run scripts/sheet_sync.py -f
+uv run --project scripts scripts/sheet_sync.py --force
+uv run --project scripts scripts/sheet_sync.py -f
 ```
 
 **GitHub Actions (if configured):**
