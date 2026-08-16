@@ -136,7 +136,7 @@ class PvlsBotCore:
         if song_slug:
             response_message += f" for the song `{song_slug}`"
         else:
-            response_message += "for ***all songs***"
+            response_message += " for ***all songs***"
         await interaction.response.send_message(response_message + f".\nGitHub Link: <{workflow.html_url}>")
 
 
