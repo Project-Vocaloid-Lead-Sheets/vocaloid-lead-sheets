@@ -17,6 +17,12 @@ services:
 
     restart: unless-stopped
 
+  musescore:
+    build:
+      context: ./musescore
+    working_dir: /repo
+    volumes:
+      - .:/repo
 
 volumes:
   discord-bot-venv:
