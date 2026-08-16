@@ -78,7 +78,7 @@ class PvlsBotCore:
 
         self._workflow_poll_task = asyncio.create_task(self._poll_workflows(), name="workflow-poller")
         self._sync_autofill_poll_task = asyncio.create_task(self._poll_sync_autofill(), name="sync-autofill-poller")
-        _logger.info("Polling task started!")
+        _logger.info("Autofill task started!")
 
     def _register_events(self):
         @self._client.event
@@ -100,6 +100,7 @@ class PvlsBotCore:
             await self._do_sekai(interaction)
 
         @group.command(name="sync", description="Sync and deploy website with updated Google Drive contents")
+        @discord.app_commands.describe(song="If specified, syncs only the song specified.")
         @discord.app_commands.autocomplete(song=self._do_sync_autocomplete)
         async def sync(interaction: discord.Interaction, song: str | None = None):
             await self._do_sync(interaction, song)
@@ -121,16 +122,22 @@ class PvlsBotCore:
 
         inputs = {}
         if song_slug:
+            if song_slug not in self._sync_autofill_choices:
+                await self.send_sync_reject(interaction, song_slug)
+                return
+
             inputs["song_slug"] = song_slug
             _logger.info(f"Targeted sync for '{song_slug}' selected.")
 
         workflow = await self._github.post_workflow("content-sync-and-deploy.yml", inputs=inputs)
         await self._repo.add_workflow(workflow, interaction)
 
-        await interaction.response.send_message(
-            f"{user.mention} started a site content sync.\n"
-            f"GitHub Link: <{workflow.html_url}>"
-        )
+        response_message = f"{user.mention} started a site content sync"
+        if song_slug:
+            response_message += f" for the song `{song_slug}`"
+        else:
+            response_message += "for ***all songs***"
+        await interaction.response.send_message(response_message + f".\nGitHub Link: <{workflow.html_url}>")
 
 
     async def _do_sync_autocomplete(
@@ -140,6 +147,10 @@ class PvlsBotCore:
             discord.app_commands.Choice(name=song, value=song)
             for song in self._sync_autofill_choices if current_str.casefold() in song.casefold()
         ][:DISCORD_AUTOFILL_COUNT_MAX]
+
+
+    async def send_sync_reject(self, interaction: discord.Interaction, song_slug: str):
+        await interaction.response.send_message(f"***The song '{song_slug}' does not exist on PVLS.***", ephemeral=True)
 
 
     async def send_sync_response_message(self, workflow: GitHubWorkflow):
