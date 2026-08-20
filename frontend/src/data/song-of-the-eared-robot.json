@@ -1,0 +1,35 @@
+{
+  "title": "Song of the Eared Robot",
+  "alternativeNames": [
+    "Mimi no Aru Robot no Uta"
+  ],
+  "producer": "nwp8861",
+  "additionalProducers": [],
+  "singer": "Kasane Teto",
+  "additionalVoices": [],
+  "releaseDate": "20080610",
+  "length": "3:31",
+  "tvSizeLength": "",
+  "bpm": 180,
+  "labels": [],
+  "transcriber": "Nap1400",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=bVqGnaE2-wM"
+  },
+  "links": {
+    "Vocals": "https://drive.google.com/file/d/10VW9PiDbOcHlprAjWW-dLyLTqcvBaYP7/view",
+    "C": "https://drive.google.com/file/d/19xUp-Tod42T6pBewnZEb553qfZsxmXEb/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "c8812ee181008eb19f14c7b01e1f880d",
+    "C": "e695da54d2f4c70cb0e846373301857b"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-vocals.pdf",
+    "C": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-08-20T15:43:32Z",
+  "updatedAt": "2026-08-20T15:43:32Z"
+}

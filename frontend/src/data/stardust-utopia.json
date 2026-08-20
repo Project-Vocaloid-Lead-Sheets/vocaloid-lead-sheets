@@ -1,0 +1,35 @@
+{
+  "title": "Stardust Utopia",
+  "alternativeNames": [
+    "Hoshikuzu Utopia"
+  ],
+  "producer": "otetsu",
+  "additionalProducers": [],
+  "singer": "Megurine Luka",
+  "additionalVoices": [],
+  "releaseDate": "20090130",
+  "length": "4:19",
+  "tvSizeLength": "",
+  "bpm": 120,
+  "labels": [],
+  "transcriber": "Nap1400",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=syk1f6Dj82E"
+  },
+  "links": {
+    "Vocals": "https://drive.google.com/file/d/15ZBWDZvUNrTYz3skFUayl9191oww6o5z/view",
+    "C": "https://drive.google.com/file/d/1BCCrRva_lkgoHnGAGNEAmT4uNZDvYpgw/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "b7c5bdfa16c487d2bf4cc7b0348fb15a",
+    "C": "2be01c56c4b1499ce45cd2dea3bba10e"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/stardust-utopia/stardust-utopia-vocals.pdf",
+    "C": "/pdfs/stardust-utopia/stardust-utopia-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-08-20T15:43:32Z",
+  "updatedAt": "2026-08-20T15:43:32Z"
+}
