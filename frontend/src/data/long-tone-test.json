@@ -3,7 +3,7 @@
   "alternativeNames": [
     "Chouon Chuu Haikatsuryou Test"
   ],
-  "producer": "Kimurawai-P",
+  "producer": "KimurawaiP",
   "additionalProducers": [],
   "singer": "Hatsune Miku",
   "additionalVoices": [],
@@ -17,16 +17,19 @@
     "YouTube": "https://www.youtube.com/watch?v=WOcdBpHfGeA"
   },
   "links": {
+    "Vocals": "https://drive.google.com/file/d/1JMAbjOYgKTy0jn85qm75O1DEhcTBK1qE/view",
     "C": "https://drive.google.com/file/d/1yCMZTZRTwObivBQwoPfhQPL8ksBqk57z/view"
   },
   "pdfChecksums": {
+    "Vocals": "54471d7943f85bc016fd3b46bb3c0560",
     "C": "595988590f475431d58b41385da09204"
   },
   "pdfs": {
+    "Vocals": "/pdfs/long-tone-test/long-tone-test-vocals.pdf",
     "C": "/pdfs/long-tone-test/long-tone-test-c.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-08-20T03:11:09Z",
-  "updatedAt": "2026-08-20T03:11:09Z"
+  "syncedAt": "2026-08-20T03:13:16Z",
+  "updatedAt": "2026-08-20T03:13:16Z"
 }
