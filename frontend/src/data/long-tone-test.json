@@ -1,0 +1,32 @@
+{
+  "title": "Long Tone Test",
+  "alternativeNames": [
+    "Chouon Chuu Haikatsuryou Test"
+  ],
+  "producer": "Kimurawai-P",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20140222",
+  "length": "1:03",
+  "tvSizeLength": "",
+  "bpm": 180,
+  "labels": [],
+  "transcriber": "Latios212",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=WOcdBpHfGeA"
+  },
+  "links": {
+    "C": "https://drive.google.com/file/d/1yCMZTZRTwObivBQwoPfhQPL8ksBqk57z/view"
+  },
+  "pdfChecksums": {
+    "C": "595988590f475431d58b41385da09204"
+  },
+  "pdfs": {
+    "C": "/pdfs/long-tone-test/long-tone-test-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-08-20T03:11:09Z",
+  "updatedAt": "2026-08-20T03:11:09Z"
+}

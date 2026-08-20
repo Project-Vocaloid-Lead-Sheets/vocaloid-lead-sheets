@@ -23,6 +23,7 @@ export const SONG_MANIFEST = [
   'lagtrain.json',
   'leia.json',
   'liar-dancer.json',
+  'long-tone-test.json',
   'luka-lukanight-fever.json',
   'magnet.json',
   'melt.json',
