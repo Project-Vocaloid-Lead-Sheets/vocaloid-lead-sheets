@@ -233,10 +233,10 @@ class PvlsBotCore:
 
     async def _poll_sync_autofill(self):
         while True:
-            _logger.debug("Poll all workflows!")
+            _logger.debug("Poll sync autofill options!")
             try:
                 await self._poll_sync_autofill_once()
-                await asyncio.sleep(3)
+                await asyncio.sleep(30)
             except Exception as e:
                 _logger.error(f"Poll failed - {e}")
 
