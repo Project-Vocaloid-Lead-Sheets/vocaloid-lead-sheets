@@ -13,6 +13,8 @@ import gspread
 import env_config
 from typing import Any
 
+import concurrent.futures
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
@@ -172,7 +174,7 @@ class GDriveSession:
         """
         try:
             download_url = f"https://drive.google.com/uc?export=download&id={file_id}"
-            _logger.info(f"Downloading file: {download_url} -> {output_file_path}")
+            _logger.debug(f"Downloading file: {download_url} -> {output_file_path}")
 
             session = requests.Session()
             response = session.get(download_url, stream=True)
@@ -203,6 +205,76 @@ class GDriveSession:
             _logger.error(f"Download failed ({file_id}): {e}")
             return False
 
+
+    def _discover_walk_files_in_dir(self, file_id: str) -> dict[str, str]:
+        confirmed_files = {}
+
+        root_meta = self.get_file_metadata(file_id)
+        root_meta["name"] = ""  # Need to strip out root filename, otherwise you create one extra dir in your dl
+        frontier = [("", root_meta)]
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+            while frontier:
+                folder_nodes = []
+                next_frontier = []
+                for prefix, meta in frontier:
+                    curr_path = os.path.join(prefix, meta["name"])
+                    if meta["mimeType"] == GDriveSession.MIME_TYPE_DRIVE_FOLDER:
+                        folder_nodes.append((curr_path, meta["id"]))
+                    else:
+                        meta["relative_path"] = curr_path
+                        confirmed_files[meta["id"]] = meta
+
+                futures = {
+                    executor.submit(self.find_all_files_in, folder_id): curr_path
+                    for curr_path, folder_id in folder_nodes
+                }
+
+                for future in concurrent.futures.as_completed(futures):
+                    parent_path = futures[future]
+                    children_meta = future.result()
+                    for child_meta in children_meta:
+                        next_frontier.append((parent_path, child_meta))
+                frontier = next_frontier
+
+        return confirmed_files
+
+
+    def download_dir(self, file_id: str, output_file_path: str, mimefilter: list[str] = [], verbose: bool = False) -> bool:
+        discovered_files = self._discover_walk_files_in_dir(file_id)
+        if mimefilter:
+            mimefilter = set(mimefilter)
+            discovered_files = {
+                dl_path: meta for dl_path, meta in discovered_files.items() if meta["mimeType"] in mimefilter
+            }
+
+        os.makedirs(output_file_path, exist_ok=True)
+        def download_one(child_file_id: str, child_meta: str) -> bool:
+            output_path = os.path.join(output_file_path, child_meta["relative_path"])
+            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            return GDriveSession.download_file(child_file_id, output_path)
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+            futures = {
+                executor.submit(download_one, file_id, meta): meta for file_id, meta in discovered_files.items()
+            }
+
+            success = True
+
+            for future in concurrent.futures.as_completed(futures):
+                relative_path = futures[future]["relative_path"]
+                try:
+                    if not future.result():
+                        _logger.error(f"Failed to download: {relative_path}")
+                        success = False
+                    elif verbose:
+                        _logger.info(f"Downloaded: {relative_path}")
+                except Exception as exc:
+                    print(f"Failed: {relative_path}: {exc}")
+                    success = False
+
+        return success
+
     def get_file_metadata(self, file_id: str) -> dict[str, Any]:
         response = self._drive_session.get(
             f"https://www.googleapis.com/drive/v3/files/{file_id}",
@@ -225,25 +297,37 @@ def main():
     parser_list = subparsers.add_parser('list', help='list help')
     parser_list.add_argument("list_path", help="List files in a specific subdirectory of the drive")
 
-    parser_download = subparsers.add_parser("download", help="download help")
-    parser_download.add_argument("download_path", help="Path to file in Google Drive")
-    parser_download.add_argument("-o", "--output", help="Download a file to the local path specified", required=True)
+    parser_download_file = subparsers.add_parser("download", help="download help")
+    parser_download_file.add_argument("download_path_file", help="Path to file in Google Drive")
+    parser_download_file.add_argument("-o", "--output", help="Download a file to the local path specified", required=True)
+
+    parser_download_dir = subparsers.add_parser("download_dir", help="download_dir help")
+    parser_download_dir.add_argument("download_path_dir", help="Path to file in Google Drive")
+    parser_download_dir.add_argument("-o", "--output", help="Download a file to the local path specified", required=True)
+    parser_download_dir.add_argument("-m", "--mimetype", help="Filter to only download files of a specific mime type", default="")
     args = vars(parser.parse_args())
 
     session = GDriveSession()
     if args.get("list_path", None):
         files = session.find_files_in_dir(pathlib.Path(args["list_path"]))
         print(tabulate.tabulate(files))
-    elif args.get("download_path", None):
-        directory = pathlib.Path(os.path.dirname(args["download_path"]))
-        basename = os.path.basename(args["download_path"])
+    elif args.get("download_path_file", None):
+        directory = pathlib.Path(os.path.dirname(args["download_path_file"]))
+        basename = os.path.basename(args["download_path_file"])
 
         dir_id = session.find_drive_id_by_dir(directory)
         target_meta = session.find_file(dir_id, basename)
 
-        GDriveSession.download_file(target_meta["id"], args["output"])
-        exit(0)
+        exit(0 if GDriveSession.download_file(target_meta["id"], args["output"]) else 1)
+    elif args.get("download_path_dir", None):
+        directory = pathlib.Path(os.path.dirname(args["download_path_dir"]))
+        basename = os.path.basename(args["download_path_dir"])
 
+        dir_id = session.find_drive_id_by_dir(directory)
+        target_meta = session.find_file(dir_id, basename)
+        print(target_meta)
+
+        exit(0 if session.download_dir(target_meta["id"], args["output"], mimefilter=[args["mimetype"]]) else 1)
     else:
         parser.print_help()
         exit(1)
