@@ -30,14 +30,14 @@
     "Bass": "https://drive.google.com/file/d/1px0CJbJS7LT8yYKPdkleuaInXQoheoFZ/view"
   },
   "pdfChecksums": {
-    "Vocals": "d7fe4f970c00834bba6152523b2d7c6e",
-    "Bb": "8990dc6b8051e9ee162c70995dcba09a",
-    "C": "ae461caa5fbf30e61cb4c2be68b026fb",
-    "Eb": "5f4e0286468673e6ea28081dde4fba59",
-    "F": "24b5297ca5d6b4804fa8fdc2bb928f9e",
-    "G": "345c689f283575e34633dad1272ddfd0",
-    "Alto": "43a69674daef9ec32e60b691f925dbd1",
-    "Bass": "22726a34bbe9b18a3a33932d7adcea29"
+    "Vocals": "fcb57beaa615df4cc2ccb29ba9c6073a",
+    "Bb": "842846bf22c5058c78ae95626c6f4e54",
+    "C": "37379b26105e290f74f582725f2e8024",
+    "Eb": "cafc3fc6f3b723c781b4462afa4be3c7",
+    "F": "3e330a435651a3ef99acf50ae8f04d97",
+    "G": "82124a15dac947bb8689cc64c582b91e",
+    "Alto": "e6309ce537d0f5661883a69e1e03918d",
+    "Bass": "3a5fd317b5530c740a525ce809263505"
   },
   "pdfs": {
     "Vocals": "/pdfs/two-faced-lovers/two-faced-lovers-vocals.pdf",
@@ -51,6 +51,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-04-10T02:48:39Z",
-  "updatedAt": "2026-02-25T02:28:17Z"
+  "syncedAt": "2026-08-24T22:58:11Z",
+  "updatedAt": "2026-08-24T22:58:11Z"
 }
