@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import json
 import logging
 import tempfile
 import pathlib
@@ -23,6 +24,7 @@ _logger = logging.getLogger(__name__)
 
 class GDriveSession:
     DRIVE_FILES_URL = "https://www.googleapis.com/drive/v3/files"
+    DRIVE_DL_META_FILENAME = ".drive_metadata.json"
     MIME_TYPE_DRIVE_FOLDER = "application/vnd.google-apps.folder"
 
     def __init__(self):
@@ -240,15 +242,61 @@ class GDriveSession:
         return confirmed_files
 
 
-    def download_dir(self, file_id: str, output_file_path: str, mimefilter: list[str] = [], verbose: bool = False) -> bool:
+    def _download_dir_get_remote_metadata(self, file_id: str, mimefilter: list[str] = [], verbose: bool = False) -> bool:
         discovered_files = self._discover_walk_files_in_dir(file_id)
         if mimefilter:
             mimefilter = set(mimefilter)
             discovered_files = {
-                dl_path: meta for dl_path, meta in discovered_files.items() if meta["mimeType"] in mimefilter
+                drive_id: meta for drive_id, meta in discovered_files.items() if meta["mimeType"] in mimefilter
             }
+        return discovered_files
+
+
+    def _download_dir_get_local_metadata(self, dir_path: str):
+        cached_files = {}
+        try:
+            with open(os.path.join(dir_path, GDriveSession.DRIVE_DL_META_FILENAME)) as rawfile:
+                cached_files = json.load(rawfile)
+        except (OSError, json.JSONDecodeError):
+            _logger.info(f"No .drive_metadata.json detected in {dir_path} - assume sync required")
+        return cached_files
+
+
+    def diff_caches(remote_meta: dict[str, dict[str, str]], local_meta: dict[str, dict[str, str]]):
+        discovered_files = {}
+        for drive_id, meta in remote_meta.items():
+            if drive_id not in local_meta.keys():
+                discovered_files[drive_id] = meta
+                _logger.info(f"Discovered new file {meta['name']} -> {meta['relative_path']}")
+            elif local_meta[drive_id]["md5Checksum"] != meta["md5Checksum"]:
+                _logger.info(f"Discovered updated file {meta['name']} -> {meta['relative_path']}")
+        return discovered_files
+
+
+    def download_dir(
+        self,
+        file_id: str,
+        output_file_path: str,
+        mimefilter: list[str] = [],
+        verbose: bool = False,
+        force_download: bool = False
+    ) -> bool:
+        remote_files = self._download_dir_get_remote_metadata(file_id, mimefilter=mimefilter, verbose=verbose)
+
+        discovered_files = remote_files
+        if force_download:
+            _logger.info(f"Force redownload of all artifacts in {output_file_path}!")
+        else:
+            cached_files = self._download_dir_get_local_metadata(output_file_path)
+            discovered_files = GDriveSession.diff_caches(remote_files, cached_files)
+            if discovered_files:
+                _logger.info(f"Metadata mismatch - redownload of all artifacts in {output_file_path}!")
+            else:
+                _logger.info(f"Metadata up to date - skip redownload of all artifacts in {output_file_path}!")
+                return
 
         os.makedirs(output_file_path, exist_ok=True)
+
         def download_one(child_file_id: str, child_meta: str) -> bool:
             output_path = os.path.join(output_file_path, child_meta["relative_path"])
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
@@ -272,6 +320,10 @@ class GDriveSession:
                 except Exception as exc:
                     print(f"Failed: {relative_path}: {exc}")
                     success = False
+
+        with open(os.path.join(output_file_path, GDriveSession.DRIVE_DL_META_FILENAME), "w") as rawfile:
+            json.dump(remote_files, rawfile, indent=2)
+            _logger.info(f"Drive metadata saved at {output_file_path}")
 
         return success
 
@@ -325,7 +377,6 @@ def main():
 
         dir_id = session.find_drive_id_by_dir(directory)
         target_meta = session.find_file(dir_id, basename)
-        print(target_meta)
 
         exit(0 if session.download_dir(target_meta["id"], args["output"], mimefilter=[args["mimetype"]]) else 1)
     else:
