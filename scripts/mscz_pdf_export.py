@@ -11,6 +11,7 @@ import logging
 import zipfile
 import subprocess
 import xml.etree.ElementTree
+import concurrent.futures
 
 logging.basicConfig(
     level=logging.INFO,
@@ -58,28 +59,54 @@ class MuseScoreExporter:
         _logger.info(f"Copied {len(mscz_paths)} mscz files ({self._input_dir} -> {self._output_dir})")
 
 
-    def _process_pdf_mass_export_dir(self, directory: pathlib.Path):
-        mass_export_job: list[dict] = []
-        for path in directory.rglob("*.mscz"):
-            version = MuseScoreExporter._get_musescore_version(path)
+    def _process_pdf_mass_export_dir(self, directory: pathlib.Path, workers: int = None):
+        mscz_paths = list(directory.rglob("*.mscz"))
+        if workers is None:
+            cpu_count = len(os.sched_getaffinity(0))
+            workers = min(len(mscz_paths), max(1, cpu_count - 2))
+
+        batched_paths = [batch for batch in [mscz_paths[i::workers] for i in range(workers)] if batch]
+        _logger.info(f"Mass export {directory} ({len(mscz_paths)} MSCZ files) across {workers} workers...")
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=workers,) as executor:
+            futures = [executor.submit(MuseScoreExporter._exec_musescore_batch, batch) for batch in batched_paths]
+            for future in concurrent.futures.as_completed(futures):
+                future.result()
+
+
+    def _exec_musescore_batch(mscz_paths: list[pathlib.Path]) -> None:
+        jobs = []
+        for mscz_path in mscz_paths:
+            version = MuseScoreExporter._get_musescore_version(mscz_path)
             if not MuseScoreExporter._is_musescore_4_or_newer(version):
-                _logger.warning(f"{path} was built with Musescore v{version} - skipping")
+                _logger.warning(f"{mscz_path} was built with MuseScore v{version} - skipping")
                 continue
 
-            candidate_parts = self._find_export_candidates(path)
-            job = MuseScoreExporter._create_musescore_job(path, path.parent)
-            mass_export_job.append(job)
+            jobs.append(MuseScoreExporter._create_musescore_job( mscz_path, mscz_path.parent))
 
-        _logger.info(f"Performing mass export of {len(mass_export_job)} mscz files...")
-        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", dir=".", encoding="utf-8", delete=False) as job_file:
-            json.dump(mass_export_job, job_file)
+        if not jobs:
+            return
+
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", dir=".", encoding="utf-8",) as job_file:
+            json.dump(jobs, job_file)
             job_file.flush()
-
             job_path = pathlib.Path(job_file.name).name
-            subprocess.run(["docker", "compose", "run", "--rm", "musescore", "--job", job_path], check=True)
+            try:
+                subprocess.run(
+                    ["docker", "compose", "run", "--rm", "-T", "musescore", "--job", job_path],
+                    stdin=subprocess.DEVNULL,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    check=True,
+                )
+            except subprocess.CalledProcessError as exc:
+                _logger.error(f"MuseScore export failed:\nstdout:\n{exc.stdout}\nstderr:\n{exc.stderr}")
+                raise
+
+            # Post-process using candidate_parts.
 
 
-    def _find_export_candidates(self, mscz_path: pathlib.Path, min_size: int = 64 * 1024) -> list[str]:
+    def _find_export_candidates(mscz_path: pathlib.Path, min_size: int = 64 * 1024) -> list[str]:
         candidates = []
 
         with zipfile.ZipFile(mscz_path) as archive:
