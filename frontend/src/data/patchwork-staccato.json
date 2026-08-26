@@ -25,14 +25,14 @@
     "Bass": "https://drive.google.com/file/d/1oYs1Y1f_XmszdDvsYhl6CvSy9cFoMEHP/view"
   },
   "pdfChecksums": {
-    "Vocals": "a963cd9664dd195c401ae5903a22b9ea",
-    "Bb": "e26ce8d68e29273b0c24bb19daa1ad6b",
-    "C": "c6fb4db8082feaedbfdbe2c3e31f9b0a",
-    "Eb": "bd49812c22f10f852447430456130c58",
-    "F": "c02c631f7ed6bc715f0217bff5e5f4e0",
-    "G": "6da13f4a30d38b82dd8c0ff3547235c6",
-    "Alto": "43230f0bf6a498a5cf18a884bced989f",
-    "Bass": "8d0a8b0bdd6eabb0a1a4b60915e80235"
+    "Vocals": "d9d94e94dae96da0acdf62872ac9b185",
+    "Bb": "4e9b2b81ce8c8d3464d0e7299819decd",
+    "C": "8a06905cfbc9c3a2871b9bd3412a57bc",
+    "Eb": "1b98e662ff6232d6a48dcb908e04459e",
+    "F": "e5199a1e464976af8a2fdf453f3c9361",
+    "G": "ee307b5c58c7643efa868f1738653421",
+    "Alto": "73e4eab912cb4228f870e70dd43caaab",
+    "Bass": "b69e1ea9a4a7be15adcb432f2b93f811"
   },
   "pdfs": {
     "Vocals": "/pdfs/patchwork-staccato/patchwork-staccato-vocals.pdf",
@@ -46,6 +46,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-08-02T04:58:02Z",
-  "updatedAt": "2026-07-23T02:35:32Z"
+  "syncedAt": "2026-08-26T00:05:00Z",
+  "updatedAt": "2026-08-26T00:05:00Z"
 }
