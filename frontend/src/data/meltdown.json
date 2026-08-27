@@ -19,6 +19,7 @@
     "YouTube": "https://www.youtube.com/watch?v=dSw8CucthGc"
   },
   "links": {
+    "Vocals": "https://drive.google.com/file/d/1detBDy3txTbw90zr590BL4uxqbEimN5G/view",
     "Bb": "https://drive.google.com/file/d/1v89vNKdIhVbm5dPTB_8OFvYduBntaI70/view",
     "C": "https://drive.google.com/file/d/1z0U8gsGhS--WM8wdF9d2UG3nwWPwFgM8/view",
     "Eb": "https://drive.google.com/file/d/1JSbVU0RwWHbf2PtSrUf0BghZr7OnnMxP/view",
@@ -28,6 +29,7 @@
     "Bass": "https://drive.google.com/file/d/1XKBmXza6M0tnSXW0QkV6Qw22KyaG38Gp/view"
   },
   "pdfChecksums": {
+    "Vocals": "5229d5287c2a58406379516f4cf9a382",
     "Bb": "b62a9bda491deeea8b5e8e8e346d0ac6",
     "C": "b98268e4c59f7cf2adcb71223d7c760d",
     "Eb": "b2817a6972da54dfbc2770bfb1acccf0",
@@ -37,6 +39,7 @@
     "Bass": "8e7512b24a678c0fe42d638a6729b491"
   },
   "pdfs": {
+    "Vocals": "/pdfs/meltdown/meltdown-vocals.pdf",
     "Bb": "/pdfs/meltdown/meltdown-bb.pdf",
     "C": "/pdfs/meltdown/meltdown-c.pdf",
     "Eb": "/pdfs/meltdown/meltdown-eb.pdf",
@@ -47,6 +50,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-08-27T05:47:48Z",
-  "updatedAt": "2026-08-27T05:47:48Z"
+  "syncedAt": "2026-08-27T05:56:42Z",
+  "updatedAt": "2026-08-27T05:56:42Z"
 }
