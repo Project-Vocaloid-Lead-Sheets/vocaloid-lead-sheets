@@ -242,13 +242,23 @@ class GDriveSession:
         return confirmed_files
 
 
-    def _download_dir_get_remote_metadata(self, file_id: str, mimefilter: list[str] = [], verbose: bool = False) -> bool:
+    def _download_dir_get_remote_metadata(
+        self, file_id: str, mimefilter: list[str] = [], extensions: list[str] = [], verbose: bool = False
+    ) -> bool:
         discovered_files = self._discover_walk_files_in_dir(file_id)
         if mimefilter:
             mimefilter = set(mimefilter)
             discovered_files = {
                 drive_id: meta for drive_id, meta in discovered_files.items() if meta["mimeType"] in mimefilter
             }
+        if extensions:
+            extensions = set([ext.lstrip(".") for ext in extensions])
+            post_filter = {}
+            for drive_id, meta in discovered_files.items():
+                if pathlib.Path(meta["name"]).suffix.lstrip(".") in extensions:
+                    post_filter[drive_id] = meta
+            discovered_files = post_filter
+
         return discovered_files
 
 
@@ -278,10 +288,13 @@ class GDriveSession:
         file_id: str,
         output_file_path: str,
         mimefilter: list[str] = [],
+        extensions: list[str] = [],
         verbose: bool = False,
         force_download: bool = False
     ) -> bool:
-        remote_files = self._download_dir_get_remote_metadata(file_id, mimefilter=mimefilter, verbose=verbose)
+        remote_files = self._download_dir_get_remote_metadata(
+            file_id, mimefilter=mimefilter, extensions=extensions, verbose=verbose
+        )
 
         discovered_files = remote_files
         if force_download:
@@ -356,7 +369,10 @@ def main():
     parser_download_dir = subparsers.add_parser("download_dir", help="download_dir help")
     parser_download_dir.add_argument("download_path_dir", help="Path to file in Google Drive")
     parser_download_dir.add_argument("-o", "--output", help="Download a file to the local path specified", required=True)
-    parser_download_dir.add_argument("-m", "--mimetype", help="Filter to only download files of a specific mime type", default="")
+    parser_download_dir.add_argument("-m", "--mimetype", nargs="*", default=[],
+                                     help="Filter to only download files of specific mime types")
+    parser_download_dir.add_argument("-x", "--extensions", nargs="*", default=[],
+                                     help="Filter to only accept songs of specific extensions")
     args = vars(parser.parse_args())
 
     session = GDriveSession()
@@ -378,7 +394,11 @@ def main():
         dir_id = session.find_drive_id_by_dir(directory)
         target_meta = session.find_file(dir_id, basename)
 
-        exit(0 if session.download_dir(target_meta["id"], args["output"], mimefilter=[args["mimetype"]]) else 1)
+        success = session.download_dir(
+            target_meta["id"], args["output"], mimefilter=args["mimetype"], extensions=args["extensions"]
+        )
+
+        exit(0 if success else 1)
     else:
         parser.print_help()
         exit(1)

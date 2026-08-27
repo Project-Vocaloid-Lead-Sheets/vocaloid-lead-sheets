@@ -82,8 +82,7 @@ class MuseScoreExporter:
                 _logger.warning(f"{mscz_path} was built with MuseScore v{version} - skipping")
                 continue
 
-            jobs.append(MuseScoreExporter._create_musescore_job( mscz_path, mscz_path.parent))
-
+            jobs.append(MuseScoreExporter._create_musescore_job(mscz_path, mscz_path.parent))
         if not jobs:
             return
 
@@ -103,22 +102,19 @@ class MuseScoreExporter:
                 _logger.error(f"MuseScore export failed:\nstdout:\n{exc.stdout}\nstderr:\n{exc.stderr}")
                 raise
 
-            # Post-process using candidate_parts.
 
-
-    def _find_export_candidates(mscz_path: pathlib.Path, min_size: int = 64 * 1024) -> list[str]:
+    def _find_export_candidates(mscz_path: pathlib.Path) -> list[str]:
         candidates = []
 
         with zipfile.ZipFile(mscz_path) as archive:
             for info in archive.infolist():
                 path = pathlib.PurePosixPath(info.filename)
 
-                # 1. Skip contents that aren't part excerpts or that are too small (heuristic of min_size)
                 if path.suffix.lower() != ".mscx" or not path.parts or path.parts[0] != "Excerpts":
                     continue
 
                 _, part_name = path.stem.split("_", 1)
-                candidates.append(part_name)
+                candidates.append(f"{mscz_path.stem}-{part_name}.pdf")
         return sorted(candidates)
 
 
