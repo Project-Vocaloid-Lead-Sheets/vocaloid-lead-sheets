@@ -17,6 +17,7 @@
     "YouTube": "https://www.youtube.com/watch?v=vSnKX7kAgIc"
   },
   "links": {
+    "Vocals": "https://drive.google.com/file/d/1cIRV5pR0nXqJiGOlXkSaatBYXC0PCX2B/view",
     "Bb": "https://drive.google.com/file/d/1PNwI4K5bV8gYg4AfUF23Ai75YKTeRcol/view",
     "C": "https://drive.google.com/file/d/1ULvs3-AvczJ3Rmt3gi40HEz7IubLn-a-/view",
     "Eb": "https://drive.google.com/file/d/1Hh65qX2nQZx3sP9S_EXHi8g_BSBIdMIK/view",
@@ -26,6 +27,7 @@
     "Bass": "https://drive.google.com/file/d/1a1RB2T8JE2f-QrwLYDb3p_Pmwu4MuJPf/view"
   },
   "pdfChecksums": {
+    "Vocals": "74618df724603c288b81000e1213a0be",
     "Bb": "5e02e6756ad7d98cdd663aee9ffc068b",
     "C": "ea1f03806f05fd1a5198fb405394484f",
     "Eb": "61030bfee7454e8169eed75633879f85",
@@ -35,6 +37,7 @@
     "Bass": "42d40ad6683bcfbb95299886e970dcbb"
   },
   "pdfs": {
+    "Vocals": "/pdfs/magnet/magnet-vocals.pdf",
     "Bb": "/pdfs/magnet/magnet-bb.pdf",
     "C": "/pdfs/magnet/magnet-c.pdf",
     "Eb": "/pdfs/magnet/magnet-eb.pdf",
@@ -45,6 +48,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-08-27T05:47:48Z",
-  "updatedAt": "2026-08-27T05:47:48Z"
+  "syncedAt": "2026-08-27T05:59:49Z",
+  "updatedAt": "2026-08-27T05:59:49Z"
 }
