@@ -25,10 +25,10 @@
   },
   "pdfChecksums": {
     "Vocals": "29725d514f9dfd6e98e75fd34691940a",
-    "Bb": "9a21f19b34d8636d7676106077862cb9",
-    "C": "e3604126a70b20fbc3b34dd1822f1444",
-    "Eb": "8aeacb901ed4e758fbad591df2618330",
-    "Bass": "487f48a16be03b4a6329e3dd10925611"
+    "Bb": "149462ae0abb433e45c60262a22eb74d",
+    "C": "701622e15d0246ee7b4a061b067b6e7d",
+    "Eb": "0911d53ced0d6573677a2dbbd07d8222",
+    "Bass": "0efb28dbd9a0c2fb838e9e51c2ed3e82"
   },
   "pdfs": {
     "Vocals": "/pdfs/ghost-rule/ghost-rule-vocals.pdf",
@@ -39,6 +39,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-09-02T17:45:28Z",
-  "updatedAt": "2026-09-02T17:45:28Z"
+  "syncedAt": "2026-09-02T17:52:40Z",
+  "updatedAt": "2026-09-02T17:52:40Z"
 }
