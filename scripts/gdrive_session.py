@@ -279,6 +279,7 @@ class GDriveSession:
                 discovered_files[drive_id] = meta
                 _logger.info(f"Discovered new file {meta['name']} -> {meta['relative_path']}")
             elif local_meta[drive_id]["md5Checksum"] != meta["md5Checksum"]:
+                discovered_files[drive_id] = meta
                 _logger.info(f"Discovered updated file {meta['name']} -> {meta['relative_path']}")
         return discovered_files
 
@@ -306,7 +307,7 @@ class GDriveSession:
                 _logger.info(f"Metadata mismatch - redownload of all artifacts in {output_file_path}!")
             else:
                 _logger.info(f"Metadata up to date - skip redownload of all artifacts in {output_file_path}!")
-                return
+                return True
 
         os.makedirs(output_file_path, exist_ok=True)
 
@@ -334,9 +335,12 @@ class GDriveSession:
                     print(f"Failed: {relative_path}: {exc}")
                     success = False
 
-        with open(os.path.join(output_file_path, GDriveSession.DRIVE_DL_META_FILENAME), "w") as rawfile:
-            json.dump(remote_files, rawfile, indent=2)
-            _logger.info(f"Drive metadata saved at {output_file_path}")
+        if success:
+            with open(os.path.join(output_file_path, GDriveSession.DRIVE_DL_META_FILENAME), "w") as rawfile:
+                json.dump(remote_files, rawfile, indent=2)
+                _logger.info(f"Drive metadata saved at {output_file_path}")
+        else:
+            _logger.warning(f"Could not download some files to {output_file_path} - metadata not saved")
 
         return success
 

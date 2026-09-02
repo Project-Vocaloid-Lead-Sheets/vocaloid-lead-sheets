@@ -61,6 +61,10 @@ class MuseScoreExporter:
 
     def _process_pdf_mass_export_dir(self, directory: pathlib.Path, workers: int = None):
         mscz_paths = list(directory.rglob("*.mscz"))
+        if not mscz_paths:
+            _logger.warning(f"No mscz files detected in {directory} - not exporting anything.")
+            return
+
         if workers is None:
             cpu_count = len(os.sched_getaffinity(0))
             workers = min(len(mscz_paths), max(1, cpu_count - 2))
