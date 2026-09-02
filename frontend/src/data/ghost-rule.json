@@ -17,18 +17,21 @@
     "YouTube": "https://www.youtube.com/watch?v=KushW6zvazM"
   },
   "links": {
+    "Vocals": "https://drive.google.com/file/d/1xCoHPAZLNK_NoPnun4LPRM4hgxJFdP1y/view",
     "Bb": "https://drive.google.com/file/d/1kaZyFJLhEf401MpxBgThNjmYyr3WTd5o/view",
     "C": "https://drive.google.com/file/d/1Pa73CdgnBhE7zO-3nAAbTgA3nebrDZgF/view",
     "Eb": "https://drive.google.com/file/d/11OTDAlUSZNdFwjJVO0l2aBPOYuUvNBGS/view",
     "Bass": "https://drive.google.com/file/d/1ldADAX0P8-W7J3CESvRHDIXljN5dvIlm/view"
   },
   "pdfChecksums": {
-    "Bb": "ef222f6403fb4959e90d3908e83cd53c",
-    "C": "bb05a3830fad0d3459e1047cb03d7bb7",
-    "Eb": "16b98d43efd9e5d3d0aec5c5825948d4",
-    "Bass": "12cba25081fe3a01ebac87558a0c02fa"
+    "Vocals": "29725d514f9dfd6e98e75fd34691940a",
+    "Bb": "9a21f19b34d8636d7676106077862cb9",
+    "C": "e3604126a70b20fbc3b34dd1822f1444",
+    "Eb": "8aeacb901ed4e758fbad591df2618330",
+    "Bass": "487f48a16be03b4a6329e3dd10925611"
   },
   "pdfs": {
+    "Vocals": "/pdfs/ghost-rule/ghost-rule-vocals.pdf",
     "Bb": "/pdfs/ghost-rule/ghost-rule-bb.pdf",
     "C": "/pdfs/ghost-rule/ghost-rule-c.pdf",
     "Eb": "/pdfs/ghost-rule/ghost-rule-eb.pdf",
@@ -36,6 +39,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-07-18T15:39:07Z",
-  "updatedAt": "2026-07-18T15:39:07Z"
+  "syncedAt": "2026-09-02T17:45:28Z",
+  "updatedAt": "2026-09-02T17:45:28Z"
 }
