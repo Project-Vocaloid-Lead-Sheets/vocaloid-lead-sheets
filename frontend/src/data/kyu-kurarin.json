@@ -9,7 +9,9 @@
   "length": "3:36",
   "tvSizeLength": "",
   "bpm": 220,
-  "labels": [],
+  "labels": [
+    "Challenging"
+  ],
   "transcriber": "boracci channel",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=2b1IexhKPz4"
@@ -25,6 +27,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-09-08T01:03:09Z",
+  "syncedAt": "2026-09-08T03:37:09Z",
   "updatedAt": "2026-09-08T01:03:09Z"
 }
