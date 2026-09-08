@@ -1,0 +1,30 @@
+{
+  "title": "Kyu-kurarin",
+  "alternativeNames": [],
+  "producer": "iyowa",
+  "additionalProducers": [],
+  "singer": "KAFU",
+  "additionalVoices": [],
+  "releaseDate": "20210829",
+  "length": "3:36",
+  "tvSizeLength": "",
+  "bpm": 220,
+  "labels": [],
+  "transcriber": "boracci channel",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=2b1IexhKPz4"
+  },
+  "links": {
+    "C": "https://drive.google.com/file/d/1eU1W0e9nyDJDkHK94B3FbpXq_bl2Okvl/view"
+  },
+  "pdfChecksums": {
+    "C": "0ca733219459f323adecd853c2ba7a47"
+  },
+  "pdfs": {
+    "C": "/pdfs/kyu-kurarin/kyu-kurarin-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-09-08T01:03:09Z",
+  "updatedAt": "2026-09-08T01:03:09Z"
+}

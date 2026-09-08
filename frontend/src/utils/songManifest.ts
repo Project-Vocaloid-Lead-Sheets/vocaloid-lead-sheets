@@ -20,6 +20,7 @@ export const SONG_MANIFEST = [
   'karakuri-pierrot.json',
   'king.json',
   'kyoufuu-all-back.json',
+  'kyu-kurarin.json',
   'lagtrain.json',
   'leia.json',
   'liar-dancer.json',
