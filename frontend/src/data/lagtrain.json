@@ -44,8 +44,17 @@
     "Alto": "/pdfs/lagtrain/lagtrain-alto.pdf",
     "Bass": "/pdfs/lagtrain/lagtrain-bass.pdf"
   },
-  "pdfsTvSize": {},
+  "pdfsTvSize": {
+    "Vocals": "/pdfs/lagtrain-tv/lagtrain-tv-vocals.pdf",
+    "Bb": "/pdfs/lagtrain-tv/lagtrain-tv-bb.pdf",
+    "C": "/pdfs/lagtrain-tv/lagtrain-tv-c.pdf",
+    "Eb": "/pdfs/lagtrain-tv/lagtrain-tv-eb.pdf",
+    "F": "/pdfs/lagtrain-tv/lagtrain-tv-f.pdf",
+    "G": "/pdfs/lagtrain-tv/lagtrain-tv-g.pdf",
+    "Alto": "/pdfs/lagtrain-tv/lagtrain-tv-alto.pdf",
+    "Bass": "/pdfs/lagtrain-tv/lagtrain-tv-bass.pdf"
+  },
   "status": "completed",
-  "syncedAt": "2026-07-30T19:09:27Z",
-  "updatedAt": "2026-07-30T19:09:27Z"
+  "syncedAt": "2026-09-09T03:34:06Z",
+  "updatedAt": "2026-09-09T03:34:06Z"
 }
