@@ -15,16 +15,19 @@
     "YouTube": "https://www.youtube.com/watch?v=oidKy7khp8o"
   },
   "links": {
+    "Vocals": "https://drive.google.com/file/d/1SOQcVb29lKB4Thn6RtUjaL6L1rIuelVR/view",
     "C": "https://drive.google.com/file/d/14nOVpnAkOVU1mi3HArtCW-TiHSbf7cy9/view"
   },
   "pdfChecksums": {
-    "C": "27e2042a167d22bd2f18e70e07b552d5"
+    "Vocals": "7311f24df525b18bdb811422b7d98dfb",
+    "C": "e60501d53ddfdec67796088a5d86be38"
   },
   "pdfs": {
+    "Vocals": "/pdfs/calc/calc-vocals.pdf",
     "C": "/pdfs/calc/calc-c.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-08-24T23:32:20Z",
-  "updatedAt": "2026-08-24T23:32:20Z"
+  "syncedAt": "2026-09-10T04:40:30Z",
+  "updatedAt": "2026-09-10T04:40:30Z"
 }
