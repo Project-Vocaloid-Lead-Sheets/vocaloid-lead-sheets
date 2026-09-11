@@ -46,8 +46,10 @@
     "Alto": "/pdfs/melt/melt-alto.pdf",
     "Bass": "/pdfs/melt/melt-bass.pdf"
   },
-  "pdfsTvSize": {},
+  "pdfsTvSize": {
+    "C": "/pdfs/melt-tv/melt-tv-c.pdf"
+  },
   "status": "completed",
-  "syncedAt": "2026-09-11T15:07:46Z",
-  "updatedAt": "2026-07-11T02:49:54Z"
+  "syncedAt": "2026-09-11T15:09:37Z",
+  "updatedAt": "2026-09-11T15:09:37Z"
 }
