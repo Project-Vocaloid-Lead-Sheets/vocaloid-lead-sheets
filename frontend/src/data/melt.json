@@ -47,9 +47,16 @@
     "Bass": "/pdfs/melt/melt-bass.pdf"
   },
   "pdfsTvSize": {
-    "C": "/pdfs/melt-tv/melt-tv-c.pdf"
+    "Vocals": "/pdfs/melt-tv/melt-tv-vocals.pdf",
+    "Bb": "/pdfs/melt-tv/melt-tv-bb.pdf",
+    "C": "/pdfs/melt-tv/melt-tv-c.pdf",
+    "Eb": "/pdfs/melt-tv/melt-tv-eb.pdf",
+    "F": "/pdfs/melt-tv/melt-tv-f.pdf",
+    "G": "/pdfs/melt-tv/melt-tv-g.pdf",
+    "Alto": "/pdfs/melt-tv/melt-tv-alto.pdf",
+    "Bass": "/pdfs/melt-tv/melt-tv-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2026-09-11T15:09:37Z",
-  "updatedAt": "2026-09-11T15:09:37Z"
+  "syncedAt": "2026-09-11T15:11:47Z",
+  "updatedAt": "2026-09-11T15:11:47Z"
 }
