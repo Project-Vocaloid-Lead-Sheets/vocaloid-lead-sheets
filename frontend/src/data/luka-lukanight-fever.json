@@ -17,6 +17,7 @@
     "YouTube": "https://www.youtube.com/watch?v=ScSW9C3DF18"
   },
   "links": {
+    "Vocals": "https://drive.google.com/file/d/14UCD1wA4wLiKikiODjrjroYDMa-picGs/view",
     "Bb": "https://drive.google.com/file/d/1N-o18B9b8KKh-Z5yEoxXZsHXOPODdKSd/view",
     "C": "https://drive.google.com/file/d/15MCb2h9GKDgK7asFQgRlfM693jwe7Ohe/view",
     "Eb": "https://drive.google.com/file/d/17CAZAyTiGfylwJB60Dlzmzc18RUz4Crk/view",
@@ -26,6 +27,7 @@
     "Bass": "https://drive.google.com/file/d/1sUEFwkflRqr8gR4FkCUCCxoe5ePHrEUU/view"
   },
   "pdfChecksums": {
+    "Vocals": "e22050614d8aa258148e463b0fee8cdf",
     "Bb": "1ee1434ca0deb87a36870aff255c0a63",
     "C": "fe7a13cfa857703233a6f4835ccce61c",
     "Eb": "f877540cbc3af5c8c8418f5444b919ac",
@@ -35,6 +37,7 @@
     "Bass": "e85c09e192c0e69cdecd906a0036baf6"
   },
   "pdfs": {
+    "Vocals": "/pdfs/luka-lukanight-fever/luka-lukanight-fever-vocals.pdf",
     "Bb": "/pdfs/luka-lukanight-fever/luka-lukanight-fever-bb.pdf",
     "C": "/pdfs/luka-lukanight-fever/luka-lukanight-fever-c.pdf",
     "Eb": "/pdfs/luka-lukanight-fever/luka-lukanight-fever-eb.pdf",
@@ -45,6 +48,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-09-11T02:13:11Z",
-  "updatedAt": "2026-09-11T02:13:11Z"
+  "syncedAt": "2026-09-11T02:15:21Z",
+  "updatedAt": "2026-09-11T02:15:21Z"
 }
