@@ -19,28 +19,37 @@
     "YouTube": "https://www.youtube.com/watch?v=0ZVFAkdRMRY"
   },
   "links": {
-    "Vocals": "https://drive.google.com/file/d/1lJsipwHfDH5dTxYrHvuhNiKf2Uyzec6B/view",
-    "Bb": "https://drive.google.com/file/d/1cKar4GsKySFauDz15CY_JMsRoa6enHsX/view",
-    "C": "https://drive.google.com/file/d/1YNZVMfI1vvBSs0x20OL9BFb4aGnydKx7/view",
-    "Eb": "https://drive.google.com/file/d/1KJ95LF0Vy97UlzN3ioDE7hp0V0PqZRdf/view",
-    "Bass": "https://drive.google.com/file/d/17juTHZjHdHOv1-AAmDzWUV693Gia4PRS/view"
+    "Vocals": "https://drive.google.com/file/d/1HfCHNApEM6uhN8yAVNCPBAAxuXpH1Hvf/view",
+    "Bb": "https://drive.google.com/file/d/1vlLnyFDtUexuFSe3DPKlniDZuRS311EO/view",
+    "C": "https://drive.google.com/file/d/13se5fbyjbNHwTuO05_ujUmehdi2pf5KI/view",
+    "Eb": "https://drive.google.com/file/d/1vgkInYXVxShE_fQE-u-4qJfnDNgZ_H3t/view",
+    "F": "https://drive.google.com/file/d/1Ap8B6VAEGQvAas_9-iijNqUan2-Y7LFQ/view",
+    "G": "https://drive.google.com/file/d/1XYPlTIU8WgPiARinRMDgjiFWFvlvc7u0/view",
+    "Alto": "https://drive.google.com/file/d/1CUGQ_2WNyGsHqbPwbPFMX1CVzTVJvprN/view",
+    "Bass": "https://drive.google.com/file/d/1zARq3_aT9Ekgw3zmRzdO8bvwK5PcrMFV/view"
   },
   "pdfChecksums": {
-    "Vocals": "35ea888d9dd7ea3dc2cc0d4b34719acb",
-    "Bb": "2203eca60adb28bc0d6308dd45fcf2d2",
-    "C": "2dc8b75ea8fda8cc0dbafda428cc6346",
-    "Eb": "451c38083a6c0da8adf076f0ed6f03c1",
-    "Bass": "174140de078f51b04b2fac612483a1cd"
+    "Vocals": "cc856375d4774adcbce2c4da05a06d6a",
+    "Bb": "b1e95666bf3e79c50efef48a1ade60b3",
+    "C": "ed9817aec07556072cd483c74d00dd14",
+    "Eb": "2095fa3f50992dae4b516d7a0e81730c",
+    "F": "1827a5e2d2f39078684b180b67f000e3",
+    "G": "355a1dbebbe4694f51e523e6ebdee4cb",
+    "Alto": "65c37a7a449c5016bbf07af0c88616f6",
+    "Bass": "30e9ec525cc00d12a1b10f71370a909d"
   },
   "pdfs": {
     "Vocals": "/pdfs/square-up/square-up-vocals.pdf",
     "Bb": "/pdfs/square-up/square-up-bb.pdf",
     "C": "/pdfs/square-up/square-up-c.pdf",
     "Eb": "/pdfs/square-up/square-up-eb.pdf",
+    "F": "/pdfs/square-up/square-up-f.pdf",
+    "G": "/pdfs/square-up/square-up-g.pdf",
+    "Alto": "/pdfs/square-up/square-up-alto.pdf",
     "Bass": "/pdfs/square-up/square-up-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-07-15T02:39:38Z",
-  "updatedAt": "2026-07-15T02:39:38Z"
+  "syncedAt": "2026-09-12T02:12:38Z",
+  "updatedAt": "2026-09-12T02:12:38Z"
 }
