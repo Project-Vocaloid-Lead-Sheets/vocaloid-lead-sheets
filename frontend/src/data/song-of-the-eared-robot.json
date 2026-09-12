@@ -18,18 +18,21 @@
   },
   "links": {
     "Vocals": "https://drive.google.com/file/d/10VW9PiDbOcHlprAjWW-dLyLTqcvBaYP7/view",
+    "Bb": "https://drive.google.com/file/d/1aElewtFBfscYx_fDVA1K7CvdKeSDmPnb/view",
     "C": "https://drive.google.com/file/d/19xUp-Tod42T6pBewnZEb553qfZsxmXEb/view"
   },
   "pdfChecksums": {
-    "Vocals": "c8812ee181008eb19f14c7b01e1f880d",
-    "C": "e695da54d2f4c70cb0e846373301857b"
+    "Vocals": "c6c0fc0400bed628a57e5767ee9be13b",
+    "Bb": "47a9d6cc63a86786221a9a5e3857e781",
+    "C": "78d4ce10e942ee7513cf8596a36bf438"
   },
   "pdfs": {
     "Vocals": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-vocals.pdf",
+    "Bb": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-bb.pdf",
     "C": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-c.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-08-20T15:43:32Z",
-  "updatedAt": "2026-08-20T15:43:32Z"
+  "syncedAt": "2026-09-12T15:50:56Z",
+  "updatedAt": "2026-09-12T15:50:56Z"
 }
