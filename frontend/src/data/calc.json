@@ -16,18 +16,21 @@
   },
   "links": {
     "Vocals": "https://drive.google.com/file/d/1SOQcVb29lKB4Thn6RtUjaL6L1rIuelVR/view",
+    "Bb": "https://drive.google.com/file/d/1SlBLj94nCOx_tN4_fvVp1aWarjvTPQgS/view",
     "C": "https://drive.google.com/file/d/14nOVpnAkOVU1mi3HArtCW-TiHSbf7cy9/view"
   },
   "pdfChecksums": {
-    "Vocals": "2254419e0d7c39fc908bd7fafd57ad69",
-    "C": "e60501d53ddfdec67796088a5d86be38"
+    "Vocals": "bb1ab0aedf5cd1d95882016169f4e1e9",
+    "Bb": "60081c72d2e2fcab9e9c110bdc7a64ff",
+    "C": "6bb457b952f2fafacd808d01441c1ede"
   },
   "pdfs": {
     "Vocals": "/pdfs/calc/calc-vocals.pdf",
+    "Bb": "/pdfs/calc/calc-bb.pdf",
     "C": "/pdfs/calc/calc-c.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-09-10T04:47:04Z",
-  "updatedAt": "2026-09-10T04:47:04Z"
+  "syncedAt": "2026-09-12T03:16:06Z",
+  "updatedAt": "2026-09-12T03:16:06Z"
 }
