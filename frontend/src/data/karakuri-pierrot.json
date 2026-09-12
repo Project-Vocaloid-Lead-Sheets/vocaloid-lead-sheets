@@ -19,24 +19,33 @@
     "Bb": "https://drive.google.com/file/d/1hB3VRN9AcLSrszttSTJFlxmuPTOHvOJk/view",
     "C": "https://drive.google.com/file/d/11TWkokPb49lSvDqd33w4oSBpIIqgCYUP/view",
     "Eb": "https://drive.google.com/file/d/194wdp0HJe0OWNQbTMuhOGvGP0_FJ2SCa/view",
+    "F": "https://drive.google.com/file/d/1N1GyQo8KbEw1EFZItB7p4dgQ8-PJdkjs/view",
+    "G": "https://drive.google.com/file/d/1FBC9Zzk6QQroeZqyWN3eH7p1VNeobhxc/view",
+    "Alto": "https://drive.google.com/file/d/1c7_yQ0JS2eWE4fhxU5KmG6g9UCh023ss/view",
     "Bass": "https://drive.google.com/file/d/1d3IYZMvtAoCuf-HCq7UJyFzGQavfqWKl/view"
   },
   "pdfChecksums": {
-    "Vocals": "d82649f65055941e77543a27aa371104",
-    "Bb": "b4752ee90db9060e8c8cae7b845cdd8e",
-    "C": "da5038b81b4ea4a82265746dc631261d",
-    "Eb": "32f62db6aec593ba3c43d824da97970d",
-    "Bass": "bb6f59bc42e87c93c386eebc72d3eedf"
+    "Vocals": "4a6b466b00d5f1359145b7f7952653c4",
+    "Bb": "b61167a8ac3285b9fb9eaa7adf43383f",
+    "C": "74627a72cf6c61d772c2981a78176379",
+    "Eb": "6c80fefcc9ea94adfecddf5c3c9ab2b5",
+    "F": "8589751bb408bdd49afd61c17ccfcc86",
+    "G": "5d839f83c516a85447db909fb6cd1dd6",
+    "Alto": "8cfbb8c3fb60db5da0b17109a020b505",
+    "Bass": "918ec0c9f3b1ce0fd1f058872a73b552"
   },
   "pdfs": {
     "Vocals": "/pdfs/karakuri-pierrot/karakuri-pierrot-vocals.pdf",
     "Bb": "/pdfs/karakuri-pierrot/karakuri-pierrot-bb.pdf",
     "C": "/pdfs/karakuri-pierrot/karakuri-pierrot-c.pdf",
     "Eb": "/pdfs/karakuri-pierrot/karakuri-pierrot-eb.pdf",
+    "F": "/pdfs/karakuri-pierrot/karakuri-pierrot-f.pdf",
+    "G": "/pdfs/karakuri-pierrot/karakuri-pierrot-g.pdf",
+    "Alto": "/pdfs/karakuri-pierrot/karakuri-pierrot-alto.pdf",
     "Bass": "/pdfs/karakuri-pierrot/karakuri-pierrot-bass.pdf"
   },
   "pdfsTvSize": {},
-  "status": "under review",
-  "syncedAt": "2026-05-08T03:24:51Z",
-  "updatedAt": "2026-05-08T03:24:51Z"
+  "status": "completed",
+  "syncedAt": "2026-09-12T18:55:42Z",
+  "updatedAt": "2026-09-12T18:55:42Z"
 }
