@@ -7,7 +7,7 @@
   "additionalVoices": [],
   "releaseDate": "20200716",
   "length": "4:06",
-  "tvSizeLength": "",
+  "tvSizeLength": "1:38",
   "bpm": 146,
   "labels": [],
   "transcriber": "Nap1400",
@@ -55,6 +55,6 @@
     "Bass": "/pdfs/lagtrain-tv/lagtrain-tv-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2026-09-09T03:34:06Z",
+  "syncedAt": "2026-09-13T03:49:33Z",
   "updatedAt": "2026-09-09T03:34:06Z"
 }
