@@ -1,0 +1,35 @@
+{
+  "title": "REGRET ROCK",
+  "alternativeNames": [],
+  "producer": "MonochroMenace",
+  "additionalProducers": [],
+  "singer": "Kasane Teto",
+  "additionalVoices": [],
+  "releaseDate": "20250212",
+  "length": "2:32",
+  "tvSizeLength": "",
+  "bpm": 220,
+  "labels": [
+    "Explicit"
+  ],
+  "transcriber": "Nap1400",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=a3owBc_MqRo"
+  },
+  "links": {
+    "Vocals": "https://drive.google.com/file/d/1vNvNYN_yyxzNTgkXXQfKGJ_RC-Y5u2R8/view",
+    "C": "https://drive.google.com/file/d/1JeOdzvMBULYawREnbL16w41k-QtIais1/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "6c3078c4746e1966878f7f08f53d8df4",
+    "C": "8335ad16e889c6b44344d01d402de54e"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/regret-rock/regret-rock-vocals.pdf",
+    "C": "/pdfs/regret-rock/regret-rock-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-09-13T21:36:33Z",
+  "updatedAt": "2026-09-13T21:36:33Z"
+}
