@@ -20,16 +20,28 @@
     "YouTube": "https://www.youtube.com/watch?v=gRNO6QY-GwM&list=RDgRNO6QY-GwM"
   },
   "links": {
-    "C": "https://drive.google.com/file/d/1pxOl5V_JjOfGx3-_7ppqVFx9vRIp3ni8/view"
+    "Vocals": "https://drive.google.com/file/d/1EMJPZTVFm6K7wLVaug3tAnAC5r4rbidu/view",
+    "Bb": "https://drive.google.com/file/d/1XUusDvhOqS3tsLMFeEnpRz-PG9WYrxY5/view",
+    "C": "https://drive.google.com/file/d/1pxOl5V_JjOfGx3-_7ppqVFx9vRIp3ni8/view",
+    "Eb": "https://drive.google.com/file/d/1fRri5XLtIp6YcPKPkEkD0Gs2r_w_d8H-/view",
+    "Bass": "https://drive.google.com/file/d/1at5Z7aTJUeAdX0JyqT5AXp-QgVFxABPE/view"
   },
   "pdfChecksums": {
-    "C": "953682552501fea9bca375a0408633a5"
+    "Vocals": "613c136fa6f39342e370a4411391a8ad",
+    "Bb": "3833b9b36c5c2358dcf2060af81381ee",
+    "C": "b6b2fbaf824427a480117062f40512e8",
+    "Eb": "a780ca9175488cc926c17d2e5f1e5d97",
+    "Bass": "0aeaaed8f2a932e3856b4553c586dad0"
   },
   "pdfs": {
-    "C": "/pdfs/otsukimi-recital/otsukimi-recital-c.pdf"
+    "Vocals": "/pdfs/otsukimi-recital/otsukimi-recital-vocals.pdf",
+    "Bb": "/pdfs/otsukimi-recital/otsukimi-recital-bb.pdf",
+    "C": "/pdfs/otsukimi-recital/otsukimi-recital-c.pdf",
+    "Eb": "/pdfs/otsukimi-recital/otsukimi-recital-eb.pdf",
+    "Bass": "/pdfs/otsukimi-recital/otsukimi-recital-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-08-02T20:48:27Z",
-  "updatedAt": "2026-08-02T20:48:27Z"
+  "syncedAt": "2026-09-13T07:20:52Z",
+  "updatedAt": "2026-09-13T07:20:52Z"
 }
