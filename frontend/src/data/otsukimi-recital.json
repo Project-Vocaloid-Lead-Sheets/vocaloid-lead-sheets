@@ -24,24 +24,33 @@
     "Bb": "https://drive.google.com/file/d/1XUusDvhOqS3tsLMFeEnpRz-PG9WYrxY5/view",
     "C": "https://drive.google.com/file/d/1pxOl5V_JjOfGx3-_7ppqVFx9vRIp3ni8/view",
     "Eb": "https://drive.google.com/file/d/1fRri5XLtIp6YcPKPkEkD0Gs2r_w_d8H-/view",
+    "F": "https://drive.google.com/file/d/1bv0CH_0KWlqxsuUiiKXaycM18KKk1peB/view",
+    "G": "https://drive.google.com/file/d/1xqx9IkpLARRgpBx_AdfTTEjMlsECi1Pr/view",
+    "Alto": "https://drive.google.com/file/d/13mDkagciYr6NsYMXJhQwnIFg4MLNtvzy/view",
     "Bass": "https://drive.google.com/file/d/1at5Z7aTJUeAdX0JyqT5AXp-QgVFxABPE/view"
   },
   "pdfChecksums": {
-    "Vocals": "613c136fa6f39342e370a4411391a8ad",
-    "Bb": "3833b9b36c5c2358dcf2060af81381ee",
-    "C": "b6b2fbaf824427a480117062f40512e8",
-    "Eb": "a780ca9175488cc926c17d2e5f1e5d97",
-    "Bass": "0aeaaed8f2a932e3856b4553c586dad0"
+    "Vocals": "1e604bfc2e35cb79971bffb3e5d3bb05",
+    "Bb": "41fecf50b348daf82e2c94fbf5c3837b",
+    "C": "9f9098a8f1f2aa394642c6a2af740123",
+    "Eb": "804e45e387978749fa6dee38b4bef027",
+    "F": "218e5c8ac851999e2d32b5b47e474aa0",
+    "G": "300263b5018d9960ffa590fac9fb66d4",
+    "Alto": "5ad61219f69ff11de2ff6dcfa5c958ee",
+    "Bass": "f90400eb9a8df61fff5bcdc047995950"
   },
   "pdfs": {
     "Vocals": "/pdfs/otsukimi-recital/otsukimi-recital-vocals.pdf",
     "Bb": "/pdfs/otsukimi-recital/otsukimi-recital-bb.pdf",
     "C": "/pdfs/otsukimi-recital/otsukimi-recital-c.pdf",
     "Eb": "/pdfs/otsukimi-recital/otsukimi-recital-eb.pdf",
+    "F": "/pdfs/otsukimi-recital/otsukimi-recital-f.pdf",
+    "G": "/pdfs/otsukimi-recital/otsukimi-recital-g.pdf",
+    "Alto": "/pdfs/otsukimi-recital/otsukimi-recital-alto.pdf",
     "Bass": "/pdfs/otsukimi-recital/otsukimi-recital-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-09-14T03:57:25Z",
-  "updatedAt": "2026-09-13T07:20:52Z"
+  "syncedAt": "2026-09-14T20:16:47Z",
+  "updatedAt": "2026-09-14T20:16:47Z"
 }
