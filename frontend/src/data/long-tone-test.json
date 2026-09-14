@@ -22,9 +22,9 @@
     "C": "https://drive.google.com/file/d/1yCMZTZRTwObivBQwoPfhQPL8ksBqk57z/view"
   },
   "pdfChecksums": {
-    "Vocals": "51401b8a78608af4bea1c9e83c011815",
-    "Bb": "41254f7672ee7378a1d6d211ab2cd6ac",
-    "C": "1b36c570bdf509929fe372c6cc3f38e9"
+    "Vocals": "21163be253da1e242f7afe2c0499f79f",
+    "Bb": "0c20922ce5a4e23b1459811dd3ceb0e7",
+    "C": "c77e6e714280474b9ae593ff48e594bd"
   },
   "pdfs": {
     "Vocals": "/pdfs/long-tone-test/long-tone-test-vocals.pdf",
@@ -33,6 +33,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-09-12T03:11:36Z",
-  "updatedAt": "2026-09-12T03:11:36Z"
+  "syncedAt": "2026-09-14T00:42:14Z",
+  "updatedAt": "2026-09-14T00:42:14Z"
 }
