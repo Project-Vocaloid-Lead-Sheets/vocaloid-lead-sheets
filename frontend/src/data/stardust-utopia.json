@@ -24,11 +24,11 @@
     "Bass": "https://drive.google.com/file/d/1g-x462QjQ-fjiC7ITBC68f4-OWNC1SBG/view"
   },
   "pdfChecksums": {
-    "Vocals": "aa955aa24ecd1ea41e837ebf81d49208",
-    "Bb": "a18bf62f23c1773a5163188dba634a4a",
-    "C": "ede7345173d23c6e37329bdc82849ce1",
-    "Eb": "1ddf54b84c652c33e66546ba53a54d80",
-    "Bass": "a749ae1852a8a9522d3a96b0dffe3b64"
+    "Vocals": "bf436ddfb8df86f91ba5d9ec2a20d978",
+    "Bb": "5732b0a24c05253ab05a11113d46b66c",
+    "C": "7b99ec1476a7648afdb0627314315bfa",
+    "Eb": "11f9ff4fd3b06fefe9d8d5085b38c011",
+    "Bass": "2325c4e51e5e7f67fc45faa87366c018"
   },
   "pdfs": {
     "Vocals": "/pdfs/stardust-utopia/stardust-utopia-vocals.pdf",
@@ -39,6 +39,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-09-11T01:55:48Z",
-  "updatedAt": "2026-09-11T01:55:48Z"
+  "syncedAt": "2026-09-15T13:57:35Z",
+  "updatedAt": "2026-09-15T13:57:35Z"
 }
