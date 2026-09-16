@@ -17,16 +17,19 @@
     "YouTube": "https://www.youtube.com/watch?v=H0EtICId6mI"
   },
   "links": {
+    "Vocals": "https://drive.google.com/file/d/1pV1ovG_yeO5QO5IpM93aCEGlyMN40qLW/view",
     "C": "https://drive.google.com/file/d/1MijzXIFJGBI-d8mANNq0A_J9gnutLQ2L/view"
   },
   "pdfChecksums": {
+    "Vocals": "9d39d803e40767e9fb7eeed106438af0",
     "C": "dbcd2fc128bd8a5065bb0d060d08b6f1"
   },
   "pdfs": {
+    "Vocals": "/pdfs/cantarella/cantarella-vocals.pdf",
     "C": "/pdfs/cantarella/cantarella-c.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-09-16T23:53:51Z",
-  "updatedAt": "2026-09-16T23:53:51Z"
+  "syncedAt": "2026-09-16T23:57:31Z",
+  "updatedAt": "2026-09-16T23:57:31Z"
 }
