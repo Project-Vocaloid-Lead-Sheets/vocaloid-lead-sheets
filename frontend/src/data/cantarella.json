@@ -1,0 +1,32 @@
+{
+  "title": "Cantarella",
+  "alternativeNames": [],
+  "producer": "Kurousa-P",
+  "additionalProducers": [],
+  "singer": "KAITO",
+  "additionalVoices": [
+    "Hatsune Miku"
+  ],
+  "releaseDate": "20080221",
+  "length": "3:00",
+  "tvSizeLength": "",
+  "bpm": 144,
+  "labels": [],
+  "transcriber": "KOB",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=H0EtICId6mI"
+  },
+  "links": {
+    "C": "https://drive.google.com/file/d/1MijzXIFJGBI-d8mANNq0A_J9gnutLQ2L/view"
+  },
+  "pdfChecksums": {
+    "C": "dbcd2fc128bd8a5065bb0d060d08b6f1"
+  },
+  "pdfs": {
+    "C": "/pdfs/cantarella/cantarella-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-09-16T23:53:51Z",
+  "updatedAt": "2026-09-16T23:53:51Z"
+}
