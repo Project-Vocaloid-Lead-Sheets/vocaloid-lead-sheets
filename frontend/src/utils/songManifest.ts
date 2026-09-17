@@ -45,6 +45,7 @@ export const SONG_MANIFEST = [
   'romeo-and-cinderella.json',
   'rot-for-clout.json',
   'senbonzakura.json',
+  'six-trillion-years-and-overnight-story.json',
   'song-of-the-eared-robot.json',
   'square-up.json',
   'stardust-utopia.json',
