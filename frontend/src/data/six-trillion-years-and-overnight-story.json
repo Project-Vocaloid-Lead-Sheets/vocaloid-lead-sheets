@@ -31,14 +31,14 @@
     "Bass": "https://drive.google.com/file/d/1OTLh-v9HwAcjnWxzssZ08kyZ9n-XFp8z/view"
   },
   "pdfChecksums": {
-    "Vocals": "f49a05ab9b43b147ced1c8c2baf2cc25",
-    "Bb": "2dc4a7cde04a198a4fcf69f6016e3970",
-    "C": "f353bba5ce62f02138502af56ba4a020",
-    "Eb": "39b362e9168a7e8010bc44cf1f7aa013",
-    "F": "000ba2dfcb08aa710227ac52de8fc11e",
-    "G": "d6b6029438e1a5a5a4225394300f14da",
-    "Alto": "605c7c15f2db14d3ab3a7c7d24327a5f",
-    "Bass": "dd15566c96632b9f435dfdec8280ca25"
+    "Vocals": "353910b63ee1f81b2c7ecf73527927df",
+    "Bb": "59e19f18d0ddcee9c63000cbc1bc6d82",
+    "C": "e53fe2391465deb7cc589a1f8833d0a4",
+    "Eb": "6a2559449ba13bf060660e1cccd3f7b3",
+    "F": "133dbb3b5a99ed7d2024a28c2c680126",
+    "G": "f1667cbe1afe4f79ee6d4fb79664d59c",
+    "Alto": "b0725608981f647a4ba5bf82606b98c0",
+    "Bass": "0b56a5e44326880aee34d36ff82429a3"
   },
   "pdfs": {
     "Vocals": "/pdfs/six-trillion-years-and-overnight-story/six-trillion-years-and-overnight-story-vocals.pdf",
@@ -52,6 +52,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-09-17T12:07:29Z",
-  "updatedAt": "2026-09-17T12:07:29Z"
+  "syncedAt": "2026-09-17T12:20:09Z",
+  "updatedAt": "2026-09-17T12:20:09Z"
 }
