@@ -27,14 +27,14 @@
     "Bass": "https://drive.google.com/file/d/1vh1dgQrM5yM4AGRTsI8ptq9dgRSYErHO/view"
   },
   "pdfChecksums": {
-    "Vocals": "eaf94a9111f62860fb421b1b8b265024",
-    "Bb": "8aa747792209a9d9b52353badd8b9cf3",
-    "C": "e417c1d0a15294eb4dccdba5b94fbb9b",
-    "Eb": "6124c426fcfa4c0c2a84ba0e1b16909b",
-    "F": "b01f5342ba811e7c326d49120b70d0e9",
-    "G": "44f3488ee2e72bbc429ebd61e6583e0c",
-    "Alto": "2a49ac4179e98be4c5aefe9e24e14828",
-    "Bass": "b51b8d5dea9ae37a9920e875fca04454"
+    "Vocals": "f080731fc7f7d7a156f9805f9bbffc7c",
+    "Bb": "e240c23e54a530ba4329877de421f6e4",
+    "C": "7619bfdb73f6809879f40816e617d419",
+    "Eb": "29425fc92ae5a3a7896ca0cfb17aeaba",
+    "F": "7392677e97d541374cf01456b38deab8",
+    "G": "31a96d1040bf0ed44d1daef2c092fbe6",
+    "Alto": "d31f1432503d3b5e4005075259a4e5dc",
+    "Bass": "f288ad30273e923de4ce1ac1f6c3c363"
   },
   "pdfs": {
     "Vocals": "/pdfs/unknown-mother-goose/unknown-mother-goose-vocals.pdf",
@@ -48,6 +48,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-08-02T19:10:19Z",
-  "updatedAt": "2026-08-02T19:10:19Z"
+  "syncedAt": "2026-09-17T04:13:53Z",
+  "updatedAt": "2026-09-17T04:13:53Z"
 }
