@@ -24,9 +24,9 @@
     "Bass": "https://drive.google.com/file/d/1ldADAX0P8-W7J3CESvRHDIXljN5dvIlm/view"
   },
   "pdfChecksums": {
-    "Vocals": "29725d514f9dfd6e98e75fd34691940a",
+    "Vocals": "25ce44bdf61263dd450c57bf97ff5e83",
     "Bb": "149462ae0abb433e45c60262a22eb74d",
-    "C": "701622e15d0246ee7b4a061b067b6e7d",
+    "C": "61e2e60ab5f0ecd33bdfcdb3ce68a6cd",
     "Eb": "0911d53ced0d6573677a2dbbd07d8222",
     "Bass": "0efb28dbd9a0c2fb838e9e51c2ed3e82"
   },
@@ -39,6 +39,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-09-02T17:52:40Z",
-  "updatedAt": "2026-09-02T17:52:40Z"
+  "syncedAt": "2026-10-01T03:40:30Z",
+  "updatedAt": "2026-10-01T03:40:30Z"
 }
