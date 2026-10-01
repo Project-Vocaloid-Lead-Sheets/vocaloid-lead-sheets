@@ -32,7 +32,7 @@
   "pdfChecksums": {
     "Vocals": "a93c9b9df3699db75dd14a9df1ff49cb",
     "Bb": "41fecf50b348daf82e2c94fbf5c3837b",
-    "C": "5cc3be78ef1991720c33c804508fc8da",
+    "C": "bfaf4e99bcc4d8dd055dcc5f0dbfeb90",
     "Eb": "804e45e387978749fa6dee38b4bef027",
     "F": "218e5c8ac851999e2d32b5b47e474aa0",
     "G": "300263b5018d9960ffa590fac9fb66d4",
@@ -51,6 +51,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-09-30T14:42:42Z",
-  "updatedAt": "2026-09-30T14:42:42Z"
+  "syncedAt": "2026-10-01T12:23:04Z",
+  "updatedAt": "2026-10-01T12:23:04Z"
 }
