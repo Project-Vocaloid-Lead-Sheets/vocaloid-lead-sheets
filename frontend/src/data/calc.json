@@ -17,20 +17,35 @@
   "links": {
     "Vocals": "https://drive.google.com/file/d/1SOQcVb29lKB4Thn6RtUjaL6L1rIuelVR/view",
     "Bb": "https://drive.google.com/file/d/1SlBLj94nCOx_tN4_fvVp1aWarjvTPQgS/view",
-    "C": "https://drive.google.com/file/d/14nOVpnAkOVU1mi3HArtCW-TiHSbf7cy9/view"
+    "C": "https://drive.google.com/file/d/14nOVpnAkOVU1mi3HArtCW-TiHSbf7cy9/view",
+    "Eb": "https://drive.google.com/file/d/1VfBldbWe67Gciwf0qU-vwKh80dsAz2uW/view",
+    "F": "https://drive.google.com/file/d/1i-ZhoKbZscyAcS28aNVIgIp6HVMp49Iw/view",
+    "G": "https://drive.google.com/file/d/1jP2JvH5jsSrO_vuA7UtSbWSfffEXaNfu/view",
+    "Alto": "https://drive.google.com/file/d/1EZS5ThWBM_HLIE4q14vBehsw6-nVshti/view",
+    "Bass": "https://drive.google.com/file/d/1sfgzcAa1iXDDde9DKRgg24l32gvzt9DF/view"
   },
   "pdfChecksums": {
-    "Vocals": "775d0ccd126ab3fed73a67eeffac1a39",
-    "Bb": "f2510c077116b16c41ed704b8c853e70",
-    "C": "dc7e4ea64e1883887b3c3a7e84e24f7f"
+    "Vocals": "8ec090694e4f424fc8e902f7e8d6642f",
+    "Bb": "90aa2ee869d9c1671e070371924bd5dd",
+    "C": "6b69e16d74754b36443b079a3af4fb2c",
+    "Eb": "4527ea3d0a3113e3ad61318f58acc0e5",
+    "F": "7e1dd033d8838c8f5b5dbb8db56724fe",
+    "G": "042c758aa3e8c833871e8a08b9c5152d",
+    "Alto": "2faa8e32bf26ed2c7b3757f32295e79b",
+    "Bass": "01e14b1a9b6c5664948a5d3a34906fcc"
   },
   "pdfs": {
     "Vocals": "/pdfs/calc/calc-vocals.pdf",
     "Bb": "/pdfs/calc/calc-bb.pdf",
-    "C": "/pdfs/calc/calc-c.pdf"
+    "C": "/pdfs/calc/calc-c.pdf",
+    "Eb": "/pdfs/calc/calc-eb.pdf",
+    "F": "/pdfs/calc/calc-f.pdf",
+    "G": "/pdfs/calc/calc-g.pdf",
+    "Alto": "/pdfs/calc/calc-alto.pdf",
+    "Bass": "/pdfs/calc/calc-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-09-14T01:00:27Z",
-  "updatedAt": "2026-09-14T01:00:27Z"
+  "syncedAt": "2026-10-01T22:09:47Z",
+  "updatedAt": "2026-10-01T22:09:47Z"
 }
