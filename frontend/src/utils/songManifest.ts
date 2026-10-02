@@ -9,6 +9,7 @@ export const SONG_MANIFEST = [
   'cantarella.json',
   'cendrillon.json',
   'dawn-and-fireflies.json',
+  'dont-go.json',
   'donut-hole.json',
   'ghost-rule.json',
   'glow.json',

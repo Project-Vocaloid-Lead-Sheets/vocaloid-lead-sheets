@@ -1,0 +1,32 @@
+{
+  "title": "Don't Go",
+  "alternativeNames": [
+    "Ikanaide"
+  ],
+  "producer": "Sohta",
+  "additionalProducers": [],
+  "singer": "Kaai Yuki",
+  "additionalVoices": [],
+  "releaseDate": "20131009",
+  "length": "3:12",
+  "tvSizeLength": "",
+  "bpm": 96,
+  "labels": [],
+  "transcriber": "Latios212",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=L0tcMxp8Iy8"
+  },
+  "links": {
+    "C": "https://drive.google.com/file/d/1oueq6wFThxnn66g8WYrGweGArYNvvp-U/view"
+  },
+  "pdfChecksums": {
+    "C": "974e2dcbd12b6d97004b766a65ee9735"
+  },
+  "pdfs": {
+    "C": "/pdfs/dont-go/dont-go-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-10-02T21:26:17Z",
+  "updatedAt": "2026-10-02T21:26:17Z"
+}
