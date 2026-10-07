@@ -25,14 +25,14 @@
     "Bass": "https://drive.google.com/file/d/1_ZsCW1G01oQnTXxfE-Iv1oKwddPJqp6p/view"
   },
   "pdfChecksums": {
-    "Vocals": "ab15f53470087a9ddaa2124058e1dcd4",
-    "Bb": "ffa4607a2221517f2d4710a35d8348d9",
-    "C": "74e8775608a355cc6e18d1fd9cffb622",
-    "Eb": "0d94f12e2ad6bffdb27b3b690d42f62f",
-    "F": "bab2a530ad95e1eb20e8f784b842edec",
-    "G": "7db89ed658a644bb660392f874827941",
-    "Alto": "a497a06f027c14afbb2b3eb4afc3de33",
-    "Bass": "20455599f5e98927ddce7d52f287c23c"
+    "Vocals": "02f36d4ef5167270fc05c102fe51c98d",
+    "Bb": "abc66ed172c43ddeb7f16c8d94c00a6b",
+    "C": "1c403e4313cac9058d194466edacad92",
+    "Eb": "ee72aa4ea1d5d1ef023dc5fea66bf74e",
+    "F": "f3bdc982f5ac2b8e31a14b7754359ac6",
+    "G": "e437e7d33830980a260fb24ff6338f69",
+    "Alto": "9e274839d56860cb535dbc518aaca646",
+    "Bass": "0dea3d46b18be7631812f95090e87761"
   },
   "pdfs": {
     "Vocals": "/pdfs/telecaster-b-boy/telecaster-b-boy-vocals.pdf",
@@ -46,6 +46,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-10-04T01:25:49Z",
-  "updatedAt": "2026-10-04T01:25:49Z"
+  "syncedAt": "2026-10-07T22:44:03Z",
+  "updatedAt": "2026-10-07T22:44:03Z"
 }
