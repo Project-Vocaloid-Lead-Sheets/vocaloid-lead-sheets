@@ -27,14 +27,14 @@
     "Bass": "https://drive.google.com/file/d/1NVxjAqwxGeMc5D_SQ6ZEPcnrG7I_yBCE/view"
   },
   "pdfChecksums": {
-    "Vocals": "a37b85ec6efbb2374ba3f7c9169d77a6",
-    "Bb": "9bd7648f78550acd78455409433fe373",
-    "C": "31c74d643827a79519d047a5d399da02",
-    "Eb": "057f6975bd8e6fe468b533b0b3ee0286",
-    "F": "62d4a4fee40cd439a1524f5a36ad6cea",
-    "G": "24b187f4da1a2e422fdcbbd93cfe1216",
-    "Alto": "52efff3f2f046081a6e775bbb78f67b2",
-    "Bass": "7d567f603715822d5ca5768c2d1a26dd"
+    "Vocals": "e5fb06ef375ecd359df8abc68980b34b",
+    "Bb": "1b25f8807ff28a136bf51d44b5b5ebfa",
+    "C": "9343158fb6ca4ce953e1daeee49b278a",
+    "Eb": "835e8ff31db995f43dd18fe1b531351e",
+    "F": "2b5182717dda76215b3e2eae7e8b59a7",
+    "G": "4fac7fbd5f181ad4c943336f67e845d4",
+    "Alto": "a13c0f52e63e22f3ef4e03e45513410d",
+    "Bass": "1f918f631afda5c4866524cf143127f7"
   },
   "pdfs": {
     "Vocals": "/pdfs/cutie-mew-mew-magic/cutie-mew-mew-magic-vocals.pdf",
@@ -48,6 +48,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-10-07T22:44:03Z",
-  "updatedAt": "2026-10-07T22:44:03Z"
+  "syncedAt": "2026-10-07T22:59:54Z",
+  "updatedAt": "2026-10-07T22:59:54Z"
 }
