@@ -21,24 +21,33 @@
     "Bb": "https://drive.google.com/file/d/1kaZyFJLhEf401MpxBgThNjmYyr3WTd5o/view",
     "C": "https://drive.google.com/file/d/1Pa73CdgnBhE7zO-3nAAbTgA3nebrDZgF/view",
     "Eb": "https://drive.google.com/file/d/11OTDAlUSZNdFwjJVO0l2aBPOYuUvNBGS/view",
+    "F": "https://drive.google.com/file/d/1eMKidHwf0yTYYH8EemdTk9FhRL94eJ9C/view",
+    "G": "https://drive.google.com/file/d/1bS1_TRLetCbbMxscLcajPhMUOebfcT3_/view",
+    "Alto": "https://drive.google.com/file/d/12NEqDgweSTmJbS3ZDLsYZHyyGc_qSUXN/view",
     "Bass": "https://drive.google.com/file/d/1ldADAX0P8-W7J3CESvRHDIXljN5dvIlm/view"
   },
   "pdfChecksums": {
-    "Vocals": "1def11cd5b199e36fef279f30b01f7cd",
-    "Bb": "149462ae0abb433e45c60262a22eb74d",
-    "C": "ee0a192264c84285b39fee6d952007ae",
-    "Eb": "0911d53ced0d6573677a2dbbd07d8222",
-    "Bass": "0efb28dbd9a0c2fb838e9e51c2ed3e82"
+    "Vocals": "3de95a7808ce5f887b210ac0d4fc0c09",
+    "Bb": "1374b5cbf186839d48e9e05fb619ff82",
+    "C": "9ff029e9b1d1c043ca6153aedf19eb23",
+    "Eb": "356f263be8bfe452b6e00e8344f72b68",
+    "F": "dc997c1f9ef9f63d33c059a490953a71",
+    "G": "4df95f71c9c97a2d47575339b2919690",
+    "Alto": "7affabe7afaec3f8c5a38c5509621d83",
+    "Bass": "b3a8aba92ecd3680971fa7628d365660"
   },
   "pdfs": {
     "Vocals": "/pdfs/ghost-rule/ghost-rule-vocals.pdf",
     "Bb": "/pdfs/ghost-rule/ghost-rule-bb.pdf",
     "C": "/pdfs/ghost-rule/ghost-rule-c.pdf",
     "Eb": "/pdfs/ghost-rule/ghost-rule-eb.pdf",
+    "F": "/pdfs/ghost-rule/ghost-rule-f.pdf",
+    "G": "/pdfs/ghost-rule/ghost-rule-g.pdf",
+    "Alto": "/pdfs/ghost-rule/ghost-rule-alto.pdf",
     "Bass": "/pdfs/ghost-rule/ghost-rule-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-10-05T03:46:26Z",
-  "updatedAt": "2026-10-05T03:46:26Z"
+  "syncedAt": "2026-10-11T06:24:01Z",
+  "updatedAt": "2026-10-11T06:24:01Z"
 }
