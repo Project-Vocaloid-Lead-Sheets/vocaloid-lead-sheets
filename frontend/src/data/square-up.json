@@ -29,14 +29,14 @@
     "Bass": "https://drive.google.com/file/d/1zARq3_aT9Ekgw3zmRzdO8bvwK5PcrMFV/view"
   },
   "pdfChecksums": {
-    "Vocals": "a0fd1c0755c5ff7468f5552f6013e474",
-    "Bb": "bfdf0a9acc00e9cde8802152b875bffd",
-    "C": "daf96b9c6a275e0d2d5e74994ab34eac",
-    "Eb": "a021234b0bcc6a2a7e5f4551acc49a28",
-    "F": "80db725dcd05a302891d15d0fb6e9aff",
-    "G": "75068415f84144606685097fbbc5970d",
-    "Alto": "27324d3d8fad9c752395c6fcbd767a45",
-    "Bass": "a5cfcaf738394ef5523ef20e08856d35"
+    "Vocals": "425d083f645d585d373d49d28cac299e",
+    "Bb": "4e614963948bd58428344d491a9e5df8",
+    "C": "fb18a61efa9abf965e8608b04e5e955f",
+    "Eb": "8bcf4f6bb7d4f00d23e3faa68c175a92",
+    "F": "0f550c1a11970ae4284819d6a2daf243",
+    "G": "f069e9d7080e52381ad5684bcd11aa82",
+    "Alto": "5c2052a61f56c09ac37a822ecb3e6222",
+    "Bass": "cca84d5d708c9adb7e69fe36fdc9b2b2"
   },
   "pdfs": {
     "Vocals": "/pdfs/square-up/square-up-vocals.pdf",
@@ -50,6 +50,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-10-04T00:25:47Z",
-  "updatedAt": "2026-10-04T00:25:47Z"
+  "syncedAt": "2026-10-11T06:53:02Z",
+  "updatedAt": "2026-10-11T06:53:02Z"
 }
