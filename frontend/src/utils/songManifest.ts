@@ -65,6 +65,7 @@ export const SONG_MANIFEST = [
   'world-is-mine.json',
   'worlds-end-dancehall.json',
   'young-girl-a.json',
+  'yowamushi-montblanc.json',
 ] as const
 
 export type SongFilename = typeof SONG_MANIFEST[number]

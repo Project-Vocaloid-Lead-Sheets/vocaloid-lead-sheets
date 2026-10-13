@@ -1,0 +1,35 @@
+{
+  "title": "Yowamushi Montblanc",
+  "alternativeNames": [
+    "Coward Montblanc"
+  ],
+  "producer": "DECO*27",
+  "additionalProducers": [],
+  "singer": "GUMI",
+  "additionalVoices": [],
+  "releaseDate": "20100414",
+  "length": "3:56",
+  "tvSizeLength": "",
+  "bpm": 120,
+  "labels": [],
+  "transcriber": "Latios212",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=B-A2eYlbrwQ"
+  },
+  "links": {
+    "Vocals": "https://drive.google.com/file/d/1K3yu9SpQPI35G9nblqfNpcSV1svcYmF2/view",
+    "C": "https://drive.google.com/file/d/1k7FMZscsteHhv_aSBsvcEQ4-ovShXsGz/view"
+  },
+  "pdfChecksums": {
+    "Vocals": "776794c5cb904b3e7dd159812ab3634d",
+    "C": "d0d1ceb7d219fee00493606a721217b9"
+  },
+  "pdfs": {
+    "Vocals": "/pdfs/yowamushi-montblanc/yowamushi-montblanc-vocals.pdf",
+    "C": "/pdfs/yowamushi-montblanc/yowamushi-montblanc-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-10-13T21:48:19Z",
+  "updatedAt": "2026-10-13T21:48:19Z"
+}
