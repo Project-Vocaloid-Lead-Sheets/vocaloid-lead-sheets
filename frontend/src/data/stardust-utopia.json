@@ -21,24 +21,33 @@
     "Bb": "https://drive.google.com/file/d/1goQQDv2u-F4eULFvaBKGmqWmr3aMbe_n/view",
     "C": "https://drive.google.com/file/d/1BseguEi-vUFcHvzSLoW9dJeWqQ5POX8f/view",
     "Eb": "https://drive.google.com/file/d/1q7klM1ubuFaxQMIQmbXMsh71kF_67BG-/view",
+    "F": "https://drive.google.com/file/d/1ETq07YHiQdt29k8bXlHwwTQdC2Dqk3qG/view",
+    "G": "https://drive.google.com/file/d/1vVe02FYH08k0TYBGe8l9VDYsJQMyrtdU/view",
+    "Alto": "https://drive.google.com/file/d/1_qmCB32x3EPWXq-Kj6ecEKBZXjs-CyRP/view",
     "Bass": "https://drive.google.com/file/d/10KPygDUSvsK9vB0X0lPJblabe6jIytar/view"
   },
   "pdfChecksums": {
-    "Vocals": "ebe94219fb4b1cd868debee488df0aa0",
-    "Bb": "c89ba019e9c412694983d8915b1b58f2",
-    "C": "e5797be41cf6dbe68c02b618ee208cc5",
-    "Eb": "8e9b6d56eb1b6498c95b77955c55a310",
-    "Bass": "69c607d6670768186e4e49b2e3be3be7"
+    "Vocals": "8677f592182518008b12d19bfb4bd876",
+    "Bb": "730bb4602a8238dfecc3dcaa2be62eae",
+    "C": "8644cf2858d292c73e7b7ba56be44dc3",
+    "Eb": "b430925c72e4e474e601d6bdc04048cb",
+    "F": "4c5a12774a3542d0deac4cf7fca1edb0",
+    "G": "3b08f3e91b6918740af0a706a71e8530",
+    "Alto": "a26280d3f9e9327a01f3857dd2f2a8fa",
+    "Bass": "d61b56a4144009990f3af0ae088e75df"
   },
   "pdfs": {
     "Vocals": "/pdfs/stardust-utopia/stardust-utopia-vocals.pdf",
     "Bb": "/pdfs/stardust-utopia/stardust-utopia-bb.pdf",
     "C": "/pdfs/stardust-utopia/stardust-utopia-c.pdf",
     "Eb": "/pdfs/stardust-utopia/stardust-utopia-eb.pdf",
+    "F": "/pdfs/stardust-utopia/stardust-utopia-f.pdf",
+    "G": "/pdfs/stardust-utopia/stardust-utopia-g.pdf",
+    "Alto": "/pdfs/stardust-utopia/stardust-utopia-alto.pdf",
     "Bass": "/pdfs/stardust-utopia/stardust-utopia-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-10-17T21:00:00Z",
-  "updatedAt": "2026-10-17T21:00:00Z"
+  "syncedAt": "2026-10-18T01:04:14Z",
+  "updatedAt": "2026-10-18T01:04:14Z"
 }
