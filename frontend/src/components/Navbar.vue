@@ -137,7 +137,7 @@ onUnmounted(() => {
             />
           </div>
 
-          <div class="flex-grow-1 overflow-auto p-3">
+          <div class="flex-grow-1 overflow-auto py-3">
             <!-- Song List -->
             <SongList
               :ordered-songs="orderedSongs"

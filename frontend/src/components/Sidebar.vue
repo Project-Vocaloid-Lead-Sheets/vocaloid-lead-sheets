@@ -135,7 +135,7 @@ onUnmounted(() => {
       <SongList
         :ordered-songs="orderedSongs"
         :selected-instrument="selectedInstrument"
-        list-class="navbar-nav pe-5"
+        list-class="navbar-nav"
         collapse-id-prefix="dropdown"
       />
     </div>
@@ -171,6 +171,11 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+#sidebar-nav {
+  width: calc(100% + 2rem);
+  margin-inline: -1rem;
+}
+
 .sidebar-shell {
   width: clamp(20rem, 32vw, 23rem);
   min-width: clamp(20rem, 32vw, 23rem);

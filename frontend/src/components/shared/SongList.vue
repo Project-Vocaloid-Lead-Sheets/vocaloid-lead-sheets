@@ -15,7 +15,11 @@
         :id="collapseIdPrefix + 'collapse' + index"
       >
         <li
-          class="nav-item d-flex align-items-center"
+          class="nav-item song-row d-flex align-items-center"
+          :class="{
+            'song-selected': isSelectedSong(song),
+            'song-missing-part': isMissingPart(song),
+          }"
           v-for="song in group.songs"
           :key="song.title"
         >
@@ -52,6 +56,10 @@
             </a>
 
             <SongInfo :song="song" />
+            <MissingPartWarning
+              v-if="isMissingPart(song)"
+              :message="`no ${selectedInstrument} part for this song (ㅠ﹏ㅠ)`"
+            />
           </div>
         </li>
       </ul>
@@ -62,6 +70,7 @@
 <script setup lang="ts">
 import type { Instrument, Song } from '@/types/types'
 import SongInfo from '@/components/shared/SongInfo.vue'
+import MissingPartWarning from '@/components/shared/MissingPartWarning.vue'
 import { useSongsStore } from '@/stores/songs'
 import { generateSongSlug } from '@/utils/slugUtils'
 import { useRoute } from 'vue-router'
@@ -97,4 +106,34 @@ const isSelectedSong = (song: Song) => {
   if (!currentSlug) return false
   return generateSongSlug(song.title) === currentSlug
 }
+
+const isMissingPart = (song: Song) => !song.pdfs[props.selectedInstrument]?.trim()
 </script>
+
+<style scoped>
+.song-row {
+  padding-inline: 1rem;
+}
+
+.group > .nav-link {
+  padding-inline: 1rem;
+}
+
+.song-row > .nav-link {
+  flex: 1;
+  min-width: 0;
+}
+
+.song-selected {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.song-selected > .nav-link {
+  color: #fff;
+  font-weight: 700;
+}
+
+.song-missing-part {
+  background-color: #5f2d31;
+}
+</style>

@@ -337,6 +337,8 @@ export const useSongFilters = () => {
 
       // Check if song has PDF for selected instrument
       const hasPdf = song.pdfs[selectedInstrument.value]?.trim()
+      const isCurrentSong =
+        isSheetViewRoute.value && generateSongSlug(song.title) === route.params.songSlug
 
       // Label filtering
       const matchesLabels =
@@ -391,7 +393,7 @@ export const useSongFilters = () => {
 
       return (
         matchesQuery &&
-        hasPdf &&
+        (hasPdf || isCurrentSong) &&
         matchesLabels &&
         matchesProducers &&
         matchesSingers &&
@@ -460,8 +462,12 @@ export const useSongFilters = () => {
   })
 
   const pickRandomSong = () => {
-    const randomIndex = Math.floor(Math.random() * filteredSongs.value.length)
-    const slug = generateSongSlug(filteredSongs.value[randomIndex].title)
+    const playableSongs = filteredSongs.value.filter((song) =>
+      song.pdfs[selectedInstrument.value]?.trim(),
+    )
+    if (playableSongs.length === 0) return
+    const randomIndex = Math.floor(Math.random() * playableSongs.length)
+    const slug = generateSongSlug(playableSongs[randomIndex].title)
     router.push({
       name: 'sheetView',
       params: {
