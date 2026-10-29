@@ -31,6 +31,7 @@ export const SONG_MANIFEST = [
   'love-is-war.json',
   'luka-lukanight-fever.json',
   'magnet.json',
+  'matryoshka.json',
   'melt.json',
   'meltdown.json',
   'mesmerizer.json',
