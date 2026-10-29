@@ -11,7 +11,9 @@
   "length": "3:20",
   "tvSizeLength": "",
   "bpm": 205,
-  "labels": [],
+  "labels": [
+    "Hall of Myths"
+  ],
   "transcriber": "Melanie Claire",
   "videoLinks": {
     "YouTube": "https://www.youtube.com/watch?v=HOz-9FzIDf0"
@@ -30,6 +32,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-10-29T03:37:05Z",
+  "syncedAt": "2026-10-29T04:52:49Z",
   "updatedAt": "2026-10-29T03:37:05Z"
 }
