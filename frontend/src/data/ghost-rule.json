@@ -27,14 +27,14 @@
     "Bass": "https://drive.google.com/file/d/1ldADAX0P8-W7J3CESvRHDIXljN5dvIlm/view"
   },
   "pdfChecksums": {
-    "Vocals": "3de95a7808ce5f887b210ac0d4fc0c09",
-    "Bb": "1374b5cbf186839d48e9e05fb619ff82",
-    "C": "9ff029e9b1d1c043ca6153aedf19eb23",
-    "Eb": "356f263be8bfe452b6e00e8344f72b68",
-    "F": "dc997c1f9ef9f63d33c059a490953a71",
-    "G": "4df95f71c9c97a2d47575339b2919690",
-    "Alto": "7667240bb2d3b504dd469d565fd3e87c",
-    "Bass": "b3a8aba92ecd3680971fa7628d365660"
+    "Vocals": "320136632325f837cb454045a53d94b2",
+    "Bb": "9469239a83cfd11935de0dd7a36f7d4f",
+    "C": "ea0d03dc02f7b67be20167a82f7c787a",
+    "Eb": "2a1bbd200a58253b2d45f38bb4b5fe0f",
+    "F": "6fd2b6f1db544f9579437cef27af54e8",
+    "G": "d4c91d843a7efd0517b95ade3afe759e",
+    "Alto": "e152d059d2fe551dac2ee9a2f4b65cf0",
+    "Bass": "14df6a3751eb0b40ef1421aa33daff89"
   },
   "pdfs": {
     "Vocals": "/pdfs/ghost-rule/ghost-rule-vocals.pdf",
@@ -48,6 +48,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-10-11T06:44:47Z",
-  "updatedAt": "2026-10-11T06:44:47Z"
+  "syncedAt": "2026-11-03T03:10:39Z",
+  "updatedAt": "2026-11-03T03:10:39Z"
 }
