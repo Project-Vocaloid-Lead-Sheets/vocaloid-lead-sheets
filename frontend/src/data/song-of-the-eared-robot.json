@@ -22,9 +22,9 @@
     "C": "https://drive.google.com/file/d/19xUp-Tod42T6pBewnZEb553qfZsxmXEb/view"
   },
   "pdfChecksums": {
-    "Vocals": "c61cb8500b416559e3fe60356c6820f4",
-    "Bb": "800d680e71d63df29403e26cc8133c2a",
-    "C": "9261b630afdbc36a53f858eea3895375"
+    "Vocals": "d3a165589dee0c39776b87bb32970095",
+    "Bb": "08be07c254aa7572804fd172453c7d4a",
+    "C": "3be6368b35fd1887f9c0bc6e038318c8"
   },
   "pdfs": {
     "Vocals": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-vocals.pdf",
@@ -33,6 +33,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-11-03T21:14:03Z",
-  "updatedAt": "2026-11-03T21:14:03Z"
+  "syncedAt": "2026-11-03T21:41:59Z",
+  "updatedAt": "2026-11-03T21:41:59Z"
 }
