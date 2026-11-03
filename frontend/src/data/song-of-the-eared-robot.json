@@ -19,20 +19,35 @@
   "links": {
     "Vocals": "https://drive.google.com/file/d/10VW9PiDbOcHlprAjWW-dLyLTqcvBaYP7/view",
     "Bb": "https://drive.google.com/file/d/1aElewtFBfscYx_fDVA1K7CvdKeSDmPnb/view",
-    "C": "https://drive.google.com/file/d/19xUp-Tod42T6pBewnZEb553qfZsxmXEb/view"
+    "C": "https://drive.google.com/file/d/19xUp-Tod42T6pBewnZEb553qfZsxmXEb/view",
+    "Eb": "https://drive.google.com/file/d/1lt9svvACO5-mU0VLcQ0HiPYBXP61DQ97/view",
+    "F": "https://drive.google.com/file/d/1OnSydoEW9gxfe-GZfI5eA2AKGhZRL4hP/view",
+    "G": "https://drive.google.com/file/d/1EicCyIVgTQkLNYAemJGMIiIX_pcqTxZe/view",
+    "Alto": "https://drive.google.com/file/d/1qh0KiVlqUpzi68cl4Qx96vIz8d3BQgAx/view",
+    "Bass": "https://drive.google.com/file/d/1pUs23XzHGvzCZy4A3_hhZPwx2vPtg9zp/view"
   },
   "pdfChecksums": {
-    "Vocals": "d3a165589dee0c39776b87bb32970095",
-    "Bb": "08be07c254aa7572804fd172453c7d4a",
-    "C": "3be6368b35fd1887f9c0bc6e038318c8"
+    "Vocals": "e5964e108777754f61806bed15f5d51c",
+    "Bb": "5aac3c2b580e1c1f0a73df145446389c",
+    "C": "634aa2745b41f06de87a6214b2cf0004",
+    "Eb": "185be72f73601ae31fbdb51a3fb8389f",
+    "F": "36291ff0b46e7a4dceb3e73e65caad6b",
+    "G": "2625cbdba442087a6fbcfac95b2211ac",
+    "Alto": "6df4441195febfde857628f29293a1e2",
+    "Bass": "8b57802ebd7fe18cadc524db06644d17"
   },
   "pdfs": {
     "Vocals": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-vocals.pdf",
     "Bb": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-bb.pdf",
-    "C": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-c.pdf"
+    "C": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-c.pdf",
+    "Eb": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-eb.pdf",
+    "F": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-f.pdf",
+    "G": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-g.pdf",
+    "Alto": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-alto.pdf",
+    "Bass": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-11-03T21:41:59Z",
-  "updatedAt": "2026-11-03T21:41:59Z"
+  "syncedAt": "2026-11-03T22:16:53Z",
+  "updatedAt": "2026-11-03T22:16:53Z"
 }
