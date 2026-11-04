@@ -27,14 +27,14 @@
     "Bass": "https://drive.google.com/file/d/1pUs23XzHGvzCZy4A3_hhZPwx2vPtg9zp/view"
   },
   "pdfChecksums": {
-    "Vocals": "d68f518264e11c7db39da42c35f6e189",
-    "Bb": "e0baeecd9d1e365fe26f3f3ca0e93bc8",
-    "C": "233a8bf7d2a173100261fc5e0bcf6509",
-    "Eb": "db247c741083a8e0d39f60d6f03efdf0",
-    "F": "e955ae0b8ca3cb2f456dad8bc9f0051e",
-    "G": "002d0694ee9fa2f1ecbe5fa48a19c0bb",
-    "Alto": "e1b335cbcb1201ae2fdb3761af1a76cf",
-    "Bass": "3b5524387bca23d74d3b64aac8fed49c"
+    "Vocals": "a55fd0b57bc544c02b347db150569fbe",
+    "Bb": "8f105473fa82df15e731c4095fe2dfab",
+    "C": "9f8f0991268601a4bc7b537681ce70bc",
+    "Eb": "3dac0fe55e360857fe51ee4cf7115e87",
+    "F": "d972d312178aa14f0daa40e97bdf055a",
+    "G": "e903aef4a4a3a572229442279554347b",
+    "Alto": "2bb18a7256b9ff4fd67875b66c1c100c",
+    "Bass": "bde9c32d3a6c5106142c8daadfc54e41"
   },
   "pdfs": {
     "Vocals": "/pdfs/song-of-the-eared-robot/song-of-the-eared-robot-vocals.pdf",
@@ -48,6 +48,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-11-04T01:17:16Z",
-  "updatedAt": "2026-11-04T01:17:16Z"
+  "syncedAt": "2026-11-04T06:04:19Z",
+  "updatedAt": "2026-11-04T06:04:19Z"
 }
