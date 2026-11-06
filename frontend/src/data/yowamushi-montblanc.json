@@ -17,12 +17,12 @@
     "YouTube": "https://www.youtube.com/watch?v=B-A2eYlbrwQ"
   },
   "links": {
-    "Vocals": "https://drive.google.com/file/d/1K3yu9SpQPI35G9nblqfNpcSV1svcYmF2/view",
-    "C": "https://drive.google.com/file/d/1k7FMZscsteHhv_aSBsvcEQ4-ovShXsGz/view"
+    "Vocals": "https://drive.google.com/file/d/1Acc8JhxRi3DN1LBPFhWmkTHzKsH8GUrQ/view",
+    "C": "https://drive.google.com/file/d/1zP5erZNQlWAP-B2KGlqJ_gdJ4KVoOcnK/view"
   },
   "pdfChecksums": {
-    "Vocals": "776794c5cb904b3e7dd159812ab3634d",
-    "C": "d0d1ceb7d219fee00493606a721217b9"
+    "Vocals": "3071a166f736d87fc54b712f46cad865",
+    "C": "4744dfb8785c7bcecf7ac17a27d5e36c"
   },
   "pdfs": {
     "Vocals": "/pdfs/yowamushi-montblanc/yowamushi-montblanc-vocals.pdf",
@@ -30,6 +30,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-10-13T21:48:19Z",
-  "updatedAt": "2026-10-13T21:48:19Z"
+  "syncedAt": "2026-11-06T03:45:30Z",
+  "updatedAt": "2026-11-06T03:45:30Z"
 }
