@@ -23,8 +23,8 @@
     "C": "https://drive.google.com/file/d/1Fkr_ZnZz75QK9QKBfcVG8qSevjdagGt0/view"
   },
   "pdfChecksums": {
-    "Vocals": "9d8fc3ffccb8273283b28a7c97cf8626",
-    "C": "896119c51ce45a7397f050b615f619db"
+    "Vocals": "48fd584735b1381e7c9c7a576d8401b5",
+    "C": "c7f49cfd130b2af9a890e4999e24ecc5"
   },
   "pdfs": {
     "Vocals": "/pdfs/matryoshka/matryoshka-vocals.pdf",
@@ -32,6 +32,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-11-11T21:52:45Z",
-  "updatedAt": "2026-11-11T21:52:45Z"
+  "syncedAt": "2026-11-13T04:11:08Z",
+  "updatedAt": "2026-11-13T04:11:08Z"
 }
