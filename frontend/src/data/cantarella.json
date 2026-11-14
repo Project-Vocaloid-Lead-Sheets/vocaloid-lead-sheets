@@ -18,18 +18,36 @@
   },
   "links": {
     "Vocals": "https://drive.google.com/file/d/1pV1ovG_yeO5QO5IpM93aCEGlyMN40qLW/view",
-    "C": "https://drive.google.com/file/d/1MijzXIFJGBI-d8mANNq0A_J9gnutLQ2L/view"
+    "Bb": "https://drive.google.com/file/d/1oE_Et8ga94CNF_daXtWuV7RR-ornIPV_/view",
+    "C": "https://drive.google.com/file/d/1MijzXIFJGBI-d8mANNq0A_J9gnutLQ2L/view",
+    "Eb": "https://drive.google.com/file/d/1zuoEhGtB6bPKz4nsHoDUWUjwHcN3Fz9_/view",
+    "F": "https://drive.google.com/file/d/1RKsyFOCMGaEU0wGmiz_I5XPvsdgkqjsz/view",
+    "G": "https://drive.google.com/file/d/12FI-lmJZvtgIwpgXe6Kqvk_ChJcUnnGO/view",
+    "Alto": "https://drive.google.com/file/d/1TsTCYOSbGk8roVbL99IILyc4miSnpeg2/view",
+    "Bass": "https://drive.google.com/file/d/1rCYa5bUW-33i7g-FlOYOyU53zoqU7HTm/view"
   },
   "pdfChecksums": {
-    "Vocals": "7814c747b206a1ca1f955931d1d5e1ae",
-    "C": "e08a420a4d58ddb1aeec6bad4ee9679a"
+    "Vocals": "bacee83b3a7fde4f621099deec713f3e",
+    "Bb": "1d7884d25232f24b61e261a692aca058",
+    "C": "2623095242b9d08ef99bb67dd484ef30",
+    "Eb": "363b0f4891789f8fd009168e78dc42ec",
+    "F": "b051fffb5628c78a6a807a978ee545b4",
+    "G": "ac7bba3a4fba86aa4ada786bd16f79a6",
+    "Alto": "0d71dbc7ab64cfe9d44a03e591f9dc36",
+    "Bass": "e00609e74f1fdcee1c5cb277e1642a03"
   },
   "pdfs": {
     "Vocals": "/pdfs/cantarella/cantarella-vocals.pdf",
-    "C": "/pdfs/cantarella/cantarella-c.pdf"
+    "Bb": "/pdfs/cantarella/cantarella-bb.pdf",
+    "C": "/pdfs/cantarella/cantarella-c.pdf",
+    "Eb": "/pdfs/cantarella/cantarella-eb.pdf",
+    "F": "/pdfs/cantarella/cantarella-f.pdf",
+    "G": "/pdfs/cantarella/cantarella-g.pdf",
+    "Alto": "/pdfs/cantarella/cantarella-alto.pdf",
+    "Bass": "/pdfs/cantarella/cantarella-bass.pdf"
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-10-21T03:25:13Z",
-  "updatedAt": "2026-10-21T03:25:13Z"
+  "syncedAt": "2026-11-14T23:15:56Z",
+  "updatedAt": "2026-11-14T23:15:56Z"
 }
