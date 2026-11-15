@@ -43,6 +43,7 @@ export const SONG_MANIFEST = [
   'otsukimi-recital.json',
   'oyasumination.json',
   'patchwork-staccato.json',
+  'phony.json',
   'regret-rock.json',
   'rolling-girl.json',
   'romeo-and-cinderella.json',

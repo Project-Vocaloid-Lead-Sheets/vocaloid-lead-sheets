@@ -1,0 +1,32 @@
+{
+  "title": "phony",
+  "alternativeNames": [],
+  "producer": "tsumiki",
+  "additionalProducers": [],
+  "singer": "KAFU",
+  "additionalVoices": [],
+  "releaseDate": "20210605",
+  "length": "3:08",
+  "tvSizeLength": "",
+  "bpm": 170,
+  "labels": [
+    "Hall of Myths"
+  ],
+  "transcriber": "boracci channel",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=9QLT1Aw_45s"
+  },
+  "links": {
+    "C": "https://drive.google.com/file/d/1OO-xGzDed5A3sLQ3qd4-OF4s9w29A3bp/view"
+  },
+  "pdfChecksums": {
+    "C": "05190d8af6b494f2ef67cd9b0f10f950"
+  },
+  "pdfs": {
+    "C": "/pdfs/phony/phony-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-11-15T05:20:57Z",
+  "updatedAt": "2026-11-15T05:20:57Z"
+}
