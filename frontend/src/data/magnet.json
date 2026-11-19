@@ -27,14 +27,14 @@
     "Bass": "https://drive.google.com/file/d/1a1RB2T8JE2f-QrwLYDb3p_Pmwu4MuJPf/view"
   },
   "pdfChecksums": {
-    "Vocals": "f513e288a4e743aa60ad86067c85bc72",
-    "Bb": "71294b5df20ea5cf0c5e71d6f5fbd9f4",
-    "C": "0fb621cc6e9c7e54aeb724a065e5bdf9",
-    "Eb": "820b6f5ac94b7aa63a28c00e23e8cb4d",
-    "F": "76bf0d9a8deb93bdc4b43d8c4970bb7c",
-    "G": "d37728e4e88fe3f113480602bcf1c266",
-    "Alto": "7f4d58af14f59d426bb0200b71c9cada",
-    "Bass": "9cb39e819c9b4b2cdfba53c10a79fded"
+    "Vocals": "f76d88512c5f73060dcbcb245e3b30e6",
+    "Bb": "6b9db6171247d08d789febfa6921d523",
+    "C": "ff752e0d880f517ce569d3ef6471ea11",
+    "Eb": "e6276ff47c1b5ed29022d5ec2567153d",
+    "F": "34e4ca1e8f7e3438f1836f42f27a1c4f",
+    "G": "b92265ea96629aae64fbccf370a582c8",
+    "Alto": "639051af90ee77bed4d06ed31342c755",
+    "Bass": "0c5138d0a9f1d094d7e3a5cfd6fb1e62"
   },
   "pdfs": {
     "Vocals": "/pdfs/magnet/magnet-vocals.pdf",
@@ -48,6 +48,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-11-19T01:03:57Z",
-  "updatedAt": "2026-11-19T01:03:57Z"
+  "syncedAt": "2026-11-19T01:11:27Z",
+  "updatedAt": "2026-11-19T01:11:27Z"
 }
