@@ -1,12 +1,34 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, useId } from 'vue'
 import { useSongFilters } from '@/scripts/useSongFilters'
+import DualRangeSlider from '@/components/shared/DualRangeSlider.vue'
+import TagFilter from '@/components/shared/TagFilter.vue'
+import { describeKey, filterMusicalKeys, getKeyQueryOption } from '@/utils/musicalKeys'
+import { difficultyCriteria } from '@/types/types'
+import type { DifficultyCriterion, DifficultyRanges } from '@/types/types'
+import {
+  cloneDifficultyRanges,
+  createDifficultyRanges,
+  difficultyLabels,
+  difficultyDescriptions,
+} from '@/utils/songMetadata'
+
+// Keep Bootstrap's dotted event name intact instead of treating it as Vue modifiers.
+const modalShowEvent = 'show.bs.modal'
+const difficultyDescriptionId = useId()
 
 const {
   // Selected by user in filter modal
   selectedLabels,
   selectedProducers,
   selectedSingers,
+  includedKeys,
+  excludedKeys,
+  difficultyRanges,
+  difficultySectionExpanded,
+  keySectionExpanded,
+  availableKeys,
+  difficultyBounds,
   dateRange,
   lengthRange,
   lengthFilterSource,
@@ -22,6 +44,38 @@ const {
 const tempSelectedLabels = ref<string[]>([])
 const tempSelectedProducers = ref<string[]>([])
 const tempSelectedSingers = ref<string[]>([])
+const tempIncludedKeys = ref<string[]>([])
+const tempExcludedKeys = ref<string[]>([])
+const tempDifficultyRanges = ref<DifficultyRanges>(createDifficultyRanges())
+
+const onDifficultyToggle = (event: Event) => {
+  difficultySectionExpanded.value = (event.target as HTMLDetailsElement).open
+}
+
+const onKeyToggle = (event: Event) => {
+  keySectionExpanded.value = (event.target as HTMLDetailsElement).open
+}
+
+const updateIncludedKeys = (keys: string[]) => {
+  tempIncludedKeys.value = keys
+  tempExcludedKeys.value = tempExcludedKeys.value.filter((key) => !keys.includes(key))
+}
+
+const updateExcludedKeys = (keys: string[]) => {
+  tempExcludedKeys.value = keys
+  tempIncludedKeys.value = tempIncludedKeys.value.filter((key) => !keys.includes(key))
+}
+
+const setDifficultyRange = (
+  criterion: DifficultyCriterion,
+  range: { min: number; max: number },
+) => {
+  const bounds = difficultyBounds.value[criterion]
+  tempDifficultyRanges.value[criterion] = {
+    min: range.min <= bounds.min ? null : range.min,
+    max: range.max >= bounds.max ? null : range.max,
+  }
+}
 const tempDateRange = ref<{ start: string; end: string }>({ start: '', end: '' })
 const tempLengthRange = ref<{ min: number | null; max: number | null }>({ min: null, max: null })
 const tempLengthFilterSource = ref<'full' | 'tv' | 'either'>('full')
@@ -31,6 +85,9 @@ const initializeTempFilters = () => {
   tempSelectedLabels.value = [...selectedLabels.value]
   tempSelectedProducers.value = [...selectedProducers.value]
   tempSelectedSingers.value = [...selectedSingers.value]
+  tempIncludedKeys.value = [...includedKeys.value]
+  tempExcludedKeys.value = [...excludedKeys.value]
+  tempDifficultyRanges.value = cloneDifficultyRanges(difficultyRanges.value)
   tempDateRange.value = { ...dateRange.value }
   tempLengthFilterSource.value = lengthFilterSource.value
   tempLengthRange.value = { ...lengthRange.value }
@@ -42,6 +99,9 @@ const applyFilters = () => {
   selectedLabels.value = [...tempSelectedLabels.value]
   selectedProducers.value = [...tempSelectedProducers.value]
   selectedSingers.value = [...tempSelectedSingers.value]
+  includedKeys.value = [...tempIncludedKeys.value]
+  excludedKeys.value = [...tempExcludedKeys.value]
+  difficultyRanges.value = cloneDifficultyRanges(tempDifficultyRanges.value)
   dateRange.value = { ...tempDateRange.value }
   lengthFilterSource.value = tempLengthFilterSource.value
 
@@ -59,189 +119,13 @@ const applyFilters = () => {
   lengthRange.value = isFullRange ? { min: null, max: null } : { ...tempLengthRange.value }
 }
 
-// Input field refs and states
-const labelInput = ref('')
-const producerInput = ref('')
-const singerInput = ref('')
-const showLabelDropdown = ref(false)
-const showProducerDropdown = ref(false)
-const showSingerDropdown = ref(false)
-
-// Add computed properties for all fields to suggest autocompletes based on input so far
-const filteredLabels = computed(() => {
-  return availableLabels.value.filter(
-    (label) =>
-      label.toLowerCase().includes(labelInput.value.toLowerCase()) &&
-      !tempSelectedLabels.value.includes(label),
-  )
-})
-
-const filteredProducers = computed(() => {
-  return availableProducers.value.filter(
-    (producer) =>
-      producer.toLowerCase().includes(producerInput.value.toLowerCase()) &&
-      !tempSelectedProducers.value.includes(producer),
-  )
-})
-
-const filteredSingers = computed(() => {
-  return availableSingers.value.filter(
-    (singer) =>
-      singer.toLowerCase().includes(singerInput.value.toLowerCase()) &&
-      !tempSelectedSingers.value.includes(singer),
-  )
-})
-
-// Stage filter tags by adding them from the input fields
-const addLabel = (label: string) => {
-  if (!tempSelectedLabels.value.includes(label)) {
-    tempSelectedLabels.value.push(label)
-  }
-  labelInput.value = ''
-  showLabelDropdown.value = true
-}
-
-const addProducer = (producer: string) => {
-  if (!tempSelectedProducers.value.includes(producer)) {
-    tempSelectedProducers.value.push(producer)
-  }
-  producerInput.value = ''
-  showProducerDropdown.value = true
-}
-
-const addSinger = (singer: string) => {
-  if (!tempSelectedSingers.value.includes(singer)) {
-    tempSelectedSingers.value.push(singer)
-  }
-  singerInput.value = ''
-  showSingerDropdown.value = true
-}
-
-// Remove tags
-const removeLabel = (label: string) => {
-  const index = tempSelectedLabels.value.indexOf(label)
-  if (index > -1) {
-    tempSelectedLabels.value.splice(index, 1)
-  }
-}
-
-const removeProducer = (producer: string) => {
-  const index = tempSelectedProducers.value.indexOf(producer)
-  if (index > -1) {
-    tempSelectedProducers.value.splice(index, 1)
-  }
-}
-
-const removeSinger = (singer: string) => {
-  const index = tempSelectedSingers.value.indexOf(singer)
-  if (index > -1) {
-    tempSelectedSingers.value.splice(index, 1)
-  }
-}
-
-// Keyboard navigation handlers
-const highlightedLabelIndex = ref(-1)
-const highlightedProducerIndex = ref(-1)
-const highlightedSingerIndex = ref(-1)
-
-const handleLabelKeydown = (event: KeyboardEvent) => {
-  if (!showLabelDropdown.value || filteredLabels.value.length === 0) return
-
-  switch (event.key) {
-    case 'ArrowDown':
-      event.preventDefault()
-      highlightedLabelIndex.value = Math.min(
-        highlightedLabelIndex.value + 1,
-        filteredLabels.value.length - 1,
-      )
-      break
-    case 'ArrowUp':
-      event.preventDefault()
-      highlightedLabelIndex.value = Math.max(highlightedLabelIndex.value - 1, -1)
-      break
-    case 'Enter':
-      event.preventDefault()
-      if (highlightedLabelIndex.value >= 0) {
-        addLabel(filteredLabels.value[highlightedLabelIndex.value])
-        highlightedLabelIndex.value = -1
-      }
-      break
-    case 'Escape':
-      showLabelDropdown.value = false
-      highlightedLabelIndex.value = -1
-      break
-  }
-}
-
-const handleProducerKeydown = (event: KeyboardEvent) => {
-  if (!showProducerDropdown.value || filteredProducers.value.length === 0) return
-
-  switch (event.key) {
-    case 'ArrowDown':
-      event.preventDefault()
-      highlightedProducerIndex.value = Math.min(
-        highlightedProducerIndex.value + 1,
-        filteredProducers.value.length - 1,
-      )
-      break
-    case 'ArrowUp':
-      event.preventDefault()
-      highlightedProducerIndex.value = Math.max(highlightedProducerIndex.value - 1, -1)
-      break
-    case 'Enter':
-      event.preventDefault()
-      if (highlightedProducerIndex.value >= 0) {
-        addProducer(filteredProducers.value[highlightedProducerIndex.value])
-        highlightedProducerIndex.value = -1
-      }
-      break
-    case 'Escape':
-      showProducerDropdown.value = false
-      highlightedProducerIndex.value = -1
-      break
-  }
-}
-
-const handleSingerKeydown = (event: KeyboardEvent) => {
-  if (!showSingerDropdown.value || filteredSingers.value.length === 0) return
-
-  switch (event.key) {
-    case 'ArrowDown':
-      event.preventDefault()
-      highlightedSingerIndex.value = Math.min(
-        highlightedSingerIndex.value + 1,
-        filteredSingers.value.length - 1,
-      )
-      break
-    case 'ArrowUp':
-      event.preventDefault()
-      highlightedSingerIndex.value = Math.max(highlightedSingerIndex.value - 1, -1)
-      break
-    case 'Enter':
-      event.preventDefault()
-      if (highlightedSingerIndex.value >= 0) {
-        addSinger(filteredSingers.value[highlightedSingerIndex.value])
-        highlightedSingerIndex.value = -1
-      }
-      break
-    case 'Escape':
-      showSingerDropdown.value = false
-      highlightedSingerIndex.value = -1
-      break
-  }
-}
-
-// Reset highlighted indices when input changes
-const resetHighlightedIndices = () => {
-  highlightedLabelIndex.value = -1
-  highlightedProducerIndex.value = -1
-  highlightedSingerIndex.value = -1
-}
-
 const clearAllFilters = () => {
   tempSelectedLabels.value = []
   tempSelectedProducers.value = []
   tempSelectedSingers.value = []
+  tempIncludedKeys.value = []
+  tempExcludedKeys.value = []
+  tempDifficultyRanges.value = createDifficultyRanges()
   tempDateRange.value = { start: '', end: '' }
   tempLengthFilterSource.value = 'full'
   tempLengthRange.value = { min: sliderMin.value, max: sliderMax.value }
@@ -305,28 +189,6 @@ const displayMaxLength = computed(() => {
   return formatSecondsAsLength(value)
 })
 
-const minThumbPosition = computed(() => {
-  const range = sliderMax.value - sliderMin.value
-  if (range <= 0) return 0
-  return ((resolvedMinLength.value - sliderMin.value) / range) * 100
-})
-
-const maxThumbPosition = computed(() => {
-  const range = sliderMax.value - sliderMin.value
-  if (range <= 0) return 100
-  return ((resolvedMaxLength.value - sliderMin.value) / range) * 100
-})
-
-const onMinLengthSliderInput = (event: Event) => {
-  const nextValue = Number((event.target as HTMLInputElement).value)
-  setTempLengthRange(Math.min(nextValue, resolvedMaxLength.value), resolvedMaxLength.value)
-}
-
-const onMaxLengthSliderInput = (event: Event) => {
-  const nextValue = Number((event.target as HTMLInputElement).value)
-  setTempLengthRange(resolvedMinLength.value, Math.max(nextValue, resolvedMinLength.value))
-}
-
 const onMinLengthTextCommit = () => {
   const parsedSeconds = parseLengthTextInput(lengthMinInput.value)
   if (parsedSeconds === null) {
@@ -356,32 +218,10 @@ const onLengthSourceChange = () => {
 
 // Initialize temp filters when component mounts
 initializeTempFilters()
-
-// Helper functions for blur events
-const hideLabelDropdown = () => {
-  setTimeout(() => {
-    showLabelDropdown.value = false
-    highlightedLabelIndex.value = -1
-  }, 200)
-}
-
-const hideProducerDropdown = () => {
-  setTimeout(() => {
-    showProducerDropdown.value = false
-    highlightedProducerIndex.value = -1
-  }, 200)
-}
-
-const hideSingerDropdown = () => {
-  setTimeout(() => {
-    showSingerDropdown.value = false
-    highlightedSingerIndex.value = -1
-  }, 200)
-}
 </script>
 
 <template>
-  <div class="modal fade" tabindex="-1" @shown.bs.modal="initializeTempFilters">
+  <div class="modal fade" tabindex="-1" @[modalShowEvent]="initializeTempFilters">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <!-- Filter Modal Header -->
@@ -396,159 +236,102 @@ const hideSingerDropdown = () => {
         </div>
         <!-- Filter Modal Body -->
         <div class="modal-body">
-          <!-- Singers Section -->
           <div class="mb-4">
-            <h6 class="fw-bold mb-2"><i class="bi bi-mic-fill me-2"></i>Singers</h6>
-            <!-- Selected Singers -->
-            <div v-if="tempSelectedSingers.length > 0" class="mb-2">
-              <span
-                v-for="singer in tempSelectedSingers"
-                :key="singer"
-                class="badge bg-info me-1 mb-1"
-              >
-                {{ singer }}
-                <button
-                  type="button"
-                  class="btn-close btn-close-white ms-1"
-                  style="font-size: 0.65em"
-                  @click="removeSinger(singer)"
-                ></button>
-              </span>
-            </div>
-            <!-- Input Field -->
-            <div class="position-relative">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Type to search or add singers..."
-                v-model="singerInput"
-                @keydown="handleSingerKeydown"
-                @input="resetHighlightedIndices"
-                @focus="showSingerDropdown = true"
-                @blur="hideSingerDropdown"
-              />
-              <!-- Dropdown -->
-              <div
-                v-if="showSingerDropdown && filteredSingers.length > 0"
-                class="dropdown-menu show position-absolute w-100"
-                style="top: 100%; z-index: 1000"
-              >
-                <button
-                  v-for="(singer, index) in filteredSingers"
-                  :key="singer"
-                  type="button"
-                  class="dropdown-item"
-                  :class="{ active: index === highlightedSingerIndex }"
-                  @click="addSinger(singer)"
-                >
-                  {{ singer }}
-                </button>
-              </div>
-            </div>
+            <TagFilter
+              v-model="tempSelectedSingers"
+              :options="availableSingers"
+              label="Singers"
+              badge-class="filter-tag--singers"
+            />
+          </div>
+          <div class="mb-4">
+            <TagFilter
+              v-model="tempSelectedProducers"
+              :options="availableProducers"
+              label="Producers"
+              badge-class="filter-tag--producers"
+            />
+          </div>
+          <div class="mb-4">
+            <TagFilter
+              v-model="tempSelectedLabels"
+              :options="availableLabels"
+              label="Labels"
+              badge-class="filter-tag--labels"
+            />
           </div>
 
-          <!-- Producers Section -->
-          <div class="mb-4">
-            <h6 class="fw-bold mb-2"><i class="bi bi-person-fill me-2"></i>Producers</h6>
-            <!-- Selected Producers -->
-            <div v-if="tempSelectedProducers.length > 0" class="mb-2">
-              <span
-                v-for="producer in tempSelectedProducers"
-                :key="producer"
-                class="badge bg-warning text-dark me-1 mb-1"
-              >
-                {{ producer }}
-                <button
-                  type="button"
-                  class="btn-close ms-1"
-                  style="font-size: 0.65em"
-                  @click="removeProducer(producer)"
-                ></button>
-              </span>
-            </div>
-            <!-- Input Field -->
-            <div class="position-relative">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Type to search or add producers..."
-                v-model="producerInput"
-                @keydown="handleProducerKeydown"
-                @input="resetHighlightedIndices"
-                @focus="showProducerDropdown = true"
-                @blur="hideProducerDropdown"
+          <details class="mb-4" :open="keySectionExpanded" @toggle="onKeyToggle">
+            <summary class="fw-bold mb-2"><i class="bi bi-music-note-list me-2"></i>Key</summary>
+            <p class="small text-muted">
+              Include: Only songs with these keys will be shown.<br />
+              Exclude: Songs with these keys will be hidden.<br />
+              Exclusion takes priority, so if a song changes to an excluded key, it will be hidden.
+            </p>
+            <div class="mb-3">
+              <TagFilter
+                :model-value="tempIncludedKeys"
+                :options="availableKeys"
+                label="Include keys"
+                badge-class="filter-tag--included-keys"
+                placeholder='"C major", "1 flat", "<2 sharps/flats"'
+                :filter-options="filterMusicalKeys"
+                :query-option="getKeyQueryOption"
+                :describe-option="describeKey"
+                @update:model-value="updateIncludedKeys"
               />
-              <!-- Dropdown -->
-              <div
-                v-if="showProducerDropdown && filteredProducers.length > 0"
-                class="dropdown-menu show position-absolute w-100"
-                style="top: 100%; z-index: 1000"
-              >
-                <button
-                  v-for="(producer, index) in filteredProducers"
-                  :key="producer"
-                  type="button"
-                  class="dropdown-item"
-                  :class="{ active: index === highlightedProducerIndex }"
-                  @click="addProducer(producer)"
-                >
-                  {{ producer }}
-                </button>
-              </div>
             </div>
-          </div>
+            <TagFilter
+              :model-value="tempExcludedKeys"
+              :options="availableKeys"
+              label="Exclude keys"
+              placeholder='"G# minor", ">=5 flats"'
+              badge-class="filter-tag--excluded-keys"
+              :filter-options="filterMusicalKeys"
+              :query-option="getKeyQueryOption"
+              :describe-option="describeKey"
+              @update:model-value="updateExcludedKeys"
+            />
+          </details>
 
-          <!-- Labels Section -->
-          <div class="mb-4">
-            <h6 class="fw-bold mb-2"><i class="bi bi-tags me-2"></i>Labels</h6>
-            <!-- Selected Labels -->
-            <div v-if="tempSelectedLabels.length > 0" class="mb-2">
-              <span
-                v-for="label in tempSelectedLabels"
-                :key="label"
-                class="badge me-1 mb-1"
-                style="background-color: #e91e63; color: white"
+          <details class="mb-3" :open="difficultySectionExpanded" @toggle="onDifficultyToggle">
+            <summary class="fw-bold mb-1">
+              <i class="bi bi-speedometer2 me-2"></i>Difficulty
+            </summary>
+            <div class="row gx-3 gy-2">
+              <fieldset
+                v-for="criterion in difficultyCriteria"
+                :key="criterion"
+                class="col-12"
+                :class="{ 'col-md-6': criterion !== 'overall' }"
               >
-                {{ label }}
-                <button
-                  type="button"
-                  class="btn-close btn-close-white ms-1"
-                  style="font-size: 0.65em"
-                  @click="removeLabel(label)"
-                ></button>
-              </span>
-            </div>
-            <!-- Input Field -->
-            <div class="position-relative">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Type to search or add labels..."
-                v-model="labelInput"
-                @keydown="handleLabelKeydown"
-                @input="resetHighlightedIndices"
-                @focus="showLabelDropdown = true"
-                @blur="hideLabelDropdown"
-              />
-              <!-- Dropdown -->
-              <div
-                v-if="showLabelDropdown && filteredLabels.length > 0"
-                class="dropdown-menu show position-absolute w-100"
-                style="top: 100%; z-index: 1000"
-              >
-                <button
-                  v-for="(label, index) in filteredLabels"
-                  :key="label"
-                  type="button"
-                  class="dropdown-item"
-                  :class="{ active: index === highlightedLabelIndex }"
-                  @click="addLabel(label)"
+                <legend class="form-label fs-6 mb-0 d-flex justify-content-between gap-2">
+                  <span>{{ difficultyLabels[criterion] }}</span>
+                  <span class="small text-muted text-nowrap">
+                    {{ tempDifficultyRanges[criterion].min ?? difficultyBounds[criterion].min }} to
+                    {{ tempDifficultyRanges[criterion].max ?? difficultyBounds[criterion].max }}
+                  </span>
+                </legend>
+                <DualRangeSlider
+                  :label="`${difficultyLabels[criterion].toLowerCase()} difficulty`"
+                  :aria-describedby="`${difficultyDescriptionId}-${criterion}`"
+                  :min="difficultyBounds[criterion].min"
+                  :max="difficultyBounds[criterion].max"
+                  :model-value="{
+                    min: tempDifficultyRanges[criterion].min ?? difficultyBounds[criterion].min,
+                    max: tempDifficultyRanges[criterion].max ?? difficultyBounds[criterion].max,
+                  }"
+                  @update:model-value="setDifficultyRange(criterion, $event)"
+                />
+                <p
+                  :id="`${difficultyDescriptionId}-${criterion}`"
+                  class="small text-muted lh-sm mb-0"
                 >
-                  {{ label }}
-                </button>
-              </div>
+                  {{ difficultyDescriptions[criterion] }}
+                </p>
+              </fieldset>
             </div>
-          </div>
+          </details>
 
           <!-- Date Range Section -->
           <div class="mb-4">
@@ -615,34 +398,14 @@ const hideSingerDropdown = () => {
             <div class="small text-muted mb-2">
               {{ displayMinLength }} to {{ displayMaxLength }}
             </div>
-            <div class="dual-range mb-3">
-              <div class="dual-range__track"></div>
-              <div
-                class="dual-range__fill"
-                :style="{
-                  left: `${minThumbPosition}%`,
-                  width: `${Math.max(maxThumbPosition - minThumbPosition, 0)}%`,
-                }"
-              ></div>
-              <input
-                type="range"
-                class="dual-range__input"
-                :min="sliderMin"
-                :max="sliderMax"
-                :value="resolvedMinLength"
-                @input="onMinLengthSliderInput"
-                aria-label="Minimum length"
-              />
-              <input
-                type="range"
-                class="dual-range__input"
-                :min="sliderMin"
-                :max="sliderMax"
-                :value="resolvedMaxLength"
-                @input="onMaxLengthSliderInput"
-                aria-label="Maximum length"
-              />
-            </div>
+            <DualRangeSlider
+              class="mb-3"
+              label="length"
+              :min="sliderMin"
+              :max="sliderMax"
+              :model-value="{ min: resolvedMinLength, max: resolvedMaxLength }"
+              @update:model-value="setTempLengthRange($event.min, $event.max)"
+            />
             <div class="row g-2">
               <div class="col-6">
                 <label class="form-label small mb-1">Min (mm:ss)</label>
@@ -692,66 +455,34 @@ const hideSingerDropdown = () => {
 </template>
 
 <style scoped>
-.dual-range {
-  position: relative;
-  height: 2rem;
-  display: flex;
-  align-items: center;
+:deep(.filter-tag) {
+  color: #fff;
+  --bs-btn-close-filter: invert(1) grayscale(100%) brightness(200%);
 }
 
-.dual-range__track,
-.dual-range__fill {
-  position: absolute;
-  height: 0.35rem;
-  border-radius: 999px;
+:deep(.filter-tag--singers) {
+  background-color: #0dcaf0;
+  color: #000;
+  --bs-btn-close-filter: none;
 }
 
-.dual-range__track {
-  width: 100%;
-  background: var(--bs-border-color);
+:deep(.filter-tag--producers) {
+  background-color: #ffc107;
+  color: #000;
+  --bs-btn-close-filter: none;
 }
 
-.dual-range__fill {
-  background: var(--bs-primary);
+:deep(.filter-tag--labels) {
+  background-color: #e27aa0;
+  color: #000;
+  --bs-btn-close-filter: none;
 }
 
-.dual-range__input {
-  position: absolute;
-  width: 100%;
-  margin: 0;
-  background: transparent;
-  pointer-events: none;
-  -webkit-appearance: none;
-  appearance: none;
+:deep(.filter-tag--included-keys) {
+  background-color: #0d6efd;
 }
 
-.dual-range__input::-webkit-slider-runnable-track {
-  height: 0.35rem;
-  background: transparent;
-}
-
-.dual-range__input::-webkit-slider-thumb {
-  width: 1rem;
-  height: 1rem;
-  margin-top: -0.325rem;
-  border: 0;
-  border-radius: 50%;
-  background: var(--bs-primary);
-  pointer-events: auto;
-  -webkit-appearance: none;
-}
-
-.dual-range__input::-moz-range-track {
-  height: 0.35rem;
-  background: transparent;
-}
-
-.dual-range__input::-moz-range-thumb {
-  width: 1rem;
-  height: 1rem;
-  border: 0;
-  border-radius: 50%;
-  background: var(--bs-primary);
-  pointer-events: auto;
+:deep(.filter-tag--excluded-keys) {
+  background-color: #dc3545;
 }
 </style>

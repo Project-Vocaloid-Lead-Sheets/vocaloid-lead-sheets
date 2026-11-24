@@ -31,6 +31,10 @@ const {
   selectedLabels,
   selectedProducers,
   selectedSingers,
+  includedKeys,
+  excludedKeys,
+  difficultyRanges,
+  hasActiveFilters,
   dateRange,
   lengthRange,
   toggleSidebarCollapsed,
@@ -64,19 +68,6 @@ const hasTvSizeForCurrentSong = computed(() => {
   const tvSizePdfs = currentSong.value?.pdfsTvSize
   if (!tvSizePdfs) return false
   return Object.keys(tvSizePdfs).length > 0
-})
-
-// Computed property to check if any advanced filters are active and should be displayed
-const hasActiveFilters = computed(() => {
-  return (
-    selectedLabels.value.length > 0 ||
-    selectedProducers.value.length > 0 ||
-    selectedSingers.value.length > 0 ||
-    dateRange.value.start !== '' ||
-    dateRange.value.end !== '' ||
-    lengthRange.value.min !== null ||
-    lengthRange.value.max !== null
-  )
 })
 
 onMounted(() => {
@@ -118,6 +109,9 @@ onUnmounted(() => {
           :selected-labels="selectedLabels"
           :selected-producers="selectedProducers"
           :selected-singers="selectedSingers"
+          :included-keys="includedKeys"
+          :excluded-keys="excludedKeys"
+          :difficulty-ranges="difficultyRanges"
           :date-range="dateRange"
           :length-range="lengthRange"
           v-model:selected-instrument="selectedInstrument"

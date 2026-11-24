@@ -1,6 +1,11 @@
 export type Instrument = 'C' | 'Bb' | 'Eb' | 'F' | 'G' | 'Alto' | 'Bass' | 'Vocals'
 export const instruments: Instrument[] = ['C', 'Bb', 'Eb', 'F', 'G', 'Alto', 'Bass', 'Vocals']
 
+export const difficultyCriteria = ['melodic', 'harmonic', 'chord', 'form', 'overall'] as const
+export type DifficultyCriterion = (typeof difficultyCriteria)[number]
+export type NumericRange = { min: number | null; max: number | null }
+export type DifficultyRanges = Record<DifficultyCriterion, NumericRange>
+
 export interface Song {
   title: string // "World is Mine"
   alternativeNames?: string[] // "ワールドイズマイン"
@@ -12,6 +17,8 @@ export interface Song {
   length?: string // "MM:SS"
   tvSizeLength?: string // "MM:SS"
   bpm: number // 140
+  key?: string[] // Concert keys, including modulations, e.g. ['C major', 'A minor']
+  difficulties?: Partial<Record<DifficultyCriterion, number>> // Positive integers; normally 1–4
   labels?: string[] // "Project Sekai, Project Diva"
   transcriber?: string // Transcriber name
   videoLinks?: Partial<Record<string, string>> // { "YouTube" : "youtube.com/..."}

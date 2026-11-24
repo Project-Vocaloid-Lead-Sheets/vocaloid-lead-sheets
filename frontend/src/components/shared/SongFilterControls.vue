@@ -5,6 +5,9 @@
       :selected-labels="selectedLabels"
       :selected-producers="selectedProducers"
       :selected-singers="selectedSingers"
+      :included-keys="includedKeys"
+      :excluded-keys="excludedKeys"
+      :difficulty-ranges="difficultyRanges"
       :date-range="dateRange"
       :length-range="lengthRange"
     />
@@ -37,7 +40,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Instrument } from '@/types/types'
+import type { Instrument, DifficultyRanges } from '@/types/types'
+import { createDifficultyRanges } from '@/utils/songMetadata'
 import InstrumentButtons from '@/components/shared/InstrumentButtons.vue'
 import SearchBar from '@/components/shared/SearchBar.vue'
 import ActionButtons from '@/components/shared/ActionButtons.vue'
@@ -53,6 +57,9 @@ interface Props {
   selectedLabels?: string[]
   selectedProducers?: string[]
   selectedSingers?: string[]
+  includedKeys?: string[]
+  excludedKeys?: string[]
+  difficultyRanges?: DifficultyRanges
   dateRange?: { start: string; end: string }
   lengthRange?: { min: number | null; max: number | null }
 }
@@ -62,6 +69,9 @@ withDefaults(defineProps<Props>(), {
   selectedLabels: () => [],
   selectedProducers: () => [],
   selectedSingers: () => [],
+  includedKeys: () => [],
+  excludedKeys: () => [],
+  difficultyRanges: createDifficultyRanges,
   dateRange: () => ({ start: '', end: '' }),
   lengthRange: () => ({ min: null, max: null }),
 })

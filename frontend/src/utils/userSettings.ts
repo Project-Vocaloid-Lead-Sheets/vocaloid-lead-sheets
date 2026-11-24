@@ -1,3 +1,5 @@
+import type { DifficultyRanges } from '@/types/types'
+
 export type StoredSettings = {
   version: number
   sortBy?: string
@@ -5,6 +7,11 @@ export type StoredSettings = {
   selectedLabels?: string[]
   selectedProducers?: string[]
   selectedSingers?: string[]
+  includedKeys?: string[]
+  excludedKeys?: string[]
+  difficultyRanges?: DifficultyRanges
+  difficultySectionExpanded?: boolean
+  keySectionExpanded?: boolean
   dateRange?: { start: string; end: string }
   lengthRange?: { min: number | null; max: number | null }
   lengthFilterSource?: 'full' | 'tv' | 'either'

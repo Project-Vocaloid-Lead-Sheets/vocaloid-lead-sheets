@@ -2,11 +2,19 @@ import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { LocationQueryRaw } from 'vue-router'
 
-import type { Song, Instrument } from '@/types/types'
-import { instruments } from '@/types/types'
+import type { Song, Instrument, DifficultyRanges } from '@/types/types'
+import { difficultyCriteria, instruments } from '@/types/types'
+import {
+  createDifficultyRanges,
+  cloneDifficultyRanges,
+  isRangeActive,
+  isDifficultyRating,
+  matchesSongMetadata,
+} from '@/utils/songMetadata'
 import { useSongsStore } from '@/stores/songs'
 import { generateSongSlug } from '@/utils/slugUtils'
 import { readUserSettings, writeUserSettings, SETTINGS_KEY } from '@/utils/userSettings'
+import { allMusicalKeys, isMusicalKeyQuery, normalizeKeySelections } from '@/utils/musicalKeys'
 import {
   normalizeTranspositionQuery,
   normalizeTvSizeQuery,
@@ -45,6 +53,11 @@ const isSidebarCollapsed = ref(true) // Start collapsed to match Bootstrap's def
 const selectedLabels = ref<string[]>([])
 const selectedProducers = ref<string[]>([])
 const selectedSingers = ref<string[]>([])
+const includedKeys = ref<string[]>([])
+const excludedKeys = ref<string[]>([])
+const difficultyRanges = ref<DifficultyRanges>(createDifficultyRanges())
+const difficultySectionExpanded = ref(true)
+const keySectionExpanded = ref(true)
 const dateRange = ref<{ start: string; end: string }>({ start: '', end: '' })
 const lengthRange = ref<{ min: number | null; max: number | null }>({ min: null, max: null })
 const lengthFilterSource = ref<LengthFilterSource>('full')
@@ -62,6 +75,16 @@ if (_initialSettings) {
     selectedProducers.value = [..._initialSettings.selectedProducers]
   if (_initialSettings.selectedSingers)
     selectedSingers.value = [..._initialSettings.selectedSingers]
+  if (_initialSettings.includedKeys)
+    includedKeys.value = normalizeKeySelections(_initialSettings.includedKeys)
+  if (_initialSettings.excludedKeys)
+    excludedKeys.value = normalizeKeySelections(_initialSettings.excludedKeys)
+  if (_initialSettings.difficultyRanges)
+    difficultyRanges.value = cloneDifficultyRanges(_initialSettings.difficultyRanges)
+  if (typeof _initialSettings.difficultySectionExpanded === 'boolean')
+    difficultySectionExpanded.value = _initialSettings.difficultySectionExpanded
+  if (typeof _initialSettings.keySectionExpanded === 'boolean')
+    keySectionExpanded.value = _initialSettings.keySectionExpanded
   if (_initialSettings.dateRange) dateRange.value = { ..._initialSettings.dateRange }
   if (_initialSettings.lengthRange) lengthRange.value = { ..._initialSettings.lengthRange }
   if (_initialSettings.lengthFilterSource)
@@ -226,6 +249,9 @@ export const useSongFilters = () => {
     selectedLabels.value = []
     selectedProducers.value = []
     selectedSingers.value = []
+    includedKeys.value = []
+    excludedKeys.value = []
+    difficultyRanges.value = createDifficultyRanges()
     dateRange.value = { start: '', end: '' }
     lengthRange.value = { min: null, max: null }
   }
@@ -327,6 +353,51 @@ export const useSongFilters = () => {
     return Array.from(singerSet).sort()
   })
 
+  const availableKeys = computed(() =>
+    [
+      ...new Set([
+        ...allMusicalKeys,
+        ...songs.value.flatMap((song) => song.key ?? []),
+        ...includedKeys.value.filter((key) => !isMusicalKeyQuery(key)),
+        ...excludedKeys.value.filter((key) => !isMusicalKeyQuery(key)),
+      ]),
+    ].sort(),
+  )
+
+  const difficultyBounds = computed(
+    () =>
+      Object.fromEntries(
+        difficultyCriteria.map((criterion) => [
+          criterion,
+          {
+            min: 1,
+            max: Math.max(
+              4,
+              ...songsStore.songs
+                .map((song) => song.difficulties?.[criterion])
+                .filter(isDifficultyRating),
+              difficultyRanges.value[criterion].min ?? 1,
+              difficultyRanges.value[criterion].max ?? 1,
+            ),
+          },
+        ]),
+      ) as Record<(typeof difficultyCriteria)[number], { min: number; max: number }>,
+  )
+
+  const hasActiveFilters = computed(
+    () =>
+      selectedLabels.value.length > 0 ||
+      selectedProducers.value.length > 0 ||
+      selectedSingers.value.length > 0 ||
+      includedKeys.value.length > 0 ||
+      excludedKeys.value.length > 0 ||
+      difficultyCriteria.some((criterion) => isRangeActive(difficultyRanges.value[criterion])) ||
+      dateRange.value.start !== '' ||
+      dateRange.value.end !== '' ||
+      lengthRange.value.min !== null ||
+      lengthRange.value.max !== null,
+  )
+
   const filteredSongs = computed(() => {
     const query = searchQuery.value.toLowerCase()
     const currentSortField = parseSortBy(sortBy.value).field
@@ -397,6 +468,7 @@ export const useSongFilters = () => {
         matchesLabels &&
         matchesProducers &&
         matchesSingers &&
+        matchesSongMetadata(song, includedKeys.value, excludedKeys.value, difficultyRanges.value) &&
         matchesDateRange &&
         matchesLengthSource &&
         matchesLengthRange &&
@@ -485,6 +557,11 @@ export const useSongFilters = () => {
       selectedLabels,
       selectedProducers,
       selectedSingers,
+      includedKeys,
+      excludedKeys,
+      difficultyRanges,
+      difficultySectionExpanded,
+      keySectionExpanded,
       dateRange,
       lengthRange,
       lengthFilterSource,
@@ -498,6 +575,11 @@ export const useSongFilters = () => {
         selectedLabels: selectedLabels.value,
         selectedProducers: selectedProducers.value,
         selectedSingers: selectedSingers.value,
+        includedKeys: includedKeys.value,
+        excludedKeys: excludedKeys.value,
+        difficultyRanges: difficultyRanges.value,
+        difficultySectionExpanded: difficultySectionExpanded.value,
+        keySectionExpanded: keySectionExpanded.value,
         dateRange: dateRange.value,
         lengthRange: lengthRange.value,
         lengthFilterSource: lengthFilterSource.value,
@@ -519,6 +601,13 @@ export const useSongFilters = () => {
       if (s.selectedLabels) selectedLabels.value = [...s.selectedLabels]
       if (s.selectedProducers) selectedProducers.value = [...s.selectedProducers]
       if (s.selectedSingers) selectedSingers.value = [...s.selectedSingers]
+      includedKeys.value = normalizeKeySelections(s.includedKeys ?? [])
+      excludedKeys.value = normalizeKeySelections(s.excludedKeys ?? [])
+      difficultyRanges.value = s.difficultyRanges
+        ? cloneDifficultyRanges(s.difficultyRanges)
+        : createDifficultyRanges()
+      difficultySectionExpanded.value = s.difficultySectionExpanded ?? true
+      keySectionExpanded.value = s.keySectionExpanded ?? true
       if (s.dateRange) dateRange.value = { ...s.dateRange }
       if (s.lengthRange) lengthRange.value = { ...s.lengthRange }
       if (s.lengthFilterSource)
@@ -565,6 +654,14 @@ export const useSongFilters = () => {
     selectedLabels,
     selectedProducers,
     selectedSingers,
+    includedKeys,
+    excludedKeys,
+    difficultyRanges,
+    difficultySectionExpanded,
+    keySectionExpanded,
+    availableKeys,
+    difficultyBounds,
+    hasActiveFilters,
     dateRange,
     lengthRange,
     lengthFilterSource,

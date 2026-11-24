@@ -10,73 +10,76 @@
       <i class="bi bi-info-circle"></i>
     </button>
 
-    <div
-      v-if="isMetadataModalOpen"
-      class="modal fade show d-block"
-      tabindex="-1"
-      role="dialog"
-      aria-modal="true"
-      @click.self="closeSongMetadata"
-    >
-      <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Song Info</h5>
-            <button
-              type="button"
-              class="btn-close"
-              aria-label="Close"
-              @click="closeSongMetadata"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="song-metadata-grid">
-              <div v-for="field in metadataFields" :key="field.key" class="song-metadata-row">
-                <div class="song-metadata-label">{{ field.label }}</div>
-                <div class="song-metadata-value">
-                  <template v-if="field.lines.length > 1">
-                    <div v-for="(line, index) in field.lines" :key="`${field.key}-${index}`">
+    <Teleport v-if="isMetadataModalOpen" to="body">
+      <div
+        class="modal fade show d-block"
+        tabindex="-1"
+        role="dialog"
+        aria-modal="true"
+        @click.self="closeSongMetadata"
+      >
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Song Info</h5>
+              <button
+                type="button"
+                class="btn-close"
+                aria-label="Close"
+                @click="closeSongMetadata"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="song-metadata-grid">
+                <div v-for="field in metadataFields" :key="field.key" class="song-metadata-row">
+                  <div class="song-metadata-label">{{ field.label }}</div>
+                  <div class="song-metadata-value">
+                    <template v-if="field.lines.length > 1">
+                      <div v-for="(line, index) in field.lines" :key="`${field.key}-${index}`">
+                        <a
+                          v-if="line.href"
+                          :href="line.href"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {{ line.text }}
+                        </a>
+                        <template v-else>{{ line.text }}</template>
+                      </div>
+                    </template>
+                    <template v-else>
                       <a
-                        v-if="line.href"
-                        :href="line.href"
+                        v-if="field.lines[0]?.href"
+                        :href="field.lines[0].href"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        {{ line.text }}
+                        {{ field.lines[0].text }}
                       </a>
-                      <template v-else>{{ line.text }}</template>
-                    </div>
-                  </template>
-                  <template v-else>
-                    <a
-                      v-if="field.lines[0]?.href"
-                      :href="field.lines[0].href"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {{ field.lines[0].text }}
-                    </a>
-                    <template v-else>{{ field.lines[0]?.text }}</template>
-                  </template>
+                      <template v-else>{{ field.lines[0]?.text }}</template>
+                    </template>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" @click="closeSongMetadata">
-              Close
-            </button>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" @click="closeSongMetadata">
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div v-if="isMetadataModalOpen" class="modal-backdrop fade show"></div>
+      <div class="modal-backdrop fade show"></div>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, Teleport } from 'vue'
 import type { Song } from '@/types/types'
+import { difficultyCriteria } from '@/types/types'
+import { difficultyLabels, isDifficultyRating } from '@/utils/songMetadata'
 
 type MetadataField = {
   key: string
@@ -133,6 +136,15 @@ const formatStatus = (value: string) =>
 const normalizeMetadataValue = (key: string, value: unknown): MetadataLine[] => {
   if (value === null) return emptyLine()
 
+  if (key === 'difficulties') {
+    return difficultyCriteria.map((criterion) => {
+      const rating = props.song.difficulties?.[criterion]
+      return {
+        text: `${difficultyLabels[criterion]}: ${isDifficultyRating(rating) ? rating : 'Unrated'}`,
+      }
+    })
+  }
+
   if (typeof value === 'string') {
     const trimmedValue = value.trim()
     if (!trimmedValue) return emptyLine()
@@ -188,6 +200,8 @@ const metadataFields = computed<MetadataField[]>(() => {
     'length',
     'tvSizeLength',
     'bpm',
+    'key',
+    'difficulties',
     'labels',
     'transcriber',
     'videoLinks',
@@ -195,7 +209,7 @@ const metadataFields = computed<MetadataField[]>(() => {
     'updatedAt',
   ]
 
-  const sanitizedEntries = Object.entries(props.song)
+  const sanitizedEntries = Object.entries({ key: [], difficulties: {}, ...props.song })
     .filter(([key, value]) => !excludedKeys.has(key) && value !== undefined)
     .sort(([a], [b]) => {
       const aIndex = preferredOrder.indexOf(a)

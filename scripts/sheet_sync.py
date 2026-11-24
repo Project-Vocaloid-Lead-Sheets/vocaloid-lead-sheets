@@ -541,6 +541,7 @@ class SongSyncManager:
             tv_size_data: Dict containing TV size metadata for this song (from TV Size Sheets worksheet)
         """
         tv_size_data = tv_size_data or {}
+        columns_by_name = {str(name).strip().casefold(): value for name, value in song.items()}
 
         # Parse PDFs with change detection (Drive md5 checksums included)
         pdfs, links, pdf_checksums, downloaded_any = self._parse_pdfs_new(song, existing_song_data)
@@ -559,6 +560,11 @@ class SongSyncManager:
             'length': self._parse_length(song.get('Length', '')),
             'tvSizeLength': self._parse_length(tv_size_data.get('tvSizeLength', '')),
             'bpm': self._parse_bpm(song.get('BPM', '')),
+            'key': self._parse_keys(
+                columns_by_name.get('key', columns_by_name.get('keys',
+                    columns_by_name.get('key signatures', columns_by_name.get('key signature', ''))))
+            ),
+            'difficulties': self._parse_difficulties(song),
             'labels': self._parse_comma_separated(song.get('Labels (comma sep)', '')),
             'transcriber': str(song.get('Transcriber', '')).strip(),
             'videoLinks': self._parse_video_links_new(song),
@@ -574,6 +580,38 @@ class SongSyncManager:
         }
         
         return normalized
+
+    def _parse_keys(self, value: Any) -> List[str]:
+        """Accept comma-separated concert keys, normalizing accidental symbols and case."""
+        keys = []
+        for key in self._parse_comma_separated(value):
+            key = ' '.join(key.replace('♯', '#').replace('♭', 'b').split())
+            match = re.fullmatch(r'([A-Ga-g])\s*([#b]?)\s*(major|minor|maj|min|m)?', key, re.IGNORECASE)
+            if match:
+                note, accidental, mode = match.groups()
+                mode = mode.lower() if mode else ''
+                suffix = ' minor' if mode in ('minor', 'min', 'm') else ' major' if mode else ''
+                key = note.upper() + accidental.lower() + suffix
+            if key not in keys:
+                keys.append(key)
+        return keys
+
+    def _parse_difficulties(self, song: Dict[str, Any]) -> Dict[str, int]:
+        """Ratings start at one; leave blanks/invalid values unrated, with no upper cap."""
+        difficulties = {}
+        for criterion in ('melodic', 'harmonic', 'chord', 'form', 'overall'):
+            column = f'{criterion.title()} Difficulty'
+            value = song.get(column, song.get(criterion.title(), ''))
+            if value is None or str(value).strip() == '':
+                continue
+            try:
+                rating = float(value)
+                if isinstance(value, bool) or not rating.is_integer() or rating < 1:
+                    raise ValueError('expected a positive integer')
+                difficulties[criterion] = int(rating)
+            except (ValueError, TypeError, OverflowError):
+                logger.warning(f"Invalid {column} '{value}' for '{song.get('Song Name', '')}'; leaving unrated")
+        return difficulties
 
     def _normalize_status(self, status: Any) -> str:
         """Normalize status to standard values"""
@@ -998,6 +1036,8 @@ class SongSyncManager:
                     'length': normalized.get('length', ''),
                     'tvSizeLength': normalized.get('tvSizeLength', ''),
                     'bpm': normalized.get('bpm'),
+                    'key': normalized.get('key', []),
+                    'difficulties': normalized.get('difficulties', {}),
                     'labels': normalized['labels'],
                     'transcriber': normalized['transcriber'],
                     'videoLinks': normalized['videoLinks'],
@@ -1059,6 +1099,8 @@ class SongSyncManager:
                 'length': song_data.get('length', ''),
                 'tvSizeLength': song_data.get('tvSizeLength', ''),
                 'bpm': song_data.get('bpm'),
+                'key': song_data.get('key', []),
+                'difficulties': song_data.get('difficulties', {}),
                 'labels': song_data.get('labels', []),
                 'transcriber': song_data.get('transcriber', ''),
                 'videoLinks': song_data['videoLinks'],
@@ -1280,6 +1322,8 @@ export type SongFilename = typeof SONG_MANIFEST[number]
                 'length': song_data.get('length', ''),
                 'tvSizeLength': song_data.get('tvSizeLength', ''),
                 'bpm': song_data.get('bpm'),
+                'key': song_data.get('key', []),
+                'difficulties': song_data.get('difficulties', {}),
                 'labels': song_data.get('labels', []),
                 'transcriber': song_data.get('transcriber', ''),
                 'videoLinks': song_data['videoLinks'],
