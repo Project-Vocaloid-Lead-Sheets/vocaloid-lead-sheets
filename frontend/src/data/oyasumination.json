@@ -9,6 +9,16 @@
   "length": "5:04",
   "tvSizeLength": "",
   "bpm": 190,
+  "key": [
+    "E major"
+  ],
+  "difficulties": {
+    "melodic": 2,
+    "harmonic": 2,
+    "chord": 3,
+    "form": 3,
+    "overall": 3
+  },
   "labels": [
     "Challenging"
   ],
@@ -48,6 +58,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-04-28T03:30:14Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-04-28T03:30:14Z"
 }

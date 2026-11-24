@@ -9,6 +9,17 @@
   "length": "3:57",
   "tvSizeLength": "",
   "bpm": 190,
+  "key": [
+    "C minor",
+    "D minor"
+  ],
+  "difficulties": {
+    "melodic": 1,
+    "harmonic": 2,
+    "chord": 2,
+    "form": 4,
+    "overall": 4
+  },
   "labels": [
     "Challenging"
   ],
@@ -48,6 +59,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-08-02T05:22:21Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-08-02T05:22:21Z"
 }

@@ -13,6 +13,10 @@
   "length": "3:31",
   "tvSizeLength": "",
   "bpm": 170,
+  "key": [
+    "A major"
+  ],
+  "difficulties": {},
   "labels": [],
   "transcriber": "boracci channel",
   "videoLinks": {
@@ -50,6 +54,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-10-11T15:10:46Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-10-11T15:10:46Z"
 }

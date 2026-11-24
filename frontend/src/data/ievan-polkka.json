@@ -11,6 +11,16 @@
   "length": "2:30",
   "tvSizeLength": "",
   "bpm": 118,
+  "key": [
+    "F# minor"
+  ],
+  "difficulties": {
+    "melodic": 2,
+    "harmonic": 1,
+    "chord": 1,
+    "form": 1,
+    "overall": 1
+  },
   "labels": [],
   "transcriber": "stellarlights",
   "videoLinks": {
@@ -48,6 +58,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-11-18T23:22:28Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-11-18T23:22:28Z"
 }

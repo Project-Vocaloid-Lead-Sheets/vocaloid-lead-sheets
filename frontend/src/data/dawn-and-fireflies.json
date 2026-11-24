@@ -11,6 +11,17 @@
   "length": "5:09",
   "tvSizeLength": "",
   "bpm": 80,
+  "key": [
+    "G major",
+    "A major"
+  ],
+  "difficulties": {
+    "melodic": 1,
+    "harmonic": 2,
+    "chord": 2,
+    "form": 2,
+    "overall": 1
+  },
   "labels": [],
   "transcriber": "Latios212",
   "videoLinks": {
@@ -48,6 +59,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-03-10T02:14:02Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-03-10T02:14:02Z"
 }

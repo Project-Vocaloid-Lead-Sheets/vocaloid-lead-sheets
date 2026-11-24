@@ -9,6 +9,12 @@
   "length": "3:36",
   "tvSizeLength": "",
   "bpm": 220,
+  "key": [
+    "E major",
+    "Db major",
+    "F major"
+  ],
+  "difficulties": {},
   "labels": [
     "Challenging",
     "YouTube 100m",
@@ -29,6 +35,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-11-15T05:52:34Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-11-15T05:52:34Z"
 }

@@ -9,6 +9,10 @@
   "length": "4:45",
   "tvSizeLength": "",
   "bpm": 222,
+  "key": [
+    "F# minor"
+  ],
+  "difficulties": {},
   "labels": [
     "Hall of Myths"
   ],
@@ -48,6 +52,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-09-20T19:10:51Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-09-20T19:10:51Z"
 }

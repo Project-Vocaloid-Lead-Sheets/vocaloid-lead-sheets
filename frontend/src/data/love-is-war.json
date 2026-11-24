@@ -11,6 +11,10 @@
   "length": "3:56",
   "tvSizeLength": "",
   "bpm": 88,
+  "key": [
+    "B minor"
+  ],
+  "difficulties": {},
   "labels": [],
   "transcriber": "Nap1400",
   "videoLinks": {
@@ -30,6 +34,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-11-03T21:46:50Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-11-03T21:46:50Z"
 }

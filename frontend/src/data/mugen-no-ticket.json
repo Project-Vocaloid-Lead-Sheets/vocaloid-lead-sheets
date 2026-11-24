@@ -13,6 +13,20 @@
   "length": "3:41",
   "tvSizeLength": "",
   "bpm": 194,
+  "key": [
+    "E minor",
+    "G# minor",
+    "F minor",
+    "F# minor",
+    "G minor"
+  ],
+  "difficulties": {
+    "melodic": 2,
+    "harmonic": 3,
+    "chord": 2,
+    "form": 4,
+    "overall": 3
+  },
   "labels": [
     "Project Voltage",
     "Challenging"
@@ -53,6 +67,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-03-03T01:28:16Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2025-11-05T00:48:25Z"
 }

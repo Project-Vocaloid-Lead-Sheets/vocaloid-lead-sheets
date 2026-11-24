@@ -11,6 +11,10 @@
   "length": "3:00",
   "tvSizeLength": "",
   "bpm": 144,
+  "key": [
+    "Bb minor"
+  ],
+  "difficulties": {},
   "labels": [],
   "transcriber": "KOB",
   "videoLinks": {
@@ -48,6 +52,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-11-14T23:15:56Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-11-14T23:15:56Z"
 }

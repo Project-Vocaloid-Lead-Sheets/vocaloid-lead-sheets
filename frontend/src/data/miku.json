@@ -9,6 +9,16 @@
   "length": "3:43",
   "tvSizeLength": "",
   "bpm": 128,
+  "key": [
+    "Db major"
+  ],
+  "difficulties": {
+    "melodic": 1,
+    "harmonic": 1,
+    "chord": 2,
+    "form": 1,
+    "overall": 1
+  },
   "labels": [],
   "transcriber": "stellarlights",
   "videoLinks": {
@@ -46,6 +56,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-02-27T02:51:02Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2025-11-19T23:31:02Z"
 }

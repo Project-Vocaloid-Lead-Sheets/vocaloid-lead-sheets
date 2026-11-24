@@ -11,6 +11,11 @@
   "length": "4:20",
   "tvSizeLength": "",
   "bpm": 140,
+  "key": [
+    "E minor",
+    "D minor"
+  ],
+  "difficulties": {},
   "labels": [],
   "transcriber": "stellarlights",
   "videoLinks": {
@@ -48,6 +53,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-04-10T02:48:39Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-03-09T22:34:13Z"
 }

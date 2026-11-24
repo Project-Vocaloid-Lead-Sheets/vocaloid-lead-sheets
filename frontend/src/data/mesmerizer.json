@@ -11,6 +11,17 @@
   "length": "2:33",
   "tvSizeLength": "",
   "bpm": 185,
+  "key": [
+    "Db major",
+    "D major"
+  ],
+  "difficulties": {
+    "melodic": 4,
+    "harmonic": 2,
+    "chord": 2,
+    "form": 2,
+    "overall": 3
+  },
   "labels": [
     "Challenging",
     "YouTube 100m",
@@ -52,6 +63,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-10-15T03:43:49Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-10-15T03:43:49Z"
 }

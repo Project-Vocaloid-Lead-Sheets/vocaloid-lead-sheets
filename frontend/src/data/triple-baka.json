@@ -11,6 +11,10 @@
   "length": "3:51",
   "tvSizeLength": "",
   "bpm": 180,
+  "key": [
+    "G major"
+  ],
+  "difficulties": {},
   "labels": [],
   "transcriber": "zmand97",
   "videoLinks": {
@@ -36,6 +40,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-05-04T03:30:56Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-05-04T03:30:56Z"
 }

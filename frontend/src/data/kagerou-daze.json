@@ -12,6 +12,12 @@
   "length": "4:05",
   "tvSizeLength": "",
   "bpm": 200,
+  "key": [
+    "E minor",
+    "F# minor",
+    "G minor"
+  ],
+  "difficulties": {},
   "labels": [
     "Kagerou Project",
     "Mekakucity"
@@ -34,6 +40,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-07-18T02:40:56Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-07-18T02:40:56Z"
 }

@@ -9,6 +9,11 @@
   "length": "2:15",
   "tvSizeLength": "",
   "bpm": 166,
+  "key": [
+    "C minor",
+    "C# minor"
+  ],
+  "difficulties": {},
   "labels": [
     "Youtube 100m"
   ],
@@ -48,6 +53,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-05-10T19:57:40Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-05-10T19:57:40Z"
 }

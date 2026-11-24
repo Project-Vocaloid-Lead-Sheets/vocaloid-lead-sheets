@@ -11,6 +11,16 @@
   "length": "2:00",
   "tvSizeLength": "",
   "bpm": 170,
+  "key": [
+    "Eb minor"
+  ],
+  "difficulties": {
+    "melodic": 3,
+    "harmonic": 4,
+    "chord": 4,
+    "form": 2,
+    "overall": 4
+  },
   "labels": [
     "Challenging"
   ],
@@ -50,6 +60,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-07-30T03:26:31Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-07-30T03:26:31Z"
 }

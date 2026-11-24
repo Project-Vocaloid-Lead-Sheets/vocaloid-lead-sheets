@@ -11,6 +11,10 @@
   "length": "3:12",
   "tvSizeLength": "",
   "bpm": 192,
+  "key": [
+    "C minor"
+  ],
+  "difficulties": {},
   "labels": [],
   "transcriber": "Latios212",
   "videoLinks": {
@@ -27,6 +31,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-11-07T20:08:02Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-11-07T20:08:02Z"
 }

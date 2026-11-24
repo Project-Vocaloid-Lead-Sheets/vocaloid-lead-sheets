@@ -9,6 +9,10 @@
   "length": "3:56",
   "tvSizeLength": "",
   "bpm": 174,
+  "key": [
+    "F# major"
+  ],
+  "difficulties": {},
   "labels": [],
   "transcriber": "Latios212",
   "videoLinks": {
@@ -46,6 +50,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-10-12T16:16:38Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-10-12T16:16:38Z"
 }

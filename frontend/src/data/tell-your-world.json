@@ -9,6 +9,16 @@
   "length": "4:13",
   "tvSizeLength": "",
   "bpm": 150,
+  "key": [
+    "Eb major"
+  ],
+  "difficulties": {
+    "melodic": 2,
+    "harmonic": 2,
+    "chord": 2,
+    "form": 2,
+    "overall": 2
+  },
   "labels": [],
   "transcriber": "Latios212",
   "videoLinks": {
@@ -46,6 +56,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-04-10T02:48:39Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-02-19T02:16:39Z"
 }

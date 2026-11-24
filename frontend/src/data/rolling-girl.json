@@ -9,6 +9,16 @@
   "length": "3:09",
   "tvSizeLength": "1:38",
   "bpm": 195,
+  "key": [
+    "B minor"
+  ],
+  "difficulties": {
+    "melodic": 1,
+    "harmonic": 1,
+    "chord": 2,
+    "form": 1,
+    "overall": 1
+  },
   "labels": [
     "Hall of Myths"
   ],
@@ -57,6 +67,6 @@
     "Bass": "/pdfs/rolling-girl-tv/rolling-girl-tv-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2026-04-10T02:48:39Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-02-27T02:51:02Z"
 }

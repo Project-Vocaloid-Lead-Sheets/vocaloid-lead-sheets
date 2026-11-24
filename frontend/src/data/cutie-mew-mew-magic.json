@@ -11,6 +11,11 @@
   "length": "3:04",
   "tvSizeLength": "",
   "bpm": 180,
+  "key": [
+    "C minor",
+    "C# minor"
+  ],
+  "difficulties": {},
   "labels": [],
   "transcriber": "Nap1400",
   "videoLinks": {
@@ -48,6 +53,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-10-15T01:42:44Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-10-15T01:42:44Z"
 }

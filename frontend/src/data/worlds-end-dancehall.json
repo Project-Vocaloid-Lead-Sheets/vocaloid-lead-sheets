@@ -11,6 +11,17 @@
   "length": "3:31",
   "tvSizeLength": "1:33",
   "bpm": 171,
+  "key": [
+    "Eb minor",
+    "Bb minor"
+  ],
+  "difficulties": {
+    "melodic": 3,
+    "harmonic": 1,
+    "chord": 2,
+    "form": 2,
+    "overall": 2
+  },
   "labels": [
     "Hall of Myths"
   ],
@@ -59,6 +70,6 @@
     "Bass": "/pdfs/worlds-end-dancehall-tv/worlds-end-dancehall-tv-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2026-07-12T00:39:32Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-07-12T00:39:32Z"
 }

@@ -11,6 +11,17 @@
   "length": "3:01",
   "tvSizeLength": "",
   "bpm": 159,
+  "key": [
+    "E minor",
+    "F minor"
+  ],
+  "difficulties": {
+    "melodic": 4,
+    "harmonic": 1,
+    "chord": 1,
+    "form": 2,
+    "overall": 3
+  },
   "labels": [
     "Hall of Myths",
     "Challenging"
@@ -51,6 +62,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-08-24T22:58:11Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-08-24T22:58:11Z"
 }

@@ -9,6 +9,10 @@
   "length": "4:14",
   "tvSizeLength": "1:29",
   "bpm": 170,
+  "key": [
+    "D major"
+  ],
+  "difficulties": {},
   "labels": [
     "Hall of Myths"
   ],
@@ -57,6 +61,6 @@
     "Bass": "/pdfs/melt-tv/melt-tv-bass.pdf"
   },
   "status": "completed",
-  "syncedAt": "2026-09-11T15:11:47Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-09-11T15:11:47Z"
 }

@@ -11,6 +11,17 @@
   "length": "4:02",
   "tvSizeLength": "",
   "bpm": 130,
+  "key": [
+    "F minor",
+    "E minor"
+  ],
+  "difficulties": {
+    "melodic": 2,
+    "harmonic": 2,
+    "chord": 2,
+    "form": 2,
+    "overall": 2
+  },
   "labels": [
     "YouTube 100m"
   ],
@@ -50,6 +61,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-06-22T19:44:55Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-05-04T03:30:56Z"
 }

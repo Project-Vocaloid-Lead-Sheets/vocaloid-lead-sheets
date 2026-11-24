@@ -13,6 +13,10 @@
   "length": "4:10",
   "tvSizeLength": "",
   "bpm": 77,
+  "key": [
+    "F minor"
+  ],
+  "difficulties": {},
   "labels": [],
   "transcriber": "melodysium",
   "videoLinks": {
@@ -32,6 +36,6 @@
   },
   "pdfsTvSize": {},
   "status": "under review",
-  "syncedAt": "2026-08-04T22:10:21Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-08-04T22:10:21Z"
 }

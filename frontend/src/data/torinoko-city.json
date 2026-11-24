@@ -11,6 +11,16 @@
   "length": "3:20",
   "tvSizeLength": "",
   "bpm": 135,
+  "key": [
+    "Eb minor"
+  ],
+  "difficulties": {
+    "melodic": 1,
+    "harmonic": 2,
+    "chord": 2,
+    "form": 2,
+    "overall": 2
+  },
   "labels": [],
   "transcriber": "Nap1400",
   "videoLinks": {
@@ -48,6 +58,6 @@
   },
   "pdfsTvSize": {},
   "status": "completed",
-  "syncedAt": "2026-10-15T02:01:30Z",
+  "syncedAt": "2026-11-24T21:14:58Z",
   "updatedAt": "2026-10-15T02:01:30Z"
 }
