@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://projectvocaleadsheets.com/</loc>
-    <lastmod>2026-11-19T01:11:27.000Z</lastmod>
+    <lastmod>2026-11-27T05:05:56.000Z</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
@@ -253,6 +253,11 @@
   <url>
     <loc>https://projectvocaleadsheets.com/view/young-girl-a</loc>
     <lastmod>2026-05-04T03:30:56.000Z</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://projectvocaleadsheets.com/view/yowamushi-montblanc</loc>
+    <lastmod>2026-11-27T05:05:56.000Z</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>
