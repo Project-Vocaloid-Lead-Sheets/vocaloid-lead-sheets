@@ -1,0 +1,34 @@
+{
+  "title": "Emerald",
+  "alternativeNames": [],
+  "producer": "Tatsuya Kitani",
+  "additionalProducers": [],
+  "singer": "Hatsune Miku",
+  "additionalVoices": [],
+  "releaseDate": "20260930",
+  "length": "3:57",
+  "tvSizeLength": "",
+  "bpm": 146,
+  "key": [
+    "Bb major"
+  ],
+  "difficulties": {},
+  "labels": [],
+  "transcriber": "Latios212",
+  "videoLinks": {
+    "YouTube": "https://www.youtube.com/watch?v=kM8HEzBGU-0"
+  },
+  "links": {
+    "C": "https://drive.google.com/file/d/1OGhGDBp9Ew2kK-hbj3444TvzQ626xsUU/view"
+  },
+  "pdfChecksums": {
+    "C": "ac1afc2939a14811382c24d57b74cfb9"
+  },
+  "pdfs": {
+    "C": "/pdfs/emerald/emerald-c.pdf"
+  },
+  "pdfsTvSize": {},
+  "status": "under review",
+  "syncedAt": "2026-11-27T05:14:47Z",
+  "updatedAt": "2026-11-27T05:14:47Z"
+}
